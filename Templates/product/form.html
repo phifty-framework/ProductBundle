@@ -61,6 +61,11 @@ vim:filetype=htmldjango:
         {{CRUD.Action.renderField('content',{ class: 'mceEditor', rows: 7, cols: 80 })|raw}}
         <div class="clear"> </div>
 
+        {% if plugin.config('with_options_content') %}
+        {{CRUD.Action.renderField('options_content',{ class: 'mceEditor', rows: 7, cols: 80 })|raw}}
+        <div class="clear"> </div>
+        {% endif %}
+
         {% if plugin.config('with_cover_image') %}
             {% include '@ProductBundle/product/cover_image.html' %}
         {% endif %}

@@ -111,6 +111,8 @@ class ProductSchema extends SchemaDeclare
                 ->renderAs('ThumbImageFileInput');
         }
 
+        $this->column('options_content')->text()->label('選配');
+
         if( kernel()->plugin('SEOPlugin') && $plugin->config('with_seo') ) {
             $this->mixin('SEOPlugin\\Model\\Mixin\\SEOSchema');
         }

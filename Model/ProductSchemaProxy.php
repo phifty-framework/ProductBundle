@@ -22,15 +22,16 @@ class ProductSchemaProxy extends RuntimeSchema
   10 => 'external_link',
   11 => 'token',
   12 => 'hide',
-  13 => 'status',
-  14 => 'id',
-  15 => 'lang',
-  16 => 'thumb',
-  17 => 'image',
-  18 => 'created_on',
-  19 => 'updated_on',
-  20 => 'created_by',
-  21 => 'updated_by',
+  13 => 'options',
+  14 => 'status',
+  15 => 'id',
+  16 => 'lang',
+  17 => 'thumb',
+  18 => 'image',
+  19 => 'created_on',
+  20 => 'updated_on',
+  21 => 'created_by',
+  22 => 'updated_by',
 );
     public static $column_hash = array (
   'name' => 1,
@@ -46,6 +47,7 @@ class ProductSchemaProxy extends RuntimeSchema
   'external_link' => 1,
   'token' => 1,
   'hide' => 1,
+  'options' => 1,
   'status' => 1,
   'id' => 1,
   'lang' => 1,
@@ -76,15 +78,16 @@ class ProductSchemaProxy extends RuntimeSchema
   10 => 'external_link',
   11 => 'token',
   12 => 'hide',
-  13 => 'status',
-  14 => 'id',
-  15 => 'lang',
-  16 => 'thumb',
-  17 => 'image',
-  18 => 'created_on',
-  19 => 'updated_on',
-  20 => 'created_by',
-  21 => 'updated_by',
+  13 => 'options',
+  14 => 'status',
+  15 => 'id',
+  16 => 'lang',
+  17 => 'thumb',
+  18 => 'image',
+  19 => 'created_on',
+  20 => 'updated_on',
+  21 => 'created_by',
+  22 => 'updated_by',
 );
 
     const schema_class = 'ProductBundle\\Model\\ProductSchema';
@@ -240,6 +243,14 @@ class ProductSchemaProxy extends RuntimeSchema
           'desc' => 'Do not show this product in front-end page',
         ),
     ),
+  'options' => array( 
+      'name' => 'options',
+      'attributes' => array( 
+          'type' => 'text',
+          'isa' => 'str',
+          'label' => '選配',
+        ),
+    ),
   'status' => array( 
       'name' => 'status',
       'attributes' => array( 
@@ -390,6 +401,7 @@ class ProductSchemaProxy extends RuntimeSchema
   'external_link',
   'token',
   'hide',
+  'options',
 );
         $this->primaryKey      = 'id';
         $this->table           = 'products';
