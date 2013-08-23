@@ -60,7 +60,7 @@ class FeatureSchemaProxy extends RuntimeSchema
       'attributes' => array( 
           'type' => 'text',
           'isa' => 'str',
-          'label' => '敘述',
+          'label' => 'Description',
         ),
     ),
   'image' => array( 
@@ -69,7 +69,7 @@ class FeatureSchemaProxy extends RuntimeSchema
           'type' => 'varchar(250)',
           'isa' => 'str',
           'size' => 250,
-          'label' => '產品功能圖',
+          'label' => 'Product Feature Image',
         ),
     ),
   'lang' => array( 

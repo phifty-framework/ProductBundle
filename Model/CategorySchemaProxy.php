@@ -151,7 +151,7 @@ class CategorySchemaProxy extends RuntimeSchema
           'renderAs' => 'DateTimeInput',
           'widgetAttributes' => array( 
             ),
-          'label' => '建立於',
+          'label' => 'Created on',
           'default' => function() {
                 return date('c');
             },
@@ -170,7 +170,7 @@ class CategorySchemaProxy extends RuntimeSchema
           'default' => function() {
                 return date('c');
             },
-          'label' => '更新時間',
+          'label' => 'Updated on',
         ),
     ),
   'created_by' => array( 

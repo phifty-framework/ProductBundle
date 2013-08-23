@@ -15,23 +15,30 @@ class ProductSchemaProxy extends RuntimeSchema
   3 => 'description',
   4 => 'content',
   5 => 'spec',
-  6 => 'category_id',
-  7 => 'is_cover',
-  8 => 'orig_price',
-  9 => 'price',
-  10 => 'external_link',
-  11 => 'token',
-  12 => 'hide',
-  13 => 'options',
-  14 => 'status',
-  15 => 'id',
-  16 => 'lang',
-  17 => 'thumb',
-  18 => 'image',
-  19 => 'created_on',
-  20 => 'updated_on',
-  21 => 'created_by',
-  22 => 'updated_by',
+  6 => 'zoom_image',
+  7 => 'category_id',
+  8 => 'is_cover',
+  9 => 'orig_price',
+  10 => 'price',
+  11 => 'external_link',
+  12 => 'token',
+  13 => 'hide',
+  14 => 'options_content',
+  15 => 'seo_keywords',
+  16 => 'seo_description',
+  17 => 'seo_author',
+  18 => 'seo_url',
+  19 => 'seo_copyright',
+  20 => 'seo_title',
+  21 => 'id',
+  22 => 'status',
+  23 => 'lang',
+  24 => 'thumb',
+  25 => 'image',
+  26 => 'created_on',
+  27 => 'updated_on',
+  28 => 'created_by',
+  29 => 'updated_by',
 );
     public static $column_hash = array (
   'name' => 1,
@@ -40,6 +47,7 @@ class ProductSchemaProxy extends RuntimeSchema
   'description' => 1,
   'content' => 1,
   'spec' => 1,
+  'zoom_image' => 1,
   'category_id' => 1,
   'is_cover' => 1,
   'orig_price' => 1,
@@ -47,9 +55,15 @@ class ProductSchemaProxy extends RuntimeSchema
   'external_link' => 1,
   'token' => 1,
   'hide' => 1,
-  'options' => 1,
-  'status' => 1,
+  'options_content' => 1,
+  'seo_keywords' => 1,
+  'seo_description' => 1,
+  'seo_author' => 1,
+  'seo_url' => 1,
+  'seo_copyright' => 1,
+  'seo_title' => 1,
   'id' => 1,
+  'status' => 1,
   'lang' => 1,
   'thumb' => 1,
   'image' => 1,
@@ -63,6 +77,7 @@ class ProductSchemaProxy extends RuntimeSchema
   1 => 'CommonBundle\\Model\\Mixin\\ImageSchema',
   2 => 'I18N\\Model\\Mixin\\I18NSchema',
   3 => 'StatusPlugin\\Model\\Mixin\\StatusSchema',
+  4 => 'SEOPlugin\\Model\\Mixin\\SEOSchema',
 );
     public static $column_names_include_virtual = array (
   0 => 'name',
@@ -71,23 +86,30 @@ class ProductSchemaProxy extends RuntimeSchema
   3 => 'description',
   4 => 'content',
   5 => 'spec',
-  6 => 'category_id',
-  7 => 'is_cover',
-  8 => 'orig_price',
-  9 => 'price',
-  10 => 'external_link',
-  11 => 'token',
-  12 => 'hide',
-  13 => 'options',
-  14 => 'status',
-  15 => 'id',
-  16 => 'lang',
-  17 => 'thumb',
-  18 => 'image',
-  19 => 'created_on',
-  20 => 'updated_on',
-  21 => 'created_by',
-  22 => 'updated_by',
+  6 => 'zoom_image',
+  7 => 'category_id',
+  8 => 'is_cover',
+  9 => 'orig_price',
+  10 => 'price',
+  11 => 'external_link',
+  12 => 'token',
+  13 => 'hide',
+  14 => 'options_content',
+  15 => 'seo_keywords',
+  16 => 'seo_description',
+  17 => 'seo_author',
+  18 => 'seo_url',
+  19 => 'seo_copyright',
+  20 => 'seo_title',
+  21 => 'id',
+  22 => 'status',
+  23 => 'lang',
+  24 => 'thumb',
+  25 => 'image',
+  26 => 'created_on',
+  27 => 'updated_on',
+  28 => 'created_by',
+  29 => 'updated_by',
 );
 
     const schema_class = 'ProductBundle\\Model\\ProductSchema';
@@ -168,6 +190,18 @@ class ProductSchemaProxy extends RuntimeSchema
             ),
         ),
     ),
+  'zoom_image' => array( 
+      'name' => 'zoom_image',
+      'attributes' => array( 
+          'type' => 'varchar(128)',
+          'isa' => 'str',
+          'size' => 128,
+          'label' => '產品放大圖',
+          'renderAs' => 'ThumbImageFileInput',
+          'widgetAttributes' => array( 
+            ),
+        ),
+    ),
   'category_id' => array( 
       'name' => 'category_id',
       'attributes' => array( 
@@ -243,12 +277,101 @@ class ProductSchemaProxy extends RuntimeSchema
           'desc' => 'Do not show this product in front-end page',
         ),
     ),
-  'options' => array( 
-      'name' => 'options',
+  'options_content' => array( 
+      'name' => 'options_content',
       'attributes' => array( 
           'type' => 'text',
           'isa' => 'str',
           'label' => '選配',
+        ),
+    ),
+  'seo_keywords' => array( 
+      'name' => 'seo_keywords',
+      'attributes' => array( 
+          'type' => 'text',
+          'isa' => 'str',
+          'label' => '頁面關鍵字',
+          'hint' => '為改善優化效果，關鍵字請以逗號 (,) 為間隔，勿超過 120 個字。',
+          'renderAs' => 'TextareaInput',
+          'widgetAttributes' => array( 
+              'rows' => 3,
+              'cols' => 72,
+            ),
+        ),
+    ),
+  'seo_description' => array( 
+      'name' => 'seo_description',
+      'attributes' => array( 
+          'type' => 'text',
+          'isa' => 'str',
+          'label' => '頁面敘述',
+          'hint' => '為改善優化效果，勿超過 120 個字。',
+          'renderAs' => 'TextareaInput',
+          'widgetAttributes' => array( 
+              'rows' => 3,
+              'cols' => 72,
+            ),
+        ),
+    ),
+  'seo_author' => array( 
+      'name' => 'seo_author',
+      'attributes' => array( 
+          'type' => 'varchar(32)',
+          'isa' => 'str',
+          'size' => 32,
+          'renderAs' => 'TextInput',
+          'widgetAttributes' => array( 
+              'size' => 60,
+            ),
+          'label' => '作者',
+        ),
+    ),
+  'seo_url' => array( 
+      'name' => 'seo_url',
+      'attributes' => array( 
+          'type' => 'varchar(32)',
+          'isa' => 'str',
+          'size' => 32,
+          'renderAs' => 'TextInput',
+          'widgetAttributes' => array( 
+              'size' => 90,
+            ),
+          'label' => '網址',
+        ),
+    ),
+  'seo_copyright' => array( 
+      'name' => 'seo_copyright',
+      'attributes' => array( 
+          'type' => 'varchar(128)',
+          'isa' => 'str',
+          'size' => 128,
+          'renderAs' => 'TextInput',
+          'widgetAttributes' => array( 
+              'size' => 60,
+            ),
+          'label' => '版權宣告',
+        ),
+    ),
+  'seo_title' => array( 
+      'name' => 'seo_title',
+      'attributes' => array( 
+          'type' => 'varchar(256)',
+          'isa' => 'str',
+          'size' => 256,
+          'renderAs' => 'TextInput',
+          'widgetAttributes' => array( 
+              'size' => 60,
+            ),
+          'label' => '標題',
+        ),
+    ),
+  'id' => array( 
+      'name' => 'id',
+      'attributes' => array( 
+          'type' => 'integer',
+          'isa' => 'int',
+          'primary' => true,
+          'autoIncrement' => true,
         ),
     ),
   'status' => array( 
@@ -266,15 +389,6 @@ class ProductSchemaProxy extends RuntimeSchema
           'renderAs' => 'SelectInput',
           'widgetAttributes' => array( 
             ),
-        ),
-    ),
-  'id' => array( 
-      'name' => 'id',
-      'attributes' => array( 
-          'type' => 'integer',
-          'isa' => 'int',
-          'primary' => true,
-          'autoIncrement' => true,
         ),
     ),
   'lang' => array( 
@@ -330,7 +444,7 @@ class ProductSchemaProxy extends RuntimeSchema
           'renderAs' => 'DateTimeInput',
           'widgetAttributes' => array( 
             ),
-          'label' => '建立於',
+          'label' => 'Created on',
           'default' => function() {
                 return date('c');
             },
@@ -349,7 +463,7 @@ class ProductSchemaProxy extends RuntimeSchema
           'default' => function() {
                 return date('c');
             },
-          'label' => '更新時間',
+          'label' => 'Updated on',
         ),
     ),
   'created_by' => array( 
@@ -394,6 +508,7 @@ class ProductSchemaProxy extends RuntimeSchema
   'description',
   'content',
   'spec',
+  'zoom_image',
   'category_id',
   'is_cover',
   'orig_price',
@@ -401,7 +516,7 @@ class ProductSchemaProxy extends RuntimeSchema
   'external_link',
   'token',
   'hide',
-  'options',
+  'options_content',
 );
         $this->primaryKey      = 'id';
         $this->table           = 'products';
