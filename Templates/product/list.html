@@ -1,0 +1,30 @@
+{% extends '@CRUD/list.html' %}
+{% set plugin = Kernel.plugin('ProductBundle') %}
+{% block controll %}
+    <script type="text/javascript">
+        window.Languages = {{Kernel.locale.available|json_encode|raw}};
+        window.Product.categories = {{ CRUD.Object.getAllCategories().toJson() |raw}};
+    </script>
+
+    {{ parent() }}
+
+    <div class="toolbar-label">
+        <div class="label">產品類別</div>
+    </div>
+
+    {% if categoryItems %}
+    <div class="toolbar-control">
+        <select id="product_category" onchange=" 
+            $('#{{ listInnerRegion.getRegionId() }}').asRegion().refreshWith({  category_id: $(this).val() , page: 1 });
+            return false;">
+            <option> </option>
+            <option value="0">{% trans 'All' %}</option>
+            {% for category in categoryItems %}
+                <option value="{{ category.id }}" {% if category.id == categoryId %} selected {% endif %}>
+                    {{ category.dataLabel() |raw}}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    {% endif %}
+{% endblock %}

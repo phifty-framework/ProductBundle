@@ -1,0 +1,24 @@
+<div class="clear"> </div>
+<div class="divider"> </div>
+<input type="button" value="新增關連產品" class="button-s add-related-product" style="float: right;">
+<h3>相關產品</h3>
+<div class="related-products"> </div>
+<script>
+$(function() {
+    $('.add-related-product').click(function() {
+        var chooser = new Product.Chooser( $('.related-products'), function(product) { });
+    });
+    {% for record in CRUD.Record.product_products %}
+        {% set product = record.product %}
+        {% set data = record.getData() + { image: product.image, thumb: product.thumb , name: product.name } %}
+        CRUDList.renderRecord( $('.related-products'), {{data|json_encode|raw}}, {
+            itemView: CRUDList.ImageItemView,
+            create: {
+                deleteAction: "ProductBundle::Action::DeleteProductProduct",
+                relation: "product_products"
+            }
+        });
+
+    {% endfor %}
+});
+</script>

@@ -1,0 +1,8 @@
+---
+collections:
+  - js:
+    - js/product.js
+  - css:
+    - css/product.css
+  - files:
+    - css/images

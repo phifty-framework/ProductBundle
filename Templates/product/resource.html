@@ -1,0 +1,21 @@
+<div class="clear"> </div>
+<div class="divider"> </div>
+<div id="productResources"> </div>
+<script>
+$(function() {
+    CRUDList.init({
+        title: "外部資料",
+        hint: "您可於此處插入外部連結以及影片",
+        container: $('#productResources'),
+        crudId: "product_resource",
+        itemView: CRUDList.ResourceItemView,
+        {% if CRUD.Record.id %}
+        records: {{ CRUD.Record.resources.toJson()|raw }},
+        {% endif %}
+        create: {
+            deleteAction: "ProductBundle::Action::DeleteProductResource",
+            relation: "resources"
+        }
+    });
+});
+</script>

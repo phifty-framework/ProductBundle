@@ -1,0 +1,154 @@
+{#
+vim:filetype=htmldjango:
+#}
+{% set plugin = Kernel.plugin('ProductBundle') %}
+<div class="product-editor">
+        {{ CRUD.Action.renderSignatureWidget|raw}}
+
+        {% if CRUD.Record.id %}
+            {{ forms.hidden('id', CRUD.Record.id) }}
+        {% endif %}
+
+        {% if plugin.config('with_category') and plugin.config('with_multicategory') %}
+        <div class="column span-7" style="float: right;">
+            <div class="widget">
+                <div class="widget-hd">Category</div>
+                <div class="widget-bd">
+                    {% set subview = CRUD.Action.asView('ActionKit\\View\\StackView',{ "no_form": 1 }) %}
+                    {{ subview.buildRelationalActionViewForExistingRecords('categories').render() |raw }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="column span-7">
+            {{ CRUD.Action.renderField('name')|raw }}
+        </div>
+
+        {% if plugin.config('with_sn') %}
+        <div class="column span-4">
+            {{CRUD.Action.renderField('sn')|raw}}
+        </div>
+        {% endif %}
+
+        <div class="clear"> </div>
+
+        {% if plugin.config('with_subtitle') %}
+            {{ CRUD.Action.renderField('subtitle') |raw}}
+        {% endif %}
+
+        {% if Kernel.plugin('I18N') and plugin.config('with_lang') %}
+            <div class="column span-3">
+            {{CRUD.Action.renderField('lang')|raw}}
+            </div>
+        {% endif %}
+
+        {% if plugin.config('with_category') and not plugin.config('with_multicategory') %}
+            <div class="column span-6">
+                {{CRUD.Action.renderField('category_id')|raw}}
+            </div>
+        {% endif %}
+        <div class="clear"> </div>
+
+        {% if Kernel.plugin('StatusPlugin') %}
+            {{CRUD.Action.renderField('status')|raw}}
+        {% endif %}
+
+        {% if plugin.config('with_desc') %}
+            {{CRUD.Action.renderField('description',{ class: 'mceEditor', rows: 3, cols: 80 })|raw}}
+        {% endif %}
+
+        {{CRUD.Action.renderField('content',{ class: 'mceEditor', rows: 7, cols: 80 })|raw}}
+        <div class="clear"> </div>
+
+        {% if plugin.config('with_cover_image') %}
+            {% include '@ProductBundle/product/cover_image.html' %}
+        {% endif %}
+
+        {% if plugin.config('with_spec_image') %}
+            {% include '@ProductBundle/product/spec_image.html' %}
+        {% endif %}
+
+        {% if plugin.config('with_images') %}
+            {% include '@ProductBundle/product/image.html' %}
+        {% endif %}
+
+        {% if plugin.config('with_types') %}
+            {% include '@ProductBundle/product/type.html' %}
+        {% endif %}
+
+        {% if plugin.config('with_resources') %}
+            {% include '@ProductBundle/product/resource.html' %}
+        {% endif %}
+
+        {% if plugin.config('with_files') %}
+            {% include '@ProductBundle/product/file.html' %}
+        {% endif %}
+
+        {% if plugin.config('with_related_products') %}
+            {% include '@ProductBundle/product/related.html' %}
+        {% endif %}
+
+        <div class="clear"> </div>
+        <div class="divider"> </div>
+
+        <div class="collapsible collapse-section" {# data-collapse="persist" #}>
+            {% if plugin.config('with_features') %}
+                {% include '@ProductBundle/product/feature.html' %}
+            {% endif %}
+
+            {% if plugin.config('with_spec') %}
+            <h3>產品規格</h3>
+            <div>
+                {{CRUD.Action.renderField('spec',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
+            </div>
+            {% endif %}
+
+            {% if plugin.config('with_properties') %}
+            <h3>規格表</h3>
+            <div>
+                {% include '@ProductBundle/product/property.html' %}
+            </div>
+            {% endif %}
+
+            {% if Kernel.plugin('SEOPlugin') 
+                and plugin.config('with_seo') 
+                and CRUD.Object.getModel().hasColumn('seo_keywords') 
+            %}
+                {% include '@SEOPlugin/fields_collapsible.html' %}
+            {% endif %}
+
+
+            {# 外部連結 #}
+            {% if plugin.config('with_external_link') %}
+                <h3>外部連結</h3>
+                <div>
+                    {{CRUD.Action.renderField('external_link')|raw}}
+                </div>
+            {% endif %}
+
+            {% if plugin.config('with_cover_option') %}
+            <h3>其他選項</h3>
+            <div>
+                {{CRUD.Action.renderField('is_cover')|raw}}
+
+                {# private products are accessed by token #}
+                {% if plugin.config('with_private') %}
+                    {% include '@ProductBundle/product/private_token.html' %}
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <h3>詳細資料</h3>
+            <div>
+                {% include '@CRUD/metadata.html' %}
+                <div class="clear"> </div>
+            </div>
+        </div>
+    <div class="clear"> </div>
+</div>
+<script>
+$(function() {
+    Product.initEdit();
+});
+</script>

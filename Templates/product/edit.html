@@ -1,0 +1,33 @@
+{# 
+vim:filetype=htmldjango
+#}
+{% extends '@CRUD/edit.html' %}
+{% import '@CRUD/helpers.html' as crud %}
+
+{% set plugin      = Kernel.plugin('ProductBundle') %}
+{% set tabfragment = 'tabs-' ~ (CRUD.Record.id ? CRUD.Record.id : random()) %}
+
+{% block section_body %}
+<form class="ajax-action" enctype="multipart/form-data" method="post">
+<div id="{{ tabfragment }}" class="tabs">
+    <ul>
+        <li><a href="#{{tabfragment}}-1">{% trans 'Product' %}</a></li>
+        {% for tab in CRUD.Object.getTabs %}
+            <li><a href="#{{tab.getId()}}">{{tab.title}}</a></li>
+        {% endfor %}
+    </ul>
+
+    <div id="{{tabfragment}}-1">
+        {% include '@ProductBundle/product/form.html' %}
+        <div class="clear"> </div>
+    </div>
+
+    {% for tab in CRUD.Object.getTabs() %}
+    <div id="{{tab.getId()}}">
+        {{tab.renderContent|raw}}
+    </div>
+    {% endfor %}
+</div>
+{% include '@CRUD/controll.html' %}
+</form>
+{% endblock %}

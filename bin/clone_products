@@ -1,0 +1,63 @@
+#!/usr/bin/env php
+<?php
+require 'main.php';
+list($script,$fromLang,$toLang) = $argv;
+
+$cates = new ProductBundle\Model\CategoryCollection;
+$cates->where()
+    ->equal('lang',$fromLang);
+
+foreach( $cates as $cate ) {
+    $args = $cate->getData();
+    unset($args['id']);
+    $args['lang'] = $toLang;
+    $ret = $cate->createOrUpdate($args,array('lang','identity'));
+    print_r($ret->success);
+}
+
+$products = new ProductBundle\Model\ProductCollection;
+$products->where()
+    ->equal('lang',$fromLang);
+
+foreach( $products as $product ) {
+    $images = $product->images;
+    $images->fetch();
+
+    $resources = $product->resources;
+    $resources->fetch();
+
+    $fromCategory = $product->category;
+    $newCategory = new ProductBundle\Model\Category(array( 
+        'identity' => $fromCategory->identity,
+        'lang' => $toLang,
+    ));
+
+    $data = $product->getData();
+    unset($data['id']);
+    $data['lang']        = $toLang;
+    $data['category_id'] = $newCategory->id;
+    $ret = $product->create($data);
+    if( ! $ret->success ) {
+        echo "create failed: " , $ret;
+    }
+
+    if($product->id) {
+        foreach( $images as $image ) {
+            $args = $image->getData();
+            unset($args['id']);
+            $args['product_id'] = $product->id;
+            $newImage = new \ProductBundle\Model\ProductImage;
+            $ret = $newImage->create($args);
+            if( !$ret->success ) die($ret);
+        }
+        foreach( $resources as $resource ) {
+            $args = $resource->getData();
+            unset($args['id']);
+            $args['product_id'] = $product->id;
+            $newResource = new \ProductBundle\Model\Resource;
+            $ret = $newResource->create($args);
+            if( !$ret->success ) die($ret);
+        }
+    }
+}
+

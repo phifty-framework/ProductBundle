@@ -1,0 +1,155 @@
+
+img.product-image {
+    border: 1px solid #ccc; 
+    padding: 3px;
+    max-height: 200px;
+}
+
+img.feature-image {
+    margin: 10px;
+    padding: 0px;
+    border: 1px solid #ccc;
+}
+
+.feature-cover { 
+    float: left;
+    position: relative;
+    border: 1px solid #ccc;
+    background: #fff;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    overflow: hidden;
+}
+.feature-cover img { 
+    width: 50px;
+}
+
+.feature-image-preview {
+    height: 150px; 
+    width: 150px; display: table-cell; vertical-align: middle; overflow:hidden;
+    text-align: center; 
+    padding: 10px; 
+    background: #fff; 
+    border: 1px solid #999; 
+    border-radius: 10px;
+    margin: 10px;
+}
+
+img.product-thumb { border: 1px solid #ccc; padding: 3px; }
+
+.product-editor { 
+    /* position: relative; */
+}
+
+.product-file {
+    float: left;
+    width: 240px;
+    height: 38px;
+    padding: 10px;
+    background-color: #eee;
+    margin: 5px;
+    margin-right: 12px;
+    border-radius: 10px;
+    border: 1px solid #bbb;
+    position: relative;
+    overflow: hidden;
+
+    /* IE10 Consumer Preview */ 
+    background-image: -ms-radial-gradient(center, circle farthest-corner, #8FC7DC 0%, #49ACD2 100%);
+
+    /* Mozilla Firefox */ 
+    background-image: -moz-radial-gradient(center, circle farthest-corner, #8FC7DC 0%, #49ACD2 100%);
+
+    /* Opera */ 
+    background-image: -o-radial-gradient(center, circle farthest-corner, #8FC7DC 0%, #49ACD2 100%);
+
+    /* Webkit (Safari/Chrome 10) */ 
+    background-image: -webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, #8FC7DC), color-stop(1, #49ACD2));
+
+    /* Webkit (Chrome 11+) */ 
+    background-image: -webkit-radial-gradient(center, circle farthest-corner, #8FC7DC 0%, #49ACD2 100%);
+
+    /* W3C Markup, IE10 Release Preview */ 
+    background-image: radial-gradient(circle farthest-corner at center, #8FC7DC 0%, #49ACD2 100%);
+}
+
+.product-file a.name {
+    float: left;
+    margin: 6px; 
+    color: #fff;
+    width: 180px;
+    max-width: 180px;
+    text-shadow: 1px 1px #666;
+    font-weight: bold;
+    word-break: keep-all;
+}
+
+
+li.product-recipe {
+    display: block;
+    position: relative;
+    padding: 6px 8px;
+    width: 300px;
+    border: 1px solid #ccc;
+    margin: 8px 3px;
+    border-radius: 5px;
+}
+
+
+.feature-cover .close,
+.resource .close,
+.product-resource .close,
+.product-recipe .close,
+.product-file .close {
+    background: url(/assets/phifty-core/css/images/dialog_close_button.png);
+    width: 20px;height: 20px;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+}
+
+.resource,
+.product-resource {
+    float: left;
+    position: relative;
+    border: 1px solid #ccc;
+    margin: 5px; 
+    width: 310px;
+    background: #fff;
+    padding: 9px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.oembed { }
+
+
+
+
+.icon-user {
+    background-image: url(images/user.png) !important;
+}
+
+.icon-user-add {
+    background-image: url(images/user_add.gif) !important;
+}
+
+.icon-save {
+    background-image: url(images/save.gif) !important;
+}
+
+.icon-reset {
+    background-image: url(images/stop.png) !important;
+}
+
+.icon-grid {
+    background-image: url(images/grid.png) !important;
+}
+
+.icon-add {
+    background-image: url(images/add.png) !important;
+}
+.icon-delete {
+    background-image: url(images/delete.png) !important;
+}

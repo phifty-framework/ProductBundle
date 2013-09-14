@@ -1,0 +1,20 @@
+<div class="clear"> </div>
+<div class="divider"> </div>
+<input style="float: right;" class="button-s" id="add-product-type" type="button" value="新增產品類型" onclick="
+    (new CRUDDialog('/bs/product_type/crud/dialog',{},{
+        onSuccess: function(resp) {
+            var $tag = Product.createTypeBox(resp.data);
+            $('#product-types').append($tag);
+        }
+    }));"/>
+<h3>產品類型標籤</h3>
+<div class="hint"> </div>
+<div id="product-types"> </div>
+<script>
+$(function() {
+{% for type in CRUD.Record.types %}
+    var $tag = Product.createTypeBox({{type.toJson|raw}});
+    $('#product-types').append($tag);
+{% endfor %}
+});
+</script>

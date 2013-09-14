@@ -1,0 +1,29 @@
+<div class="clear"> </div>
+<div class="divider"> </div>
+<div id="productImages"> </div>
+<script>
+$(function() {
+    // input[name^=images]
+    CRUDList.init({
+        title: "產品附圖",
+        hint: "您可於此處上傳多組產品副圖",
+        container: $('#productImages'),
+        crudId: "product_image",
+        itemView: CRUDList.ImageItemView,
+        {% if CRUD.Record.id %}
+        records: {{ CRUD.Record.images.toJson()|raw }},
+        {% endif %}
+        create: {
+            deleteAction: "ProductBundle::Action::DeleteProductImage",
+            relation: "images"
+        }
+    });
+
+    initSortableAction($('#productImages .item-container'), {
+        items: '.image-cover',
+        fields: '.image-cover input[name^="images"]',
+        action: 'ProductBundle::Action::SortProductImage'
+    });
+
+});
+</script>

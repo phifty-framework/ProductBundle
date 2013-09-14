@@ -1,0 +1,68 @@
+{# 
+vim:filetype=htmldjango
+#}
+{% extends '@CRUD/edit.html' %}
+
+{% macro options(padding,item,selected) %}
+<option value="{{ item.id }}"  {% if item.id == selected %} selected {% endif %}>{%- for i in 0 .. padding -%}&nbsp;&nbsp;{%- endfor -%}- {{ item.name }}</option>
+    {% for child in item.childs.items %}
+        {{ _self.options(padding+1,child,selected) }}
+    {% endfor %}
+{% endmacro %}
+
+{% set plugin = Kernel.plugin('ProductBundle') %}
+{% set record = CRUD.Record %}
+{% block section_body %}
+    <form class="ajax-action" method="post">
+
+        {% if plugin.config('with_category_image') %}
+            <div class="column span-8">
+                {{ CRUD.Action.renderField('image')|raw}}
+                <div class="clear"> </div>
+                {{ CRUD.Action.renderField('thumb')|raw}}
+                <div class="clear"> </div>
+            </div>
+        {% endif %}
+
+
+        <div class="column span-16">
+        {{CRUD.Action.renderSignatureWidget|raw}}
+
+        {% if CRUD.Record.id %}
+            {{ forms.hidden('id', CRUD.Record.id) }}
+        {% endif %}
+
+        {{ CRUD.Action.renderField('name')|raw }}
+
+        {% if Kernel.plugin('ProductBundle').config('with_subcategory') %}
+            {{CRUD.Action.renderField('parent_id')|raw}}
+        {% endif %}
+
+        {% if plugin.config('with_category_identity') %}
+            {{ CRUD.Action.renderField('identity')|raw}}
+        {% endif %}
+
+        {% if Kernel.plugin('I18N') and plugin.config('with_lang') %}
+            {{ CRUD.Action.renderField('lang')|raw}}
+        {% endif %}
+
+        {{ CRUD.Action.renderField('description')|raw}}
+
+        <div class="clear"> </div>
+        <div class="divider"> </div>
+        <div class="collapsible collapse-section">
+            {% if plugin.config('with_category_files') %}
+            {% include 'ProductBundle/Templates/product_category/file.html' %}
+            {% endif %}
+            <h3>詳細資料</h3>
+            <div>
+                {% include '@CRUD/metadata.html' %}
+            </div>
+        </div>
+
+        </div>
+
+        <div class="clear"> </div>
+        {% include '@CRUD/controll.html' %}
+    </form>
+{% endblock %}

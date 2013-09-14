@@ -1,0 +1,30 @@
+{% extends '@CRUD/dialog.html' %}
+{% block dialog_title %}新增產品副圖{% endblock %}
+{% block dialog_body %}
+<div class="action-result-container"> </div>
+{% set action = CRUD.Object.getCurrentAction() %}
+{% set plugin = Kernel.plugin('ProductBundle') %}
+
+<form class="formkit-form ajax-action" enctype="multipart/form-data" method="post">
+    {{ action.renderSignatureWidget|raw }}
+
+    <div class="clearfix">
+        <div class="column product-image-column">
+            {{ action.renderField('image')|raw }}
+        </div>
+
+        <div class="column product-thumb-column">
+            {{ action.renderField('thumb')|raw }}
+        </div>
+
+        {% if plugin.config('with_zoom_image') %}
+        <div class="column product-zoom-image-column">
+            {{ action.renderField('large')|raw }}
+        </div>
+        {% endif %}
+    </div>
+    <div class="button-group">
+        <input class="formkit-widget formkit-widget-submit create button" type="submit" value="建立">
+    </div>
+</form>
+{% endblock %}

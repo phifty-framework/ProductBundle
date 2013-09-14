@@ -1,0 +1,29 @@
+#!/usr/bin/env php
+<?php
+require 'main.php';
+
+if( count($argv) == 1 )
+    die('file is required.');
+
+$file = array_pop($argv);
+$data = yaml_parse( file_get_contents($file));
+
+// $categories = $data['Categories'];
+function create_categories($categories,$parent = null) {
+    if( is_array($categories) && ! isset($categories[0]) ) {
+        foreach( $categories as $name => $subcategories ) {
+            $c = ProductBundle\Model\Category::create(array( 'name' => $name , 'parent_id' => $parent ? $parent->id : 0 ));
+            create_categories($subcategories,$c);
+        }
+    } else {
+        foreach( $categories as $arg ) {
+            if( is_array($arg) ) {
+                create_categories($arg,$parent);
+            } else {
+                $c = ProductBundle\Model\Category::create(array( 'name' => $arg , 'parent_id' => $parent ? $parent->id : 0 ));
+            }
+        }
+    }
+}
+
+create_categories($data);

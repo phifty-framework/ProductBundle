@@ -1,0 +1,47 @@
+<div style=" padding: 0px 5px 5px 5px; border-radius: 10px; background: #fff; ">
+    <div class="v-field">
+        <div class="label">{{ CRUD.Record.getColumn('hide').getLabel() }}:</div>
+        <div class="input">
+            <label>
+                <input type="radio" name="hide" value="true" 
+                    {% if CRUD.Record.hide %} checked="1" {% endif %}
+                    onchange=" $('#token').fadeIn('slow'); "
+                />
+                {% trans 'Hide this product' %}
+            </label>
+            <label>
+                <input type="radio" name="hide" value="false" 
+                    {% if not CRUD.Record.hide %} checked="1" {% endif %}
+                    onchange=" $('#token').fadeOut('slow'); "
+                />
+                {% trans 'Do not hide this product' %}
+            </label>
+            <div class="desc">{% trans 'If you hide this product, your customers can view this product through a private token(password).' %}</div>
+            <script>
+                $(function() {
+                    var hide = {{ CRUD.Record.hide|default('false') }};
+                    if( hide ) {
+                        $('#token').fadeIn('slow');
+                    } else {
+                        $('#token').fadeOut('slow');
+                    }
+                });
+            </script>
+        </div>
+    </div>
+
+    <div id="token" class="v-field" style="display: none;">
+        <div class="label">{{ CRUD.Record.getColumn('token').getLabel() }}:</div>
+        <div class="input">
+            {% set token = CRUD.Record.token|default(sha1(time())) %}
+            <input class="text" type="text" name="token" value="{{ token }}" size="64"/>
+        </div>
+        <div class="desc">
+            <p>{% trans 'This product token is generated randomly, you can change it by yourself.' %}</p>
+            <p>{% trans 'Your private product URL:' %}
+            <a target="_blank" href="http://{{ Env.server.HTTP_HOST }}/p/{{ token }}">http://{{ Env.server.HTTP_HOST }}/p/{{ token }}</a>
+            </p>
+        </div>
+    </div>
+    <div class="clear"> </div>
+</div>

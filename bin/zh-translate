@@ -1,0 +1,18 @@
+#!/usr/bin/env php
+<?php
+require 'main.php';
+kernel()->library->load('zh2gb');
+
+$products = new ProductBundle\Model\ProductCollection;
+$products->where()
+    ->equal('lang','zh_CN');
+
+foreach( $products as $product ) {
+    $ret = $product->update(array(
+        'name' => zh2gb($product->name),
+        'content' => zh2gb($product->content),
+        'spec' => zh2gb($product->spec),
+        'subtitle' => zh2gb($product->subtitle),
+    ));
+    echo $ret, "\n";
+}

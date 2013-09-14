@@ -1,0 +1,17 @@
+<h3>附加檔案</h3>
+<div>
+    <input style="float: right;" class="button-s" id="add-category-file" type="button" value="新增附加檔案"/>
+    <span class="hint">您可於此處上傳多組附加檔案。</span>
+
+    <div id="category-files"> </div>
+
+    <div class="clear"> </div>
+<script type="text/javascript">
+$(function() {
+    {% for file in CRUD.Record.files %}
+    Product.Category.createFileCover({{ file.toJson()|raw}}).appendTo('#category-files');
+    {% endfor %}
+    Product.Category.init();
+});
+</script>
+</div>

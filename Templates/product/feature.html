@@ -1,0 +1,43 @@
+{#
+vim:filetype=htmldjango:
+#}
+<h3>產品功能</h3>
+<div>
+    {% set subview = CRUD.Action.asView('ActionKit\\View\\StackView',{ "no_form": 1 }) %}
+    {{ subview.buildRelationalActionViewForExistingRecords('features').render() |raw }}
+
+    {#
+    <input type="button" value="新增產品功能" onclick=" 
+        var chooser = new Phifty.CRUDChooser('/=/product_feature/chooser/list.json',{ },{ 
+            listBuilder: function(items) {
+                var that = this;
+                var $ul = $('<ul/>');
+                for ( var i in items ) {
+                    var item = items[i];
+                    var $preview = Product.createFeaturePreview(item.data);
+                    $preview.appendTo($ul);
+                    this.bindOnChoose($preview,item);
+                }
+                return $ul;
+            },
+            onChoose: function(item) {
+                Product.createFeaturePreview(item.data).appendTo( $('#product-features') );
+            }
+        });
+    "/>
+
+    <!-- product feature create queue, hidden input fields will be inserted here -->
+    <div id="product-features"> 
+
+    </div>
+    <script> 
+    $(function() {
+        {% for pf in CRUD.Record.product_features %}
+            Product.createFeaturePreview({{pf.feature.toJson|raw}},{{pf.toJson|raw}})
+                .appendTo( $('#product-features') );
+        {% endfor %}
+    });
+    </script>
+    #}
+    <div class="clear"> </div>
+</div>

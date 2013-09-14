@@ -1,0 +1,60 @@
+
+{% set propertyfragment = 'product-properties-' ~ random() %}
+
+<div class="{{propertyfragment}}">
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>屬性名稱</th>
+                    <th>屬性內容</th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            <tfoot>
+                <tr class="insert">
+                    <td>
+                        <input type="text" class="new-property-name" placeholder="{% trans 'Property Name' %}"/>
+                    </td>
+                    <td>
+                        <input type="text" size="60" class="new-property-value" placeholder="{% trans 'Property Value' %}"/>
+                    </td>
+                    <td>
+                        <button class="add-button">
+                            {% trans 'Add' %}
+                        </button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <script>
+        $(function() {
+            Product.initPropertyEditor( $('.{{propertyfragment}}') );
+            {% for property in CRUD.Record.properties %}
+                Product.appendProperty( $('.{{propertyfragment}}'), {{property.toJson|raw}});
+            {% endfor %}
+
+
+            var $tbody = $('.{{propertyfragment}} tbody');
+
+            initSortableAction($tbody, {
+                items: 'tr',
+                fields: 'input.record-id',
+                handle: '.handle',
+                action: 'ProductBundle::Action::SortProductProperty'
+            });
+            $tbody.disableSelection();
+
+            /*
+            $(".{{propertyfragment}} tbody").sortable({
+                handle: ".handle"
+            }).disableSelection();
+            */
+        });
+    </script>
+</div>

@@ -1,0 +1,28 @@
+#!/usr/bin/env php
+<?php
+require "main.php";
+
+use ProductBundle\Model\ProductCollection;
+use ProductBundle\Model\Category;
+use ProductBundle\Model\ProductCategory;
+
+$products = new ProductCollection;
+foreach( $products as $product ) {
+    // see if we've defined the category_id on product
+    if ( $product->category_id ) {
+        $category = new Category( $product->category_id );
+        if ( ! $category->id ) {
+            echo "category {$category->id} not found\n";
+            continue;
+        }
+        $pc = new ProductCategory;
+        $ret = $pc->loadOrCreate(array( 
+            'product_id' => $product->id,
+            'category_id' => $category->id,
+        ));
+        if ( ! $ret->success ) {
+            echo "product category create failed.\n";
+        }
+    }
+}
+
