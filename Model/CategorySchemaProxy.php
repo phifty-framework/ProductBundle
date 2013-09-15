@@ -295,13 +295,20 @@ class CategorySchemaProxy extends RuntimeSchema
       'foreign_column' => 'id',
     ),
 )),
-  'products' => \LazyRecord\Schema\Relationship::__set_state(array( 
+  'category_products' => \LazyRecord\Schema\Relationship::__set_state(array( 
   'data' => array( 
       'type' => 2,
       'self_column' => 'id',
       'self_schema' => 'ProductBundle\\Model\\CategorySchema',
       'foreign_column' => 'category_id',
-      'foreign_schema' => 'ProductBundle\\Model\\ProductSchema',
+      'foreign_schema' => 'ProductBundle\\Model\\ProductCategorySchema',
+    ),
+)),
+  'products' => \LazyRecord\Schema\Relationship::__set_state(array( 
+  'data' => array( 
+      'type' => 3,
+      'relation_junction' => 'category_products',
+      'relation_foreign' => 'product',
     ),
 )),
 );
