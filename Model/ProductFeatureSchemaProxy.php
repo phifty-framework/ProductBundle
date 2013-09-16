@@ -44,7 +44,7 @@ class ProductFeatureSchemaProxy extends RuntimeSchema
       'attributes' => array( 
           'type' => 'text',
           'isa' => 'str',
-          'label' => 'Product Id',
+          'label' => '產品 Id',
           'refer' => 'ProductBundle\\Model\\Product',
         ),
     ),
