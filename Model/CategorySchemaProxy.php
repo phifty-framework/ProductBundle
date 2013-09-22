@@ -151,7 +151,7 @@ class CategorySchemaProxy extends RuntimeSchema
           'renderAs' => 'DateTimeInput',
           'widgetAttributes' => array( 
             ),
-          'label' => '建立於',
+          'label' => 'Created on',
           'default' => function() {
                 return date('c');
             },
@@ -170,7 +170,7 @@ class CategorySchemaProxy extends RuntimeSchema
           'default' => function() {
                 return date('c');
             },
-          'label' => '更新時間',
+          'label' => 'Updated on',
         ),
     ),
   'created_by' => array( 
@@ -295,20 +295,13 @@ class CategorySchemaProxy extends RuntimeSchema
       'foreign_column' => 'id',
     ),
 )),
-  'category_products' => \LazyRecord\Schema\Relationship::__set_state(array( 
+  'products' => \LazyRecord\Schema\Relationship::__set_state(array( 
   'data' => array( 
       'type' => 2,
       'self_column' => 'id',
       'self_schema' => 'ProductBundle\\Model\\CategorySchema',
       'foreign_column' => 'category_id',
-      'foreign_schema' => 'ProductBundle\\Model\\ProductCategorySchema',
-    ),
-)),
-  'products' => \LazyRecord\Schema\Relationship::__set_state(array( 
-  'data' => array( 
-      'type' => 3,
-      'relation_junction' => 'category_products',
-      'relation_foreign' => 'product',
+      'foreign_schema' => 'ProductBundle\\Model\\ProductSchema',
     ),
 )),
 );
