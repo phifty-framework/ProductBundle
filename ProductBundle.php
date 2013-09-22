@@ -176,18 +176,12 @@ class ProductBundle extends Bundle
         $self = $this;
         kernel()->event->register( 'adminui.init_menu' , function($menu) use ($self) {
             $plugin = kernel()->plugin('ProductBundle');
-
             $folder = $menu->createMenuFolder( _('Products') );
             $folder->createCrudMenuItem( 'product', _('Product') );
 
             if ( $plugin->config('with_category') ) {
                 $folder->createCrudMenuItem('product_category', _('Product Category') );
             }
-
-            if ( $plugin->config('with_files') ) {
-                $folder->createCrudMenuItem('product_file', '產品檔案');
-            }
-
             if ( $plugin->config('with_features') ) {
                 $folder->createCrudMenuItem( 'product_feature', _('Product Feature') );
             }
