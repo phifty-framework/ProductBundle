@@ -22,6 +22,11 @@ class ProductFileSchema extends SchemaDeclare
             ->varchar(130)
             ->label('檔案標題');
 
+        $this->column( 'vip' )
+            ->varchar(16)
+            ->label('會員專用')
+            ;
+
         $this->column( 'mimetype' )
             ->varchar(16)
             ->label('檔案格式')
