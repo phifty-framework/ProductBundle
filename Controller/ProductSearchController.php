@@ -37,9 +37,20 @@ class ProductSearchController extends Controller
             return is_numeric($id);
         }));
 
-        $selects = array('p.*');
-        $selectQuery = 'SELECT ' . join(' ',$selects) . ' FROM products p';
-        $countQuery = 'SELECT count(*) FROM products p';
+        $selects = array(
+            'p.id',
+            'p.name',
+            'p.thumb',
+            'p.image',
+            'p.subtitle',
+            'p.content',
+            'p.lang',
+            'p.category_id',
+            'p.description',
+            'p.sn',
+        );
+        $selectQuery = 'SELECT ' . join(',',$selects) . ' FROM products p';
+        $countQuery = 'SELECT count(*),p.id FROM products p';
         $whereQuery = array();
 
         $driver = $collection->getReadQueryDriver();
@@ -58,6 +69,8 @@ class ProductSearchController extends Controller
         if ($lang) {
             $whereQuery[] = sprintf("p.lang = '%s'",$lang);
         }
+
+        $whereQuery[] = sprintf("p.status = '%s'",'publish');
 
         if ( ! empty($featureIds) ) {
             $selectQuery .= ' LEFT JOIN product_feature_junction pf ON (pf.product_id = p.id) ';
@@ -83,9 +96,11 @@ class ProductSearchController extends Controller
             $countQuery .= ' WHERE ' . join(' AND ', $whereQuery);
         }
 
+        $selectQuery .= " GROUP BY " . join(',',$selects) . " ";
         $selectQuery .= " ORDER BY p.$orderBy DESC";
         $selectQuery .= $q->buildLimitSql();
 
+        $countQuery .= " GROUP BY p.id";
 
         $collection->loadQuery( $selectQuery );
         $dsId = $collection->getSchema()->getReadSourceId();
