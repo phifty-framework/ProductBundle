@@ -21,12 +21,12 @@ class ProductHandler extends ResourceHandler
                 $data['images'] = $record->images->toJson();
             }
             if ( $bundle->config('with_features') ) {
-                $data['features'] = $record->features->toJson();
+                $data['features'] = $record->features->toArray();
             }
             if ( $bundle->config('with_multicategory') ) {
-                $data['categories'] = $record->categories->toJson();
+                $data['categories'] = $record->categories->toArray();
             } else {
-                $data['category'] = $record->category ? $record->category->toJson() : array();
+                $data['category'] = $record->category ? $record->category->toArray() : array();
             }
             return $data;
         }
