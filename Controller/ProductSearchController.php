@@ -128,8 +128,8 @@ class ProductSearchController extends Controller
             'pageSize' => $this->getPageSize(),
             'pages' => ceil($count / $this->getPageSize()),
             'products' => $collection->toArray(),
-            'query' => $this->lastQuery,
-            'countQuery' => $this->countQuery,
+            // 'query' => $this->lastQuery,
+            // 'countQuery' => $this->countQuery,
         ));
     }
 
