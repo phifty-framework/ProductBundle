@@ -15,10 +15,10 @@ class ProductHandler extends ResourceHandler
             $data = $record->toArray();
 
             if ( $bundle->config('with_properties') ) {
-                $data['properties'] = $record->properties->toJson();
+                $data['properties'] = $record->properties->toArray();
             }
             if ( $bundle->config('with_images') ) {
-                $data['images'] = $record->images->toJson();
+                $data['images'] = $record->images->toArray();
             }
             if ( $bundle->config('with_features') ) {
                 $data['features'] = $record->features->toArray();
