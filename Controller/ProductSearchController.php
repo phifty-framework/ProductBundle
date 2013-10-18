@@ -15,6 +15,9 @@ use SQLBuilder\QueryBuilder;
 
 class ProductSearchController extends Controller
 {
+    public $lastQuery;
+
+    public $countQuery;
 
     public function getPageSize() 
     {
@@ -50,7 +53,7 @@ class ProductSearchController extends Controller
             'p.sn',
         );
         $selectQuery = 'SELECT ' . join(',',$selects) . ' FROM products p';
-        $countQuery = 'SELECT count(*),p.id FROM products p';
+        $countQuery = 'SELECT count(*) as cnt,p.id FROM products p';
         $whereQuery = array();
 
         $driver = $collection->getReadQueryDriver();
@@ -101,6 +104,10 @@ class ProductSearchController extends Controller
         $selectQuery .= $q->buildLimitSql();
 
         $countQuery .= " GROUP BY p.id";
+        $countQuery = "SELECT count(*) FROM ($countQuery) AS cnt;";
+
+        $this->lastQuery = $selectQuery;
+        $this->countQuery = $countQuery;
 
         $collection->loadQuery( $selectQuery );
         $dsId = $collection->getSchema()->getReadSourceId();
@@ -118,9 +125,11 @@ class ProductSearchController extends Controller
         list($collection,$count) = $this->applySearchQuery();
         return $this->toJson(array(
             'total' => $count,
-            'page_size' => $this->getPageSize(),
+            'pageSize' => $this->getPageSize(),
             'pages' => ceil($count / $this->getPageSize()),
             'products' => $collection->toArray(),
+            'query' => $this->lastQuery,
+            'countQuery' => $this->countQuery,
         ));
     }
 
