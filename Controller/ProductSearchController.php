@@ -78,14 +78,21 @@ class ProductSearchController extends Controller
         if ( ! empty($featureIds) ) {
             $selectQuery .= ' LEFT JOIN product_feature_junction pf ON (pf.product_id = p.id) ';
             $countQuery .= ' LEFT JOIN product_feature_junction pf ON (pf.product_id = p.id) ';
-            $whereQuery[] = 'pf.feature_id IN (' . join(',', $featureIds) . ')';
+            // use AND
+            foreach( $featureIds as $id ) {
+                $whereQuery[] = sprintf("pf.feature_id = %d", $id);
+            }
+            // $whereQuery[] = 'pf.feature_id IN (' . join(',', $featureIds) . ')';
         }
 
         if ( ! empty($categoryIds) ) {
             $selectQuery .= ' LEFT JOIN product_category_junction pc ON (pc.product_id = p.id) ';
             $countQuery .= ' LEFT JOIN product_category_junction pc ON (pc.product_id = p.id) ';
-            $whereQuery[] = '(pc.category_id IN (' . join(',', $categoryIds) . ')'
-             . ' OR p.category_id IN (' . join(',', $categoryIds) . '))';
+            foreach( $categoryIds as $id ) {
+                $whereQuery[] = sprintf('(pc.category_id = %d OR p.category_id = %d)', $id, $id);
+            }
+            // $whereQuery[] = '( pc.category_id IN (' . join(',', $categoryIds) . ')'
+            // . ' OR p.category_id IN (' . join(',', $categoryIds) . '))';
         }
 
         if ( $page ) {
