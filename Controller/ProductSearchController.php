@@ -28,7 +28,7 @@ class ProductSearchController extends Controller
     {
         $collection = new ProductCollection;
         $keyword = $this->request->param('keyword');
-        $lang = $this->request->param('lang');
+        $lang = $this->request->param('lang') ?: kernel()->locale->current();
         $page = $this->request->param('page');
         $pageSize = $this->getPageSize();
         $orderBy = $this->request->param('order') ?: 'created_on';
@@ -91,7 +91,6 @@ class ProductSearchController extends Controller
         if ( $page ) {
             $q->limit($pageSize);
             $q->offset( ($page - 1) * $pageSize);
-            // var_dump( $q->buildLimitSql() ); 
         }
 
         if ( ! empty($whereQuery) ) {
