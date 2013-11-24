@@ -23,7 +23,8 @@ class ProductFileSchema extends SchemaDeclare
             ->label('檔案標題');
 
         $this->column( 'vip' )
-            ->varchar(16)
+            ->boolean()
+            ->renderAs('CheckboxInput')
             ->label('會員專用')
             ;
 
