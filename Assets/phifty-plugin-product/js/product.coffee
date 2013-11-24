@@ -255,10 +255,11 @@ Product.appendProperty = ($container,data) ->
 
   # bind delete button
   $tr.find('.delete-button').click (e) ->
-    id = $(this).data('id')
-    $selfRow = $(this).parents('tr').get(0)
-    runAction 'ProductBundle::Action::DeleteProductProperty', { id: id }, (resp) ->
-      $selfRow.remove()
+    if confirm('確定刪除?')
+      id = $(this).data('id')
+      $selfRow = $(this).parents('tr').get(0)
+      runAction 'ProductBundle::Action::DeleteProductProperty', { id: id }, (resp) ->
+        $selfRow.remove()
     return false
   $table.find('tbody').append($tr)
 

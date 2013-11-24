@@ -377,13 +377,15 @@ vim:sw=2:ts=2:sts=2:
     $tr = $(propertyItemTemplate(data));
     $tr.find('.delete-button').click(function(e) {
       var $selfRow, id;
-      id = $(this).data('id');
-      $selfRow = $(this).parents('tr').get(0);
-      runAction('ProductBundle::Action::DeleteProductProperty', {
-        id: id
-      }, function(resp) {
-        return $selfRow.remove();
-      });
+      if (confirm('確定刪除?')) {
+        id = $(this).data('id');
+        $selfRow = $(this).parents('tr').get(0);
+        runAction('ProductBundle::Action::DeleteProductProperty', {
+          id: id
+        }, function(resp) {
+          return $selfRow.remove();
+        });
+      }
       return false;
     });
     return $table.find('tbody').append($tr);
