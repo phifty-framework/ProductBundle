@@ -11,13 +11,15 @@ class ProductFileSchemaProxy extends RuntimeSchema
     public static $column_names = array (
   0 => 'product_id',
   1 => 'title',
-  2 => 'mimetype',
-  3 => 'file',
-  4 => 'id',
+  2 => 'vip',
+  3 => 'mimetype',
+  4 => 'file',
+  5 => 'id',
 );
     public static $column_hash = array (
   'product_id' => 1,
   'title' => 1,
+  'vip' => 1,
   'mimetype' => 1,
   'file' => 1,
   'id' => 1,
@@ -27,9 +29,10 @@ class ProductFileSchemaProxy extends RuntimeSchema
     public static $column_names_include_virtual = array (
   0 => 'product_id',
   1 => 'title',
-  2 => 'mimetype',
-  3 => 'file',
-  4 => 'id',
+  2 => 'vip',
+  3 => 'mimetype',
+  4 => 'file',
+  5 => 'id',
 );
 
     const schema_class = 'ProductBundle\\Model\\ProductFileSchema';
@@ -66,6 +69,17 @@ class ProductFileSchemaProxy extends RuntimeSchema
           'label' => '檔案標題',
         ),
     ),
+  'vip' => array( 
+      'name' => 'vip',
+      'attributes' => array( 
+          'type' => 'boolean',
+          'isa' => 'bool',
+          'renderAs' => 'CheckboxInput',
+          'widgetAttributes' => array( 
+            ),
+          'label' => '會員專用',
+        ),
+    ),
   'mimetype' => array( 
       'name' => 'mimetype',
       'attributes' => array( 
@@ -99,6 +113,7 @@ class ProductFileSchemaProxy extends RuntimeSchema
   'id',
   'product_id',
   'title',
+  'vip',
   'mimetype',
   'file',
 );

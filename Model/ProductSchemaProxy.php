@@ -444,7 +444,7 @@ class ProductSchemaProxy extends RuntimeSchema
           'renderAs' => 'DateTimeInput',
           'widgetAttributes' => array( 
             ),
-          'label' => 'Created on',
+          'label' => '建立於',
           'default' => function() {
                 return date('c');
             },
@@ -463,7 +463,7 @@ class ProductSchemaProxy extends RuntimeSchema
           'default' => function() {
                 return date('c');
             },
-          'label' => 'Updated on',
+          'label' => '更新時間',
         ),
     ),
   'created_by' => array( 
