@@ -24,7 +24,7 @@ class CategorySchema extends SchemaDeclare
 
         $this->column( 'parent_id' )
             ->integer()
-            ->refer( 'ProductBundle\\Model\\Category' )
+            ->refer( 'ProductBundle\\Model\\CategorySchema' )
             ->label( _('Parent Category') )
             ->integer()
             ->default(0)
@@ -50,8 +50,8 @@ class CategorySchema extends SchemaDeclare
             ->varchar(32)
             ->label(_('Identity'));
 
-        $this->mixin('Phifty\\Model\\Mixin\\MetadataSchema');
-        $this->mixin('Phifty\\Model\\Mixin\\I18NSchema');
+        $this->mixin('CommonBundle\\Model\\Mixin\\MetaSchema');
+        $this->mixin('I18N\\Model\\Mixin\\I18NSchema');
 
         $this->many('files','ProductBundle\\Model\\CategoryFile','category_id','id');
         $this->many('subcategories','ProductBundle\\Model\\CategorySchema','parent_id','id');
