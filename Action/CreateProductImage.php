@@ -1,38 +1,37 @@
 <?php
-
 namespace ProductBundle\Action;
-
 use ActionKit;
 use Phifty\FileUtils;
+use ActionKit\RecordAction\CreateRecordAction;
 
-class CreateProductImage extends \ActionKit\RecordAction\CreateRecordAction
+class CreateProductImage extends CreateRecordAction
 {
     public $recordClass = 'ProductBundle\\Model\\ProductImage';
 
     public function schema()
     {
         $this->useRecordSchema();
-        $plugin = kernel()->plugin('ProductBundle');
+        $bundle = kernel()->bundle('ProductBundle');
 
-        $imageSize = $plugin->config('images.image.size');
-        $thumbSize = $plugin->config('images.thumb.size');
-        $largeSize = $plugin->config('images.large.size');
+        $imageSize = $bunde->config('images.image.size');
+        $thumbSize = $bundle->config('images.thumb.size');
+        $largeSize = $bundle->config('images.large.size');
 
-        $imageSizeLimit = $plugin->config('images.image.size_limit');
-        $thumbSizeLimit = $plugin->config('images.thumb.size_limit');
-        $largeSizeLimit = $plugin->config('images.large.size_limit');
+        $imageSizeLimit = $bundle->config('images.image.size_limit');
+        $thumbSizeLimit = $bundle->config('images.thumb.size_limit');
+        $largeSizeLimit = $bundle->config('images.large.size_limit');
 
-        $imageResizeWidth = $plugin->config('images.image.resize_width') ?: 0;
-        $thumbResizeWidth = $plugin->config('images.thumb.resize_width') ?: 0;
-        $largeResizeWidth = $plugin->config('images.large.resize_width') ?: 0;
+        $imageResizeWidth = $bundle->config('images.image.resize_width') ?: 0;
+        $thumbResizeWidth = $bundle->config('images.thumb.resize_width') ?: 0;
+        $largeResizeWidth = $bundle->config('images.large.resize_width') ?: 0;
 
-        $uploadDir = $plugin->config('upload_dir') ?: 'static/upload';
+        $uploadDir = $bundle->config('upload_dir') ?: 'static/upload';
 
-        if( $plugin->config('with_zoom_image') ) {
+        if( $bundle->config('with_zoom_image') ) {
             $this->param('large','Image')
                 ->size($largeSize)
                 ->label('最大圖')
-                ->hint( $plugin->config('hints.ProductImage.large') )
+                ->hint( $bundle->config('hints.ProductImage.large') )
                 ->hintFromSizeInfo()
                 ;
         }
@@ -42,7 +41,7 @@ class CreateProductImage extends \ActionKit\RecordAction\CreateRecordAction
             ->size( $imageSize )
             ->sourceField( 'large' )
             ->required()
-            ->hint( $plugin->config('hints.ProductImage.image') )
+            ->hint( $bundle->config('hints.ProductImage.image') )
             ->hintFromSizeInfo()
             ->label('主圖')
             ;
@@ -52,7 +51,7 @@ class CreateProductImage extends \ActionKit\RecordAction\CreateRecordAction
             ->sizeLimit( $thumbSizeLimit )
             ->sourceField( 'image' )
             ->label('縮圖')
-            ->hint( $plugin->config('hints.ProductImage.thumb') )
+            ->hint( $bundle->config('hints.ProductImage.thumb') )
             ->hintFromSizeInfo()
             ;
 
