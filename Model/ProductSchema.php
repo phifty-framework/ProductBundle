@@ -113,11 +113,11 @@ class ProductSchema extends SchemaDeclare
 
         $this->column('options_content')->text()->label('選配');
 
-        if( kernel()->plugin('SEOPlugin') && $bundle->config('with_seo') ) {
+        if( kernel()->bundle('SEOPlugin') && $bundle->config('with_seo') ) {
             $this->mixin('SEOPlugin\\Model\\Mixin\\SEOSchema');
         }
 
-        if( kernel()->plugin('StatusPlugin') ) {
+        if( kernel()->bundle('StatusPlugin') ) {
             $this->mixin('StatusPlugin\\Model\\Mixin\\StatusSchema');
         }
 
@@ -147,7 +147,7 @@ class ProductSchema extends SchemaDeclare
         $this->many('resources',  'ProductBundle\\Model\\ResourceSchema' , 'product_id' , 'id' );  # to product id => image product_id
         $this->many('files',      'ProductBundle\\Model\\ProductFileSchema', 'product_id', 'id');
 
-        if ( kernel()->plugin('RecipeBundle') ) {
+        if ( kernel()->bundle('RecipeBundle') ) {
             $this->many('product_recipes','ProductBundle\\Model\\ProductRecipeSchema','product_id','id');
             $this->manyToMany( 'recipes',   'product_recipes' , 'recipe' );
         }
