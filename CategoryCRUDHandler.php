@@ -22,7 +22,7 @@ class CategoryCRUDHandler extends CRUDHandler
 
     public $primaryFields = array('name');
 
-    public $plugin;
+    public $bundle;
 
     public function init()
     {

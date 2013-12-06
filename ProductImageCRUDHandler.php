@@ -10,9 +10,9 @@ class ProductImageCRUDHandler extends CRUDHandler
 
     public function getDialogActionView()
     {
-        $plugin = ProductBundle::getInstance();
+        $bundle = ProductBundle::getInstance();
         $skips = array('product_id');
-        if( ! $plugin->config('with_zoom_image') ) {
+        if( ! $bundle->config('with_zoom_image') ) {
             // skip large image field (which is for zooming)
             $skips[] = 'large';
         }

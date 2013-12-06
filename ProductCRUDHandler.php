@@ -72,30 +72,30 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
     public function editRegionAction() 
     {
         $this->editRegionActionPrepare();
-        $plugin = $this->plugin;
+        $bundle = $this->plugin;
 
         if ( $this->currentRecord && $this->currentRecord->id ) {
             $id = $this->currentRecord->id;
 
-            if ( $plugin->config('with_types') ) 
+            if ( $bundle->config('with_types') ) 
                 $this->assign( 'productTypes' , $this->currentRecord->types->items() );
 
-            if ( $plugin->config('with_images') ) 
+            if ( $bundle->config('with_images') ) 
                 $this->assign( 'productImages' , $this->currentRecord->images->items() );
 
-            if ( $plugin->config('with_features') ) {
+            if ( $bundle->config('with_features') ) {
                 if ( $features = $this->currentRecord->features ) {
                     $this->assign( 'productFeatures' , $features->items() );
                 }
             }
 
-            if ( $plugin->config('with_resources') ) {
+            if ( $bundle->config('with_resources') ) {
                 $resources = $this->currentRecord->resources;
                 $this->assign( 'productResources' , $resources->items() );
             }
         }
 
-        if ( $plugin->config('with_features') ) {
+        if ( $bundle->config('with_features') ) {
             $features = new FeatureCollection;
             $this->assign( 'features' , $features->items() );
         }

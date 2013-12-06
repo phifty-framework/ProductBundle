@@ -19,20 +19,20 @@ class UpdateCategory extends UpdateRecordAction
     public function schema() 
     { 
         $this->useRecordSchema();
-        $plugin = \ProductBundle\ProductBundle::getInstance();
-        $uploadDir = ($c=$plugin->config('upload_dir')) ? $c : 'static/upload';
+        $bundle = \ProductBundle\ProductBundle::getInstance();
+        $uploadDir = ($c=$bundle->config('upload_dir')) ? $c : 'static/upload';
 
         $this->param('image','Image')
-            ->sizeLimit( ($c=$plugin->config('category_image.size_limit')) ? $c : 600 )
-            ->resizeWidth( ($c = $plugin->config('category_image.resize_width') ) ?  $c : 800 )
+            ->sizeLimit( ($c=$bundle->config('category_image.size_limit')) ? $c : 600 )
+            ->resizeWidth( ($c = $bundle->config('category_image.resize_width') ) ?  $c : 800 )
             ->renameFile( function( $name ) {
                 return FileUtils::filename_append_md5( $name );
             })
             ->putIn( $uploadDir );
 
         $this->param( 'thumb' , 'Image' )
-            ->sizeLimit( ($c=$plugin->config('category_thumb.size_limit')) ? $c : 500 )
-            ->resizeWidth( ($c = $plugin->config('category_thumb.resize_width') ) ? $c : 300 )
+            ->sizeLimit( ($c=$bundle->config('category_thumb.size_limit')) ? $c : 500 )
+            ->resizeWidth( ($c = $bundle->config('category_thumb.resize_width') ) ? $c : 300 )
             ->sourceField( 'image' )
             ->renameFile( function( $name ) { 
                 return FileUtils::filename_append_md5( $name );

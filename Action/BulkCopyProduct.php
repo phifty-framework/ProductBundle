@@ -10,9 +10,9 @@ class BulkCopyProduct extends BulkCopyRecordAction
 
     public function afterCopy($record, $data, $newRecord) 
     {
-        $plugin = \ProductBundle\ProductBundle::getInstance();
+        $bundle = \ProductBundle\ProductBundle::getInstance();
         $newCategory = $this->arg('category_id');
-        if ( $newCategory && $plugin->config('with_multicategory') ) {
+        if ( $newCategory && $bundle->config('with_multicategory') ) {
             $pc = new \ProductBundle\Model\ProductCategory;
             $pc->create(array(
                 'category_id' => $newCategory,

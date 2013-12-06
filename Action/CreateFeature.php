@@ -11,12 +11,12 @@ class CreateFeature extends CreateRecordAction
     function schema() 
     { 
         $this->useRecordSchema();
-        $plugin = \ProductBundle\ProductBundle::getInstance();
-        $uploadDir = ($c=$plugin->config('upload_dir')) ? $c : 'static/upload';
+        $bundle = \ProductBundle\ProductBundle::getInstance();
+        $uploadDir = ($c=$bundle->config('upload_dir')) ? $c : 'static/upload';
 
         $this->param('image','Image')
-            ->sizeLimit( ($c=$plugin->config('image.size_limit')) ? $c : 600 )
-            ->resizeWidth( ($c = $plugin->config('image.resize_width') ) ?  $c : 800 )
+            ->sizeLimit( ($c=$bundle->config('image.size_limit')) ? $c : 600 )
+            ->resizeWidth( ($c = $bundle->config('image.resize_width') ) ?  $c : 800 )
             ->putIn( $uploadDir );
     }
 }

@@ -10,7 +10,7 @@ class ProductSchema extends SchemaDeclare
 {
     public function schema()
     {
-        $plugin = \ProductBundle\ProductBundle::getInstance();
+        $bundle = \ProductBundle\ProductBundle::getInstance();
 
         $this->column('name')
             ->varchar(256)
@@ -45,7 +45,7 @@ class ProductSchema extends SchemaDeclare
 
 
         // image for zooming
-        if( $plugin->config('with_zoom_image') ) {
+        if( $bundle->config('with_zoom_image') ) {
             $this->column('zoom_image')
                 ->varchar(128)
                 ->label(_('產品放大圖'))
@@ -54,7 +54,7 @@ class ProductSchema extends SchemaDeclare
         }
 
         /* one product belongs to one category */
-        if ( ! $plugin->config('with_multicategory') ) {
+        if ( ! $bundle->config('with_multicategory') ) {
             $this->column('category_id')
                 ->refer('ProductBundle\\Model\\Category')
                 ->integer()
@@ -98,7 +98,7 @@ class ProductSchema extends SchemaDeclare
             ->label('隱藏這個產品')
             ->desc( _('Do not show this product in front-end page') );
 
-        if( $plugin->config('with_spec_image') ) {
+        if( $bundle->config('with_spec_image') ) {
 
             $this->column('spec_image')
                 ->varchar(250)
@@ -113,7 +113,7 @@ class ProductSchema extends SchemaDeclare
 
         $this->column('options_content')->text()->label('選配');
 
-        if( kernel()->plugin('SEOPlugin') && $plugin->config('with_seo') ) {
+        if( kernel()->plugin('SEOPlugin') && $bundle->config('with_seo') ) {
             $this->mixin('SEOPlugin\\Model\\Mixin\\SEOSchema');
         }
 
@@ -121,7 +121,7 @@ class ProductSchema extends SchemaDeclare
             $this->mixin('StatusPlugin\\Model\\Mixin\\StatusSchema');
         }
 
-        if( $plugin->config('with_lang') ) {
+        if( $bundle->config('with_lang') ) {
             $this->mixin('I18N\\Model\\Mixin\\I18NSchema');
         }
 
@@ -152,7 +152,7 @@ class ProductSchema extends SchemaDeclare
             $this->manyToMany( 'recipes',   'product_recipes' , 'recipe' );
         }
 
-        if ( $plugin->config('with_multicategory') ) {
+        if ( $bundle->config('with_multicategory') ) {
             $this->many( 'product_categories', 'ProductBundle\\Model\\ProductCategorySchema', 'product_id', 'id' )
                 ->renderable(false);
             $this->manyToMany( 'categories',   'product_categories' , 'category' )

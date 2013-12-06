@@ -57,9 +57,9 @@ class CategorySchema extends SchemaDeclare
         $this->many('subcategories','ProductBundle\\Model\\CategorySchema','parent_id','id');
         $this->belongsTo('parent','ProductBundle\\Model\\CategorySchema','id','parent_id');
 
-        $plugin = \ProductBundle\ProductBundle::getInstance();
+        $bundle = \ProductBundle\ProductBundle::getInstance();
 
-        if ( $plugin->config('with_multicategory') ) {
+        if ( $bundle->config('with_multicategory') ) {
             $this->many( 'category_products', 'ProductBundle\\Model\\ProductCategorySchema', 'category_id', 'id' );
             $this->manyToMany( 'products',   'category_products' , 'product');
         } else {

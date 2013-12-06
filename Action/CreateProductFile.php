@@ -8,9 +8,9 @@ class CreateProductFile extends CreateRecordAction
 
     public function schema()
     {
-        $plugin = \ProductBundle\ProductBundle::getInstance();
-        $sizeLimit = $plugin->config('files.size_limit') ?: 1024 * 1;
-        $fileHint =  $plugin->config('hints.ProductFile.file');
+        $bundle = \ProductBundle\ProductBundle::getInstance();
+        $sizeLimit = $bundle->config('files.size_limit') ?: 1024 * 1;
+        $fileHint =  $bundle->config('hints.ProductFile.file');
         $this->useRecordSchema();
         $this->param('file','File')
             ->sizeLimit( $sizeLimit )  // Default to 10 MB limit

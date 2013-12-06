@@ -3,7 +3,7 @@ namespace ProductBundle\Action;
 
 class ProductBaseMixin
 {
-    public $plugin;
+    public $bundle;
 
     /**
      * The object to mixin

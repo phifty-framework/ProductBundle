@@ -175,14 +175,14 @@ class ProductBundle extends Bundle
 
         $self = $this;
         kernel()->event->register( 'adminui.init_menu' , function($menu) use ($self) {
-            $plugin = kernel()->plugin('ProductBundle');
+            $bundle = kernel()->plugin('ProductBundle');
             $folder = $menu->createMenuFolder( _('Products') );
             $folder->createCrudMenuItem( 'product', _('Product') );
 
-            if ( $plugin->config('with_category') ) {
+            if ( $bundle->config('with_category') ) {
                 $folder->createCrudMenuItem('product_category', _('Product Category') );
             }
-            if ( $plugin->config('with_features') ) {
+            if ( $bundle->config('with_features') ) {
                 $folder->createCrudMenuItem( 'product_feature', _('Product Feature') );
             }
         });
