@@ -26,7 +26,6 @@ class CategoryCRUDHandler extends CRUDHandler
 
     public function init()
     {
-        $this->bundle = \ProductBundle\ProductBundle::getInstance();
         if ( $this->bundle->config('with_subcategory') ) {
             $this->setFormatter('name',function($record) {
                 if ( $record->subcategories ) {

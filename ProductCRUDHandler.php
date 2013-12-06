@@ -42,7 +42,6 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
     // XXX: Might move into Plugin CRUDHandler
     public function init()
     {
-        $this->bundle = \ProductBundle\ProductBundle::getInstance();
 
         parent::init();
 
