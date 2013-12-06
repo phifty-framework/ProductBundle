@@ -169,13 +169,13 @@ class ProductBundle extends Bundle
 
         kernel()->restful->registerResource('product','ProductBundle\\RESTful\\ProductHandler');
 
-        if ( kernel()->plugin('RecipeBundle') ) {
+        if ( kernel()->bundle('RecipeBundle') ) {
             $this->addCRUDAction( 'ProductRecipe' , array('Create','Update','Delete') );
         }
 
         $self = $this;
         kernel()->event->register( 'adminui.init_menu' , function($menu) use ($self) {
-            $bundle = kernel()->plugin('ProductBundle');
+            $bundle = kernel()->bundle('ProductBundle');
             $folder = $menu->createMenuFolder( _('Products') );
             $folder->createCrudMenuItem( 'product', _('Product') );
 

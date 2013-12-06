@@ -2,7 +2,7 @@
 namespace ProductBundle\Model;
 use LazyRecord\Schema\SchemaDeclare;
 
-if( kernel()->plugin('RecipeBundle') ) {
+if( kernel()->bundle('RecipeBundle') ) {
 
 class ProductRecipeSchema extends SchemaDeclare
 {

@@ -11,7 +11,7 @@ class UpdateProductImage extends \ActionKit\RecordAction\UpdateRecordAction
     public function schema() 
     {
         $this->useRecordSchema();
-        $bundle = kernel()->plugin('ProductBundle');
+        $bundle = kernel()->bundle('ProductBundle');
 
         $this->param('image','Image')
             ->sizeLimit( ($c = $bundle->config('images.image.size_limit')) ? $c : 800 )
