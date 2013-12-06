@@ -26,6 +26,7 @@ class CategoryCRUDHandler extends CRUDHandler
 
     public function init()
     {
+        parent::init();
         if ( $this->bundle->config('with_subcategory') ) {
             $this->setFormatter('name',function($record) {
                 if ( $record->subcategories ) {
@@ -36,7 +37,6 @@ class CategoryCRUDHandler extends CRUDHandler
                 return $record->name;
             });
         }
-        parent::init();
     }
 
     public function getCollection()
