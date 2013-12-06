@@ -1,14 +1,14 @@
 {% extends '@CRUD/list_inner.html' %}
 
 {% block script %}
-    {% set plugin = Kernel.bundle('ProductBundle') %}
+    {% set bundle = Kernel.bundle('ProductBundle') %}
     {{parent()}}
     <script type="text/javascript">
         $(document.body).ready(function() {
-            {% if plugin.config('with_bulk_convert') %}
+            {% if bundle.config('with_bulk_convert') %}
                 bulkCRUD.addPlugin(new ProductBulkConvertPlugin)
             {% endif %}
-            {% if plugin.config('with_bulk_copy') %}
+            {% if bundle.config('with_bulk_copy') %}
                 bulkCRUD.addPlugin(new ProductBulkCopyPlugin)
             {% endif %}
         });
