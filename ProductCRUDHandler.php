@@ -46,18 +46,20 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
 
         parent::init();
 
-        if (  kernel()->plugin('StatusPlugin') ) {
+        if (  kernel()->bundle('StatusPlugin') ) {
             array_insert( $this->listColumns, 3, 'status' );
         }
-        if ( $this->plugin->config( 'with_quicksearch' ) ) {
+        if ( $this->bundle->config( 'with_quicksearch' ) ) {
             $this->quicksearchFields = array( 'name' , 'content' );
-            if ( $this->plugin->config('with_subtitle') )
+            if ( $this->bundle->config('with_subtitle') ) {
                 $this->quicksearchFields[] = 'subtitle';
-            if ( $this->plugin->config('with_sn') )
+            }
+            if ( $this->bundle->config('with_sn') ) {
                 $this->quicksearchFields[] = 'sn';
+            }
         }
 
-        if ( $this->plugin->config( 'with_price' ) ) {
+        if ( $this->bundle->config( 'with_price' ) ) {
             array_insert( $this->listColumns, -1 , 'price' );
         }
 
@@ -72,7 +74,7 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
     public function editRegionAction() 
     {
         $this->editRegionActionPrepare();
-        $bundle = $this->plugin;
+        $bundle = $this->bundle;
 
         if ( $this->currentRecord && $this->currentRecord->id ) {
             $id = $this->currentRecord->id;
@@ -112,7 +114,7 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
         // with the category id for the list view.
         $categoryId         = $this->getCurrentCategoryId();
         if ( $categoryId ) {
-            if ( $this->plugin->config('with_multicategory') ) {
+            if ( $this->bundle->config('with_multicategory') ) {
                 $collection->join( new \ProductBundle\Model\ProductCategory, "LEFT");
 
                 // currently this works for MySQL

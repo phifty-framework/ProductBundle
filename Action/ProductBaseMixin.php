@@ -25,43 +25,43 @@ class ProductBaseMixin
     {
         $this->object->useRecordSchema();
 
-        $imageSize     = $this->plugin->config('cover.image.size');
-        $thumbSize     = $this->plugin->config('cover.thumb.size');
-        $zoomImageSize = $this->plugin->config('cover.zoom_image.size');
+        $imageSize     = $this->bundle->config('cover.image.size');
+        $thumbSize     = $this->bundle->config('cover.thumb.size');
+        $zoomImageSize = $this->bundle->config('cover.zoom_image.size');
 
-        $specImageSize     = $this->plugin->config('spec.image.size');
-        $specThumbSize     = $this->plugin->config('spec.thumb.size');
+        $specImageSize     = $this->bundle->config('spec.image.size');
+        $specThumbSize     = $this->bundle->config('spec.thumb.size');
 
-        $imageSizeLimit     = $this->plugin->config('cover.image.size_limit');
-        $thumbSizeLimit     = $this->plugin->config('cover.thumb.size_limit');
-        $zoomImageSizeLimit = $this->plugin->config('cover.zoom_image.size_limit');
+        $imageSizeLimit     = $this->bundle->config('cover.image.size_limit');
+        $thumbSizeLimit     = $this->bundle->config('cover.thumb.size_limit');
+        $zoomImageSizeLimit = $this->bundle->config('cover.zoom_image.size_limit');
 
-        $imageResizeWidth     = $this->plugin->config('cover.image.resize_width') ?: 0;
-        $thumbResizeWidth     = $this->plugin->config('cover.thumb.resize_width') ?: 0;
-        $zoomImageResizeWidth = $this->plugin->config('cover.zoom_image.resize_width') ?: 0;
-        $uploadDir            = $this->plugin->config('upload_dir') ?: 'static/upload';
-        $autoResize           = $this->plugin->config('autoresize') ?: false;
+        $imageResizeWidth     = $this->bundle->config('cover.image.resize_width') ?: 0;
+        $thumbResizeWidth     = $this->bundle->config('cover.thumb.resize_width') ?: 0;
+        $zoomImageResizeWidth = $this->bundle->config('cover.zoom_image.resize_width') ?: 0;
+        $uploadDir            = $this->bundle->config('upload_dir') ?: 'static/upload';
+        $autoResize           = $this->bundle->config('autoresize') ?: false;
 
-        if( $this->plugin->config('with_zoom_image') ) {
+        if( $this->bundle->config('with_zoom_image') ) {
             $this->object->param('zoom_image','Image')
                 ->size( $zoomImageSize )
                 ->sizeLimit( $zoomImageSizeLimit )
                 ->resizeWidth( $zoomImageResizeWidth )
                 ->label('產品放大圖')
                 ->autoResize($autoResize)
-                ->hint( $this->plugin->config('hints.Product.zoom_image') )
+                ->hint( $this->bundle->config('hints.Product.zoom_image') )
                 ->hintFromSizeInfo()
                 ;
         }
 
-        if( $this->plugin->config('with_spec_image') ) {
+        if( $this->bundle->config('with_spec_image') ) {
 
             $this->object->param('spec_image','Image')
                 ->size( $specImageSize )
                 ->sizeLimit( $imageSizeLimit )
                 ->autoResize($autoResize)
                 ->label( '規格圖' )
-                ->hint( $this->plugin->config('hints.Product.spec_image') )
+                ->hint( $this->bundle->config('hints.Product.spec_image') )
                 ->hintFromSizeInfo()
                 ;
 
@@ -71,7 +71,7 @@ class ProductBaseMixin
                 ->sizeLimit($thumbSizeLimit)
                 ->autoResize($autoResize)
                 ->label( '規格縮圖' )
-                ->hint( $this->plugin->config('hints.Product.spec_thumb') )
+                ->hint( $this->bundle->config('hints.Product.spec_thumb') )
                 ->hintFromSizeInfo()
                 ;
         }
@@ -81,7 +81,7 @@ class ProductBaseMixin
             ->size( $imageSize )
             ->sizeLimit( $imageSizeLimit )
             ->autoResize($autoResize)
-            ->hint( $this->plugin->config('hints.Product.image') )
+            ->hint( $this->bundle->config('hints.Product.image') )
             ->hintFromSizeInfo()
             ;
 
@@ -90,7 +90,7 @@ class ProductBaseMixin
             ->size( $thumbSize )
             ->sizeLimit( $thumbSizeLimit )
             ->autoResize($autoResize)
-            ->hint( $this->plugin->config('hints.Product.thumb') )
+            ->hint( $this->bundle->config('hints.Product.thumb') )
             ->hintFromSizeInfo()
             ;
 
