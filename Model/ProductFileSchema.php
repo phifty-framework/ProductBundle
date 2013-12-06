@@ -37,7 +37,10 @@ class ProductFileSchema extends SchemaDeclare
             ->varchar(130)
             ->required()
             ->label('檔案');
+
+        $this->mixin('SortableBundle\\Model\\Mixin\\OrderingSchema');
     }
+
 }
 
 
