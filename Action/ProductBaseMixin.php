@@ -24,6 +24,8 @@ class ProductBaseMixin
     {
         $this->object->useRecordSchema();
 
+        $this->bundle = kernel()->bundle('ProductBundle');
+
         $imageSize     = $this->bundle->config('cover.image.size');
         $thumbSize     = $this->bundle->config('cover.thumb.size');
         $zoomImageSize = $this->bundle->config('cover.zoom_image.size');

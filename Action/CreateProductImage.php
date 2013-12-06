@@ -13,7 +13,7 @@ class CreateProductImage extends CreateRecordAction
         $this->useRecordSchema();
         $bundle = kernel()->bundle('ProductBundle');
 
-        $imageSize = $bunde->config('images.image.size');
+        $imageSize = $bundle->config('images.image.size');
         $thumbSize = $bundle->config('images.thumb.size');
         $largeSize = $bundle->config('images.large.size');
 
