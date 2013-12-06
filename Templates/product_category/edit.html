@@ -10,7 +10,7 @@ vim:filetype=htmldjango
     {% endfor %}
 {% endmacro %}
 
-{% set plugin = Kernel.plugin('ProductBundle') %}
+{% set plugin = Kernel.bundle('ProductBundle') %}
 {% set record = CRUD.Record %}
 {% block section_body %}
     <form class="ajax-action" method="post">
@@ -34,7 +34,7 @@ vim:filetype=htmldjango
 
         {{ CRUD.Action.renderField('name')|raw }}
 
-        {% if Kernel.plugin('ProductBundle').config('with_subcategory') %}
+        {% if Kernel.bundle('ProductBundle').config('with_subcategory') %}
             {{CRUD.Action.renderField('parent_id')|raw}}
         {% endif %}
 
@@ -42,7 +42,7 @@ vim:filetype=htmldjango
             {{ CRUD.Action.renderField('identity')|raw}}
         {% endif %}
 
-        {% if Kernel.plugin('I18N') and plugin.config('with_lang') %}
+        {% if Kernel.bundle('I18N') and plugin.config('with_lang') %}
             {{ CRUD.Action.renderField('lang')|raw}}
         {% endif %}
 

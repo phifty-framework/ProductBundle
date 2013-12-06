@@ -13,7 +13,7 @@ class ProductBaseMixin
     public function __construct($object)
     {
         $this->object = $object;
-        $this->plugin = \ProductBundle\ProductBundle::getInstance();
+        $this->bundle = \ProductBundle\ProductBundle::getInstance();
     }
 
     public function preinit()

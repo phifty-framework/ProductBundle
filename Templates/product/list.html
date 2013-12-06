@@ -1,5 +1,5 @@
 {% extends '@CRUD/list.html' %}
-{% set plugin = Kernel.plugin('ProductBundle') %}
+{% set plugin = Kernel.bundle('ProductBundle') %}
 {% block controll %}
     <script type="text/javascript">
         window.Languages = {{Kernel.locale.available|json_encode|raw}};

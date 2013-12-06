@@ -2,7 +2,7 @@
 vim:filetype=htmldjango
 #}
 {% extends '@CRUD/edit.html' %}
-{% set plugin = Kernel.plugin('ProductBundle') %}
+{% set plugin = Kernel.bundle('ProductBundle') %}
 
 {% block section_body %}
 <form class="ajax-action" enctype="multipart/form-data" method="post">
@@ -28,7 +28,7 @@ vim:filetype=htmldjango
 
     {{ CRUD.Action.renderField('name')|raw }}
 
-    {% if Kernel.plugin('I18N') and plugin.config('with_lang') %}
+    {% if Kernel.bundle('I18N') and plugin.config('with_lang') %}
         {{ CRUD.Action.renderField('lang')|raw }}
     {% endif %}
 

@@ -3,7 +3,7 @@
 {% block dialog_body %}
 <div class="action-result-container"> </div>
 {% set action = CRUD.Object.getCurrentAction() %}
-{% set plugin = Kernel.plugin('ProductBundle') %}
+{% set plugin = Kernel.bundle('ProductBundle') %}
 
 <form class="formkit-form ajax-action" enctype="multipart/form-data" method="post">
     {{ action.renderSignatureWidget|raw }}

@@ -1,7 +1,7 @@
 {% extends '@CRUD/list_inner.html' %}
 
 {% block script %}
-    {% set plugin = Kernel.plugin('ProductBundle') %}
+    {% set plugin = Kernel.bundle('ProductBundle') %}
     {{parent()}}
     <script type="text/javascript">
         $(document.body).ready(function() {
