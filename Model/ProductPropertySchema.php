@@ -12,7 +12,7 @@ class ProductPropertySchema extends SchemaDeclare
             ->integer()
             ->refer( 'ProductBundle\\Model\\Product')
             ;
-        $this->mixin('SortableBundle\\Model\\Mixin\\OrderingSchema');
+        $this->mixin('SortablePlugin\\Model\\Mixin\\OrderingSchema');
         $this->belongsTo('product','ProductBundle\\Model\\ProductSchema','id','product_id');
     }
 }

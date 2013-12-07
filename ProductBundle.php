@@ -157,12 +157,12 @@ class ProductBundle extends Bundle
         kernel()->event->register('phifty.before_action', function() {
             kernel()->action->registerAction('ProductBundle\\Action\\SortProductImage', 
                 '@ActionKit/RecordAction.html.twig', array( 
-                    'base_class' => 'SortableBundle\\Action\\SortRecordAction',
+                    'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
                     'record_class' => 'ProductBundle\\Model\\ProductImage',
                 ));
             kernel()->action->registerAction('ProductBundle\\Action\\SortProductProperty',
                 '@ActionKit/RecordAction.html.twig', array( 
-                    'base_class' => 'SortableBundle\\Action\\SortRecordAction',
+                    'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
                     'record_class' => 'ProductBundle\\Model\\ProductProperty',
                 ));
         });
