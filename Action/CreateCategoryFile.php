@@ -17,7 +17,7 @@ class CreateCategoryFile extends CreateRecordAction
             ->label('檔案')
             ->hint( $fileHint )
             ->hintFromSizeLimit()
-            ->putIn( 'static/upload' );
+            ->putIn( 'upload' );
     }
 
     public function successMessage($ret)

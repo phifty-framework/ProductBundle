@@ -119,7 +119,7 @@ class ProductBundle extends Bundle
             'with_bulk_copy'     => true,
             'with_bulk_convert'  => true,
             'with_external_link' => true,
-            'upload_dir'         => 'static/upload',
+            'upload_dir'         => 'upload',
         );
     }
 

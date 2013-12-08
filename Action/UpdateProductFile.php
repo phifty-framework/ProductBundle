@@ -13,7 +13,7 @@ class UpdateProductFile extends UpdateRecordAction
         $this->param('file','File')
             ->sizeLimit( $bundle->config('file.size_limit') ?: 1024 * 10 )  // Default to 10 MB limit
             ->label('檔案')
-            ->putIn( 'static/upload' );
+            ->putIn( 'upload' );
     }
 }
 

@@ -25,7 +25,7 @@ class CreateProductImage extends CreateRecordAction
         $thumbResizeWidth = $bundle->config('images.thumb.resize_width') ?: 0;
         $largeResizeWidth = $bundle->config('images.large.resize_width') ?: 0;
 
-        $uploadDir = $bundle->config('upload_dir') ?: 'static/upload';
+        $uploadDir = $bundle->config('upload_dir') ?: 'upload';
 
         if( $bundle->config('with_zoom_image') ) {
             $this->param('large','Image')

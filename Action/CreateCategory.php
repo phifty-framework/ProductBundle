@@ -21,7 +21,7 @@ class CreateCategory extends CreateRecordAction
     { 
         $this->useRecordSchema();
         $bundle = \ProductBundle\ProductBundle::getInstance();
-        $uploadDir = ($c=$bundle->config('upload_dir')) ? $c : 'static/upload';
+        $uploadDir = ($c=$bundle->config('upload_dir')) ? $c : 'upload';
 
         $this->param('image','Image')
             ->sizeLimit( ($c=$bundle->config('category_image.size_limit')) ? $c : 600 )
@@ -38,7 +38,7 @@ class CreateCategory extends CreateRecordAction
             ->renameFile( function( $name ) { 
                 return FileUtils::filename_append_md5( $name );
             })
-            ->putIn( 'static/upload' );
+            ->putIn( 'upload' );
     }
 }
 

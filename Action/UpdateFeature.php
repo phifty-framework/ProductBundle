@@ -15,7 +15,7 @@ class UpdateFeature extends \ActionKit\RecordAction\UpdateRecordAction
         $this->param('image','Image')
             ->sizeLimit( 500 )
             ->resizeWidth( ($c = \ProductBundle\ProductBundle::getInstance()->config('image.resize_width') ) ?  $c : 800 )
-            ->putIn( 'static/upload' );
+            ->putIn( 'upload' );
     }
 }
 

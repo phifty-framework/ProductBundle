@@ -12,7 +12,7 @@ class CreateFeature extends CreateRecordAction
     { 
         $this->useRecordSchema();
         $bundle = \ProductBundle\ProductBundle::getInstance();
-        $uploadDir = ($c=$bundle->config('upload_dir')) ? $c : 'static/upload';
+        $uploadDir = ($c=$bundle->config('upload_dir')) ? $c : 'upload';
 
         $this->param('image','Image')
             ->sizeLimit( ($c=$bundle->config('image.size_limit')) ? $c : 600 )
