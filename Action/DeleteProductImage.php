@@ -11,7 +11,6 @@ class DeleteProductImage extends DeleteRecordAction
     {
         /*
         TODO: get action file param columns and delete these files (in absolute path)
-
         if( file_exists($this->record->thumb ))
             unlink( PH_APP_ROOT . '/webroot/' . $this->record->thumb );
         if( file_exists($this->record->image ))
