@@ -12,6 +12,8 @@ class ProductFileSchema extends SchemaDeclare
 
     public function schema()
     {
+        $bundle = kernel()->bundle('ProductBundle');
+
         $this->column( 'product_id' )
             ->integer()
             ->refer('ProductBundle\\Model\\Product')
@@ -22,11 +24,13 @@ class ProductFileSchema extends SchemaDeclare
             ->varchar(130)
             ->label('檔案標題');
 
-        $this->column( 'vip' )
-            ->boolean()
-            ->renderAs('CheckboxInput')
-            ->label('會員專用')
-            ;
+        if ( $bundle->config('with_vip') ) {
+            $this->column( 'vip' )
+                ->boolean()
+                ->renderAs('CheckboxInput')
+                ->label('會員專用')
+                ;
+        }
 
         $this->column( 'mimetype' )
             ->varchar(16)

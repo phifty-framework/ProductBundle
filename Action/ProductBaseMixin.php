@@ -41,7 +41,7 @@ class ProductBaseMixin
         $thumbResizeWidth     = $this->bundle->config('cover.thumb.resize_width') ?: 0;
         $zoomImageResizeWidth = $this->bundle->config('cover.zoom_image.resize_width') ?: 0;
         $uploadDir            = $this->bundle->config('upload_dir') ?: 'upload';
-        $autoResize           = $this->bundle->config('autoresize') ?: false;
+        $autoResize           = $this->bundle->config('auto_resize') ?: false;
 
         if( $this->bundle->config('with_zoom_image') ) {
             $this->object->param('zoom_image','Image')
