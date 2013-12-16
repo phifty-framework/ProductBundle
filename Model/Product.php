@@ -10,6 +10,9 @@ extends \ProductBundle\Model\ProductBase
 {
     public function dataLabel()
     {
+        if ( $this->lang ) {
+            return '[' . _($this->lang) . '] ' .  $this->name;
+        }
         return $this->name;
     }
 
