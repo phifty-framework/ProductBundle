@@ -53,53 +53,53 @@ class ProductSchema extends SchemaDeclare
                 ;
         }
 
-        /* one product belongs to one category */
-        if ( ! $bundle->config('with_multicategory') ) {
-            $this->column('category_id')
-                ->refer('ProductBundle\\Model\\Category')
-                ->integer()
-                ->renderAs('+CRUD\\Widget\\QuickCRUDSelectInput',array(
-                    'record_class' => 'ProductBundle\\Model\\Category',
-                    'dialog_path' => '/bs/product_category/crud/quick_create',
-                    'allow_empty' => true,
-                ))
-                ->label('產品類別');
-        }
+        $this->column('category_id')
+            ->refer('ProductBundle\\Model\\CategorySchema')
+            ->integer()
+            ->renderAs('+CRUD\\Widget\\QuickCRUDSelectInput',array(
+                'record_class' => 'ProductBundle\\Model\\Category',
+                'dialog_path' => '/bs/product_category/crud/quick_create',
+                'allow_empty' => true,
+            ))
+            ->label(_('產品類別'));
 
         /* is a cover product ? show this product in some specific pages? */
         $this->column('is_cover')
             ->boolean()
             ->renderAs('CheckboxInput')
-            ->label('封面產品');
+            ->label(_('封面產品'));
 
         $this->column('orig_price')
             ->integer()
-            ->label('產品原價');
+            ->label('產品原價')
+            ->renderAs('TextInput',[  'placeholder' => _('如: NT$ 3200') ])
+            ;
 
         $this->column('price')
             ->integer()
-            ->label('產品售價');
+            ->label('產品售價')
+            ->renderAs('TextInput',[  'placeholder' => _('如: NT$ 2800') ])
+            ;
 
         $this->column('external_link')
             ->varchar(256)
             ->label('外部連結')
-            ->renderAs('TextInput',array( 'size' => 70 ))
+            ->renderAs('TextInput',array( 'size' => 70, 'placeholder' => _('如: http://....') ))
             ;
 
         /* private token, for private customers */
         $this->column('token')
             ->varchar(128)
-            ->label( _('Private Token') )
-            ->desc( _('Users can see hidden products through this private token.') );
+            ->label( _('秘密編號') )
+            ->desc( _('使用者必須透過這組秘密編號的網址才能看到這個產品。') );
 
         $this->column('hide')
             ->boolean()
             ->default(false)
-            ->label('隱藏這個產品')
-            ->desc( _('Do not show this product in front-end page') );
+            ->label(_('隱藏這個產品'))
+            ->desc( _('目錄頁不要顯示這個產品，但是可以從網址列看到這個產品頁') );
 
         if( $bundle->config('with_spec_image') ) {
-
             $this->column('spec_image')
                 ->varchar(250)
                 ->label('規格主圖')

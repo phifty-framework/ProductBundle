@@ -43,6 +43,25 @@ vim:filetype=htmldjango:
 
                 <div class="clearfix"> </div>
 
+
+
+                {% if bundle.config('with_orig_price') %}
+                <div class="col-field">
+                {{CRUD.Action.renderField('orig_price')|raw}}
+                </div>
+                {% endif %}
+
+                {% if bundle.config('with_price') %}
+                <div class="col-field">
+                {{CRUD.Action.renderField('price')|raw}}
+                </div>
+                {% endif %}
+
+                <div class="clearfix"> </div>
+
+
+                <div class="clearfix"> </div>
+
                 {% if bundle.config('with_category') and not bundle.config('with_multicategory') %}
                 {{CRUD.Action.renderField('category_id')|raw}}
                 {% endif %}
@@ -66,6 +85,74 @@ vim:filetype=htmldjango:
                     </div>
                 </div>
                 {% endfor %}
+
+
+                {% if bundle.config('with_types') %}
+                    <div class="widget">
+                        <div class="widget-hd">{% trans '產品類型' %}</div>
+                        <div class="widget-bd">
+                            <ul>
+                            {% for type in CRUD.Record.types %}
+                                <li class="product-type" style="padding-bottom: 3px; margin-bottom: 3px; line-height: 200%; border-bottom: 1px solid #d0d0d0;">
+                                    <span title="{{type.comment}}">{{type.name}}</span>
+                                    {% if type.comment %}
+                                    <span class="comment">{{type.comment}}</span>
+                                    {% endif %}
+                                    <input type="hidden" name="types[{{type.id}}][id]" value="{{type.id}}"/>
+                                    <input type="hidden" name="types[{{type.id}}][product_id]" value="{{CRUD.Record.id}}"/>
+
+                                    <div class="pull-right">
+                                        <button class="delete-product-type" data-type-id="{{type.id}}">刪除</button>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                            </ul>
+
+                            <button id="createProductType{{frag_serial}}">{% trans '新增類型' %}</button>
+                        </div>
+                    </div>
+
+<script>
+$(function() {
+    $('.delete-product-type').click(function() {
+        var $el = $(this).parents('.product-type');
+        var val = $(this).data('typeId');
+        if ( val && confirm('確定要刪除這個類型嗎?') ) {
+            runAction('ProductBundle::Action::DeleteProductType',{ id: val }, function(resp){
+                if (resp.success) {
+                    $el.remove();
+                }
+            });
+        }
+        return false;
+    });
+
+    $('#createProductType{{frag_serial}}').click(function(e) {
+        var $btn = $(this);
+        var $wrapper = $btn.parent();
+
+        new CRUDDialog('/bs/product_type/crud/dialog',{},{
+            onSuccess: function(resp) {
+                var $el = $('<div/>').addClass('product-type');
+                $el.append( $('<span/>').text(resp.data.name).attr('title',resp.data.comment));
+
+                $el.append( $('<span/>').text('(' + resp.data.comment + ')'));
+
+                $el.append( $('<input/>').attr({ type: 'hidden', name: 'types[' + resp.data.id + '][id]', value: resp.data.id }) );
+                $el.append( $('<button/>').text('刪除').click(function() { 
+                    $(this).parent().remove();
+                }));
+                $wrapper.prepend($el);
+            }
+        });
+        return false;
+    });
+});
+</script>
+                {% endif %}
+
+
+
             </div>
             {% endif %}
         </div>
@@ -89,10 +176,6 @@ vim:filetype=htmldjango:
 
         {% if bundle.config('with_images') %}
             {% include '@ProductBundle/product/image.html' %}
-        {% endif %}
-
-        {% if bundle.config('with_types') %}
-            {% include '@ProductBundle/product/type.html' %}
         {% endif %}
 
         {% if bundle.config('with_resources') %}

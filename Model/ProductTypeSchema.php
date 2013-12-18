@@ -19,20 +19,25 @@ class ProductTypeSchema extends SchemaDeclare
         $this->column('name')
             ->varchar(120)
             ->required()
-            ->label('名稱');
-
-        $this->column('description')
-            ->varchar(256)
-            ->label('敘述')
+            ->label(_('類型名稱'))
+            ->renderAs('TextInput', [
+              'size' => 20,
+              'placeholder' => _('如: 綠色, 黑色, 羊毛, 大、中、小等等。'),
+            ])
             ;
+
         $this->column('spec')
-            ->type('text')
-            ->label('規格');
-    }
+            ->text()
+            ->label('規格說明')
+            ->renderAs('TextInput')
+            ->hint(_('在前台顯示的規格說明'))
+            ;
 
-    function dataLabel() {
-        return $this->name;
-    }
+        $this->column('comment')
+            ->varchar(256)
+            ->label(_('備註'))
+            ;
 
+    }
 
 }
