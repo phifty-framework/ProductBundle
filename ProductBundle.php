@@ -141,7 +141,10 @@ class ProductBundle extends Bundle
         $this->expandRoute( '/bs/product_feature' , 'FeatureCRUDHandler');
         $this->expandRoute( '/bs/product_resource', 'ProductResourceCRUDHandler');
         $this->expandRoute( '/bs/product_image' ,   'ProductImageCRUDHandler');
-        $this->expandRoute( '/bs/product_file' ,    'ProductFileCRUDHandler');
+
+        if ( $this->config('with_files') ) {
+            $this->expandRoute( '/bs/product_file' ,    'ProductFileCRUDHandler');
+        }
 
         if ( $this->config('with_types') ) {
             $this->expandRoute( '/bs/product_type', 'ProductTypeCRUDHandler' );
