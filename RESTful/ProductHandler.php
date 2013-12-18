@@ -11,7 +11,6 @@ class ProductHandler extends ResourceHandler
         $ret = $record->load($id);
         if ( $ret->success ) {
             $bundle = \ProductBundle\ProductBundle::getInstance();
-
             $data = $record->toArray();
 
             if ( $bundle->config('with_properties') ) {
@@ -22,6 +21,9 @@ class ProductHandler extends ResourceHandler
             }
             if ( $bundle->config('with_features') ) {
                 $data['features'] = $record->features->toArray();
+            }
+            if ( $bundle->config('with_types') ) {
+                $data['types'] = $record->types->toArray();
             }
             if ( $bundle->config('with_multicategory') ) {
                 $data['categories'] = $record->categories->toArray();

@@ -128,7 +128,7 @@ class ProductBundle extends Bundle
 
     public function assets()
     {
-        return array('phifty-plugin-product');
+        return array('phifty-plugin-product', 'product-api');
     }
 
     public function init()
@@ -174,6 +174,7 @@ class ProductBundle extends Bundle
         });
 
         kernel()->restful->registerResource('product','ProductBundle\\RESTful\\ProductHandler');
+        kernel()->restful->registerResource('product_type','ProductBundle\\RESTful\\ProductTypeHandler');
 
         if ( kernel()->bundle('RecipeBundle') ) {
             $this->addCRUDAction( 'ProductRecipe' , array('Create','Update','Delete') );
