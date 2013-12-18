@@ -69,6 +69,17 @@ class ProductSchema extends SchemaDeclare
             ->renderAs('CheckboxInput')
             ->label(_('封面產品'));
 
+        $this->column('sellable')
+            ->boolean()
+            ->renderAs('SelectInput')
+            ->default(true)
+            ->validValues([
+                _('可販售') => true,
+                _('無法販售') => false,
+            ])
+            ->label( _('可販售') );
+            ;
+
         $this->column('orig_price')
             ->integer()
             ->label('產品原價')

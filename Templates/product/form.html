@@ -57,6 +57,12 @@ vim:filetype=htmldjango:
                 </div>
                 {% endif %}
 
+                {% if bundle.config('with_sellable') %}
+                <div class="col-field">
+                {{CRUD.Action.renderField('sellable')|raw}}
+                </div>
+                {% endif %}
+
                 <div class="clearfix"> </div>
 
 

@@ -10,11 +10,13 @@ class ProductTypeSchema extends SchemaDeclare
      **/
     public function schema()
     {
+        $bundle = \ProductBundle\ProductBundle::getInstance();
+
         $this->column('product_id')
             ->integer()
             ->label('產品')
             ->renderAs('SelectInput')
-            ->refer('ProductBundle\\Model\\Product');
+            ->refer('ProductBundle\\Model\\ProductSchema');
 
         $this->column('name')
             ->varchar(120)
@@ -25,6 +27,18 @@ class ProductTypeSchema extends SchemaDeclare
               'placeholder' => _('如: 綠色, 黑色, 羊毛, 大、中、小等等。'),
             ])
             ;
+
+        if ( $bundle->config('with_type_quantity') ) {
+            $this->column('quantity')
+                ->integer()
+                ->default(0)
+                ->label( _('數量') )
+                // ->renderAs('SelectInput')
+                ->renderAs('TextInput')
+                ->hint(_('設定成 -1 時為不限制數量'))
+                ->validValues(range(1,100))
+                ;
+        }
 
         $this->column('spec')
             ->text()
