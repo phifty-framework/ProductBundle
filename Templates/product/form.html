@@ -4,59 +4,72 @@ vim:filetype=htmldjango:
 {% set bundle = Kernel.bundle('ProductBundle') %}
 <div class="product-editor">
         {{ CRUD.Action.renderSignatureWidget|raw}}
-
         {% if CRUD.Record.id %}
             {{ forms.hidden('id', CRUD.Record.id) }}
         {% endif %}
 
-        {% if bundle.config('with_category') and bundle.config('with_multicategory') %}
-        <div class="column span-7" style="float: right;">
-            <div class="widget">
-                <div class="widget-hd">Category</div>
-                <div class="widget-bd">
-                    {% set subview = CRUD.Action.asView('ActionKit\\View\\StackView',{ "no_form": 1 }) %}
-                    {{ subview.buildRelationalActionViewForExistingRecords('categories').render() |raw }}
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="col-field">
+                {{ CRUD.Action.renderField('name')|raw }}
                 </div>
-            </div>
-        </div>
-        {% endif %}
 
-        <div class="column span-7">
-            {{ CRUD.Action.renderField('name')|raw }}
-        </div>
+                {% if bundle.config('with_sn') %}
+                <div class="col-field">
+                {{CRUD.Action.renderField('sn')|raw}}
+                </div>
+                {% endif %}
 
-        {% if bundle.config('with_sn') %}
-        <div class="column span-4">
-            {{CRUD.Action.renderField('sn')|raw}}
-        </div>
-        {% endif %}
+                <div class="clearfix"> </div>
 
-        <div class="clear"> </div>
+                {% if bundle.config('with_subtitle') %}
+                <div class="col-field">
+                {{ CRUD.Action.renderField('subtitle') |raw}}
+                </div>
+                {% endif %}
 
-        {% if bundle.config('with_subtitle') %}
-            {{ CRUD.Action.renderField('subtitle') |raw}}
-        {% endif %}
+                {% if Kernel.bundle('I18N') and bundle.config('with_lang') %}
+                <div class="col-field">
+                {{CRUD.Action.renderField('lang')|raw}}
+                </div>
+                {% endif %}
 
-        {% if Kernel.bundle('I18N') and bundle.config('with_lang') %}
-            <div class="column span-3">
-            {{CRUD.Action.renderField('lang')|raw}}
-            </div>
-        {% endif %}
+                {% if Kernel.bundle('StatusPlugin') %}
+                <div class="col-field">
+                {{CRUD.Action.renderField('status')|raw}}
+                </div>
+                {% endif %}
 
-        {% if bundle.config('with_category') and not bundle.config('with_multicategory') %}
-            <div class="column span-6">
+                <div class="clearfix"> </div>
+
+                {% if bundle.config('with_category') and not bundle.config('with_multicategory') %}
                 {{CRUD.Action.renderField('category_id')|raw}}
+                {% endif %}
+
+                {% if bundle.config('with_desc') %}
+                {{CRUD.Action.renderField('description',{ class: 'mceEditor', rows: 3, cols: 80 })|raw}}
+                {% endif %}
             </div>
-        {% endif %}
-        <div class="clear"> </div>
 
-        {% if Kernel.bundle('StatusPlugin') %}
-            {{CRUD.Action.renderField('status')|raw}}
-        {% endif %}
+            {% if bundle.config('with_category') and bundle.config('with_multicategory') %}
+            <div class="col-md-3 col-md-offset-2">
+                {% for langcode, categories in categoriesByLang %}
+                <div class="widget lang lang-{{langcode}} hide">
+                    <div class="widget-hd">{% trans langcode %}{% trans 'Category' %}</div>
+                    <div class="widget-bd" style="max-height: 400px; overflow: auto; ">
+                        {% set subview = CRUD.Action.asView('ActionKit\\View\\StackView',{ "no_form": 1 }) %}
+                        {#
+                        {{ subview.renderManyToManyEditor(CRUD.Record,'categories', categories) |raw}}
+                        #}
+                        {{ subview.buildManyToManyRelationalActionViewForExistingRecords(CRUD.Record, 'categories', null, null, categories)|raw}}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
 
-        {% if bundle.config('with_desc') %}
-            {{CRUD.Action.renderField('description',{ class: 'mceEditor', rows: 3, cols: 80 })|raw}}
-        {% endif %}
 
         {{CRUD.Action.renderField('content',{ class: 'mceEditor', rows: 7, cols: 80 })|raw}}
         <div class="clear"> </div>

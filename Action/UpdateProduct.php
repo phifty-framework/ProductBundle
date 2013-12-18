@@ -12,22 +12,13 @@ class UpdateProduct extends \ActionKit\RecordAction\UpdateRecordAction
 {
     public $recordClass = 'ProductBundle\\Model\\Product';
 
-    public $mixin;
-
-    public function preinit()
-    {
-        $this->mixin = new ProductBaseMixin($this);
-        $this->mixin->preinit();
-    }
-
-    public function schema()
-    {
-        $this->mixin->schema();
+    public function mixins() {
+        return array(new ProductBaseMixin($this));
     }
 
     public function successMessage($ret)
     {
-        return '產品資料 ' . $this->record->name . ' 更新成功';
+        return __('產品 %1 更新成功', $this->record->dataLabel() );
     }
 }
 

@@ -1,97 +1,86 @@
 <?php
 namespace ProductBundle\Action;
+use ActionKit\MixinAction;
 
-class ProductBaseMixin
+class ProductBaseMixin extends MixinAction
 {
-    public $bundle;
-
-    /**
-     * The object to mixin
-     */
-    public $object;
-
-    public function __construct($object)
-    {
-        $this->object = $object;
-    }
-
     public function preinit()
     {
-        $this->object->nested = true;
+        $this->nested = true;
     }
 
     public function schema()
     {
-        $this->object->useRecordSchema();
+        $this->useRecordSchema();
 
-        $this->bundle = kernel()->bundle('ProductBundle');
+        $bundle = kernel()->bundle('ProductBundle');
 
-        $imageSize     = $this->bundle->config('cover.image.size');
-        $thumbSize     = $this->bundle->config('cover.thumb.size');
-        $zoomImageSize = $this->bundle->config('cover.zoom_image.size');
+        $imageSize     = $bundle->config('cover.image.size');
+        $thumbSize     = $bundle->config('cover.thumb.size');
+        $zoomImageSize = $bundle->config('cover.zoom_image.size');
 
-        $specImageSize     = $this->bundle->config('spec.image.size');
-        $specThumbSize     = $this->bundle->config('spec.thumb.size');
+        $specImageSize     = $bundle->config('spec.image.size');
+        $specThumbSize     = $bundle->config('spec.thumb.size');
 
-        $imageSizeLimit     = $this->bundle->config('cover.image.size_limit');
-        $thumbSizeLimit     = $this->bundle->config('cover.thumb.size_limit');
-        $zoomImageSizeLimit = $this->bundle->config('cover.zoom_image.size_limit');
+        $imageSizeLimit     = $bundle->config('cover.image.size_limit');
+        $thumbSizeLimit     = $bundle->config('cover.thumb.size_limit');
+        $zoomImageSizeLimit = $bundle->config('cover.zoom_image.size_limit');
 
-        $imageResizeWidth     = $this->bundle->config('cover.image.resize_width') ?: 0;
-        $thumbResizeWidth     = $this->bundle->config('cover.thumb.resize_width') ?: 0;
-        $zoomImageResizeWidth = $this->bundle->config('cover.zoom_image.resize_width') ?: 0;
-        $uploadDir            = $this->bundle->config('upload_dir') ?: 'upload';
-        $autoResize           = $this->bundle->config('auto_resize') ?: false;
+        $imageResizeWidth     = $bundle->config('cover.image.resize_width') ?: 0;
+        $thumbResizeWidth     = $bundle->config('cover.thumb.resize_width') ?: 0;
+        $zoomImageResizeWidth = $bundle->config('cover.zoom_image.resize_width') ?: 0;
+        $uploadDir            = $bundle->config('upload_dir') ?: 'upload';
+        $autoResize           = $bundle->config('auto_resize') ?: false;
 
-        if( $this->bundle->config('with_zoom_image') ) {
-            $this->object->param('zoom_image','Image')
+        if( $bundle->config('with_zoom_image') ) {
+            $this->param('zoom_image','Image')
                 ->size( $zoomImageSize )
                 ->sizeLimit( $zoomImageSizeLimit )
                 ->resizeWidth( $zoomImageResizeWidth )
                 ->label('產品放大圖')
                 ->autoResize($autoResize)
-                ->hint( $this->bundle->config('hints.Product.zoom_image') )
+                ->hint( $bundle->config('hints.Product.zoom_image') )
                 ->hintFromSizeInfo()
                 ;
         }
 
-        if( $this->bundle->config('with_spec_image') ) {
+        if( $bundle->config('with_spec_image') ) {
 
-            $this->object->param('spec_image','Image')
+            $this->param('spec_image','Image')
                 ->size( $specImageSize )
                 ->sizeLimit( $imageSizeLimit )
                 ->autoResize($autoResize)
                 ->label( '規格圖' )
-                ->hint( $this->bundle->config('hints.Product.spec_image') )
+                ->hint( $bundle->config('hints.Product.spec_image') )
                 ->hintFromSizeInfo()
                 ;
 
-            $this->object->param( 'spec_thumb' , 'Image' )
+            $this->param( 'spec_thumb' , 'Image' )
                 ->sourceField( 'spec_image' )
                 ->size( $specThumbSize )
                 ->sizeLimit($thumbSizeLimit)
                 ->autoResize($autoResize)
                 ->label( '規格縮圖' )
-                ->hint( $this->bundle->config('hints.Product.spec_thumb') )
+                ->hint( $bundle->config('hints.Product.spec_thumb') )
                 ->hintFromSizeInfo()
                 ;
         }
 
-        $this->object->param('image','Image')
+        $this->param('image','Image')
             ->sourceField( 'zoom_image' )
             ->size( $imageSize )
             ->sizeLimit( $imageSizeLimit )
             ->autoResize($autoResize)
-            ->hint( $this->bundle->config('hints.Product.image') )
+            ->hint( $bundle->config('hints.Product.image') )
             ->hintFromSizeInfo()
             ;
 
-        $this->object->param( 'thumb' , 'Image' )
+        $this->param( 'thumb' , 'Image' )
             ->sourceField( 'image' )
             ->size( $thumbSize )
             ->sizeLimit( $thumbSizeLimit )
             ->autoResize($autoResize)
-            ->hint( $this->bundle->config('hints.Product.thumb') )
+            ->hint( $bundle->config('hints.Product.thumb') )
             ->hintFromSizeInfo()
             ;
 

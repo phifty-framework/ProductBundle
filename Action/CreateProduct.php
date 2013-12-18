@@ -12,22 +12,13 @@ class CreateProduct extends CreateRecordAction
 {
     public $recordClass = 'ProductBundle\\Model\\Product';
 
-    public $mixin;
-
-    public function preinit()
-    {
-        $this->mixin = new ProductBaseMixin($this);
-        $this->mixin->preinit();
+    public function mixins() {
+        return array(new ProductBaseMixin($this));
     }
 
-    public function schema()
+    public function successMessage($ret)
     {
-        $this->mixin->schema();
-    }
-
-    public function successMessage($ret) 
-    {
-        return '產品資料 ' . $this->record->name . ' 建立成功';
+        return __('產品 %1 建立成功', $this->record->dataLabel() );
     }
 }
 

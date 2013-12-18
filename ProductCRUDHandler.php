@@ -9,6 +9,7 @@ use ProductBundle\Model\ProductImage;
 use ProductBundle\Model\ProductImageCollection;
 use ProductBundle\Model\Feature;
 use ProductBundle\Model\FeatureCollection;
+use Phifty\CollectionUtils;
 
 
 class ProductCRUDHandler extends \AdminUI\CRUDHandler
@@ -103,6 +104,15 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
         return $this->renderCrudEdit();
     }
 
+    public function renderCrudEdit( $args = array() ) {
+        $args['categoriesByLang'] = CollectionUtils::aggregateByLang(
+            kernel()->locale->available(),
+            'ProductBundle\\Model\\CategoryCollection');
+        foreach( $args['categoriesByLang'] as $lang => $collection ) {
+            $collection->where()->equal('parent_id', 0);
+        }
+        return parent::renderCrudEdit( $args );
+    }
 
     public function getCollection()
     {
