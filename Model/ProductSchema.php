@@ -154,7 +154,17 @@ class ProductSchema extends SchemaDeclare
             ->order('ordering','ASC');
 
             ;  # to product id => image product_id
-        $this->many('types',      'ProductBundle\\Model\\ProductTypeSchema' , 'product_id' , 'id' );  # to product id => image product_id
+        $this->many('types',      'ProductBundle\\Model\\ProductTypeSchema' , 'product_id' , 'id' );
+
+
+        /*
+         * XXX: the `where` clause does not work here.
+        $this->many('availableTypes',      'ProductBundle\\Model\\ProductTypeSchema' , 'product_id' , 'id' )
+            ->where('quantity',['>', 0])
+                ;
+         */
+
+
         $this->many('resources',  'ProductBundle\\Model\\ResourceSchema' , 'product_id' , 'id' );  # to product id => image product_id
         $this->many('files',      'ProductBundle\\Model\\ProductFileSchema', 'product_id', 'id');
 

@@ -16,26 +16,10 @@ extends \ProductBundle\Model\ProductBase
         return $this->name;
     }
 
-    # has many-to-many relation
-    public function getFeatures()
-    {
-        $collection = new FeatureCollection;
-        $collection->join( 'product_feature_rels' )
-                ->alias('r')
-                ->on()
-                    ->equal('r.product_id', array('m.id') );
-        $collection->where( array( 'product_id' => $this->id ));
-        return $collection;
+    public function availableTypes() {
+        return $this->types->filter(function($type) {
+            return $type->quantity > 0;
+        });
     }
 
-    function createFeature( $args )
-    {
-        $f = new Feature;
-        $f->create($args);
-        $rel = new ProductFeature;
-        $rel->create( array( 'product_id' => $this->id , 'feature_id' => $f->id ) );
-        $f->product = $this;
-        $f->product_feature = $rel;
-        return $f;
-    }
 }
