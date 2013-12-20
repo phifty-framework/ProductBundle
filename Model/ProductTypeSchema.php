@@ -36,7 +36,7 @@ class ProductTypeSchema extends SchemaDeclare
                 // ->renderAs('SelectInput')
                 ->renderAs('TextInput')
                 ->hint(_('設定成 -1 時為不限制數量'))
-                ->validValues(range(1,100))
+                ->validValues(range(-1,100))
                 ;
         }
 
