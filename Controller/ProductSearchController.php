@@ -76,20 +76,20 @@ class ProductSearchController extends Controller
         $whereQuery[] = sprintf("p.status = '%s'",'publish');
 
         if ( ! empty($featureIds) ) {
-            $selectQuery .= ' LEFT JOIN product_feature_junction pf ON (pf.product_id = p.id) ';
-            $countQuery .= ' LEFT JOIN product_feature_junction pf ON (pf.product_id = p.id) ';
             // use AND
             foreach( $featureIds as $id ) {
-                $whereQuery[] = sprintf("pf.feature_id = %d", $id);
+                $selectQuery .= " LEFT JOIN product_feature_junction pf{$id} ON (pf{$id}.product_id = p.id) ";
+                $countQuery .= " LEFT JOIN product_feature_junction pf{$id} ON (pf{$id}.product_id = p.id) ";
+                $whereQuery[] = sprintf("pf{$id}.feature_id = %d", $id);
             }
             // $whereQuery[] = 'pf.feature_id IN (' . join(',', $featureIds) . ')';
         }
 
         if ( ! empty($categoryIds) ) {
-            $selectQuery .= ' LEFT JOIN product_category_junction pc ON (pc.product_id = p.id) ';
-            $countQuery .= ' LEFT JOIN product_category_junction pc ON (pc.product_id = p.id) ';
             foreach( $categoryIds as $id ) {
-                $whereQuery[] = sprintf('(pc.category_id = %d OR p.category_id = %d)', $id, $id);
+                $selectQuery .= " LEFT JOIN product_category_junction pc{$id} ON (pc{$id}.product_id = p.id) ";
+                $countQuery .= " LEFT JOIN product_category_junction pc{$id} ON (pc{$id}.product_id = p.id) ";
+                $whereQuery[] = sprintf("(pc{$id}.category_id = %d OR p.category_id = %d)", $id, $id);
             }
             // $whereQuery[] = '( pc.category_id IN (' . join(',', $categoryIds) . ')'
             // . ' OR p.category_id IN (' . join(',', $categoryIds) . '))';
