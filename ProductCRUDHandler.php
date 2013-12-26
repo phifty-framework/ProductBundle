@@ -108,6 +108,11 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
         $args['categoriesByLang'] = CollectionUtils::aggregateByLang(
             kernel()->locale->available(),
             'ProductBundle\\Model\\CategoryCollection');
+
+        $args['featuresByLang'] = CollectionUtils::aggregateByLang(
+            kernel()->locale->available(),
+            'ProductBundle\\Model\\FeatureCollection');
+
         foreach( $args['categoriesByLang'] as $lang => $collection ) {
             $collection->where()->equal('parent_id', 0);
         }
