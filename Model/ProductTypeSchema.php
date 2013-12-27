@@ -40,16 +40,19 @@ class ProductTypeSchema extends SchemaDeclare
                 ;
         }
 
+        /*
         $this->column('spec')
             ->text()
             ->label('規格說明')
             ->renderAs('TextInput')
             ->hint(_('在前台顯示的規格說明'))
             ;
+         */
 
         $this->column('comment')
-            ->varchar(256)
+            ->text()
             ->label(_('備註'))
+            ->renderAs('TextareaInput')
             ;
 
     }
