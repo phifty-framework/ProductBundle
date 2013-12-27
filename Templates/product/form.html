@@ -44,6 +44,11 @@ vim:filetype=htmldjango:
                 <div class="clearfix"> </div>
 
 
+                {% if bundle.config('with_sellable') %}
+                <div class="col-field">
+                    {{CRUD.Action.renderField('sellable')|raw}}
+                </div>
+                {% endif %}
 
                 {% if bundle.config('with_orig_price') %}
                 <div class="col-field">
@@ -57,11 +62,6 @@ vim:filetype=htmldjango:
                 </div>
                 {% endif %}
 
-                {% if bundle.config('with_sellable') %}
-                <div class="col-field">
-                {{CRUD.Action.renderField('sellable')|raw}}
-                </div>
-                {% endif %}
 
                 <div class="clearfix"> </div>
 
@@ -94,13 +94,22 @@ vim:filetype=htmldjango:
 
 
                 {% if bundle.config('with_types') %}
+
+
 <script>
 var ProductType = {  };
 ProductType.newItem = function(data) {
+
     var $el = $('<li/>').addClass('product-type').css({ lineHeight: '200%' });
     $el.data('typeId',data.id);
 
     $el.append( $('<span/>').text(data.name).attr('title',data.comment));
+
+    if ( data.quantity ) {
+        $el.append( $('<span/>').text(' (剩餘數量:' + data.quantity + ')'));
+    }
+
+
     if ( data.comment ) {
         $el.append( $('<span/>').text('(' + data.comment + ')'));
     }

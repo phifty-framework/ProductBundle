@@ -83,13 +83,13 @@ class ProductSchema extends SchemaDeclare
         $this->column('orig_price')
             ->integer()
             ->label('產品原價')
-            ->renderAs('TextInput',[  'placeholder' => _('如: NT$ 3200') ])
+            ->renderAs('TextInput',[  'placeholder' => _('如: 3200') ])
             ;
 
         $this->column('price')
             ->integer()
             ->label('產品售價')
-            ->renderAs('TextInput',[  'placeholder' => _('如: NT$ 2800') ])
+            ->renderAs('TextInput',[  'placeholder' => _('如: 2800') ])
             ;
 
         $this->column('external_link')
