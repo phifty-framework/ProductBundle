@@ -10,6 +10,8 @@ class ProductTypeSchema extends SchemaDeclare
      **/
     public function schema()
     {
+        $this->label('產品類型');
+
         $bundle = \ProductBundle\ProductBundle::getInstance();
 
         $this->column('product_id')
