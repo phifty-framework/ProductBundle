@@ -78,7 +78,8 @@ class ProductSchema extends SchemaDeclare
                 _('可販售') => true,
                 _('無法販售') => false,
             ])
-            ->label( _('可販售') );
+            ->label( _('可販售') )
+            ->hint( _('選擇可販售之後，請記得新增產品類別，前台才可以加到購物車。') )
             ;
 
         $this->column('orig_price')
