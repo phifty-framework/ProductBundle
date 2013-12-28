@@ -37,6 +37,7 @@ class ProductSchema extends SchemaDeclare
             ->label('產品內文')
             ->renderAs('TextareaInput');
 
+        // spec_content
         $this->column('spec')
             ->text()
             ->label('產品規格')
