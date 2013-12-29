@@ -38,8 +38,8 @@ vim:filetype=htmldjango
             {{CRUD.Action.renderField('parent_id')|raw}}
         {% endif %}
 
-        {% if bundle.config('with_category_identity') %}
-            {{ CRUD.Action.renderField('identity')|raw}}
+        {% if bundle.config('with_category_handle') %}
+            {{ CRUD.Action.renderField('handle')|raw}}
         {% endif %}
 
         {% if Kernel.bundle('I18N') and bundle.config('with_lang') %}

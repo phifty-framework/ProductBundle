@@ -13,11 +13,12 @@ class CategorySchema extends SchemaDeclare
 
         $this->column( 'name' )
             ->varchar(130)
-            ->label('Category Name')
+            ->label('產品類別名稱')
             ->required(1);
 
         $this->column( 'description' )
             ->text()
+            ->label('產品類別敘述')
             ->renderAs('TextareaInput',array(
                 'class' => '+=mceEditor',
             ));
@@ -25,7 +26,7 @@ class CategorySchema extends SchemaDeclare
         $this->column( 'parent_id' )
             ->integer()
             ->refer( 'ProductBundle\\Model\\CategorySchema' )
-            ->label( _('Parent Category') )
+            ->label( _('父類別') )
             ->integer()
             ->default(0)
             ->renderAs('SelectInput',array(
@@ -35,7 +36,7 @@ class CategorySchema extends SchemaDeclare
         // hide this category in front-end
         $this->column('hide')
             ->boolean()
-            ->label(_('Hide this category'));
+            ->label(_('隱藏這個類別'));
 
         $this->column('thumb')
             ->varchar(128)
@@ -46,9 +47,9 @@ class CategorySchema extends SchemaDeclare
             ->varchar(128)
             ->label('圖片');
 
-        $this->column('identity')
+        $this->column('handle')
             ->varchar(32)
-            ->label(_('Identity'));
+            ->label(_('程式用操作碼'));
 
         $this->mixin('CommonBundle\\Model\\Mixin\\MetaSchema');
         $this->mixin('I18N\\Model\\Mixin\\I18NSchema');
