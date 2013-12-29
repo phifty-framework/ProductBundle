@@ -41,7 +41,7 @@ class CreateCategory extends CreateRecordAction
             ->putIn( 'upload' );
     }
 
-    public function successMessage() {
+    public function successMessage($ret) {
         return _('新增成功');
     }
 }
