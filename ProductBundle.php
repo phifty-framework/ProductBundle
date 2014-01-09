@@ -163,6 +163,7 @@ class ProductBundle extends Bundle
         $this->addCRUDAction('Resource');
         $this->addCRUDAction('ProductProperty');
         $this->addCRUDAction('ProductProduct');
+        $this->addCRUDAction('ProductLink');
 
         kernel()->event->register('phifty.before_action', function() {
             kernel()->action->registerAction('ProductBundle\\Action\\SortProductImage', 
