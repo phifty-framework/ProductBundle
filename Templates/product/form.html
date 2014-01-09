@@ -31,7 +31,7 @@ vim:filetype=htmldjango:
 
                 {% if Kernel.bundle('I18N') and bundle.config('with_lang') %}
                 <div class="col-field">
-                {{CRUD.Action.renderField('lang')|raw}}
+                    {{CRUD.Action.renderField('lang')|raw}}
                 </div>
                 {% endif %}
 

@@ -134,9 +134,7 @@ class ProductSchema extends SchemaDeclare
             $this->mixin('StatusPlugin\\Model\\Mixin\\StatusSchema');
         }
 
-        if( $bundle->config('with_lang') ) {
-            $this->mixin('I18N\\Model\\Mixin\\I18NSchema');
-        }
+        $this->mixin('I18N\\Model\\Mixin\\I18NSchema');
 
         $this->mixin('CommonBundle\\Model\\Mixin\\ImageSchema');
         $this->mixin('CommonBundle\\Model\\Mixin\\MetaSchema');
@@ -173,6 +171,10 @@ class ProductSchema extends SchemaDeclare
         if ( kernel()->bundle('RecipeBundle') ) {
             $this->many('product_recipes','ProductBundle\\Model\\ProductRecipeSchema','product_id','id');
             $this->manyToMany( 'recipes',   'product_recipes' , 'recipe' );
+        }
+
+        if ( $mixinClass = $bundle->config('product.mixin') ) {
+            $this->mixin($mixinClass);
         }
 
         if ( $bundle->config('with_multicategory') ) {

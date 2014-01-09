@@ -13,11 +13,9 @@ class FeatureSchema extends SchemaDeclare
         $this->column('description')->text()->label( _('Description') );
         $this->column('image')
             ->varchar(250)
-            ->label( _('Product Feature Image') );
+            ->label( '產品功能圖示' );
 
-        if( $bundle->config('with_lang') ) {
-            $this->mixin('I18N\\Model\\Mixin\\I18NSchema');
-        }
+        $this->mixin('I18N\\Model\\Mixin\\I18NSchema');
     }
 }
 
