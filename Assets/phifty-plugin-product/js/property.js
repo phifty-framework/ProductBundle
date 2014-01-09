@@ -216,11 +216,13 @@
     });
   });
 
-  Product.renderProperty = function(data) {
+  window.ProductProperty = {};
+
+  ProductProperty.render = function(data) {
     return $(propertyItemTemplate(data));
   };
 
-  Product.appendProperty = function($container, data) {
+  ProductProperty.append = function($container, data) {
     var $table, $tr;
     $table = $container.find('table');
     $tr = $(propertyItemTemplate(data));
@@ -240,7 +242,7 @@
     return $table.find('tbody').append($tr);
   };
 
-  Product.initPropertyEditor = function($container) {
+  ProductProperty.initEditor = function($container) {
     var $table;
     $table = $container.find('table');
     return $container.find('.add-button').click(function(e) {
@@ -253,7 +255,7 @@
         name: newName,
         value: newValue
       }, function(resp) {
-        return Product.appendProperty($container, resp.data);
+        return ProductProperty.append($container, resp.data);
       });
       return false;
     });

@@ -32,29 +32,20 @@
             </tfoot>
         </table>
     </div>
-    <script>
-        $(function() {
-            Product.initPropertyEditor( $('.{{propertyfragment}}') );
-            {% for property in CRUD.Record.properties %}
-                Product.appendProperty( $('.{{propertyfragment}}'), {{property.toJson|raw}});
-            {% endfor %}
-
-
-            var $tbody = $('.{{propertyfragment}} tbody');
-
-            initSortableAction($tbody, {
-                items: 'tr',
-                fields: 'input.record-id',
-                handle: '.handle',
-                action: 'ProductBundle::Action::SortProductProperty'
-            });
-            $tbody.disableSelection();
-
-            /*
-            $(".{{propertyfragment}} tbody").sortable({
-                handle: ".handle"
-            }).disableSelection();
-            */
-        });
-    </script>
 </div>
+<script>
+$(function() {
+    ProductProperty.initEditor( $('.{{propertyfragment}}') );
+    {% for property in CRUD.Record.properties %}
+        ProductProperty.append( $('.{{propertyfragment}}'), {{property.toJson|raw}});
+    {% endfor %}
+    var $tbody = $('.{{propertyfragment}} tbody');
+    initSortableAction($tbody, {
+        items: 'tr',
+        fields: 'input.record-id',
+        handle: '.handle',
+        action: 'ProductBundle::Action::SortProductProperty'
+    });
+    $tbody.disableSelection();
+});
+</script>

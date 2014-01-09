@@ -72,7 +72,7 @@
     return $table.find('tbody').append($tr);
   };
 
-  Product.initLinkEditor = function($container) {
+  ProductLink.initEditor = function($container) {
     var $table;
     $table = $container.find('table');
     return $container.find('.add-button').click(function(e) {

@@ -49,6 +49,11 @@ class SelectWidget extends BaseWidget
   template: () ->
 
 
+
+
+
+
+
 propertyItemTemplate = CoffeeKup.compile ->
   tr ->
     td ->
@@ -62,10 +67,12 @@ propertyItemTemplate = CoffeeKup.compile ->
       div class:"handle", style: " border: 1px solid #aaa; background: #d5d5d5; display: block; padding: 1px 5px; ", ->
         span class: "icon icon-sort"
 
-Product.renderProperty = (data) ->
+window.ProductProperty = {}
+
+ProductProperty.render = (data) ->
   return $(propertyItemTemplate(data))
 
-Product.appendProperty = ($container,data) ->
+ProductProperty.append = ($container,data) ->
   $table = $container.find('table')
   $tr = $(propertyItemTemplate(data))
 
@@ -79,7 +86,7 @@ Product.appendProperty = ($container,data) ->
     return false
   $table.find('tbody').append($tr)
 
-Product.initPropertyEditor = ($container) ->
+ProductProperty.initEditor = ($container) ->
   $table = $container.find('table')
   $container.find('.add-button').click (e) ->
     newName = $container.find('.new-property-name').val()
@@ -91,7 +98,7 @@ Product.initPropertyEditor = ($container) ->
 
     # create new item into the list here
     runAction 'ProductBundle::Action::CreateProductProperty', { name: newName, value: newValue }, (resp) ->
-      Product.appendProperty($container,resp.data)
+      ProductProperty.append($container,resp.data)
     return false
 
 

@@ -30,7 +30,7 @@ Product.appendLink = ($container,data) ->
     return false
   $table.find('tbody').append($tr)
 
-Product.initLinkEditor = ($container) ->
+ProductLink.initEditor = ($container) ->
   $table = $container.find('table')
   $container.find('.add-button').click (e) ->
     newName = $container.find('.new-link-name').val()
