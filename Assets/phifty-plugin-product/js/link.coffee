@@ -33,15 +33,15 @@ Product.appendLink = ($container,data) ->
 ProductLink.initEditor = ($container) ->
   $table = $container.find('table')
   $container.find('.add-button').click (e) ->
-    newName = $container.find('.new-link-name').val()
-    newValue = $container.find('.new-link-value').val()
+    newLabel = $container.find('.new-link-label').val()
+    newUrl = $container.find('.new-link-url').val()
 
     # clear field values
-    $container.find('.new-link-name').val("")
-    $container.find('.new-link-value').val("")
+    $container.find('.new-link-label').val("")
+    $container.find('.new-link-url').val("")
 
     # create new item into the list here
-    runAction 'ProductBundle::Action::CreateProductLink', { name: newName, value: newValue }, (resp) ->
+    runAction 'ProductBundle::Action::CreateProductLink', { label: newLabel, url: newUrl }, (resp) ->
       Product.appendLink($container,resp.data)
     return false
 

@@ -76,14 +76,14 @@
     var $table;
     $table = $container.find('table');
     return $container.find('.add-button').click(function(e) {
-      var newName, newValue;
-      newName = $container.find('.new-link-name').val();
-      newValue = $container.find('.new-link-value').val();
-      $container.find('.new-link-name').val("");
-      $container.find('.new-link-value').val("");
+      var newLabel, newUrl;
+      newLabel = $container.find('.new-link-label').val();
+      newUrl = $container.find('.new-link-url').val();
+      $container.find('.new-link-label').val("");
+      $container.find('.new-link-url').val("");
       runAction('ProductBundle::Action::CreateProductLink', {
-        name: newName,
-        value: newValue
+        label: newLabel,
+        url: newUrl
       }, function(resp) {
         return Product.appendLink($container, resp.data);
       });

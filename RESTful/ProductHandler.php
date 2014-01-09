@@ -13,8 +13,11 @@ class ProductHandler extends ResourceHandler
             $bundle = \ProductBundle\ProductBundle::getInstance();
             $data = $record->toArray();
 
-            if ( $bundle->config('with_properties') ) {
+            if ( $bundle->config('properties') ) {
                 $data['properties'] = $record->properties->toArray();
+            }
+            if ( $bundle->config('links') ) {
+                $data['links'] = $record->links->toArray();
             }
             if ( $bundle->config('with_images') ) {
                 $data['images'] = $record->images->toArray();

@@ -6,8 +6,8 @@ class ProductLinkSchema extends SchemaDeclare
 {
     public function schema() 
     {
-        $this->column('link')->varchar(128);
         $this->column('label')->varchar(128);
+        $this->column('url')->varchar(128);
         $this->column('product_id')
             ->integer()
             ->refer( 'ProductBundle\\Model\\ProductSchema')

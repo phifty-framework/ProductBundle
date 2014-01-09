@@ -176,6 +176,11 @@ class ProductBundle extends Bundle
                     'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
                     'record_class' => 'ProductBundle\\Model\\ProductProperty',
                 ));
+            kernel()->action->registerAction('ProductBundle\\Action\\SortProductLink',
+                '@ActionKit/RecordAction.html.twig', array(
+                    'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
+                    'record_class' => 'ProductBundle\\Model\\ProductLink',
+                ));
         });
 
         kernel()->restful->registerResource('product','ProductBundle\\RESTful\\ProductHandler');
