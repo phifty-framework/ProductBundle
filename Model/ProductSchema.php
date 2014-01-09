@@ -182,6 +182,10 @@ class ProductSchema extends SchemaDeclare
             $this->many( 'subsections', 'ProductBundle\\Model\\ProductSubsectionSchema', 'product_id', 'id' )
                 ->renderable(false);
         }
+        if ( $bundle->config('links') ) {
+            $this->many( 'links', 'ProductBundle\\Model\\ProductLinkSchema', 'product_id', 'id' )
+                ->renderable(false);
+        }
 
         if ( $bundle->config('with_multicategory') ) {
             $this->many( 'product_categories', 'ProductBundle\\Model\\ProductCategorySchema', 'product_id', 'id' )
