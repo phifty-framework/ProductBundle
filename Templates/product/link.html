@@ -1,0 +1,50 @@
+{% set linkfragment = 'product-links-' ~ random() %}
+
+<div class="{{linkfragment}}">
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>屬性名稱</th>
+                    <th>屬性內容</th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+            <tfoot>
+                <tr class="insert">
+                    <td>
+                        <input type="text" class="new-link-label" placeholder="{% trans 'Link Label' %}"/>
+                    </td>
+                    <td>
+                        <input type="text" size="60" class="new-link-url" placeholder="{% trans 'Link URL' %}"/>
+                    </td>
+                    <td>
+                        <button class="add-button">
+                            {% trans 'Add' %}
+                        </button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<script>
+$(function() {
+    ProductLink.initEditor( $('.{{linkfragment}}') );
+    {% for link in CRUD.Record.links %}
+        ProductLink.append( $('.{{linkfragment}}'), {{link.toJson|raw}});
+    {% endfor %}
+    var $tbody = $('.{{linkfragment}} tbody');
+    initSortableAction($tbody, {
+        items: 'tr',
+        fields: 'input.record-id',
+        handle: '.handle',
+        action: 'ProductBundle::Action::SortProductLink'
+    });
+    $tbody.disableSelection();
+});
+</script>
