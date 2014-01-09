@@ -62,9 +62,7 @@ vim:filetype=htmldjango:
                 </div>
                 {% endif %}
 
-
                 <div class="clearfix"> </div>
-
 
                 <div class="clearfix"> </div>
 
@@ -73,7 +71,7 @@ vim:filetype=htmldjango:
                 {% endif %}
 
                 {% if bundle.config('with_desc') %}
-                {{CRUD.Action.renderField('description',{ class: 'mceEditor', rows: 3, cols: 80 })|raw}}
+                {{CRUD.Action.renderField('description',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
                 {% endif %}
             </div>
 
@@ -235,6 +233,18 @@ $(function() {
         {% if bundle.config('with_related_products') %}
             {% include '@ProductBundle/product/related.html' %}
         {% endif %}
+
+        {#
+        {% set mixinClass = bundle.config('product.mixin') %}
+        {% if mixinClass %}
+            {% set mixinAction = CRUD.Record.getMixinSchemaAction() %}
+            {{ mixinAction.asView('ActionKit\\View\\StackView', {
+                "no_form": true,
+                "no_signature": true,
+                "nested": false
+                }).render() |raw}}
+        {% endif %}
+        #}
 
         <div class="clear"> </div>
         <div class="divider"> </div>

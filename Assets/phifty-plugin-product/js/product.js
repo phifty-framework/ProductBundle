@@ -5,7 +5,7 @@ vim:sw=2:ts=2:sts=2:
 
 
 (function() {
-  var Pager, propertyItemTemplate;
+  var Pager;
 
   window.Product = {};
 
@@ -322,93 +322,6 @@ vim:sw=2:ts=2:sts=2:
     return ProductBulkCopyPlugin;
 
   })();
-
-  propertyItemTemplate = CoffeeKup.compile(function() {
-    return tr(function() {
-      td(function() {
-        input({
-          "class": "record-id",
-          name: "properties[" + this.id + "][id]",
-          type: "hidden",
-          value: this.id
-        });
-        return input({
-          name: "properties[" + this.id + "][name]",
-          type: "text",
-          value: this.name
-        });
-      });
-      td(function() {
-        return input({
-          name: "properties[" + this.id + "][value]",
-          type: "text",
-          size: 60,
-          value: this.value
-        });
-      });
-      td(function() {
-        return button({
-          "data-id": this.id,
-          "class": "delete-button"
-        }, function() {
-          return "刪除";
-        });
-      });
-      return td(function() {
-        return div({
-          "class": "handle",
-          style: " border: 1px solid #aaa; background: #d5d5d5; display: block; padding: 1px 5px; "
-        }, function() {
-          return span({
-            "class": "icon icon-sort"
-          });
-        });
-      });
-    });
-  });
-
-  Product.renderProperty = function(data) {
-    return $(propertyItemTemplate(data));
-  };
-
-  Product.appendProperty = function($container, data) {
-    var $table, $tr;
-    $table = $container.find('table');
-    $tr = $(propertyItemTemplate(data));
-    $tr.find('.delete-button').click(function(e) {
-      var $selfRow, id;
-      if (confirm('確定刪除?')) {
-        id = $(this).data('id');
-        $selfRow = $(this).parents('tr').get(0);
-        runAction('ProductBundle::Action::DeleteProductProperty', {
-          id: id
-        }, function(resp) {
-          return $selfRow.remove();
-        });
-      }
-      return false;
-    });
-    return $table.find('tbody').append($tr);
-  };
-
-  Product.initPropertyEditor = function($container) {
-    var $table;
-    $table = $container.find('table');
-    return $container.find('.add-button').click(function(e) {
-      var newName, newValue;
-      newName = $container.find('.new-property-name').val();
-      newValue = $container.find('.new-property-value').val();
-      $container.find('.new-property-name').val("");
-      $container.find('.new-property-value').val("");
-      runAction('ProductBundle::Action::CreateProductProperty', {
-        name: newName,
-        value: newValue
-      }, function(resp) {
-        return Product.appendProperty($container, resp.data);
-      });
-      return false;
-    });
-  };
 
   Pager = (function() {
     function Pager(config) {

@@ -2,6 +2,7 @@
 collections:
   - js:
     - js/product.js
+    - js/property.js
   - css:
     - css/product.css
   - files:

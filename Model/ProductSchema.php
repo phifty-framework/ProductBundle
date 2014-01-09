@@ -173,15 +173,21 @@ class ProductSchema extends SchemaDeclare
             $this->manyToMany( 'recipes',   'product_recipes' , 'recipe' );
         }
 
+        /*
         if ( $mixinClass = $bundle->config('product.mixin') ) {
             $this->mixin($mixinClass);
+        }
+        */
+        if ( $bundle->config('subsections') ) {
+            $this->many( 'subsections', 'ProductBundle\\Model\\ProductSubsectionSchema', 'product_id', 'id' )
+                ->renderable(false);
         }
 
         if ( $bundle->config('with_multicategory') ) {
             $this->many( 'product_categories', 'ProductBundle\\Model\\ProductCategorySchema', 'product_id', 'id' )
                 ->renderable(false);
             $this->manyToMany( 'categories',   'product_categories' , 'category' )
-                ->filter(function($collection) { 
+                ->filter(function($collection) {
                     $collection->order('lang','desc');
                     return $collection;
                 });

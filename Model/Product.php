@@ -4,6 +4,7 @@ use ProductBundle\Model\ProductCollection;
 use ProductBundle\Model\ProductTypeCollection;
 use ProductBundle\Model\ProductImageCollection;
 use ProductBundle\Model\ResourceCollection;
+use ActionKit\ColumnConvert;
 
 class Product 
 extends \ProductBundle\Model\ProductBase
@@ -48,6 +49,14 @@ extends \ProductBundle\Model\ProductBase
 
     public function getLink() {
         return sprintf('/product/%d/%s/%s', $this->id, $this->lang, rawurlencode($this->name) );
+    }
+
+    public function getMixinSchemaAction()
+    {
+        $bundle = \ProductBundle\ProductBundle::getInstance();
+        if ( $mixinClass = $bundle->config('product.mixin') ) {
+            return ColumnConvert::convertSchemaToAction(new $mixinClass, $this);
+        }
     }
 
 }
