@@ -46,4 +46,8 @@ extends \ProductBundle\Model\ProductBase
         return $html;
     }
 
+    public function getLink() {
+        return sprintf('/product/%d/%s/%s', $this->id, $this->lang, rawurlencode($this->name) );
+    }
+
 }

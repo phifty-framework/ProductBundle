@@ -138,6 +138,10 @@ class ProductBundle extends Bundle
 
         $this->route( '/=/product/search', 'ProductSearchController');
 
+        $this->route( '/product', 'ProductController:list');
+        $this->route( '/product/:id/:lang/:name', 'ProductController:item');
+
+
         $this->expandRoute( '/bs/product',          'ProductCRUDHandler');
         $this->expandRoute( '/bs/product_category', 'CategoryCRUDHandler');
         $this->expandRoute( '/bs/product_category_file', 'CategoryFileCRUDHandler');
