@@ -230,6 +230,10 @@ $(function() {
             {% include '@ProductBundle/product/file.html' %}
         {% endif %}
 
+        {% if bundle.config('subsections') %}
+            {% include '@ProductBundle/product/subsection.html' %}
+        {% endif %}
+
         {% if bundle.config('with_related_products') %}
             {% include '@ProductBundle/product/related.html' %}
         {% endif %}

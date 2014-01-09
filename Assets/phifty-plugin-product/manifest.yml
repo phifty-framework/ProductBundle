@@ -4,6 +4,7 @@ collections:
     - js/product.js
     - js/property.js
     - js/link.js
+    - js/subsection.js
   - css:
     - css/product.css
   - files:

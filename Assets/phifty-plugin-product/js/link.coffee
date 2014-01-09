@@ -3,9 +3,9 @@ linkItemTemplate = CoffeeKup.compile ->
   tr ->
     td ->
       input class:"record-id", name: "links[#{ @id }][id]", type: "hidden", value: @id
-      input name: "links[#{ @id }][name]", type: "text", value: @name
+      input name: "links[#{ @id }][label]", type: "text", value: @label
     td ->
-      input name: "links[#{ @id }][value]", type: "text", size: 60, value: @value
+      input name: "links[#{ @id }][url]", type: "text", size: 60, value: @url
     td ->
       button "data-id": @id, class: "delete-button", -> "刪除"
     td ->
@@ -13,10 +13,10 @@ linkItemTemplate = CoffeeKup.compile ->
         span class: "icon icon-sort"
 
 window.ProductLink = {}
-ProductLink.renderLink = (data) ->
+ProductLink.render = (data) ->
   return $(linkItemTemplate(data))
 
-Product.appendLink = ($container,data) ->
+ProductLink.append = ($container,data) ->
   $table = $container.find('table')
   $tr = $(linkItemTemplate(data))
 
@@ -42,7 +42,7 @@ ProductLink.initEditor = ($container) ->
 
     # create new item into the list here
     runAction 'ProductBundle::Action::CreateProductLink', { label: newLabel, url: newUrl }, (resp) ->
-      Product.appendLink($container,resp.data)
+      ProductLink.append($container,resp.data)
     return false
 
 

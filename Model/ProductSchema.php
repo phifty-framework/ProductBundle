@@ -171,10 +171,12 @@ class ProductSchema extends SchemaDeclare
         */
         if ( $bundle->config('subsections') ) {
             $this->many( 'subsections', 'ProductBundle\\Model\\ProductSubsectionSchema', 'product_id', 'id' )
+                ->order('ordering','ASC')
                 ->renderable(false);
         }
         if ( $bundle->config('links') ) {
             $this->many( 'links', 'ProductBundle\\Model\\ProductLinkSchema', 'product_id', 'id' )
+                ->order('ordering','ASC')
                 ->renderable(false);
         }
 

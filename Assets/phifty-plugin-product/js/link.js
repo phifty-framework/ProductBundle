@@ -12,17 +12,17 @@
           value: this.id
         });
         return input({
-          name: "links[" + this.id + "][name]",
+          name: "links[" + this.id + "][label]",
           type: "text",
-          value: this.name
+          value: this.label
         });
       });
       td(function() {
         return input({
-          name: "links[" + this.id + "][value]",
+          name: "links[" + this.id + "][url]",
           type: "text",
           size: 60,
-          value: this.value
+          value: this.url
         });
       });
       td(function() {
@@ -48,11 +48,11 @@
 
   window.ProductLink = {};
 
-  ProductLink.renderLink = function(data) {
+  ProductLink.render = function(data) {
     return $(linkItemTemplate(data));
   };
 
-  Product.appendLink = function($container, data) {
+  ProductLink.append = function($container, data) {
     var $table, $tr;
     $table = $container.find('table');
     $tr = $(linkItemTemplate(data));
@@ -85,7 +85,7 @@
         label: newLabel,
         url: newUrl
       }, function(resp) {
-        return Product.appendLink($container, resp.data);
+        return ProductLink.append($container, resp.data);
       });
       return false;
     });

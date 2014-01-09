@@ -157,6 +157,10 @@ class ProductBundle extends Bundle
             $this->expandRoute( '/bs/product_type', 'ProductTypeCRUDHandler' );
         }
 
+        if ( $this->config('subsections') ) {
+            $this->expandRoute( '/bs/product_subsection', 'ProductSubsectionCRUDHandler' );
+        }
+
         $this->addCRUDAction('ProductType');
         $this->addCRUDAction('Feature');
         $this->addCRUDAction('ProductFeature');
@@ -164,6 +168,7 @@ class ProductBundle extends Bundle
         $this->addCRUDAction('ProductProperty');
         $this->addCRUDAction('ProductProduct');
         $this->addCRUDAction('ProductLink');
+        $this->addCRUDAction('ProductSubsection');
 
         kernel()->event->register('phifty.before_action', function() {
             kernel()->action->registerAction('ProductBundle\\Action\\SortProductImage', 
@@ -180,6 +185,11 @@ class ProductBundle extends Bundle
                 '@ActionKit/RecordAction.html.twig', array(
                     'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
                     'record_class' => 'ProductBundle\\Model\\ProductLink',
+                ));
+            kernel()->action->registerAction('ProductBundle\\Action\\SortProductSubsection',
+                '@ActionKit/RecordAction.html.twig', array(
+                    'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
+                    'record_class' => 'ProductBundle\\Model\\ProductSubsection',
                 ));
         });
 
