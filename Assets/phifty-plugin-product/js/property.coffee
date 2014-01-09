@@ -2,19 +2,22 @@
 Product = window.Product
 
 class BaseWidget
+  bind: (el) ->
+
   render: () ->
     @el = CoffeeKup.compile(@template()).render()
+    @bind(@el)
     return @el
 
 class InputWidget extends BaseWidget
-  template:
+  template: () ->
     input class: @config.class, name: @config.name, type: @config.type, value: @config.value
 
 class ButtonWidget extends BaseWidget
   contruct: (@config) ->
     @config.class = @config.class or "btn"
   template: ->
-    button class: @config.class ->
+    button class: @config.class =>
       @config.label
 
 class TextInputWidget extends InputWidget
@@ -43,6 +46,7 @@ class HiddenInputWidget extends InputWidget
     @config.type = "hidden"
 
 class SelectWidget extends BaseWidget
+  template: () ->
 
 
 propertyItemTemplate = CoffeeKup.compile ->

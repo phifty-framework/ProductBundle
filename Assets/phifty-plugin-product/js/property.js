@@ -9,8 +9,11 @@
   BaseWidget = (function() {
     function BaseWidget() {}
 
+    BaseWidget.prototype.bind = function(el) {};
+
     BaseWidget.prototype.render = function() {
       this.el = CoffeeKup.compile(this.template()).render();
+      this.bind(this.el);
       return this.el;
     };
 
@@ -26,12 +29,14 @@
       return _ref;
     }
 
-    InputWidget.prototype.template = input({
-      "class": InputWidget.config["class"],
-      name: InputWidget.config.name,
-      type: InputWidget.config.type,
-      value: InputWidget.config.value
-    });
+    InputWidget.prototype.template = function() {
+      return input({
+        "class": this.config["class"],
+        name: this.config.name,
+        type: this.config.type,
+        value: this.config.value
+      });
+    };
 
     return InputWidget;
 
@@ -51,9 +56,10 @@
     };
 
     ButtonWidget.prototype.template = function() {
+      var _this = this;
       return button({
         "class": this.config["class"](function() {
-          return this.config.label;
+          return _this.config.label;
         })
       });
     };
@@ -159,6 +165,8 @@
       _ref7 = SelectWidget.__super__.constructor.apply(this, arguments);
       return _ref7;
     }
+
+    SelectWidget.prototype.template = function() {};
 
     return SelectWidget;
 
