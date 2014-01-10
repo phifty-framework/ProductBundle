@@ -1,0 +1,29 @@
+{% extends '@CRUD/dialog.html' %}
+
+{% set edit_frag_serial = random() %}
+{% set action = CRUD.Object.getCurrentAction() %}
+{% set bundle = Kernel.bundle('ProductBundle') %}
+
+{% block dialog_body %}
+    <div class="action-result-container"> </div>
+    <form class="formkit-form ajax-action" enctype="multipart/form-data" method="post">
+        {{ action.renderSignatureWidget|raw }}
+
+        {% if CRUD.Record.id %}
+            <input type="hidden" name="id" value="{{ CRUD.Record.id }}"/>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-md-5">
+            {{ action.renderField('cover_image')|raw }}
+            </div>
+            <div class="col-md-5">
+                {{ action.renderField('title')|raw }}
+                {{ action.renderField('content')|raw }}
+            </div>
+        </div>
+        <div class="button-group">
+            <input class="formkit-widget formkit-widget-submit create button" type="submit" value="建立">
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% set subsectionFragment = 'product-subsections-' ~ random() %}
+
+<div class="clear"> </div>
+<div class="divider"> </div>
+<div id="{{subsectionFragment}}"> </div>
+<script>
+$(function() {
+    // input[name^=subsections]
+    CRUDList.init({
+        title: "產品子區塊",
+        hint: "您可於此處建立多組產品子區塊",
+        container: $('#{{subsectionFragment}}'),
+        crudId: "product_subsection",
+        itemView: ProductSubsection.ItemView,
+        {% if CRUD.Record.id %}
+        records: {{ CRUD.Record.subsections.toJson()|raw }},
+        {% endif %}
+        create: {
+            deleteAction: "ProductBundle::Action::DeleteProductSubsection",
+            relation: "subsections"
+        }
+    });
+    initSortableAction($('#{{subsectionFragment}} .item-container'), {
+        items: '.row',
+        fields: 'input.record-id',
+        action: 'ProductBundle::Action::SortProductSubsection',
+        handle: '.handle'
+    });
+});
+</script>
