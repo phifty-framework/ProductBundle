@@ -254,13 +254,6 @@ $(function() {
             </div>
             {% endif %}
 
-            {% if bundle.config('links') %}
-            <h3>相關連結</h3>
-            <div>
-                {% include '@ProductBundle/product/link.html' %}
-            </div>
-            {% endif %}
-
             {% if Kernel.bundle('SEOPlugin') 
                 and bundle.config('with_seo') 
                 and CRUD.Object.getModel().hasColumn('seo_keywords') 

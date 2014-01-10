@@ -22,6 +22,11 @@ vim:filetype=htmldjango
             <li><a href="#{{tabfragment}}-subsections">內文子區塊</a></li>
         {% endif %}
 
+        {% if bundle.config('links') %}
+            <li><a href="#{{tabfragment}}-links">相關連結</a></li>
+        {% endif %}
+
+
         {% for tab in CRUD.Object.getTabs %}
             <li><a href="#{{tab.getId()}}">{{tab.title}}</a></li>
         {% endfor %}
@@ -56,6 +61,12 @@ vim:filetype=htmldjango
     {% if bundle.config('subsections') %}
     <div id="{{tabfragment}}-subsections">
         {% include '@ProductBundle/product/subsection.html' %}
+    </div>
+    {% endif %}
+
+    {% if bundle.config('links') %}
+    <div id="{{tabfragment}}-links">
+        {% include '@ProductBundle/product/link.html' %}
     </div>
     {% endif %}
 
