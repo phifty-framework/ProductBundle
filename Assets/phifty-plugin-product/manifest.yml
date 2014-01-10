@@ -2,6 +2,7 @@
 collections:
   - js:
     - js/product.js
+    - js/type.js
     - js/property.js
     - js/link.js
     - js/subsection.js

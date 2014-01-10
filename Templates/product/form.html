@@ -74,7 +74,7 @@ vim:filetype=htmldjango:
             {% if bundle.config('with_category') and bundle.config('with_multicategory') %}
             <div class="col-md-3 col-md-offset-2">
                 {% for langcode, categories in categoriesByLang %}
-                <div class="widget lang lang-{{langcode}} hide">
+                <div class="widget lang lang-{{langcode}} {% if langcode != Kernel.locale.current() %}hide{% endif %}">
                     <div class="widget-hd">{% trans langcode %}{% trans 'Category' %}</div>
                     <div class="widget-bd" style="max-height: 400px; overflow: auto; ">
                         {% set subview = CRUD.Action.asView('ActionKit\\View\\StackView',{ "no_form": 1 }) %}
@@ -86,68 +86,7 @@ vim:filetype=htmldjango:
                 </div>
                 {% endfor %}
 
-
                 {% if bundle.config('with_types') %}
-
-
-<script>
-var ProductType = {  };
-ProductType.newItem = function(data) {
-
-    var $el = $('<li/>').addClass('product-type').css({ lineHeight: '200%' });
-    $el.data('typeId',data.id);
-
-    $el.append( $('<span/>').text(data.name).attr('title',data.comment));
-
-    if ( data.quantity ) {
-        $el.append( $('<span/>').text(' (剩餘數量:' + data.quantity + ')'));
-    }
-
-
-    if ( data.comment ) {
-        $el.append( $('<span/>').text('(' + data.comment + ')'));
-    }
-    $el.append( $('<input/>').attr({ type: 'hidden', name: 'types[' + data.id + '][id]', value: data.id }) );
-
-    var $controls = $('<div/>').addClass('pull-right');
-    $controls.append( $('<button/>').text('編輯').click(function() {
-        ProductType.editItem($el);
-        return false;
-    }));
-    $controls.append( $('<button/>').text('刪除').click(function() { 
-        ProductType.deleteItem($el);
-        return false;
-    }));
-    $el.append($controls);
-    return $el;
-};
-
-ProductType.editItem = function($el) {
-    var $wrapper = $el.parent();
-    var val = $el.data('typeId');
-    new CRUDDialog('/bs/product_type/crud/dialog',{ id: val },{
-        onSuccess: function(resp) {
-            /*
-            $el.remove();
-            var $newEl = ProductType.newItem(resp.data);
-            $wrapper.prepend($newEl);
-            */
-        }
-    });
-};
-ProductType.deleteItem = function($el) {
-    var val = $el.data('typeId');
-    if ( val && confirm('確定要刪除這個類型嗎?') ) {
-        runAction('ProductBundle::Action::DeleteProductType',{ id: val }, function(resp){
-            if (resp.success) {
-                $el.remove();
-            }
-        });
-    }
-};
-</script>
-
-
                     <div class="widget">
                         <div class="widget-hd">{% trans '產品類型' %}</div>
                         <div class="widget-bd">
@@ -163,13 +102,11 @@ ProductType.deleteItem = function($el) {
 {% endfor %}
 
 $(function() {
-
     $('.delete-product-type').click(function() {
         var $el = $(this).parents('.product-type');
         ProductType.deleteItem($el);
         return false;
     });
-
     $('.edit-product-type').click(function() {
         var $el = $(this).parents('.product-type');
         ProductType.editItem($el);
@@ -236,17 +173,6 @@ $(function() {
         <div class="divider"> </div>
 
         <div class="collapsible collapse-section" {# data-collapse="persist" #}>
-            {% if bundle.config('with_features') %}
-                {% include '@ProductBundle/product/feature.html' %}
-            {% endif %}
-
-            {% if bundle.config('with_spec') %}
-            <h3>產品規格</h3>
-            <div>
-                {{CRUD.Action.renderField('spec',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
-            </div>
-            {% endif %}
-
             {% if bundle.config('properties') %}
             <h3>規格表</h3>
             <div>

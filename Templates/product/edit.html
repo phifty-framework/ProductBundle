@@ -15,6 +15,10 @@ vim:filetype=htmldjango
 
         <li><a href="#{{tabfragment}}-content">產品內文</a></li>
 
+        {% if bundle.config('with_features') %}
+            <li><a href="#{{tabfragment}}-feature">產品功能</a></li>
+        {% endif %}
+
         {% if bundle.config('with_related_products') %}
             <li><a href="#{{tabfragment}}-related-product">相關產品</a></li>
         {% endif %}
@@ -44,6 +48,13 @@ vim:filetype=htmldjango
         {{CRUD.Action.renderField('options_content',{ class: 'mceEditor', rows: 7, cols: 80 })|raw}}
         <div class="clear"> </div>
         {% endif %}
+
+
+        {% if bundle.config('with_spec_content') %}
+        {{CRUD.Action.renderField('spec_content',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
+        <div class="clear"> </div>
+        {% endif %}
+
         <div class="clear"> </div>
     </div>
 
@@ -51,6 +62,12 @@ vim:filetype=htmldjango
         {% include '@ProductBundle/product/form.html' %}
         <div class="clear"> </div>
     </div>
+
+    {% if bundle.config('with_features') %}
+    <div id="{{tabfragment}}-feature">
+        {% include '@ProductBundle/product/feature.html' %}
+    </div>
+    {% endif %}
 
     {% if bundle.config('with_related_products') %}
     <div id="{{tabfragment}}-related-product">
