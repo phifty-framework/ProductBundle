@@ -121,6 +121,36 @@ Product.createFileCover = (data) ->
   return $tag
 
 
+productItemTemplate = CoffeeKup.compile ->
+  div class: "product-cover col-md-3", ->
+    index = @related_product_id
+    if @id
+      input class:"record-id", name: "product_products[#{ index }][id]", type: "hidden", value: @id
+    input name: "product_products[#{ index }][related_product_id]", type: "hidden", value: @related_product_id
+    if @product_id
+      input name: "product_products[#{ index }][product_id]", type: "hidden", value: @product_id
+    div class: "image-cover", ->
+      if @thumb
+        div class: "cut", ->
+          img src: "/" + @thumb
+      div class: "title", -> @name
+      div class: "close", ->
+
+class Product.ProductProductItemView extends CRUDList.BaseItemView
+  render: ->
+    self = this
+    config = @config
+    $el = $(productItemTemplate(@data))
+    $el.find('.close').click (e) ->
+      if self.data.id
+        runAction "ProductBundle::Action::DeleteProductProduct",
+          { id: self.data.id },
+          { confirm: '確認刪除? ', remove: $el }
+      else
+        $el.remove()
+      return false
+    return $el
+
 
 
 

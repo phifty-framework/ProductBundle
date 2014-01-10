@@ -138,6 +138,8 @@ class ProductBundle extends Bundle
 
         $this->route( '/=/product/search', 'ProductSearchController');
 
+        $this->route( '/=/product/autocomplete', 'ProductAutoCompleteController');
+
         $this->route( '/product', 'ProductController:list');
         $this->route( '/product/:id/:lang/:name', 'ProductController:item');
 
@@ -185,6 +187,11 @@ class ProductBundle extends Bundle
                 '@ActionKit/RecordAction.html.twig', array(
                     'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
                     'record_class' => 'ProductBundle\\Model\\ProductLink',
+                ));
+            kernel()->action->registerAction('ProductBundle\\Action\\SortProductProduct',
+                '@ActionKit/RecordAction.html.twig', array(
+                    'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
+                    'record_class' => 'ProductBundle\\Model\\ProductProduct',
                 ));
             kernel()->action->registerAction('ProductBundle\\Action\\SortProductSubsection',
                 '@ActionKit/RecordAction.html.twig', array(

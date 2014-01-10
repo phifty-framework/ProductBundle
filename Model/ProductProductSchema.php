@@ -18,6 +18,8 @@ class ProductProductSchema extends Schema
             ->label('關連產品')
             ;
 
+        $this->mixin('SortablePlugin\\Model\\Mixin\\OrderingSchema');
+
         $this->belongsTo('product','ProductBundle\\Model\\ProductSchema','id','product_id');
         $this->belongsTo('related_product','ProductBundle\\Model\\ProductSchema','id','related_product_id');
     }

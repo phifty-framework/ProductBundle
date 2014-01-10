@@ -1,24 +1,104 @@
-<div class="clear"> </div>
-<div class="divider"> </div>
-<input type="button" value="新增關連產品" class="button-s add-related-product" style="float: right;">
-<h3>相關產品</h3>
-<div class="related-products"> </div>
+{#
 <script>
 $(function() {
-    $('.add-related-product').click(function() {
-        var chooser = new Product.Chooser( $('.related-products'), function(product) { });
-    });
-    {% for record in CRUD.Record.product_products %}
-        {% set product = record.product %}
-        {% set data = record.getData() + { image: product.image, thumb: product.thumb , name: product.name } %}
-        CRUDList.renderRecord( $('.related-products'), {{data|json_encode|raw}}, {
-            itemView: CRUDList.ImageItemView,
-            create: {
-                deleteAction: "ProductBundle::Action::DeleteProductProduct",
-                relation: "product_products"
-            }
-        });
 
-    {% endfor %}
 });
 </script>
+
+<div class="clear"> </div>
+<div class="divider"> </div>
+#}
+
+{% set relatedProductFragment = 'related-product-' ~ frag_serial %}
+
+<script>
+function appendRelatedProduct($container, data) {
+    var item = new Product.ProductProductItemView({},data);
+    item.appendTo($container);
+}
+$(function() {
+    {% for record in CRUD.Record.product_products %}
+        {% set product = record.product %}
+        {% set relatedProduct = record.related_product %}
+        {% set data = { id: record.id, product_id: product.id, thumb: relatedProduct.thumb, name: relatedProduct.name, related_product_id: relatedProduct.id } %}
+        {
+            var itemView = new Product.ProductProductItemView({},{{data|json_encode|raw}});
+            itemView.appendTo('#relatedProducts{{frag_serial}}');
+        }
+    {% endfor %}
+    $('#productAccordion{{frag_serial}}').accordion({ heightStyle: "fill" });
+    initSortableAction($('#relatedProducts{{frag_serial}}'), {
+        items: '.product-cover',
+        fields: '.record-id',
+        action: 'ProductBundle::Action::SortProductProduct',
+        handle: '.image-cover'
+    });
+
+    var $input = $('#productSearch{{frag_serial}}');
+    $input.autocomplete({
+        delay: 100,
+        minLength: 1,
+        source: '/=/product/autocomplete',
+        select: function(e,ui) {
+            console.log(ui.item);
+            appendRelatedProduct($('#relatedProducts{{frag_serial}}'), {
+                related_product_id: ui.item.id,
+                {% if CRUD.Record.id %}
+                product_id: {{CRUD.Record.id}},
+                {% endif %}
+                name: ui.item.name,
+                thumb: ui.item.thumb
+            });
+            $input.val('');
+            return false;
+        },
+        focus: function(e,ui) {  }
+    });
+    /*
+    $input.data("ui-autocomplete")._renderItem = function(ul, item) {
+        $( "<li/>" ).append( "<a>" + item.name + "</a>" ).appendTo(ul);
+    };
+    */
+});
+</script>
+
+
+<div class="divider"> </div>
+<h3>相關產品</h3>
+<div class="row" style="min-height: 300px;">
+    <div class="col-md-5" style="min-height: 300px;">
+        <div class="input" style="width: 100%;">
+            <input style="width: 100%;" type="text" size="40" id="productSearch{{frag_serial}}" placeholder="搜尋產品..."/>
+        </div>
+        <ul style="width: 100%; margin: 0; padding: 0;" id="relatedProducts{{frag_serial}}">
+        </ul>
+    </div>
+    <div class="col-md-5" style="min-height: 300px; height: 260px;">
+        <div id="productAccordion{{frag_serial}}" class="col-md-12">
+            {% for langcode, products in productsByLang %}
+                <h3>{% trans langcode %}{% trans 'Product' %}</h3>
+                <div>
+                    <ul style="margin: 0; padding: 0;">
+                        {% for product in products %}
+                        <li style="padding: 3px 5px; list-style: none;">
+                            <a>{{product.id}}. {{product.name}}</a>
+
+                            <button style="float: right;" onclick="
+                                appendRelatedProduct($('#relatedProducts{{frag_serial}}'),{
+                                    {% if CRUD.Record.id %}
+                                    product_id: {{CRUD.Record.id}},
+                                    {% endif %}
+                                    related_product_id: {{product.id}},
+                                    name: '{{product.name}}',
+                                    thumb: '{{product.thumb}}'
+                                });
+                                return false;
+                            ">&lt; 新增</button>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

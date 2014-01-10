@@ -5,7 +5,9 @@ vim:sw=2:ts=2:sts=2:
 
 
 (function() {
-  var Pager;
+  var Pager, productItemTemplate, _ref,
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   window.Product = {};
 
@@ -161,6 +163,89 @@ vim:sw=2:ts=2:sts=2:
     return $tag;
   };
 
+  productItemTemplate = CoffeeKup.compile(function() {
+    return div({
+      "class": "product-cover col-md-3"
+    }, function() {
+      var index;
+      index = this.related_product_id;
+      if (this.id) {
+        input({
+          "class": "record-id",
+          name: "product_products[" + index + "][id]",
+          type: "hidden",
+          value: this.id
+        });
+      }
+      input({
+        name: "product_products[" + index + "][related_product_id]",
+        type: "hidden",
+        value: this.related_product_id
+      });
+      if (this.product_id) {
+        input({
+          name: "product_products[" + index + "][product_id]",
+          type: "hidden",
+          value: this.product_id
+        });
+      }
+      return div({
+        "class": "image-cover"
+      }, function() {
+        if (this.thumb) {
+          div({
+            "class": "cut"
+          }, function() {
+            return img({
+              src: "/" + this.thumb
+            });
+          });
+        }
+        div({
+          "class": "title"
+        }, function() {
+          return this.name;
+        });
+        return div({
+          "class": "close"
+        }, function() {});
+      });
+    });
+  });
+
+  Product.ProductProductItemView = (function(_super) {
+    __extends(ProductProductItemView, _super);
+
+    function ProductProductItemView() {
+      _ref = ProductProductItemView.__super__.constructor.apply(this, arguments);
+      return _ref;
+    }
+
+    ProductProductItemView.prototype.render = function() {
+      var $el, config, self;
+      self = this;
+      config = this.config;
+      $el = $(productItemTemplate(this.data));
+      $el.find('.close').click(function(e) {
+        if (self.data.id) {
+          runAction("ProductBundle::Action::DeleteProductProduct", {
+            id: self.data.id
+          }, {
+            confirm: '確認刪除? ',
+            remove: $el
+          });
+        } else {
+          $el.remove();
+        }
+        return false;
+      });
+      return $el;
+    };
+
+    return ProductProductItemView;
+
+  })(CRUDList.BaseItemView);
+
   Product.createProductImageThumb = function(data) {
     var $id, $imageCover;
     $imageCover = Phifty.AdminUI.createImageCover(data, {
@@ -269,7 +354,7 @@ vim:sw=2:ts=2:sts=2:
 
     ProductBulkCopyPlugin.prototype.register = function(bulk) {
       return bulk.addMenuItem('copy', '複製...', function(btn) {
-        var $langsel, $productCateSel, cate, content, label, lang, option, runbtn, _i, _len, _ref;
+        var $langsel, $productCateSel, cate, content, label, lang, option, runbtn, _i, _len, _ref1;
         content = $('<div/>');
         $langsel = $('<select/>');
         option = document.createElement("option");
@@ -283,9 +368,9 @@ vim:sw=2:ts=2:sts=2:
           $langsel.append(option);
         }
         $productCateSel = $('<select/>');
-        _ref = window.Product.categories;
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          cate = _ref[_i];
+        _ref1 = window.Product.categories;
+        for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+          cate = _ref1[_i];
           option = document.createElement("option");
           option.innerHTML = cate.name;
           option.value = cate.id;
@@ -408,15 +493,15 @@ vim:sw=2:ts=2:sts=2:
       return $.getJSON("/=/product/search", {
         page: page
       }, function(resp) {
-        var product, _i, _len, _ref, _results;
+        var product, _i, _len, _ref1, _results;
         if (cb) {
           cb(resp);
         }
         _this.itemlist.empty();
-        _ref = resp.products;
+        _ref1 = resp.products;
         _results = [];
-        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-          product = _ref[_i];
+        for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+          product = _ref1[_i];
           _results.push((function(product) {
             var $btn, $cover;
             $cover = Phifty.AdminUI.createImageCover({

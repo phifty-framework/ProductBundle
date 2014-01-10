@@ -143,7 +143,9 @@ class ProductSchema extends SchemaDeclare
         $this->manyToMany( 'features',   'product_features' , 'feature' );
 
 
-        $this->many( 'product_products', 'ProductBundle\\Model\\ProductProductSchema', 'product_id', 'id' );
+        $this->many( 'product_products', 'ProductBundle\\Model\\ProductProductSchema', 'product_id', 'id' )
+                ->order('ordering','ASC');
+
         $this->manyToMany( 'related_products',   'product_products' , 'related_product' );
 
 
