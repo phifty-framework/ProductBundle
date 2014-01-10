@@ -13,9 +13,9 @@ class UpdateProductSubsection extends UpdateRecordAction
         $this->useRecordSchema();
         $bundle = kernel()->bundle('ProductBundle');
 
-        $imageSize = $bundle->config('cover_image.size');
-        $imageSizeLimit = $bundle->config('cover_image.size_limit');
-        $imageResizeWidth = $bundle->config('cover_image.resize_width') ?: 0;
+        $imageSize = $bundle->config('subsections.cover_image.size');
+        $imageSizeLimit = $bundle->config('subsections.cover_image.size_limit');
+        $imageResizeWidth = $bundle->config('subsections.cover_image.resize_width') ?: 0;
 
         $uploadDir = $bundle->config('upload_dir') ?: 'upload';
 

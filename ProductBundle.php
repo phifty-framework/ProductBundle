@@ -114,7 +114,7 @@ class ProductBundle extends Bundle
             'with_spec'          => true,
             'resources'     => true,
             'cover_option'  => true,
-            'with_cover_image'   => true,
+            'cover_image'   => true,
             'with_zoom_image'    => true,
             'with_lang'          => true,
             'with_seo'           => true,
