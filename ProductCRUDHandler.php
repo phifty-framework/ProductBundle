@@ -49,7 +49,7 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
         if (  kernel()->bundle('StatusPlugin') ) {
             array_insert( $this->listColumns, 3, 'status' );
         }
-        if ( $this->bundle->config( 'with_quicksearch' ) ) {
+        if ( $this->bundle->config( 'quicksearch' ) ) {
             $this->quicksearchFields = array( 'name' , 'content' );
             if ( $this->bundle->config('with_subtitle') ) {
                 $this->quicksearchFields[] = 'subtitle';
@@ -85,7 +85,7 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
             if ( $bundle->config('with_images') ) 
                 $this->assign( 'productImages' , $this->currentRecord->images->items() );
 
-            if ( $bundle->config('with_features') ) {
+            if ( $bundle->config('features') ) {
                 if ( $features = $this->currentRecord->features ) {
                     $this->assign( 'productFeatures' , $features->items() );
                 }
@@ -97,7 +97,7 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
             }
         }
 
-        if ( $bundle->config('with_features') ) {
+        if ( $bundle->config('features') ) {
             $features = new FeatureCollection;
             $this->assign( 'features' , $features->items() );
         }

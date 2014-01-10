@@ -12,7 +12,7 @@ Columns:
   types:
   resources:
   with_files:
-  with_features:
+  features:
   with_seo:
   cover_option:
   price:
@@ -60,9 +60,9 @@ Columns:
 
 Fetaures:
 
-  with_quicksearch:
-  with_bulk_convert:
-  with_bulk_copy:
+  quicksearch:
+  bulk_convert:
+  bulk_copy:
 
 */
 use Phifty\Bundle;
@@ -97,31 +97,31 @@ class ProductBundle extends Bundle
 
     public function defaultConfig() {
         return array(
-            'sn'            => true,
-            'desc'          => true,
-            'category'      => true,
-            'subcategory'   => true,
-            'with_quicksearch'   => true,
-            'private'       => true,
-            'price'         => true,
-            'orig_price'    => true,
-            'types'         => true,
-            'sellable'         => true,
-            'type_quantity' => true,
+            'sn'                 => false,
+            'desc'               => false,
+            'category'           => true,
+            'subcategory'        => true,
+            'quicksearch'   => true,
+            'private'            => false,
+            'price'              => false,
+            'orig_price'         => false,
+            'types'              => false,
+            'sellable'           => false,
+            'type_quantity'      => false,
             'with_images'        => true,
-            'with_features'      => true,
+            'features'      => true,
             'with_files'         => true,
             'with_spec'          => true,
-            'resources'     => true,
-            'cover_option'  => true,
-            'cover_image'   => true,
+            'resources'          => true,
+            'cover_option'       => true,
+            'cover_image'        => true,
             'with_zoom_image'    => true,
             'with_lang'          => true,
             'with_seo'           => true,
             // 'bulk' 'features'
-            'with_bulk_copy'     => true,
-            'with_bulk_convert'  => true,
-            'external_link' => true,
+            'bulk_copy'     => false,
+            'bulk_convert'  => false,
+            'external_link'      => false,
             'upload_dir'         => 'upload',
         );
     }
@@ -216,7 +216,7 @@ class ProductBundle extends Bundle
             if ( $bundle->config('category') ) {
                 $folder->createCrudMenuItem('product_category', _('產品類別管理') );
             }
-            if ( $bundle->config('with_features') ) {
+            if ( $bundle->config('features') ) {
                 $folder->createCrudMenuItem( 'product_feature', _('產品功能項目管理') );
             }
         });

@@ -22,7 +22,7 @@ class ProductHandler extends ResourceHandler
             if ( $bundle->config('with_images') ) {
                 $data['images'] = $record->images->toArray();
             }
-            if ( $bundle->config('with_features') ) {
+            if ( $bundle->config('features') ) {
                 $data['features'] = $record->features->toArray();
             }
             if ( $bundle->config('types') ) {
