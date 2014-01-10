@@ -19,7 +19,7 @@ vim:filetype=htmldjango
             <li><a href="#{{tabfragment}}-feature">產品功能</a></li>
         {% endif %}
 
-        {% if bundle.config('with_related_products') %}
+        {% if bundle.config('related_products') %}
             <li><a href="#{{tabfragment}}-related-product">相關產品</a></li>
         {% endif %}
         {% if bundle.config('subsections') %}
@@ -69,7 +69,7 @@ vim:filetype=htmldjango
     </div>
     {% endif %}
 
-    {% if bundle.config('with_related_products') %}
+    {% if bundle.config('related_products') %}
     <div id="{{tabfragment}}-related-product">
         {% include '@ProductBundle/product/related.html' %}
     </div>

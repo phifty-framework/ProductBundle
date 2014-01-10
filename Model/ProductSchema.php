@@ -182,7 +182,7 @@ class ProductSchema extends SchemaDeclare
                 ->renderable(false);
         }
 
-        if ( $bundle->config('with_multicategory') ) {
+        if ( $bundle->config('multicategory') ) {
             $this->many( 'product_categories', 'ProductBundle\\Model\\ProductCategorySchema', 'product_id', 'id' )
                 ->renderable(false);
             $this->manyToMany( 'categories',   'product_categories' , 'category' )

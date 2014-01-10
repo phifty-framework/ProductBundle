@@ -44,19 +44,19 @@ vim:filetype=htmldjango:
                 <div class="clearfix"> </div>
 
 
-                {% if bundle.config('with_sellable') %}
+                {% if bundle.config('sellable') %}
                 <div class="col-field">
                     {{CRUD.Action.renderField('sellable')|raw}}
                 </div>
                 {% endif %}
 
-                {% if bundle.config('with_orig_price') %}
+                {% if bundle.config('orig_price') %}
                 <div class="col-field">
                 {{CRUD.Action.renderField('orig_price')|raw}}
                 </div>
                 {% endif %}
 
-                {% if bundle.config('with_price') %}
+                {% if bundle.config('price') %}
                 <div class="col-field">
                 {{CRUD.Action.renderField('price')|raw}}
                 </div>
@@ -66,12 +66,12 @@ vim:filetype=htmldjango:
 
                 <div class="clearfix"> </div>
 
-                {% if bundle.config('with_category') and not bundle.config('with_multicategory') %}
+                {% if bundle.config('category') and not bundle.config('multicategory') %}
                 {{CRUD.Action.renderField('category_id')|raw}}
                 {% endif %}
             </div>
 
-            {% if bundle.config('with_category') and bundle.config('with_multicategory') %}
+            {% if bundle.config('category') and bundle.config('multicategory') %}
             <div class="col-md-3 col-md-offset-2">
                 {% for langcode, categories in categoriesByLang %}
                 <div class="widget lang lang-{{langcode}} {% if langcode != Kernel.locale.current() %}hide{% endif %}">
@@ -86,7 +86,7 @@ vim:filetype=htmldjango:
                 </div>
                 {% endfor %}
 
-                {% if bundle.config('with_types') %}
+                {% if bundle.config('types') %}
                     <div class="widget">
                         <div class="widget-hd">{% trans '產品類型' %}</div>
                         <div class="widget-bd">
@@ -148,7 +148,7 @@ $(function() {
             {% include '@ProductBundle/product/image.html' %}
         {% endif %}
 
-        {% if bundle.config('with_resources') %}
+        {% if bundle.config('resources') %}
             {% include '@ProductBundle/product/resource.html' %}
         {% endif %}
 
@@ -189,14 +189,14 @@ $(function() {
 
 
             {# 外部連結 #}
-            {% if bundle.config('with_external_link') %}
+            {% if bundle.config('external_link') %}
                 <h3>外部連結</h3>
                 <div>
                     {{CRUD.Action.renderField('external_link')|raw}}
                 </div>
             {% endif %}
 
-            {% if bundle.config('with_cover_option') %}
+            {% if bundle.config('cover_option') %}
             <h3>其他選項</h3>
             <div>
                 {{CRUD.Action.renderField('is_cover')|raw}}

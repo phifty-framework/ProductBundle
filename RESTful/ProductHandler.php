@@ -25,10 +25,10 @@ class ProductHandler extends ResourceHandler
             if ( $bundle->config('with_features') ) {
                 $data['features'] = $record->features->toArray();
             }
-            if ( $bundle->config('with_types') ) {
+            if ( $bundle->config('types') ) {
                 $data['types'] = $record->types->toArray();
             }
-            if ( $bundle->config('with_multicategory') ) {
+            if ( $bundle->config('multicategory') ) {
                 $data['categories'] = $record->categories->toArray();
             } else {
                 $data['category'] = $record->category ? $record->category->toArray() : array();

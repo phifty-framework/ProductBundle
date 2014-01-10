@@ -6,20 +6,20 @@ namespace ProductBundle;
 Columns:
 
   with_sn:
-  with_external_link:
-  with_category: 
+  external_link:
+  category: 
   with_images:
-  with_types:
-  with_resources:
+  types:
+  resources:
   with_files:
   with_features:
   with_seo:
-  with_cover_option:
-  with_price:
-  with_subcategory:
+  cover_option:
+  price:
+  subcategory:
   with_zoom_image:
   with_lang:
-  with_multicategory: Support multiple category
+  multicategory: Support multiple category
   cover:
     image:
       size_limit: 600
@@ -99,21 +99,21 @@ class ProductBundle extends Bundle
         return array(
             'with_sn'            => true,
             'with_desc'          => true,
-            'with_category'      => true,
-            'with_subcategory'   => true,
+            'category'      => true,
+            'subcategory'   => true,
             'with_quicksearch'   => true,
             'with_private'       => true,
-            'with_price'         => true,
-            'with_orig_price'    => true,
-            'with_types'         => true,
-            'with_sellable'         => true,
-            'with_type_quantity' => true,
+            'price'         => true,
+            'orig_price'    => true,
+            'types'         => true,
+            'sellable'         => true,
+            'type_quantity' => true,
             'with_images'        => true,
             'with_features'      => true,
             'with_files'         => true,
             'with_spec'          => true,
-            'with_resources'     => true,
-            'with_cover_option'  => true,
+            'resources'     => true,
+            'cover_option'  => true,
             'with_cover_image'   => true,
             'with_zoom_image'    => true,
             'with_lang'          => true,
@@ -121,7 +121,7 @@ class ProductBundle extends Bundle
             // 'bulk' 'features'
             'with_bulk_copy'     => true,
             'with_bulk_convert'  => true,
-            'with_external_link' => true,
+            'external_link' => true,
             'upload_dir'         => 'upload',
         );
     }
@@ -155,7 +155,7 @@ class ProductBundle extends Bundle
             $this->expandRoute( '/bs/product_file' ,    'ProductFileCRUDHandler');
         }
 
-        if ( $this->config('with_types') ) {
+        if ( $this->config('types') ) {
             $this->expandRoute( '/bs/product_type', 'ProductTypeCRUDHandler' );
         }
 
@@ -213,7 +213,7 @@ class ProductBundle extends Bundle
             $folder = $menu->createMenuFolder( _('產品') );
             $folder->createCrudMenuItem( 'product', _('產品管理') );
 
-            if ( $bundle->config('with_category') ) {
+            if ( $bundle->config('category') ) {
                 $folder->createCrudMenuItem('product_category', _('產品類別管理') );
             }
             if ( $bundle->config('with_features') ) {

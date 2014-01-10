@@ -59,7 +59,7 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
             }
         }
 
-        if ( $this->bundle->config( 'with_price' ) ) {
+        if ( $this->bundle->config( 'price' ) ) {
             array_insert( $this->listColumns, -1 , 'price' );
         }
 
@@ -79,7 +79,7 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
         if ( $this->currentRecord && $this->currentRecord->id ) {
             $id = $this->currentRecord->id;
 
-            if ( $bundle->config('with_types') ) 
+            if ( $bundle->config('types') ) 
                 $this->assign( 'productTypes' , $this->currentRecord->types->items() );
 
             if ( $bundle->config('with_images') ) 
@@ -91,7 +91,7 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
                 }
             }
 
-            if ( $bundle->config('with_resources') ) {
+            if ( $bundle->config('resources') ) {
                 $resources = $this->currentRecord->resources;
                 $this->assign( 'productResources' , $resources->items() );
             }
@@ -138,7 +138,7 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
         // with the category id for the list view.
         $categoryId         = $this->getCurrentCategoryId();
         if ( $categoryId ) {
-            if ( $this->bundle->config('with_multicategory') ) {
+            if ( $this->bundle->config('multicategory') ) {
                 $collection->join( new \ProductBundle\Model\ProductCategory, "LEFT");
 
                 // currently this works for MySQL
