@@ -5,7 +5,7 @@ namespace ProductBundle;
 
 Columns:
 
-  with_sn:
+  sn:
   external_link:
   category: 
   with_images:
@@ -97,12 +97,12 @@ class ProductBundle extends Bundle
 
     public function defaultConfig() {
         return array(
-            'with_sn'            => true,
-            'with_desc'          => true,
+            'sn'            => true,
+            'desc'          => true,
             'category'      => true,
             'subcategory'   => true,
             'with_quicksearch'   => true,
-            'with_private'       => true,
+            'private'       => true,
             'price'         => true,
             'orig_price'    => true,
             'types'         => true,

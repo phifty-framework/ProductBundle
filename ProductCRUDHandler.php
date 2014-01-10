@@ -54,7 +54,7 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
             if ( $this->bundle->config('with_subtitle') ) {
                 $this->quicksearchFields[] = 'subtitle';
             }
-            if ( $this->bundle->config('with_sn') ) {
+            if ( $this->bundle->config('sn') ) {
                 $this->quicksearchFields[] = 'sn';
             }
         }

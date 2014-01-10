@@ -15,7 +15,7 @@ vim:filetype=htmldjango:
                 {{ CRUD.Action.renderField('name')|raw }}
                 </div>
 
-                {% if bundle.config('with_sn') %}
+                {% if bundle.config('sn') %}
                 <div class="col-field">
                 {{CRUD.Action.renderField('sn')|raw}}
                 </div>
@@ -202,7 +202,7 @@ $(function() {
                 {{CRUD.Action.renderField('is_cover')|raw}}
 
                 {# private products are accessed by token #}
-                {% if bundle.config('with_private') %}
+                {% if bundle.config('private') %}
                     {% include '@ProductBundle/product/private_token.html' %}
                 {% endif %}
             </div>

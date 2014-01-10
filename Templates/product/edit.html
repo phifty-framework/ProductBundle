@@ -37,7 +37,7 @@ vim:filetype=htmldjango
     </ul>
 
     <div id="{{tabfragment}}-content">
-        {% if bundle.config('with_desc') %}
+        {% if bundle.config('desc') %}
         {{CRUD.Action.renderField('description',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
         {% endif %}
 
