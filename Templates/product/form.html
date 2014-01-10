@@ -69,10 +69,6 @@ vim:filetype=htmldjango:
                 {% if bundle.config('with_category') and not bundle.config('with_multicategory') %}
                 {{CRUD.Action.renderField('category_id')|raw}}
                 {% endif %}
-
-                {% if bundle.config('with_desc') %}
-                {{CRUD.Action.renderField('description',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
-                {% endif %}
             </div>
 
             {% if bundle.config('with_category') and bundle.config('with_multicategory') %}
@@ -202,13 +198,6 @@ $(function() {
         </div>
 
 
-        {{CRUD.Action.renderField('content',{ class: 'mceEditor', rows: 7, cols: 80 })|raw}}
-        <div class="clear"> </div>
-
-        {% if bundle.config('with_options_content') %}
-        {{CRUD.Action.renderField('options_content',{ class: 'mceEditor', rows: 7, cols: 80 })|raw}}
-        <div class="clear"> </div>
-        {% endif %}
 
         {% if bundle.config('with_cover_image') %}
             {% include '@ProductBundle/product/cover_image.html' %}
@@ -230,13 +219,6 @@ $(function() {
             {% include '@ProductBundle/product/file.html' %}
         {% endif %}
 
-        {% if bundle.config('subsections') %}
-            {% include '@ProductBundle/product/subsection.html' %}
-        {% endif %}
-
-        {% if bundle.config('with_related_products') %}
-            {% include '@ProductBundle/product/related.html' %}
-        {% endif %}
 
         {#
         {% set mixinClass = bundle.config('product.mixin') %}

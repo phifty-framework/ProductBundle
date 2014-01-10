@@ -11,16 +11,54 @@ vim:filetype=htmldjango
 <form class="ajax-action" enctype="multipart/form-data" method="post">
 <div id="{{ tabfragment }}" class="tabs">
     <ul>
-        <li><a href="#{{tabfragment}}-1">{% trans 'Product' %}</a></li>
+        <li><a href="#{{tabfragment}}-1">產品資料</a></li>
+
+        <li><a href="#{{tabfragment}}-content">產品內文</a></li>
+
+        {% if bundle.config('with_related_products') %}
+            <li><a href="#{{tabfragment}}-related-product">相關產品</a></li>
+        {% endif %}
+        {% if bundle.config('subsections') %}
+            <li><a href="#{{tabfragment}}-subsections">內文子區塊</a></li>
+        {% endif %}
+
         {% for tab in CRUD.Object.getTabs %}
             <li><a href="#{{tab.getId()}}">{{tab.title}}</a></li>
         {% endfor %}
     </ul>
 
+    <div id="{{tabfragment}}-content">
+        {% if bundle.config('with_desc') %}
+        {{CRUD.Action.renderField('description',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
+        {% endif %}
+
+        {{CRUD.Action.renderField('content',{ class: 'mceEditor', rows: 7, cols: 80 })|raw}}
+        <div class="clear"> </div>
+
+        {% if bundle.config('with_options_content') %}
+        {{CRUD.Action.renderField('options_content',{ class: 'mceEditor', rows: 7, cols: 80 })|raw}}
+        <div class="clear"> </div>
+        {% endif %}
+        <div class="clear"> </div>
+    </div>
+
     <div id="{{tabfragment}}-1">
         {% include '@ProductBundle/product/form.html' %}
         <div class="clear"> </div>
     </div>
+
+    {% if bundle.config('with_related_products') %}
+    <div id="{{tabfragment}}-related-product">
+        {% include '@ProductBundle/product/related.html' %}
+    </div>
+    {% endif %}
+
+    {% if bundle.config('subsections') %}
+    <div id="{{tabfragment}}-subsections">
+        {% include '@ProductBundle/product/subsection.html' %}
+    </div>
+    {% endif %}
+
 
     {% for tab in CRUD.Object.getTabs() %}
     <div id="{{tab.getId()}}">
