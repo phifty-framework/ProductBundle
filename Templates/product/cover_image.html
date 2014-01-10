@@ -8,7 +8,7 @@
         <h3>產品內頁主圖</h3>
         {{ CRUD.Action.renderField('image')|raw}}
     </div>
-    {% if bundle.config('with_zoom_image') %}
+    {% if bundle.config('zoom_image') %}
     <div class="col-md-4">
         <div class="column product-zoom-image-column">
             {{ CRUD.Action.renderField('zoom_image')|raw}}

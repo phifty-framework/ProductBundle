@@ -46,7 +46,7 @@ class ProductSchema extends SchemaDeclare
 
 
         // image for zooming
-        if( $bundle->config('with_zoom_image') ) {
+        if( $bundle->config('zoom_image') ) {
             $this->column('zoom_image')
                 ->varchar(128)
                 ->label(_('產品放大圖'))
@@ -112,7 +112,7 @@ class ProductSchema extends SchemaDeclare
             ->label(_('隱藏這個產品'))
             ->desc( _('目錄頁不要顯示這個產品，但是可以從網址列看到這個產品頁') );
 
-        if( $bundle->config('with_spec_image') ) {
+        if( $bundle->config('spec_content_image') ) {
             $this->column('spec_image')
                 ->varchar(250)
                 ->label('規格主圖')

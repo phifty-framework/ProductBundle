@@ -140,7 +140,7 @@ $(function() {
             {% include '@ProductBundle/product/cover_image.html' %}
         {% endif %}
 
-        {% if bundle.config('with_spec_image') %}
+        {% if bundle.config('spec_content_image') %}
             {% include '@ProductBundle/product/spec_image.html' %}
         {% endif %}
 
@@ -152,7 +152,7 @@ $(function() {
             {% include '@ProductBundle/product/resource.html' %}
         {% endif %}
 
-        {% if bundle.config('with_files') %}
+        {% if bundle.config('files') %}
             {% include '@ProductBundle/product/file.html' %}
         {% endif %}
 

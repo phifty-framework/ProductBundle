@@ -11,13 +11,13 @@ Columns:
   with_images:
   types:
   resources:
-  with_files:
+  files:
   features:
   with_seo:
   cover_option:
   price:
   subcategory:
-  with_zoom_image:
+  zoom_image:
   with_lang:
   multicategory: Support multiple category
   cover:
@@ -101,26 +101,26 @@ class ProductBundle extends Bundle
             'desc'               => false,
             'category'           => true,
             'subcategory'        => true,
-            'quicksearch'   => true,
+            'quicksearch'        => true,
             'private'            => false,
             'price'              => false,
             'orig_price'         => false,
             'types'              => false,
             'sellable'           => false,
             'type_quantity'      => false,
-            'with_images'        => true,
-            'features'      => true,
-            'with_files'         => true,
-            'with_spec'          => true,
+            'features'           => true,
+            'files'              => true,
+            'spec_content'       => true,
             'resources'          => true,
             'cover_option'       => true,
             'cover_image'        => true,
-            'with_zoom_image'    => true,
+            'zoom_image'         => true,
             'with_lang'          => true,
             'with_seo'           => true,
+            'with_images'        => true,
             // 'bulk' 'features'
-            'bulk_copy'     => false,
-            'bulk_convert'  => false,
+            'bulk_copy'          => false,
+            'bulk_convert'       => false,
             'external_link'      => false,
             'upload_dir'         => 'upload',
         );
@@ -151,7 +151,7 @@ class ProductBundle extends Bundle
         $this->expandRoute( '/bs/product_resource', 'ProductResourceCRUDHandler');
         $this->expandRoute( '/bs/product_image' ,   'ProductImageCRUDHandler');
 
-        if ( $this->config('with_files') ) {
+        if ( $this->config('files') ) {
             $this->expandRoute( '/bs/product_file' ,    'ProductFileCRUDHandler');
         }
 

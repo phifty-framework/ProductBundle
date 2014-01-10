@@ -32,7 +32,7 @@ class ProductBaseMixin extends MixinAction
         $uploadDir            = $bundle->config('upload_dir') ?: 'upload';
         $autoResize           = $bundle->config('auto_resize') ?: false;
 
-        if( $bundle->config('with_zoom_image') ) {
+        if( $bundle->config('zoom_image') ) {
             $this->param('zoom_image','Image')
                 ->size( $zoomImageSize )
                 ->sizeLimit( $zoomImageSizeLimit )
@@ -44,7 +44,7 @@ class ProductBaseMixin extends MixinAction
                 ;
         }
 
-        if( $bundle->config('with_spec_image') ) {
+        if( $bundle->config('spec_content_image') ) {
 
             $this->param('spec_image','Image')
                 ->size( $specImageSize )

@@ -12,7 +12,7 @@ class ProductImageCRUDHandler extends CRUDHandler
     {
         $bundle = ProductBundle::getInstance();
         $skips = array('product_id');
-        if( ! $bundle->config('with_zoom_image') ) {
+        if( ! $bundle->config('zoom_image') ) {
             // skip large image field (which is for zooming)
             $skips[] = 'large';
         }
