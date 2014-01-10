@@ -2,9 +2,11 @@
 namespace ProductBundle\Model;
 use LazyRecord\Schema;
 
+if ( $bundle = kernel()->bundle('UseCaseBundle') ) {
+
 class ProductUseCaseSchema extends Schema
 {
-    public function schema() 
+    public function schema()
     {
         $this->column('product_id')
             ->integer()
@@ -24,4 +26,4 @@ class ProductUseCaseSchema extends Schema
     }
 }
 
-
+}
