@@ -181,7 +181,7 @@ $(function() {
             {% endif %}
 
             {% if Kernel.bundle('SEOPlugin') 
-                and bundle.config('with_seo') 
+                and bundle.config('seo') 
                 and CRUD.Object.getModel().hasColumn('seo_keywords') 
             %}
                 {% include '@SEOPlugin/fields_collapsible.html' %}

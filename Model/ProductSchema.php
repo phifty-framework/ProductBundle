@@ -126,7 +126,7 @@ class ProductSchema extends SchemaDeclare
 
         $this->column('options_content')->text()->label('選配');
 
-        if( kernel()->bundle('SEOPlugin') && $bundle->config('with_seo') ) {
+        if( kernel()->bundle('SEOPlugin') && $bundle->config('seo') ) {
             $this->mixin('SEOPlugin\\Model\\Mixin\\SEOSchema');
         }
 

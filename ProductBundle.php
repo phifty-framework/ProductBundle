@@ -13,7 +13,7 @@ Columns:
   resources:
   files:
   features:
-  with_seo:
+  seo:
   cover_option:
   price:
   subcategory:
@@ -100,29 +100,32 @@ class ProductBundle extends Bundle
             'sn'                 => false,
             'desc'               => false,
             'category'           => true,
-            'subcategory'        => true,
-            'quicksearch'        => true,
+            'subcategory'        => false,
+            'quicksearch'        => false,
             'private'            => false,
             'price'              => false,
+            'quantity'           => false,
             'orig_price'         => false,
             'types'              => false,
             'sellable'           => false,
             'type_quantity'      => false,
-            'features'           => true,
-            'files'              => true,
-            'spec_content'       => true,
-            'resources'          => true,
-            'cover_option'       => true,
-            'cover_image'        => true,
+            'features'           => false,
+            'files'              => array(),
+            'spec_content'       => false,
+            'options_content'    => false,
+            'resources'          => false,
+            'cover_option'       => false,
+            'cover_image'        => false,
             'zoom_image'         => true,
             'with_lang'          => true,
-            'with_seo'           => true,
-            'with_images'        => true,
+            'seo'                => false,
+            'images'        => array(),
             // 'bulk' 'features'
             'bulk_copy'          => false,
             'bulk_convert'       => false,
             'external_link'      => false,
             'upload_dir'         => 'upload',
+            'default_routes'     => false,
         );
     }
 
@@ -140,8 +143,10 @@ class ProductBundle extends Bundle
 
         $this->route( '/=/product/autocomplete', 'ProductAutoCompleteController');
 
-        $this->route( '/product', 'ProductController:list');
-        $this->route( '/product/:id/:lang/:name', 'ProductController:item');
+        if ( $this->config('default_routes') ) {
+            $this->route( '/product', 'ProductController:list');
+            $this->route( '/product/:id/:lang/:name', 'ProductController:item');
+        }
 
 
         $this->expandRoute( '/bs/product',          'ProductCRUDHandler');
