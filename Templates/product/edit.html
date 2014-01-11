@@ -44,7 +44,7 @@ vim:filetype=htmldjango
         {{CRUD.Action.renderField('content',{ class: 'mceEditor', rows: 7, cols: 80 })|raw}}
         <div class="clear"> </div>
 
-        {% if bundle.config('with_options_content') %}
+        {% if bundle.config('options_content') %}
         {{CRUD.Action.renderField('options_content',{ class: 'mceEditor', rows: 7, cols: 80 })|raw}}
         <div class="clear"> </div>
         {% endif %}
