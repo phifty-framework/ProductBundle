@@ -9,6 +9,7 @@ use ProductBundle\Model\ProductImage;
 use ProductBundle\Model\ProductImageCollection;
 use ProductBundle\Model\Feature;
 use ProductBundle\Model\FeatureCollection;
+use UseCaseBundle\Model\UseCaseCollection;
 use Phifty\CollectionUtils;
 
 
@@ -117,8 +118,10 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
             kernel()->locale->available(),
             'ProductBundle\\Model\\ProductCollection');
 
-        if ( $bundle = kernel()->bundle('UseCaseBundle') ) {
-            $args['useCasesByLang'] = CollectionUtils::aggregateByLang(
+        $bundle = kernel()->bundle('ProductBundle');
+
+        if ( $bundle->config('usecases') ) {
+            $args['usecasesByLang'] = CollectionUtils::aggregateByLang(
                 kernel()->locale->available(),
                 'UseCaseBundle\\Model\\UseCaseCollection');
         }

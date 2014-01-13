@@ -181,6 +181,17 @@ class ProductSchema extends SchemaDeclare
                 ->order('ordering','ASC')
                 ->renderable(false);
         }
+        if ( $bundle->config('usecases') ) {
+            $this->many( 'product_usecases', 'ProductBundle\\Model\\ProductUseCaseSchema', 'product_id', 'id' )
+                ->order('ordering','ASC')
+                ->renderable(false);
+
+            $this->manyToMany( 'usecases',   'product_usecases' , 'usecase' )
+                ->filter(function($collection) {
+                    $collection->order('lang','desc');
+                    return $collection;
+                });
+        }
 
         if ( $bundle->config('multicategory') ) {
             $this->many( 'product_categories', 'ProductBundle\\Model\\ProductCategorySchema', 'product_id', 'id' )

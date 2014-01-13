@@ -198,6 +198,11 @@ class ProductBundle extends Bundle
                     'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
                     'record_class' => 'ProductBundle\\Model\\ProductProduct',
                 ));
+            kernel()->action->registerAction('ProductBundle\\Action\\SortProductUseCase',
+                '@ActionKit/RecordAction.html.twig', array(
+                    'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
+                    'record_class' => 'ProductBundle\\Model\\ProductUseCase',
+                ));
             kernel()->action->registerAction('ProductBundle\\Action\\SortProductSubsection',
                 '@ActionKit/RecordAction.html.twig', array(
                     'base_class' => 'SortablePlugin\\Action\\SortRecordAction',

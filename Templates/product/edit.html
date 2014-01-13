@@ -30,6 +30,10 @@ vim:filetype=htmldjango
             <li><a href="#{{tabfragment}}-links">相關連結</a></li>
         {% endif %}
 
+        {% if bundle.config('usecases') %}
+            <li><a href="#{{tabfragment}}-usecase">相關案例</a></li>
+        {% endif %}
+
 
         {% for tab in CRUD.Object.getTabs %}
             <li><a href="#{{tab.getId()}}">{{tab.title}}</a></li>
@@ -84,6 +88,12 @@ vim:filetype=htmldjango
     {% if bundle.config('links') %}
     <div id="{{tabfragment}}-links">
         {% include '@ProductBundle/product/link.html' %}
+    </div>
+    {% endif %}
+
+    {% if bundle.config('usecases') %}
+    <div id="{{tabfragment}}-usecase">
+        {% include '@ProductBundle/product/usecase.html' %}
     </div>
     {% endif %}
 
