@@ -1,0 +1,84 @@
+{% set usecaseFragment = 'related-usecase-' ~ frag_serial %}
+<script>
+function appendRelatedUsecase($container, data) {
+    var item = new Product.ProductProductItemView({},data);
+    item.appendTo($container);
+}
+$(function() {
+    {% for record in CRUD.Record.product_usecases %}
+        {% set usecase = record.usecase %}
+        {% set usecase = record.related_usecase %}
+        {% set data = { id: record.id, usecase_id: usecase.id, thumb: usecase.thumb, name: usecase.name, related_usecase_id: usecase.id } %}
+        {
+            var itemView = new Product.ProductProductItemView({},{{data|json_encode|raw}});
+            itemView.appendTo('#usecases{{frag_serial}}');
+        }
+    {% endfor %}
+    $('#usecaseAccordion{{frag_serial}}').accordion({ heightStyle: "fill" });
+    initSortableAction($('#usecases{{frag_serial}}'), {
+        items: '.usecase-cover',
+        fields: '.record-id',
+        action: 'ProductBundle::Action::SortProductUseCase',
+        handle: '.image-cover'
+    });
+
+    var $input = $('#usecaseSearch{{frag_serial}}');
+    $input.autocomplete({
+        delay: 100,
+        minLength: 1,
+        source: '/=/usecase/autocomplete',
+        select: function(e,ui) {
+            console.log(ui.item);
+            appendRelatedUsecase($('#usecases{{frag_serial}}'), {
+                related_usecase_id: ui.item.id,
+                {% if CRUD.Record.id %}
+                usecase_id: {{CRUD.Record.id}},
+                {% endif %}
+                name: ui.item.name,
+                thumb: ui.item.thumb
+            });
+            $input.val('');
+            return false;
+        },
+        focus: function(e,ui) {  }
+    });
+});
+</script>
+<h3>相關案例</h3>
+<div class="row" style="min-height: 300px;">
+    <div class="col-md-5" style="min-height: 300px;">
+        <div class="input" style="width: 100%;">
+            <input style="width: 100%;" type="text" size="40" id="usecaseSearch{{frag_serial}}" placeholder="搜尋案例..."/>
+        </div>
+        <ul style="width: 100%; margin: 0; padding: 0;" id="usecases{{frag_serial}}">
+        </ul>
+    </div>
+    <div class="col-md-5" style="min-height: 300px; height: 260px;">
+        <div id="usecaseAccordion{{frag_serial}}" class="col-md-12">
+            {% for langcode, usecases in usecasesByLang %}
+                <h3>{% trans langcode %}{% trans '案例' %}</h3>
+                <div>
+                    <ul style="margin: 0; padding: 0;">
+                        {% for usecase in usecases %}
+                        <li style="padding: 3px 5px; list-style: none;">
+                            <a>{{usecase.id}}. {{usecase.name}}</a>
+
+                            <button style="float: right;" onclick="
+                                appendRelatedUsecase($('#usecases{{frag_serial}}'),{
+                                    {% if CRUD.Record.id %}
+                                    product_id: {{CRUD.Record.id}},
+                                    {% endif %}
+                                    usecase_id: {{usecase.id}},
+                                    name: '{{usecase.name}}',
+                                    thumb: '{{usecase.thumb}}'
+                                });
+                                return false;
+                            ">&lt; 新增</button>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
