@@ -16,5 +16,13 @@ extends \ProductBundle\Model\ProductCollectionBase
         return $items;
     }
 
-    
+    public static function getCoverProducts() {
+        $coverProducts = new self;
+        $coverProducts->where(array(
+            'is_cover' => true,
+            'status' => 'publish'
+        ));
+        $coverProducts->order('created_on','desc');
+        return $coverProducts;
+    }
 }

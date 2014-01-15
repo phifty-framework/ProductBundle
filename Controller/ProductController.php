@@ -55,11 +55,15 @@ class ProductController extends Controller
             $products->where(array( 'lang' => $lang , 'hide' => false , 'status' => 'publish' ));
         }
 
+        $allProducts = new ProductCollection;
+        $allProducts->order('created_on', 'desc');
+
         $products->order('created_on','desc');
         return $this->render( 'product_list.html', array(
             'productCurrentCategory' => $currentCategory,
-            'productCategories'   => $cates,
-            'products'    => $products,
+            'productCategories'      => $cates,
+            'products'               => $products,
+            'allProducts'            => $allProducts,
         ));
     }
 
