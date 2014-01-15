@@ -174,6 +174,7 @@ class ProductBundle extends Bundle
         $this->addCRUDAction('Resource');
         $this->addCRUDAction('ProductProperty');
         $this->addCRUDAction('ProductProduct');
+        $this->addCRUDAction('ProductUseCase');
         $this->addCRUDAction('ProductLink');
         $this->addCRUDAction('ProductSubsection');
 

@@ -121,6 +121,21 @@ Product.createFileCover = (data) ->
   return $tag
 
 
+productUsecaseItemTemplate = CoffeeKup.compile ->
+  div class: "product-cover col-md-3", ->
+    index = @usecase_id
+    if @id
+      input class:"record-id", name: "product_usecases[#{ index }][id]", type: "hidden", value: @id
+    input name: "product_usecases[#{ index }][usecase_id]", type: "hidden", value: @usecase_id
+    if @product_id
+      input name: "product_usecases[#{ index }][product_id]", type: "hidden", value: @product_id
+    div class: "image-cover", ->
+      if @thumb
+        div class: "cut", ->
+          img src: "/" + @thumb
+      div class: "title", -> @name
+      div class: "close", ->
+
 productItemTemplate = CoffeeKup.compile ->
   div class: "product-cover col-md-3", ->
     index = @related_product_id
@@ -151,6 +166,20 @@ class Product.ProductProductItemView extends CRUDList.BaseItemView
       return false
     return $el
 
+class Product.ProductUseCaseItemView extends CRUDList.BaseItemView
+  render: ->
+    self = this
+    config = @config
+    $el = $(productUsecaseItemTemplate(@data))
+    $el.find('.close').click (e) ->
+      if self.data.id
+        runAction "ProductBundle::Action::DeleteProductUseCase",
+          { id: self.data.id },
+          { confirm: '確認刪除? ', remove: $el }
+      else
+        $el.remove()
+      return false
+    return $el
 
 
 

@@ -1,16 +1,15 @@
 {% set usecaseFragment = 'related-usecase-' ~ frag_serial %}
 <script>
 function appendRelatedUsecase($container, data) {
-    var item = new Product.ProductProductItemView({},data);
+    var item = new Product.ProductUseCaseItemView({},data);
     item.appendTo($container);
 }
 $(function() {
     {% for record in CRUD.Record.product_usecases %}
         {% set usecase = record.usecase %}
-        {% set usecase = record.related_usecase %}
-        {% set data = { id: record.id, usecase_id: usecase.id, thumb: usecase.thumb, name: usecase.name, related_usecase_id: usecase.id } %}
+        {% set data = { id: record.id, usecase_id: usecase.id, thumb: usecase.thumb, image: usecase.image, name: usecase.name, product_id: CRUD.Record.id } %}
         {
-            var itemView = new Product.ProductProductItemView({},{{data|json_encode|raw}});
+            var itemView = new Product.ProductUseCaseItemView({},{{data|json_encode|raw}});
             itemView.appendTo('#usecases{{frag_serial}}');
         }
     {% endfor %}
@@ -30,7 +29,7 @@ $(function() {
         select: function(e,ui) {
             console.log(ui.item);
             appendRelatedUsecase($('#usecases{{frag_serial}}'), {
-                related_usecase_id: ui.item.id,
+                product_id: ui.item.id,
                 {% if CRUD.Record.id %}
                 usecase_id: {{CRUD.Record.id}},
                 {% endif %}
