@@ -15,23 +15,23 @@ class ProductBaseMixin extends MixinAction
 
         $bundle = kernel()->bundle('ProductBundle');
 
-        $imageSize     = $bundle->config('index.image.size');
-        $thumbSize     = $bundle->config('index.thumb.size');
-        $zoomImageSize = $bundle->config('index.zoom_image.size');
+        $imageSize     = $bundle->config('image.size');
+        $thumbSize     = $bundle->config('thumb.size');
+        $zoomImageSize = $bundle->config('zoom_image.size');
 
-        $coverImageSize     = $bundle->config('cover.thumb.size');
-        $coverImageResizeWidth     = $bundle->config('cover.thumb.resize_width') ?: 0;
+        $coverImageSize     = $bundle->config('cover_image.size');
+        $coverImageResizeWidth     = $bundle->config('cover_image.resize_width') ?: 0;
 
         $specImageSize     = $bundle->config('spec.image.size');
         $specThumbSize     = $bundle->config('spec.thumb.size');
 
-        $imageSizeLimit     = $bundle->config('index.image.size_limit');
-        $thumbSizeLimit     = $bundle->config('index.thumb.size_limit');
-        $zoomImageSizeLimit = $bundle->config('index.zoom_image.size_limit');
+        $imageSizeLimit     = $bundle->config('image.size_limit');
+        $thumbSizeLimit     = $bundle->config('thumb.size_limit');
+        $zoomImageSizeLimit = $bundle->config('zoom_image.size_limit');
 
-        $imageResizeWidth     = $bundle->config('index.image.resize_width') ?: 0;
-        $thumbResizeWidth     = $bundle->config('index.thumb.resize_width') ?: 0;
-        $zoomImageResizeWidth = $bundle->config('index.zoom_image.resize_width') ?: 0;
+        $imageResizeWidth     = $bundle->config('image.resize_width') ?: 0;
+        $thumbResizeWidth     = $bundle->config('thumb.resize_width') ?: 0;
+        $zoomImageResizeWidth = $bundle->config('zoom_image.resize_width') ?: 0;
         $uploadDir            = $bundle->config('upload_dir') ?: 'upload';
         $autoResize           = $bundle->config('auto_resize') ?: false;
 
@@ -48,16 +48,14 @@ class ProductBaseMixin extends MixinAction
         }
 
         if( $bundle->config('cover_image') ) {
-            if ( $bundle->config('cover_image.thumb') ) {
-                $this->param('cover_thumb','Image')
-                    ->size($coverImageSize)
-                    ->resizeWidth( $coverImageResizeWidth )
-                    ->label('首頁圖')
-                    ->autoResize($autoResize)
-                    ->hint( $bundle->config('hints.Product.cover_image') )
-                    ->hintFromSizeInfo()
-                    ;
-            }
+            $this->param('cover_image','Image')
+                ->size($coverImageSize)
+                ->resizeWidth( $coverImageResizeWidth )
+                ->label('首頁圖')
+                ->autoResize($autoResize)
+                ->hint( $bundle->config('hints.Product.cover_image') )
+                ->hintFromSizeInfo()
+                ;
         }
 
         if( $bundle->config('spec_content_image') ) {
