@@ -134,10 +134,12 @@ $(function() {
             {% endif %}
         </div>
 
-
-
         {% if bundle.config('cover_image') %}
             {% include '@ProductBundle/product/cover_image.html' %}
+        {% endif %}
+
+        {% if bundle.config('index_image') %}
+            {% include '@ProductBundle/product/index_image.html' %}
         {% endif %}
 
         {% if bundle.config('spec_content_image') %}

@@ -20,17 +20,19 @@ class DeleteProduct extends DeleteRecordAction
         foreach( $this->record->resources as $res ) {
             @$res->delete();
         }
-
         foreach( $this->record->product_features as $pf ) {
             @$pf->delete();
         }
 
-        /*
-        if( file_exists($this->record->thumb) )
-            unlink( PH_APP_ROOT . '/webroot/' . $this->record->thumb );
-        if( file_exists($this->record->image ) )
-            unlink( PH_APP_ROOT . '/webroot/' . $this->record->image );
-        */
+        if ( file_exists($this->record->thumb) ) {
+            unlink( $this->record->thumb );
+        }
+        if ( file_exists($this->record->image ) ) {
+            unlink( $this->record->image );
+        }
+        if ( file_exists($this->record->cover_thumb ) ) {
+            unlink( $this->record->cover_thumb );
+        }
         return parent::run();
     }
 }

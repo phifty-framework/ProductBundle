@@ -15,20 +15,23 @@ class ProductBaseMixin extends MixinAction
 
         $bundle = kernel()->bundle('ProductBundle');
 
-        $imageSize     = $bundle->config('cover.image.size');
-        $thumbSize     = $bundle->config('cover.thumb.size');
-        $zoomImageSize = $bundle->config('cover.zoom_image.size');
+        $imageSize     = $bundle->config('index.image.size');
+        $thumbSize     = $bundle->config('index.thumb.size');
+        $zoomImageSize = $bundle->config('index.zoom_image.size');
+
+        $coverImageSize     = $bundle->config('cover.thumb.size');
+        $coverImageResizeWidth     = $bundle->config('cover.thumb.resize_width') ?: 0;
 
         $specImageSize     = $bundle->config('spec.image.size');
         $specThumbSize     = $bundle->config('spec.thumb.size');
 
-        $imageSizeLimit     = $bundle->config('cover.image.size_limit');
-        $thumbSizeLimit     = $bundle->config('cover.thumb.size_limit');
-        $zoomImageSizeLimit = $bundle->config('cover.zoom_image.size_limit');
+        $imageSizeLimit     = $bundle->config('index.image.size_limit');
+        $thumbSizeLimit     = $bundle->config('index.thumb.size_limit');
+        $zoomImageSizeLimit = $bundle->config('index.zoom_image.size_limit');
 
-        $imageResizeWidth     = $bundle->config('cover.image.resize_width') ?: 0;
-        $thumbResizeWidth     = $bundle->config('cover.thumb.resize_width') ?: 0;
-        $zoomImageResizeWidth = $bundle->config('cover.zoom_image.resize_width') ?: 0;
+        $imageResizeWidth     = $bundle->config('index.image.resize_width') ?: 0;
+        $thumbResizeWidth     = $bundle->config('index.thumb.resize_width') ?: 0;
+        $zoomImageResizeWidth = $bundle->config('index.zoom_image.resize_width') ?: 0;
         $uploadDir            = $bundle->config('upload_dir') ?: 'upload';
         $autoResize           = $bundle->config('auto_resize') ?: false;
 
@@ -42,6 +45,19 @@ class ProductBaseMixin extends MixinAction
                 ->hint( $bundle->config('hints.Product.zoom_image') )
                 ->hintFromSizeInfo()
                 ;
+        }
+
+        if( $bundle->config('cover_image') ) {
+            if ( $bundle->config('cover_image.thumb') ) {
+                $this->param('cover_thumb','Image')
+                    ->size($coverImageSize)
+                    ->resizeWidth( $coverImageResizeWidth )
+                    ->label('首頁圖')
+                    ->autoResize($autoResize)
+                    ->hint( $bundle->config('hints.Product.cover_image') )
+                    ->hintFromSizeInfo()
+                    ;
+            }
         }
 
         if( $bundle->config('spec_content_image') ) {

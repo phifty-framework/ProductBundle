@@ -112,6 +112,19 @@ class ProductSchema extends SchemaDeclare
             ->label(_('隱藏這個產品'))
             ->desc( _('目錄頁不要顯示這個產品，但是可以從網址列看到這個產品頁') );
 
+        if ( $bundle->config('cover_image' ) ) {
+            $this->column('cover_thumb')
+                ->varchar(250)
+                ->label('首頁封面圖')
+                ->renderAs('ThumbImageFileInput');
+            /*
+            $this->column('cover_image')
+                ->varchar(250)
+                ->label('首頁封面圖')
+                ->renderAs('ThumbImageFileInput');
+             */
+        }
+
         if( $bundle->config('spec_content_image') ) {
             $this->column('spec_image')
                 ->varchar(250)

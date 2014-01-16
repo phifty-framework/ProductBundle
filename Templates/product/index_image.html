@@ -1,0 +1,23 @@
+<div class="divider"> </div>
+<div class="row">
+    {% if bundle.config('zoom_image') %}
+        <div class="col-md-3">
+            <h3>目錄圖</h3>
+            {{ CRUD.Action.renderField('thumb')|raw}}
+        </div>
+        <div class="col-md-4">
+            <h3>內頁主圖</h3>
+            {{ CRUD.Action.renderField('image')|raw}}
+        </div>
+        <div class="col-md-4">
+            {{ CRUD.Action.renderField('zoom_image')|raw}}
+        </div>
+    {% else %}
+        <div class="col-md-10">
+            <h3>目錄圖</h3>
+            {{ CRUD.Action.renderField('thumb')|raw}}
+            <h3>內頁主圖</h3>
+            {{ CRUD.Action.renderField('image')|raw}}
+        </div>
+    {% endif %}
+</div>
