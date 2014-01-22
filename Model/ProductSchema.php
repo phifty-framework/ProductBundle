@@ -113,7 +113,7 @@ class ProductSchema extends SchemaDeclare
             ->desc( _('目錄頁不要顯示這個產品，但是可以從網址列看到這個產品頁') );
 
         if ( $bundle->config('cover_image' ) ) {
-            $this->column('cover_thumb')
+            $this->column('cover_image')
                 ->varchar(250)
                 ->label('首頁封面圖')
                 ->renderAs('ThumbImageFileInput');
