@@ -165,7 +165,7 @@ vim:sw=2:ts=2:sts=2:
 
   productItemTemplate = CoffeeKup.compile(function() {
     return div({
-      "class": "product-cover col-md-3"
+      "class": "product-cover col-md-4"
     }, function() {
       var index;
       index = this.related_product_id;
