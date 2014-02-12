@@ -56,6 +56,7 @@ class ProductController extends Controller
         }
 
         $allProducts = new ProductCollection;
+        $allProducts->where(array( 'lang' => $lang, 'hide' => false, 'status' => 'publish' ));
         $allProducts->order('created_on', 'desc');
 
         $products->order('created_on','desc');
