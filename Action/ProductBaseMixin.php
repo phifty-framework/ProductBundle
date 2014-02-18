@@ -85,6 +85,7 @@ class ProductBaseMixin extends MixinAction
             ->size( $imageSize )
             ->sizeLimit( $imageSizeLimit )
             ->autoResize($autoResize)
+            ->resizeWidth( $imageResizeWidth )
             ->hint( $bundle->config('hints.Product.image') )
             ->hintFromSizeInfo()
             ;
@@ -94,6 +95,7 @@ class ProductBaseMixin extends MixinAction
             ->size( $thumbSize )
             ->sizeLimit( $thumbSizeLimit )
             ->autoResize($autoResize)
+            ->resizeWidth( $thumbResizeWidth )
             ->hint( $bundle->config('hints.Product.thumb') )
             ->hintFromSizeInfo()
             ;
