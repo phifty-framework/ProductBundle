@@ -16,22 +16,25 @@ class ProductBaseMixin extends MixinAction
         $bundle = kernel()->bundle('ProductBundle');
 
         $imageSize     = $bundle->config('image.size');
+        $imageSizeLimit     = $bundle->config('image.size_limit');
+        $imageResizeWidth     = $bundle->config('image.resize_width') ?: 0;
+
         $thumbSize     = $bundle->config('thumb.size');
-        $zoomImageSize = $bundle->config('zoom_image.size');
+        $thumbSizeLimit     = $bundle->config('thumb.size_limit');
+        $thumbResizeWidth     = $bundle->config('thumb.resize_width') ?: 0;
 
         $coverImageSize     = $bundle->config('cover_image.size');
-        $coverImageResizeWidth     = $bundle->config('cover_image.resize_width') ?: 0;
+        $coverImageSizeLimit   = $bundle->config('cover_image.size_limit') ?: 0;
+        $coverImageResizeWidth = $bundle->config('cover_image.resize_width') ?: 0;
+
+
+        $zoomImageSize = $bundle->config('zoom_image.size');
+        $zoomImageSizeLimit = $bundle->config('zoom_image.size_limit');
+        $zoomImageResizeWidth = $bundle->config('zoom_image.resize_width') ?: 0;
 
         $specImageSize     = $bundle->config('spec.image.size');
         $specThumbSize     = $bundle->config('spec.thumb.size');
 
-        $imageSizeLimit     = $bundle->config('image.size_limit');
-        $thumbSizeLimit     = $bundle->config('thumb.size_limit');
-        $zoomImageSizeLimit = $bundle->config('zoom_image.size_limit');
-
-        $imageResizeWidth     = $bundle->config('image.resize_width') ?: 0;
-        $thumbResizeWidth     = $bundle->config('thumb.resize_width') ?: 0;
-        $zoomImageResizeWidth = $bundle->config('zoom_image.resize_width') ?: 0;
         $uploadDir            = $bundle->config('upload_dir') ?: 'upload';
         $autoResize           = $bundle->config('auto_resize') ?: false;
 
