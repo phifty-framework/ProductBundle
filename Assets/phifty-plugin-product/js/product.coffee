@@ -137,7 +137,7 @@ productUsecaseItemTemplate = CoffeeKup.compile ->
       div class: "close", ->
 
 productItemTemplate = CoffeeKup.compile ->
-  div class: "product-cover col-md-3", ->
+  div class: "product-cover col-md-4", ->
     index = @related_product_id
     if @id
       input class:"record-id", name: "product_products[#{ index }][id]", type: "hidden", value: @id
