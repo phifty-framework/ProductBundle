@@ -29,6 +29,7 @@ class ProductController extends Controller
             $this->assign('cart' , \CartBundle\Cart::getInstance() );
         }
         return $this->render( 'product_item.html' , array( 
+            'page_title'        => $product->name,
             'productCategories' => $cates,
             'product'           => $product,
         ));
@@ -61,6 +62,7 @@ class ProductController extends Controller
 
         $products->order('created_on','desc');
         return $this->render( 'product_list.html', array(
+            'page_title' => $currentCategory->name,
             'productCurrentCategory' => $currentCategory,
             'productCategories'      => $cates,
             'products'               => $products,
