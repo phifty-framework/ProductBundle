@@ -1,70 +1,6 @@
 <?php
 namespace ProductBundle;
 
-/**
-
-YAML config:
-
-  sn:
-  external_link:
-  category: 
-  with_images:
-  types:
-  resources:
-  files:
-  features:
-  seo:
-  cover_option:
-  price:
-  subcategory:
-  zoom_image:
-  with_lang:
-  multicategory: Support multiple category
-  cover:
-    image:
-      size_limit: 600
-      resize_width: 600
-      size:
-        width: 300
-        height: 300
-    thumb:
-      size_limit: 600
-      resize_width: 300
-      size:
-        width: 120
-        height: 120
-  images:
-    image:
-      size_limit: 600
-      resize_width: 600
-      size:
-        width: 300
-        height: 300
-    thumb:
-      size_limit: 600
-      resize_width: 300
-      size:
-        width: 120
-        height: 120
-  file:
-    size_limit: 1024
-  hints:
-    Product:
-      image: 這裡放封面主圖
-      thumb: 這裡放封面縮圖
-      zoom_image: 這裡放最大圖
-    ProductImage:
-      thumb: 附圖縮圖
-      image: 附圖主圖
-      large: 附圖最大圖
-
-Fetaures:
-
-  quicksearch:
-  bulk_convert:
-  bulk_copy:
-
-*/
 use Phifty\Bundle;
 use Phifty\Region;
 use Phifty\Web\RegionPager;
@@ -100,7 +36,7 @@ class ProductBundle extends Bundle
             // product bundle scope config
             'lang' => true,
             'default_routes'     => false,
-            'upload_dir' => 'upload'
+            'upload_dir' => 'upload',
             'auto_resize' => false,
 
             'Product' => array( 
