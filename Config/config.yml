@@ -93,7 +93,7 @@ Bundles:
       enable: 0
       cover_image:
         size_image:
-        size: {width: 100 height: 100 }
+        size: {width: 100, height: 100 }
     ProductLink:
       enable: 0
     ProductUsecase:
