@@ -21,6 +21,20 @@ vim:filetype=htmldjango:
                 </div>
                 {% endif %}
 
+                {% if CRUD.Record.id %}
+                <div class="col-field">
+                    <div class="v-field">
+                        <div class="label">
+                            產品頁面連結
+                        </div>
+                        <div class="input">
+                            <a target="_blank" href="{{CRUD.Record.getUrl()|raw}}">/product/{{ CRUD.Record.id }}/{{ CRUD.Record.lang }}/{{ CRUD.Record.name }}</a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+
                 <div class="clearfix"> </div>
 
                 {% if bundle.config('Product.subtitle') %}

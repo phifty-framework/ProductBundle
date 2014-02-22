@@ -30,11 +30,11 @@ class ProductSchema extends SchemaDeclare
 
         $this->column('description')
             ->text()
-            ->label('產品敘述');
+            ->label( $bundle->config('Product.desc.label') ?: '產品敘述');
 
         $this->column('content')
             ->text()
-            ->label('產品內文')
+            ->label( $bundle->config('Product.content.label') ?: '產品內文')
             ->renderAs('TextareaInput');
 
         if ( $bundle->config('Product.feature_content') ) {
@@ -48,7 +48,7 @@ class ProductSchema extends SchemaDeclare
         if ( $bundle->config('Product.spec_content') ) {
             $this->column('spec_content')
                 ->text()
-                ->label('產品規格')
+                ->label( $bundle->config('Product.spec_content.label')  ?: '產品規格內文')
                 ->renderAs('TextareaInput')
                 ;
         }
