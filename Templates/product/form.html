@@ -21,7 +21,7 @@ vim:filetype=htmldjango:
                 </div>
                 {% endif %}
 
-                {% if CRUD.Record.id %}
+                {% if bundle.config('Product.show_link') and CRUD.Record.id %}
                 <div class="col-field">
                     <div class="v-field">
                         <div class="label">
