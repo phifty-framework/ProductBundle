@@ -15,8 +15,8 @@ class CreateFeature extends CreateRecordAction
         $uploadDir = ($c=$bundle->config('upload_dir')) ? $c : 'upload';
 
         $this->param('image','Image')
-            ->sizeLimit( ($c=$bundle->config('image.size_limit')) ? $c : 600 )
-            ->resizeWidth( ($c = $bundle->config('image.resize_width') ) ?  $c : 800 )
+            ->sizeLimit( ($c=$bundle->config('ProductFeature.image.size_limit')) ? $c : 600 )
+            ->resizeWidth( ($c = $bundle->config('ProductFeature.image.resize_width') ) ?  $c : 800 )
             ->putIn( $uploadDir );
     }
 }

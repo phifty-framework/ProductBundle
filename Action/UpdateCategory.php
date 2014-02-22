@@ -23,16 +23,16 @@ class UpdateCategory extends UpdateRecordAction
         $uploadDir = ($c=$bundle->config('upload_dir')) ? $c : 'upload';
 
         $this->param('image','Image')
-            ->sizeLimit( ($c=$bundle->config('category_image.size_limit')) ? $c : 600 )
-            ->resizeWidth( ($c = $bundle->config('category_image.resize_width') ) ?  $c : 800 )
+            ->sizeLimit( ($c=$bundle->config('ProductCategory.image.size_limit')) ? $c : 600 )
+            ->resizeWidth( ($c = $bundle->config('ProductCategory.image.resize_width') ) ?  $c : 800 )
             ->renameFile( function( $name ) {
                 return FileUtils::filename_append_md5( $name );
             })
             ->putIn( $uploadDir );
 
         $this->param( 'thumb' , 'Image' )
-            ->sizeLimit( ($c=$bundle->config('category_thumb.size_limit')) ? $c : 500 )
-            ->resizeWidth( ($c = $bundle->config('category_thumb.resize_width') ) ? $c : 300 )
+            ->sizeLimit( ($c=$bundle->config('ProductCategory.thumb.size_limit')) ? $c : 500 )
+            ->resizeWidth( ($c = $bundle->config('ProductCategory.thumb.resize_width') ) ? $c : 300 )
             ->sourceField( 'image' )
             ->renameFile( function( $name ) { 
                 return FileUtils::filename_append_md5( $name );

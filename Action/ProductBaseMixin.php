@@ -15,60 +15,60 @@ class ProductBaseMixin extends MixinAction
 
         $bundle = kernel()->bundle('ProductBundle');
 
-        $imageSize     = $bundle->config('image.size');
-        $imageSizeLimit     = $bundle->config('image.size_limit');
-        $imageResizeWidth     = $bundle->config('image.resize_width') ?: 0;
+        $imageSize     = $bundle->config('Product.image.size');
+        $imageSizeLimit     = $bundle->config('Product.image.size_limit');
+        $imageResizeWidth     = $bundle->config('Product.image.resize_width') ?: 0;
 
-        $thumbSize     = $bundle->config('thumb.size');
-        $thumbSizeLimit     = $bundle->config('thumb.size_limit');
-        $thumbResizeWidth     = $bundle->config('thumb.resize_width') ?: 0;
+        $thumbSize     = $bundle->config('Product.thumb.size');
+        $thumbSizeLimit     = $bundle->config('Product.thumb.size_limit');
+        $thumbResizeWidth     = $bundle->config('Product.thumb.resize_width') ?: 0;
 
-        $coverImageSize     = $bundle->config('cover_image.size');
-        $coverImageSizeLimit   = $bundle->config('cover_image.size_limit') ?: 0;
-        $coverImageResizeWidth = $bundle->config('cover_image.resize_width') ?: 0;
+        $coverImageSize     = $bundle->config('Product.cover_image.size');
+        $coverImageSizeLimit   = $bundle->config('Product.cover_image.size_limit') ?: 0;
+        $coverImageResizeWidth = $bundle->config('Product.cover_image.resize_width') ?: 0;
 
 
-        $zoomImageSize = $bundle->config('zoom_image.size');
-        $zoomImageSizeLimit = $bundle->config('zoom_image.size_limit');
-        $zoomImageResizeWidth = $bundle->config('zoom_image.resize_width') ?: 0;
+        $zoomImageSize = $bundle->config('Product.zoom_image.size');
+        $zoomImageSizeLimit = $bundle->config('Product.zoom_image.size_limit');
+        $zoomImageResizeWidth = $bundle->config('Product.zoom_image.resize_width') ?: 0;
 
-        $specImageSize     = $bundle->config('spec.image.size');
-        $specThumbSize     = $bundle->config('spec.thumb.size');
+        $specImageSize     = $bundle->config('Product.spec_image.size');
+        $specThumbSize     = $bundle->config('Product.spec_thumb.size');
 
         $uploadDir            = $bundle->config('upload_dir') ?: 'upload';
         $autoResize           = $bundle->config('auto_resize') ?: false;
 
-        if( $bundle->config('zoom_image') ) {
+        if( $bundle->config('Product.zoom_image') ) {
             $this->param('zoom_image','Image')
                 ->size( $zoomImageSize )
                 ->sizeLimit( $zoomImageSizeLimit )
                 ->resizeWidth( $zoomImageResizeWidth )
                 ->label('產品放大圖')
                 ->autoResize($autoResize)
-                ->hint( $bundle->config('hints.Product.zoom_image') )
+                ->hint( $bundle->config('Product.zoom_image.hint') )
                 ->hintFromSizeInfo()
                 ;
         }
 
-        if( $bundle->config('cover_image') ) {
+        if( $bundle->config('Product.cover_image') ) {
             $this->param('cover_image','Image')
                 ->size($coverImageSize)
                 ->resizeWidth( $coverImageResizeWidth )
                 ->label('首頁圖')
                 ->autoResize($autoResize)
-                ->hint( $bundle->config('hints.Product.cover_image') )
+                ->hint( $bundle->config('Product.cover_image.hint') )
                 ->hintFromSizeInfo()
                 ;
         }
 
-        if( $bundle->config('spec_content_image') ) {
+        if( $bundle->config('Product.spec_content_image') ) {
 
             $this->param('spec_image','Image')
                 ->size( $specImageSize )
                 ->sizeLimit( $imageSizeLimit )
                 ->autoResize($autoResize)
                 ->label( '規格圖' )
-                ->hint( $bundle->config('hints.Product.spec_image') )
+                ->hint( $bundle->config('Product.spec_image.hint') )
                 ->hintFromSizeInfo()
                 ;
 
@@ -78,7 +78,7 @@ class ProductBaseMixin extends MixinAction
                 ->sizeLimit($thumbSizeLimit)
                 ->autoResize($autoResize)
                 ->label( '規格縮圖' )
-                ->hint( $bundle->config('hints.Product.spec_thumb') )
+                ->hint( $bundle->config('Product.spec_thumb.hint') )
                 ->hintFromSizeInfo()
                 ;
         }
@@ -89,7 +89,7 @@ class ProductBaseMixin extends MixinAction
             ->sizeLimit( $imageSizeLimit )
             ->autoResize($autoResize)
             ->resizeWidth( $imageResizeWidth )
-            ->hint( $bundle->config('hints.Product.image') )
+            ->hint( $bundle->config('Product.image.hint') )
             ->hintFromSizeInfo()
             ;
 
@@ -99,7 +99,7 @@ class ProductBaseMixin extends MixinAction
             ->sizeLimit( $thumbSizeLimit )
             ->autoResize($autoResize)
             ->resizeWidth( $thumbResizeWidth )
-            ->hint( $bundle->config('hints.Product.thumb') )
+            ->hint( $bundle->config('Product.thumb.hint') )
             ->hintFromSizeInfo()
             ;
 

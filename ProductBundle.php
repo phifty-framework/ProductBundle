@@ -97,8 +97,105 @@ class ProductBundle extends Bundle
 
     public function defaultConfig() {
         return array(
-            'sn'                 => false,
-            'desc'               => false,
+            // product bundle scope config
+            'lang' => true,
+            'default_routes'     => false,
+            'upload_dir' => 'upload'
+            'auto_resize' => false,
+
+            'Product' => array( 
+                'sn'                 => false,
+                'desc'               => false,
+                'quicksearch'        => false,
+                'private'            => false,
+                'price'              => false,
+                'orig_price'         => false,
+                'sellable'           => false,
+                'external_link'      => false,
+                'seo'                => false,
+                'options_content'    => false,
+                'cover_image' => array(
+                    'size' => array( 'width' => null, 'height' => null ),
+                    'size_limit' => null,
+                    'hint' => null,
+                ),
+                'image' => array(
+                    'size' => array( 'width' => null, 'height' => null ),
+                    'size_limit' => null,
+                    'hint' => null,
+                ),
+                'thumb' => array(
+                    'size' => array( 'width' => null, 'height' => null ),
+                    'size_limit' => null,
+                    'hint' => null,
+                ),
+                'zoom_image' => array(
+                    'size' => array( 'width' => null, 'height' => null ),
+                    'size_limit' => null,
+                    'hint' => null,
+                ),
+                'spec_image' => array(
+                    'size' => array( 'width' => null, 'height' => null ),
+                    'size_limit' => null,
+                    'hint' => null,
+                ),
+                'spec_thumb' => array(
+                    'size' => array( 'width' => null, 'height' => null ),
+                    'size_limit' => null,
+                    'hint' => null,
+                ),
+                'spec_content_image' => array(
+                    'size_limit' => null,
+                    'size' => array( 'width' => null, 'height' => null ),
+                ),
+            ),
+            'ProductImage' => array(
+                'enable' => false,
+            ),
+            'ProductCategory' => array(
+                'enable'     => true,
+                'multicategory' => true,
+                'subcategory' => false,
+                'seo'         => false,
+            ),
+            'ProductType' => array(
+                'enable' => false,
+                'quantity'    => false,
+                'seo'         => false,
+            ),
+            'ProductFeature' => array(
+                'enable' => false,
+
+            ),
+            'ProductFile' => array(
+                'enable' => false,
+                'hint' => null,
+                'size_limit' => null,
+            ),
+            'ProductSubsection' => array(
+                'enable' => false,
+                'cover_image' => array(
+                    'size_limit' => null,
+                    'size' => array( 'width' => null, 'height' => null ),
+                ),
+            ),
+            'ProductLink' => array(
+                'enable' => false,
+            ),
+            'ProductUsecase' => array(
+                'enable' => false,
+            ),
+            'ProductProperty' => array(
+                'enable' => false,
+
+            ),
+            'ProductResource' => array(
+                'enable' => false,
+
+            ),
+            'RelatedProduct' => array( 
+                'enable' => false,
+            ),
             'category'           => true,
             'subcategory'        => false,
             'quicksearch'        => false,
@@ -108,7 +205,6 @@ class ProductBundle extends Bundle
             'orig_price'         => false,
             'types'              => false,
             'sellable'           => false,
-            'type_quantity'      => false,
             'features'           => false,
             'files'              => array(),
             'spec_content'       => false,
@@ -156,15 +252,15 @@ class ProductBundle extends Bundle
         $this->expandRoute( '/bs/product_resource', 'ProductResourceCRUDHandler');
         $this->expandRoute( '/bs/product_image' ,   'ProductImageCRUDHandler');
 
-        if ( $this->config('files') ) {
+        if ( $this->config('ProductType.enable') ) {
             $this->expandRoute( '/bs/product_file' ,    'ProductFileCRUDHandler');
         }
 
-        if ( $this->config('types') ) {
+        if ( $this->config('ProductType.enable') ) {
             $this->expandRoute( '/bs/product_type', 'ProductTypeCRUDHandler' );
         }
 
-        if ( $this->config('subsections') ) {
+        if ( $this->config('ProductSubsection.enable') ) {
             $this->expandRoute( '/bs/product_subsection', 'ProductSubsectionCRUDHandler' );
         }
 

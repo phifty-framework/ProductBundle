@@ -15,7 +15,7 @@ vim:filetype=htmldjango:
                 {{ CRUD.Action.renderField('name')|raw }}
                 </div>
 
-                {% if bundle.config('sn') %}
+                {% if bundle.config('Product.sn') %}
                 <div class="col-field">
                 {{CRUD.Action.renderField('sn')|raw}}
                 </div>
@@ -23,13 +23,13 @@ vim:filetype=htmldjango:
 
                 <div class="clearfix"> </div>
 
-                {% if bundle.config('with_subtitle') %}
+                {% if bundle.config('Product.subtitle') %}
                 <div class="col-field">
                 {{ CRUD.Action.renderField('subtitle') |raw}}
                 </div>
                 {% endif %}
 
-                {% if Kernel.bundle('I18N') and bundle.config('with_lang') %}
+                {% if Kernel.bundle('I18N') and bundle.config('lang') %}
                 <div class="col-field">
                     {{CRUD.Action.renderField('lang')|raw}}
                 </div>
@@ -44,21 +44,21 @@ vim:filetype=htmldjango:
                 <div class="clearfix"> </div>
 
 
-                {% if bundle.config('sellable') %}
+                {% if bundle.config('Product.sellable') %}
                 <div class="col-field">
                     {{CRUD.Action.renderField('sellable')|raw}}
                 </div>
                 {% endif %}
 
-                {% if bundle.config('orig_price') %}
+                {% if bundle.config('Product.orig_price') %}
                 <div class="col-field">
-                {{CRUD.Action.renderField('orig_price')|raw}}
+                    {{CRUD.Action.renderField('orig_price')|raw}}
                 </div>
                 {% endif %}
 
-                {% if bundle.config('price') %}
+                {% if bundle.config('Product.price') %}
                 <div class="col-field">
-                {{CRUD.Action.renderField('price')|raw}}
+                    {{CRUD.Action.renderField('price')|raw}}
                 </div>
                 {% endif %}
 
@@ -66,12 +66,12 @@ vim:filetype=htmldjango:
 
                 <div class="clearfix"> </div>
 
-                {% if bundle.config('category') and not bundle.config('multicategory') %}
-                {{CRUD.Action.renderField('category_id')|raw}}
+                {% if bundle.config('ProductCategory.enable') and not bundle.config('ProductCategory.multicategory') %}
+                    {{CRUD.Action.renderField('category_id')|raw}}
                 {% endif %}
             </div>
 
-            {% if bundle.config('category') and bundle.config('multicategory') %}
+            {% if bundle.config('ProductCategory.enable') and bundle.config('ProductCategory.multicategory') %}
             <div class="col-md-3 col-md-offset-2">
                 {% for langcode, categories in categoriesByLang %}
                 <div class="widget lang lang-{{langcode}} {% if langcode != Kernel.locale.current() %}hide{% endif %}">
@@ -86,7 +86,7 @@ vim:filetype=htmldjango:
                 </div>
                 {% endfor %}
 
-                {% if bundle.config('types') %}
+                {% if bundle.config('ProductType.enable') %}
                     <div class="widget">
                         <div class="widget-hd">{% trans '產品類型' %}</div>
                         <div class="widget-bd">
@@ -134,33 +134,33 @@ $(function() {
             {% endif %}
         </div>
 
-        {% if bundle.config('cover_image') %}
+        {% if bundle.config('Product.cover_image') %}
             {% include '@ProductBundle/product/cover_image.html' %}
         {% endif %}
 
-        {% if bundle.config('image') %}
+        {% if bundle.config('Product.image') %}
             {% include '@ProductBundle/product/index_image.html' %}
         {% endif %}
 
-        {% if bundle.config('spec_content_image') %}
+        {% if bundle.config('Product.spec_content_image') %}
             {% include '@ProductBundle/product/spec_image.html' %}
         {% endif %}
 
-        {% if bundle.config('with_images') %}
+        {% if bundle.config('ProductImage.enable') %}
             {% include '@ProductBundle/product/image.html' %}
         {% endif %}
 
-        {% if bundle.config('resources') %}
+        {% if bundle.config('ProductResource.enable') %}
             {% include '@ProductBundle/product/resource.html' %}
         {% endif %}
 
-        {% if bundle.config('files') %}
+        {% if bundle.config('ProductFile.enable') %}
             {% include '@ProductBundle/product/file.html' %}
         {% endif %}
 
 
         {#
-        {% set mixinClass = bundle.config('product.mixin') %}
+        {% set mixinClass = bundle.config('Product.mixin') %}
         {% if mixinClass %}
             {% set mixinAction = CRUD.Record.getMixinSchemaAction() %}
             {{ mixinAction.asView('ActionKit\\View\\StackView', {
@@ -175,7 +175,7 @@ $(function() {
         <div class="divider"> </div>
 
         <div class="collapsible collapse-section" {# data-collapse="persist" #}>
-            {% if bundle.config('properties') %}
+            {% if bundle.config('ProductProperty.enable') %}
             <h3>規格表</h3>
             <div>
                 {% include '@ProductBundle/product/property.html' %}
@@ -183,7 +183,7 @@ $(function() {
             {% endif %}
 
             {% if Kernel.bundle('SEOPlugin') 
-                and bundle.config('seo') 
+                and bundle.config('Product.seo') 
                 and CRUD.Object.getModel().hasColumn('seo_keywords') 
             %}
                 {% include '@SEOPlugin/fields_collapsible.html' %}
@@ -191,20 +191,20 @@ $(function() {
 
 
             {# 外部連結 #}
-            {% if bundle.config('external_link') %}
+            {% if bundle.config('Product.external_link') %}
                 <h3>外部連結</h3>
                 <div>
-                    {{CRUD.Action.renderField('external_link')|raw}}
+                    {{CRUD.Action.renderField('Product.external_link')|raw}}
                 </div>
             {% endif %}
 
-            {% if bundle.config('cover_option') %}
+            {% if bundle.config('Product.cover_option') %}
             <h3>其他選項</h3>
             <div>
                 {{CRUD.Action.renderField('is_cover')|raw}}
 
                 {# private products are accessed by token #}
-                {% if bundle.config('private') %}
+                {% if bundle.config('Product.private') %}
                     {% include '@ProductBundle/product/private_token.html' %}
                 {% endif %}
             </div>

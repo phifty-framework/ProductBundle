@@ -37,16 +37,16 @@ class ProductSchema extends SchemaDeclare
             ->label('產品內文')
             ->renderAs('TextareaInput');
 
-        // spec_content
-        $this->column('spec_content')
-            ->text()
-            ->label('產品規格')
-            ->renderAs('TextareaInput')
-            ;
-
+        if ( $bundle->config('Product.spec_content') ) {
+            $this->column('spec_content')
+                ->text()
+                ->label('產品規格')
+                ->renderAs('TextareaInput')
+                ;
+        }
 
         // image for zooming
-        if( $bundle->config('zoom_image') ) {
+        if( $bundle->config('Product.zoom_image') ) {
             $this->column('zoom_image')
                 ->varchar(128)
                 ->label(_('產品放大圖'))
@@ -54,6 +54,7 @@ class ProductSchema extends SchemaDeclare
                 ;
         }
 
+        // always enable this
         $this->column('category_id')
             ->refer('ProductBundle\\Model\\CategorySchema')
             ->integer()
@@ -112,7 +113,7 @@ class ProductSchema extends SchemaDeclare
             ->label(_('隱藏這個產品'))
             ->desc( _('目錄頁不要顯示這個產品，但是可以從網址列看到這個產品頁') );
 
-        if ( $bundle->config('cover_image' ) ) {
+        if ( $bundle->config('Product.cover_image' ) ) {
             $this->column('cover_image')
                 ->varchar(250)
                 ->label('首頁封面圖')
@@ -125,7 +126,7 @@ class ProductSchema extends SchemaDeclare
              */
         }
 
-        if( $bundle->config('spec_content_image') ) {
+        if( $bundle->config('Product.spec_content_image') ) {
             $this->column('spec_image')
                 ->varchar(250)
                 ->label('規格主圖')
@@ -137,9 +138,11 @@ class ProductSchema extends SchemaDeclare
                 ->renderAs('ThumbImageFileInput');
         }
 
-        $this->column('options_content')->text()->label('選配');
+        if( $bundle->config('Product.options_content') ) {
+            $this->column('options_content')->text()->label('選配');
+        }
 
-        if( kernel()->bundle('SEOPlugin') && $bundle->config('seo') ) {
+        if( kernel()->bundle('SEOPlugin') && $bundle->config('Product.seo') ) {
             $this->mixin('SEOPlugin\\Model\\Mixin\\SEOSchema');
         }
 
@@ -184,17 +187,17 @@ class ProductSchema extends SchemaDeclare
             $this->mixin($mixinClass);
         }
         */
-        if ( $bundle->config('subsections') ) {
+        if ( $bundle->config('ProductSubsection.enable') ) {
             $this->many( 'subsections', 'ProductBundle\\Model\\ProductSubsectionSchema', 'product_id', 'id' )
                 ->order('ordering','ASC')
                 ->renderable(false);
         }
-        if ( $bundle->config('links') ) {
+        if ( $bundle->config('ProductLink.enable') ) {
             $this->many( 'links', 'ProductBundle\\Model\\ProductLinkSchema', 'product_id', 'id' )
                 ->order('ordering','ASC')
                 ->renderable(false);
         }
-        if ( $bundle->config('usecases') ) {
+        if ( $bundle->config('ProductUsecase.enable') ) {
             $this->many( 'product_usecases', 'ProductBundle\\Model\\ProductUseCaseSchema', 'product_id', 'id' )
                 ->order('ordering','ASC')
                 ->renderable(false);
@@ -206,16 +209,18 @@ class ProductSchema extends SchemaDeclare
                 });
         }
 
-        if ( $bundle->config('multicategory') ) {
-            $this->many( 'product_categories', 'ProductBundle\\Model\\ProductCategorySchema', 'product_id', 'id' )
-                ->renderable(false);
-            $this->manyToMany( 'categories',   'product_categories' , 'category' )
-                ->filter(function($collection) {
-                    $collection->order('lang','desc');
-                    return $collection;
-                });
-        } else {
-            $this->belongsTo( 'category' , 'ProductBundle\\Model\\CategorySchema','id','category_id');
+        if ( $bundle->config('ProductCategory.enable') ) {
+            if ( $bundle->config('ProductCategory.multicategory') ) {
+                $this->many( 'product_categories', 'ProductBundle\\Model\\ProductCategorySchema', 'product_id', 'id' )
+                    ->renderable(false);
+                $this->manyToMany( 'categories',   'product_categories' , 'category' )
+                    ->filter(function($collection) {
+                        $collection->order('lang','desc');
+                        return $collection;
+                    });
+            } else {
+                $this->belongsTo( 'category' , 'ProductBundle\\Model\\CategorySchema','id','category_id');
+            }
         }
     }
 

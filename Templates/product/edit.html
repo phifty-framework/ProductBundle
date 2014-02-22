@@ -15,22 +15,22 @@ vim:filetype=htmldjango
 
         <li><a href="#{{tabfragment}}-content">產品內文</a></li>
 
-        {% if bundle.config('features') %}
+        {% if bundle.config('ProductFeature.enable') %}
             <li><a href="#{{tabfragment}}-feature">產品功能</a></li>
         {% endif %}
 
-        {% if bundle.config('related_products') %}
+        {% if bundle.config('RelatedProduct.enable') %}
             <li><a href="#{{tabfragment}}-related-product">相關產品</a></li>
         {% endif %}
-        {% if bundle.config('subsections') %}
+        {% if bundle.config('ProductSubsection.enable') %}
             <li><a href="#{{tabfragment}}-subsections">內文子區塊</a></li>
         {% endif %}
 
-        {% if bundle.config('links') %}
+        {% if bundle.config('ProductLink.enable') %}
             <li><a href="#{{tabfragment}}-links">相關連結</a></li>
         {% endif %}
 
-        {% if bundle.config('usecases') %}
+        {% if bundle.config('ProductUsecase.enable') %}
             <li><a href="#{{tabfragment}}-usecase">相關案例</a></li>
         {% endif %}
 
@@ -67,31 +67,31 @@ vim:filetype=htmldjango
         <div class="clear"> </div>
     </div>
 
-    {% if bundle.config('features') %}
+    {% if bundle.config('ProductFeature.enable') %}
     <div id="{{tabfragment}}-feature">
         {% include '@ProductBundle/product/feature.html' %}
     </div>
     {% endif %}
 
-    {% if bundle.config('related_products') %}
+    {% if bundle.config('RelatedProduct.enable') %}
     <div id="{{tabfragment}}-related-product">
         {% include '@ProductBundle/product/related.html' %}
     </div>
     {% endif %}
 
-    {% if bundle.config('subsections') %}
+    {% if bundle.config('ProductSubsection.enable') %}
     <div id="{{tabfragment}}-subsections">
         {% include '@ProductBundle/product/subsection.html' %}
     </div>
     {% endif %}
 
-    {% if bundle.config('links') %}
+    {% if bundle.config('ProductLink.enable') %}
     <div id="{{tabfragment}}-links">
         {% include '@ProductBundle/product/link.html' %}
     </div>
     {% endif %}
 
-    {% if bundle.config('usecases') %}
+    {% if bundle.config('ProductUsecase.enable') %}
     <div id="{{tabfragment}}-usecase">
         {% include '@ProductBundle/product/usecase.html' %}
     </div>

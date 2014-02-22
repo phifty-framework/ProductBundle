@@ -30,7 +30,7 @@ class ProductTypeSchema extends SchemaDeclare
             ])
             ;
 
-        if ( $bundle->config('type_quantity') ) {
+        if ( $bundle->config('ProductType.quantity') ) {
             $this->column('quantity')
                 ->integer()
                 ->default(0)

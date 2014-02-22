@@ -14,14 +14,14 @@ class UpdateProductImage extends \ActionKit\RecordAction\UpdateRecordAction
         $bundle = kernel()->bundle('ProductBundle');
 
         $this->param('image','Image')
-            ->sizeLimit( ($c = $bundle->config('images.image.size_limit')) ? $c : 800 )
+            ->sizeLimit( ($c = $bundle->config('ProductImage.image.size_limit')) ? $c : 800 )
             ->required()
             ->label('主圖')
             ->putIn( 'upload' );
 
         $this->param( 'thumb' , 'Image' )
-            ->sizeLimit( ($c = $bundle->config('images.thumb.size_limit')) ? $c : 500 )
-            ->resizeWidth( $c = $bundle->config('images.thumb.resize_width') )
+            ->sizeLimit( ($c = $bundle->config('ProductImage.thumb.size_limit')) ? $c : 500 )
+            ->resizeWidth( $c = $bundle->config('ProductImage.thumb.resize_width') )
             ->sourceField( 'image' )
             ->label('縮圖')
             ->putIn( 'upload' );

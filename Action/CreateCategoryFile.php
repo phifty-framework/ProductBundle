@@ -9,8 +9,8 @@ class CreateCategoryFile extends CreateRecordAction
     public function schema()
     {
         $bundle = \ProductBundle\ProductBundle::getInstance();
-        $sizeLimit = $bundle->config('category_files.size_limit') ?: 1024 * 10;
-        $fileHint =  $bundle->config('hints.CategoryFile.file');
+        $sizeLimit = $bundle->config('CategoryFile.size_limit') ?: 1024 * 10;
+        $fileHint =  $bundle->config('CategoryFile.hint');
         $this->useRecordSchema();
         $this->param('file','File')
             ->sizeLimit( $sizeLimit )  // Default to 10 MB limit

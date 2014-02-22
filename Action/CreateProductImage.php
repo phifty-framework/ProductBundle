@@ -13,17 +13,17 @@ class CreateProductImage extends CreateRecordAction
         $this->useRecordSchema();
         $bundle = kernel()->bundle('ProductBundle');
 
-        $imageSize = $bundle->config('images.image.size');
-        $thumbSize = $bundle->config('images.thumb.size');
-        $largeSize = $bundle->config('images.large.size');
+        $imageSize = $bundle->config('ProductImage.image.size');
+        $thumbSize = $bundle->config('ProductImage.thumb.size');
+        $largeSize = $bundle->config('ProductImage.large.size');
 
-        $imageSizeLimit = $bundle->config('images.image.size_limit');
-        $thumbSizeLimit = $bundle->config('images.thumb.size_limit');
-        $largeSizeLimit = $bundle->config('images.large.size_limit');
+        $imageSizeLimit = $bundle->config('ProductImage.image.size_limit');
+        $thumbSizeLimit = $bundle->config('ProductImage.thumb.size_limit');
+        $largeSizeLimit = $bundle->config('ProductImage.large.size_limit');
 
-        $imageResizeWidth = $bundle->config('images.image.resize_width') ?: 0;
-        $thumbResizeWidth = $bundle->config('images.thumb.resize_width') ?: 0;
-        $largeResizeWidth = $bundle->config('images.large.resize_width') ?: 0;
+        $imageResizeWidth = $bundle->config('ProductImage.image.resize_width') ?: 0;
+        $thumbResizeWidth = $bundle->config('ProductImage.thumb.resize_width') ?: 0;
+        $largeResizeWidth = $bundle->config('ProductImage.large.resize_width') ?: 0;
 
         $uploadDir = $bundle->config('upload_dir') ?: 'upload';
 
@@ -31,7 +31,7 @@ class CreateProductImage extends CreateRecordAction
             $this->param('large','Image')
                 ->size($largeSize)
                 ->label('最大圖')
-                ->hint( $bundle->config('hints.ProductImage.large') )
+                ->hint( $bundle->config('ProductImage.large.hint') )
                 ->hintFromSizeInfo()
                 ;
         }
@@ -41,7 +41,7 @@ class CreateProductImage extends CreateRecordAction
             ->size( $imageSize )
             ->sourceField( 'large' )
             ->required()
-            ->hint( $bundle->config('hints.ProductImage.image') )
+            ->hint( $bundle->config('ProductImage.image.hint') )
             ->hintFromSizeInfo()
             ->label('主圖')
             ;
@@ -51,7 +51,7 @@ class CreateProductImage extends CreateRecordAction
             ->sizeLimit( $thumbSizeLimit )
             ->sourceField( 'image' )
             ->label('縮圖')
-            ->hint( $bundle->config('hints.ProductImage.thumb') )
+            ->hint( $bundle->config('ProductImage.thumb.hint') )
             ->hintFromSizeInfo()
             ;
 
