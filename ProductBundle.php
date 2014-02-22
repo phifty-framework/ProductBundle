@@ -3,7 +3,7 @@ namespace ProductBundle;
 
 /**
 
-Columns:
+YAML config:
 
   sn:
   external_link:

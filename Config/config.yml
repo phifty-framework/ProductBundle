@@ -1,0 +1,107 @@
+---
+Bundles:
+  ProductBundle:
+    lang: 1
+    default_routes: 0
+    upload_dir: 'upload'
+    auto_resize: 0
+    Product:
+      sn: 0
+      desc: 0
+      quicksearch: 0
+      private: 0
+      price: 0
+      orig_price: 0
+      sellable: 0
+      external_link: 0
+      status: 0
+      seo: 0
+      options_content: 0
+      spec_content_content: 0
+      bulk_convert: 0
+      bulk_copy: 0
+
+      thumb:
+        size:
+          width: 100
+          height: 100
+        size_limit: 1000
+        hint: "hint"
+
+      image:
+        size:
+          width: 100
+          height: 100
+        size_limit: 1000
+        hint: "hint"
+
+      cover_image:
+        size:
+          width: 100
+          height: 100
+        size_limit: 1000
+        hint: "hint"
+
+      zoom_image:
+        size:
+          width: 100
+          height: 100
+        size_limit: 1000
+        hint: "hint"
+
+      spec_image:
+        size:
+          width: 100
+          height: 100
+        size_limit: 1000
+        hint: "hint"
+
+      spec_thumb:
+        size:
+          width: 100
+          height: 100
+        size_limit: 1000
+        hint: "hint"
+
+      spec_content_image:
+        size:
+          width: 100
+          height: 100
+        size_limit: 1000
+        hint: "hint"
+    ProductImage:
+      enable: 0
+    ProductCategory:
+      enable: 0
+      multicategory: 1
+      subcategory: 0
+      seo: 0
+      handle: 0
+      file: 0
+    ProductType:
+      enable: 0
+      quantity: 0
+      seo: 0
+    ProductFeature:
+      enable: 0
+    ProductFile:
+      enable: 0
+      hint: null
+      size_limit: null
+      vip: 0
+    ProductSubsection:
+      enable: 0
+      cover_image:
+        size_image:
+        size: {width: 100 height: 100 }
+    ProductLink:
+      enable: 0
+    ProductUsecase:
+      enable: 0
+    ProductProperty:
+      enable: 0
+    ProductResource:
+      enable: 0
+    RelatedProduct:
+      enable: 0
+
