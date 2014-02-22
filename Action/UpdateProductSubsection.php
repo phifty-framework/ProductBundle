@@ -13,9 +13,9 @@ class UpdateProductSubsection extends UpdateRecordAction
         $this->useRecordSchema();
         $bundle = kernel()->bundle('ProductBundle');
 
-        $imageSize = $bundle->config('subsections.cover_image.size');
-        $imageSizeLimit = $bundle->config('subsections.cover_image.size_limit');
-        $imageResizeWidth = $bundle->config('subsections.cover_image.resize_width') ?: 0;
+        $imageSize = $bundle->config('ProductSubsection.cover_image.size');
+        $imageSizeLimit = $bundle->config('ProductSubsection.cover_image.size_limit');
+        $imageResizeWidth = $bundle->config('ProductSubsection.cover_image.resize_width') ?: 0;
 
         $uploadDir = $bundle->config('upload_dir') ?: 'upload';
 
@@ -23,7 +23,7 @@ class UpdateProductSubsection extends UpdateRecordAction
             ->sizeLimit( $imageSizeLimit )
             ->size( $imageSize )
             ->required()
-            ->hint( $bundle->config('hints.ProductSubsection.image') )
+            ->hint( $bundle->config('ProductSubsection.image.hint') )
             ->hintFromSizeInfo()
             ->prefix('/')
             ->label('主圖')
