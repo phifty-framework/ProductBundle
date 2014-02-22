@@ -48,7 +48,7 @@ class ProductBundle extends Bundle
                 'orig_price'      => false,
                 'sellable'        => false,
                 'external_link'   => false,
-                'status'          => false,
+                'status'          => true,
                 'seo'             => false,
                 'options_content' => false,
                 'spec_content'    => false,
