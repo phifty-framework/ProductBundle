@@ -24,7 +24,7 @@ class ProductFileSchema extends SchemaDeclare
             ->varchar(130)
             ->label('檔案標題');
 
-        if ( $bundle->config('vip') ) {
+        if ( $bundle->config('ProductFile.vip') ) {
             $this->column( 'vip' )
                 ->boolean()
                 ->renderAs('CheckboxInput')

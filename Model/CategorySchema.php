@@ -60,7 +60,7 @@ class CategorySchema extends SchemaDeclare
 
         $bundle = \ProductBundle\ProductBundle::getInstance();
 
-        if ( $bundle->config('multicategory') ) {
+        if ( $bundle->config('ProductCategory.multicategory') ) {
             $this->many( 'category_products', 'ProductBundle\\Model\\ProductCategorySchema', 'category_id', 'id' );
             $this->manyToMany( 'products',   'category_products' , 'product');
         } else {

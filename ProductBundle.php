@@ -171,6 +171,7 @@ class ProductBundle extends Bundle
                 'enable' => false,
                 'hint' => null,
                 'size_limit' => null,
+                'vip' => false,
             ),
             'ProductSubsection' => array(
                 'enable' => false,

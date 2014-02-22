@@ -10,7 +10,7 @@ class ProductPropertySchema extends SchemaDeclare
         $this->column('value')->varchar(512);
         $this->column('product_id')
             ->integer()
-            ->refer( 'ProductBundle\\Model\\Product')
+            ->refer( 'ProductBundle\\Model\\ProductSchema')
             ;
         $this->mixin('SortablePlugin\\Model\\Mixin\\OrderingSchema');
         $this->belongsTo('product','ProductBundle\\Model\\ProductSchema','id','product_id');
