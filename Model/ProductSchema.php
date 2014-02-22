@@ -37,6 +37,14 @@ class ProductSchema extends SchemaDeclare
             ->label('產品內文')
             ->renderAs('TextareaInput');
 
+        if ( $bundle->config('Product.feature_content') ) {
+            $this->column('feature_content')
+                ->text()
+                ->label('產品功能')
+                ->renderAs('TextareaInput')
+                ;
+        }
+
         if ( $bundle->config('Product.spec_content') ) {
             $this->column('spec_content')
                 ->text()

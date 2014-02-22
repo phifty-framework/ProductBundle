@@ -53,9 +53,13 @@ vim:filetype=htmldjango
         <div class="clear"> </div>
         {% endif %}
 
-
-        {% if bundle.config('Product.spec_content_content') %}
+        {% if bundle.config('Product.spec_content') %}
         {{CRUD.Action.renderField('spec_content',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
+        <div class="clear"> </div>
+        {% endif %}
+
+        {% if bundle.config('Product.feature_content') %}
+        {{CRUD.Action.renderField('feature_content',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
         <div class="clear"> </div>
         {% endif %}
 
