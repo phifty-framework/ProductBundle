@@ -43,9 +43,16 @@ class ProductBundle extends Bundle
                 'sn'              => false,
                 'desc'            => false,
                 'quicksearch'     => false,
+
+                // hide product
                 'private'         => false,
+
+                // 產品售價
                 'price'           => false,
+
+                // 產品原價
                 'orig_price'      => false,
+                'show_link' => false,
                 'sellable'        => false,
                 'external_link'   => false,
                 'status'          => true,
