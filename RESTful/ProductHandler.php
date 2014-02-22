@@ -13,22 +13,22 @@ class ProductHandler extends ResourceHandler
             $bundle = \ProductBundle\ProductBundle::getInstance();
             $data = $record->toArray();
 
-            if ( $bundle->config('properties') ) {
+            if ( $bundle->config('ProductProperty.enable') ) {
                 $data['properties'] = $record->properties->toArray();
             }
-            if ( $bundle->config('links') ) {
+            if ( $bundle->config('ProductLink.enable') ) {
                 $data['links'] = $record->links->toArray();
             }
-            if ( $bundle->config('with_images') ) {
+            if ( $bundle->config('ProductImage.enable') ) {
                 $data['images'] = $record->images->toArray();
             }
-            if ( $bundle->config('features') ) {
+            if ( $bundle->config('ProductFeature.enable') ) {
                 $data['features'] = $record->features->toArray();
             }
-            if ( $bundle->config('types') ) {
+            if ( $bundle->config('ProductType.enable') ) {
                 $data['types'] = $record->types->toArray();
             }
-            if ( $bundle->config('multicategory') ) {
+            if ( $bundle->config('ProductCategory.multicategory') ) {
                 $data['categories'] = $record->categories->toArray();
             } else {
                 $data['category'] = $record->category ? $record->category->toArray() : array();

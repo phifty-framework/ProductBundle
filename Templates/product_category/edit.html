@@ -15,7 +15,7 @@ vim:filetype=htmldjango
 {% block section_body %}
     <form class="ajax-action" method="post">
 
-        {% if bundle.config('category_image') %}
+        {% if bundle.config('ProductCategory.image') %}
             <div class="column span-8">
                 {{ CRUD.Action.renderField('image')|raw}}
                 <div class="clear"> </div>
@@ -34,15 +34,15 @@ vim:filetype=htmldjango
 
         {{ CRUD.Action.renderField('name')|raw }}
 
-        {% if Kernel.bundle('ProductBundle').config('subcategory') %}
+        {% if bundle.config('ProductCategory.subcategory') %}
             {{CRUD.Action.renderField('parent_id')|raw}}
         {% endif %}
 
-        {% if bundle.config('category_handle') %}
+        {% if bundle.config('ProductCategory.handle') %}
             {{ CRUD.Action.renderField('handle')|raw}}
         {% endif %}
 
-        {% if Kernel.bundle('I18N') and bundle.config('with_lang') %}
+        {% if Kernel.bundle('I18N') and bundle.config('lang') %}
             {{ CRUD.Action.renderField('lang')|raw}}
         {% endif %}
 
@@ -51,7 +51,7 @@ vim:filetype=htmldjango
         <div class="clear"> </div>
         <div class="divider"> </div>
         <div class="collapsible collapse-section">
-            {% if bundle.config('category_files') %}
+            {% if bundle.config('ProductCategory.file') %}
             {% include 'ProductBundle/Templates/product_category/file.html' %}
             {% endif %}
             <h3>詳細資料</h3>

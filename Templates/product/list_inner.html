@@ -5,10 +5,10 @@
     {{parent()}}
     <script type="text/javascript">
         $(document.body).ready(function() {
-            {% if bundle.config('bulk_convert') %}
+            {% if bundle.config('Product.bulk_convert') %}
                 bulkCRUD.addPlugin(new ProductBulkConvertPlugin)
             {% endif %}
-            {% if bundle.config('bulk_copy') %}
+            {% if bundle.config('Product.bulk_copy') %}
                 bulkCRUD.addPlugin(new ProductBulkCopyPlugin)
             {% endif %}
         });

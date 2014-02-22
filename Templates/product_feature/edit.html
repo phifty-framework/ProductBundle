@@ -12,7 +12,7 @@ vim:filetype=htmldjango
         {{ forms.hidden('id', CRUD.Record.id) }}
     {% endif %}
 
-    {% if bundle.config('with_feature_image') %}
+    {% if bundle.config('ProductFeature.image') %}
     <div class="span-6 column" style="margin: 10px;">
         <div class="feature-image-preview">
             {% if CRUD.Record.image %}
@@ -28,7 +28,7 @@ vim:filetype=htmldjango
 
     {{ CRUD.Action.renderField('name')|raw }}
 
-    {% if Kernel.bundle('I18N') and bundle.config('with_lang') %}
+    {% if Kernel.bundle('I18N') and bundle.config('lang') %}
         {{ CRUD.Action.renderField('lang')|raw }}
     {% endif %}
 

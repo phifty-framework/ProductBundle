@@ -112,8 +112,14 @@ class ProductBundle extends Bundle
                 'orig_price'         => false,
                 'sellable'           => false,
                 'external_link'      => false,
+                'status'             => false,
                 'seo'                => false,
                 'options_content'    => false,
+                'spec_content_content' => false,
+
+                'bulk_convert' => false,
+                'bulk_copy' => false,
+
                 'cover_image' => array(
                     'size' => array( 'width' => null, 'height' => null ),
                     'size_limit' => null,
@@ -157,6 +163,8 @@ class ProductBundle extends Bundle
                 'multicategory' => true,
                 'subcategory' => false,
                 'seo'         => false,
+                'handle' => false,
+                'file' => false,
             ),
             'ProductType' => array(
                 'enable' => false,
@@ -321,10 +329,10 @@ class ProductBundle extends Bundle
             $folder = $menu->createMenuFolder( _('產品') );
             $folder->createCrudMenuItem( 'product', _('產品管理') );
 
-            if ( $bundle->config('category') ) {
+            if ( $bundle->config('ProductCategory.enable') ) {
                 $folder->createCrudMenuItem('product_category', _('產品類別管理') );
             }
-            if ( $bundle->config('features') ) {
+            if ( $bundle->config('ProductFeature.enable') ) {
                 $folder->createCrudMenuItem( 'product_feature', _('產品功能項目管理') );
             }
         });

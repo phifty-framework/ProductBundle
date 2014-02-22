@@ -27,7 +27,7 @@ class CategoryCRUDHandler extends CRUDHandler
     public function init()
     {
         parent::init();
-        if ( $this->bundle->config('subcategory') ) {
+        if ( $this->bundle->config('ProductCategory.subcategory') ) {
             $this->setFormatter('name',function($record) {
                 if ( $record->subcategories ) {
                     return "<a onclick=\" 
@@ -42,7 +42,7 @@ class CategoryCRUDHandler extends CRUDHandler
     public function getCollection()
     {
         $collection = parent::getCollection();
-        if ( $this->bundle->config('subcategory') ) {
+        if ( $this->bundle->config('ProductCategory.subcategory') ) {
             $p = $this->request->param('parent_id') ?: 0;
             /* query top category */
             $collection->where(array('parent_id' => $p ));

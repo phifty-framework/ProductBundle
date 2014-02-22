@@ -35,7 +35,7 @@ vim:filetype=htmldjango:
                 </div>
                 {% endif %}
 
-                {% if Kernel.bundle('StatusPlugin') %}
+                {% if Kernel.bundle('StatusPlugin') and bundle.config('Product.status') %}
                 <div class="col-field">
                 {{CRUD.Action.renderField('status')|raw}}
                 </div>

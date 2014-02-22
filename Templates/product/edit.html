@@ -41,20 +41,20 @@ vim:filetype=htmldjango
     </ul>
 
     <div id="{{tabfragment}}-content">
-        {% if bundle.config('desc') %}
+        {% if bundle.config('Product.desc') %}
         {{CRUD.Action.renderField('description',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
         {% endif %}
 
         {{CRUD.Action.renderField('content',{ class: 'mceEditor', rows: 7, cols: 80 })|raw}}
         <div class="clear"> </div>
 
-        {% if bundle.config('options_content') %}
+        {% if bundle.config('Product.options_content') %}
         {{CRUD.Action.renderField('options_content',{ class: 'mceEditor', rows: 7, cols: 80 })|raw}}
         <div class="clear"> </div>
         {% endif %}
 
 
-        {% if bundle.config('spec_content_content') %}
+        {% if bundle.config('Product.spec_content_content') %}
         {{CRUD.Action.renderField('spec_content',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
         <div class="clear"> </div>
         {% endif %}
