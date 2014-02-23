@@ -194,7 +194,10 @@ class ProductBundle extends Bundle
 
         if ( $this->config('default_routes') ) {
             $this->route( '/product', 'ProductController:list');
-            $this->route( '/product/:id/:lang/:name', 'ProductController:item');
+            $this->route( '/product/:id(/:lang/:name)', 'ProductController:item');
+
+            // $this->route( '/product_category/h/:handle/:lang/:name', 'ProductController:category'); // categoryAction
+            // $this->route( '/product_category/id/:id/:lang/:name', 'ProductController:category'); // categoryAction
         }
 
 
