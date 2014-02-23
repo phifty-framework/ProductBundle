@@ -1,11 +1,12 @@
 <?php
 namespace ProductBundle;
-
 use Phifty\Bundle;
 use Phifty\Region;
 use Phifty\Web\RegionPager;
 use ProductBundle\Model\CategoryCollection;
 use ProductBundle\Model\Category;
+use ProductBundle\Model\Product;
+use ProductBundle\Model\ProductCollection;
 use ProductBundle\Model\ProductImage;
 use ProductBundle\Model\ProductImageCollection;
 use ProductBundle\Model\Feature;
@@ -214,6 +215,8 @@ class ProductBundle extends Bundle
         $this->expandRoute( '/bs/product_resource', 'ProductResourceCRUDHandler');
         $this->expandRoute( '/bs/product_image' ,   'ProductImageCRUDHandler');
 
+        $this->route( '/product_sitemap.xml' ,   'SiteMapController:index');
+
         if ( $this->config('ProductType.enable') ) {
             $this->expandRoute( '/bs/product_file' ,    'ProductFileCRUDHandler');
         }
@@ -272,11 +275,18 @@ class ProductBundle extends Bundle
         kernel()->restful->registerResource('product','ProductBundle\\RESTful\\ProductHandler');
         kernel()->restful->registerResource('product_type','ProductBundle\\RESTful\\ProductTypeHandler');
 
+
         if ( kernel()->bundle('RecipeBundle') ) {
             $this->addCRUDAction( 'ProductRecipe' , array('Create','Update','Delete') );
         }
 
         $self = $this;
+
+        kernel()->event->register('sitemap.index', function($sitemapBundle) use ($self) {
+            $sitemapBundle->registerIndexPath('/product_sitemap.xml');
+
+        });
+
         kernel()->event->register( 'adminui.init_menu' , function($menu) use ($self) {
             $bundle = kernel()->bundle('ProductBundle');
             $folder = $menu->createMenuFolder( _('產品') );
