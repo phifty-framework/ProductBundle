@@ -10,7 +10,7 @@ use ProductBundle\Model\ProductCollection;
 class ProductController extends Controller
 {
 
-    public function getCategories() {
+    public function getAllCategories() {
         $cates = new CategoryCollection;
         $cates->where(array( 'lang' => kernel()->locale->current() ));
         $cates->order('created_on', 'desc');
@@ -24,15 +24,22 @@ class ProductController extends Controller
             return $this->redirect('/');
         }
 
-        $cates = $this->getCategories();
-        if ( $bundle = kernel()->bundle('CartBundle') ) {
-            $this->assign('cart' , \CartBundle\Cart::getInstance() );
+        $args = array();
+        $args['allProductCategories'] = $this->getAllCategories();
+        $args['page_title']        = $product->getPageTitle();
+        $args['product'] = $product;
+
+        if ( isset($product->category) ) {
+            $args['productCategory'] = $product->category;
         }
-        return $this->render( 'product_item.html' , array( 
-            'page_title'        => $product->name,
-            'productCategories' => $cates,
-            'product'           => $product,
-        ));
+        if ( isset($product->categories) ) {
+            $args['productCategories'] = $product->categories;
+        }
+
+        if ( $bundle = kernel()->bundle('CartBundle') ) {
+            $args['cart'] = \CartBundle\Cart::getInstance();
+        }
+        return $this->render( 'product_item.html' , $args);
     }
 
     public function listAction()

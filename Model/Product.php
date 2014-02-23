@@ -63,4 +63,12 @@ extends \ProductBundle\Model\ProductBase
         }
     }
 
+    public function getPageTitle() {
+        $title = $this->name;
+        if ($this->sn) {
+            $title .= ' - ' . $this->sn;
+        }
+        return $title;
+    }
+
 }
