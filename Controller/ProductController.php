@@ -19,13 +19,26 @@ class ProductController extends Controller
 
     public function getCategoryProducts($category)
     {
+        $bundle = kernel()->bundle('ProductBundle');
+
         $products = new ProductCollection;
-        $products->join( new \ProductBundle\Model\ProductCategory , "LEFT" );
-        $products->where(array(
-            'product_category_junction.category_id' => (int) $category->id,
-            'hide' => false ,
-            'status' => 'publish',
-        ));
+
+        if ( $bundle->config('ProductCategory.enable') ) {
+            if ( $bundle->config('ProductCategory.multicategory') ) {
+                $products->join( new \ProductBundle\Model\ProductCategory , "LEFT" );
+                $products->where(array(
+                    'product_category_junction.category_id' => intval($category->id),
+                    'hide' => false ,
+                    'status' => 'publish',
+                ));
+            } else {
+                $products->where(array(
+                    'category_id' => $category->id,
+                    'hide' => false ,
+                    'status' => 'publish',
+                ));
+            }
+        }
         $products->order('created_on','desc');
         return $products;
     }
@@ -45,15 +58,15 @@ class ProductController extends Controller
         }
 
         $args = array();
-        $args['allProductCategories'] = $this->getAllCategories();
         $args['page_title']        = $product->getPageTitle();
         $args['product'] = $product;
+        $args['all_product_categories'] = $this->getAllCategories();
 
         if ( isset($product->category) ) {
-            $args['productCategory'] = $product->category;
+            $args['product_category'] = $product->category;
         }
         if ( isset($product->categories) ) {
-            $args['productCategories'] = $product->categories;
+            $args['product_categories'] = $product->categories;
         }
 
         if ( $bundle = kernel()->bundle('CartBundle') ) {
@@ -75,11 +88,15 @@ class ProductController extends Controller
         $lang = $lang ?: kernel()->locale->current();
         $cates = $this->getAllCategories();
         $currentCategory = new Category(array( 'handle' => $handle, 'lang' => $lang ));
-        $products = $this->getCategoryProducts($currentCategory);
+        if ( $currentCategory->id ) {
+            $products = $this->getCategoryProducts($currentCategory);
+        } else {
+            $products = $this->getAllProducts($lang);
+        }
         $allProducts = $this->getAllProducts($lang);
         return $this->render( 'product_list.html', array(
             'page_title'               => $currentCategory->name,
-            'current_product_category' => $currentCategory,
+            'product_category'         => $currentCategory,
             'all_product_categories'   => $cates,
             'products'                 => $products,
             'all_products'             => $allProducts,
@@ -108,7 +125,7 @@ class ProductController extends Controller
             'page_title'               => $currentCategory->name,
             'all_product_categories'   => $cates,
             'all_products'             => $allProducts,
-            'current_product_category' => $currentCategory,
+            'product_category' => $currentCategory,
             'products'                 => $products,
         ));
     }
