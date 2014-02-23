@@ -17,6 +17,26 @@ class ProductController extends Controller
         return $cates;
     }
 
+    public function getCategoryProducts($category)
+    {
+        $products = new ProductCollection;
+        $products->join( new \ProductBundle\Model\ProductCategory , "LEFT" );
+        $products->where(array(
+            'product_category_junction.category_id' => (int) $category->id,
+            'hide' => false ,
+            'status' => 'publish',
+        ));
+        $products->order('created_on','desc');
+        return $products;
+    }
+
+    public function getAllProducts($lang) {
+        $allProducts = new ProductCollection;
+        $allProducts->where(array( 'lang' => $lang, 'hide' => false, 'status' => 'publish' ));
+        $allProducts->order('created_on', 'desc');
+        return $allProducts;
+    }
+
     public function itemAction($id, $lang = null, $name = null)
     {
         $product = new Product( (int) $id );
@@ -42,38 +62,54 @@ class ProductController extends Controller
         return $this->render( 'product_item.html' , $args);
     }
 
+    public function byCategoryIdAction($id, $lang = null, $name = null) 
+    {
+        $lang = $lang ?: kernel()->locale->current();
+        $cates = $this->getAllCategories();
+        $currentCategory = new Category(intval($id));
+    }
+
+
+    public function byCategoryHandleAction($handle, $lang = null, $name = null)
+    {
+        $lang = $lang ?: kernel()->locale->current();
+        $cates = $this->getAllCategories();
+        $currentCategory = new Category(array( 'handle' => $handle, 'lang' => $lang ));
+        $products = $this->getCategoryProducts($currentCategory);
+        $allProducts = $this->getAllProducts($lang);
+        return $this->render( 'product_list.html', array(
+            'page_title'               => $currentCategory->name,
+            'current_product_category' => $currentCategory,
+            'all_product_categories'   => $cates,
+            'products'                 => $products,
+            'all_products'             => $allProducts,
+        ));
+    }
+
     public function listAction()
     {
         $cId = $this->request->param('category_id');
         $lang = kernel()->locale->current();
 
-        $cates = $this->getCategories();
+        $cates = $this->getAllCategories();
 
         $currentCategory = new Category( (int) $cId );
-        $products = new ProductCollection;
 
-        if( $cId ) {
-            $products->join( new \ProductBundle\Model\ProductCategory , "LEFT" );
-            $products->where(array(
-                'product_category_junction.category_id' => (int) $cId,
-                'hide' => false ,
-                'status' => 'publish',
-            ));
+        // loaded
+        if( $currentCategory->id ) {
+            $products = $this->getCategoryProducts($currentCategory);
         } else {
-            $products->where(array( 'lang' => $lang , 'hide' => false , 'status' => 'publish' ));
+            $products = $this->getAllProducts($lang);
         }
 
-        $allProducts = new ProductCollection;
-        $allProducts->where(array( 'lang' => $lang, 'hide' => false, 'status' => 'publish' ));
-        $allProducts->order('created_on', 'desc');
-
+        $allProducts = $this->getAllProducts($lang);
         $products->order('created_on','desc');
         return $this->render( 'product_list.html', array(
-            'page_title' => $currentCategory->name,
-            'productCurrentCategory' => $currentCategory,
-            'productCategories'      => $cates,
-            'products'               => $products,
-            'allProducts'            => $allProducts,
+            'page_title'               => $currentCategory->name,
+            'all_product_categories'   => $cates,
+            'all_products'             => $allProducts,
+            'current_product_category' => $currentCategory,
+            'products'                 => $products,
         ));
     }
 
@@ -100,7 +136,7 @@ class ProductController extends Controller
 
     public function privateItemAction($token)
     {
-        $cates = $this->getCategories();
+        $cates = $this->getAllCategories();
         $product = new Product;
         $product->load(array( 'token' => $token ));
         if ( ! $product->id ) {

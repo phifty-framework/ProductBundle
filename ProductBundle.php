@@ -195,11 +195,17 @@ class ProductBundle extends Bundle
         if ( $this->config('default_routes') ) {
             $this->route( '/product', 'ProductController:list');
             $this->route( '/product/:id(/:lang/:name)', 'ProductController:item');
+            $this->route( '/p/:id(/:lang/:name)', 'ProductController:item');
 
-            // $this->route( '/product_category/h/:handle/:lang/:name', 'ProductController:category'); // categoryAction
-            // $this->route( '/product_category/id/:id/:lang/:name', 'ProductController:category'); // categoryAction
+            /**
+             * product category
+             *
+             * /pc/h/category-handle/en/產品類別
+             * /pc/id/1/zh_TW/產品類別
+             */
+            $this->route( '/pc/h/:handle(/:lang/:name)', 'ProductController:byCategoryHandle'); // categoryAction
+            $this->route( '/pc/id/:id(/:lang/:name)',    'ProductController:byCategoryId'); // categoryAction
         }
-
 
         $this->expandRoute( '/bs/product',          'ProductCRUDHandler');
         $this->expandRoute( '/bs/product_category', 'CategoryCRUDHandler');
