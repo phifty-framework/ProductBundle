@@ -28,7 +28,7 @@ vim:filetype=htmldjango:
                             產品頁面連結
                         </div>
                         <div class="input">
-                            <a target="_blank" href="{{CRUD.Record.getUrl()|raw}}">/product/{{ CRUD.Record.id }}/{{ CRUD.Record.lang }}/{{ CRUD.Record.name }}</a>
+                            <a target="_blank" href="{{CRUD.Record.getUrl()|raw}}">/product/{{ CRUD.Record.id }}/{{ CRUD.Record.lang }}/{{ CRUD.Record.name|default('Untitled') }}</a>
                         </div>
                     </div>
                 </div>
