@@ -19,6 +19,11 @@ extends \ProductBundle\Model\ProductBase
         return $this->name;
     }
 
+    public function beforeUpdate($args) {
+        $args['updated_on'] = date('c');
+        return $args;
+    }
+
     public function availableTypes() {
         return $this->types->filter(function($type) {
             return $type->quantity > 0;
