@@ -20,9 +20,7 @@ class ProductController extends Controller
     public function getCategoryProducts($category)
     {
         $bundle = kernel()->bundle('ProductBundle');
-
         $products = new ProductCollection;
-
         if ( $bundle->config('ProductCategory.enable') ) {
             if ( $bundle->config('ProductCategory.multicategory') ) {
                 $products->join( new \ProductBundle\Model\ProductCategory , "LEFT" );

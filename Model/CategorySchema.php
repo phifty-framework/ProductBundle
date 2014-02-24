@@ -64,7 +64,8 @@ class CategorySchema extends SchemaDeclare
             $this->many( 'category_products', 'ProductBundle\\Model\\ProductCategorySchema', 'category_id', 'id' );
             $this->manyToMany( 'products',   'category_products' , 'product');
         } else {
-            $this->many('products','ProductBundle\\Model\\ProductSchema','category_id','id');
+            $this->many('products','ProductBundle\\Model\\ProductSchema','category_id','id')
+                ->order('created_on','ASC');
         }
     }
 
