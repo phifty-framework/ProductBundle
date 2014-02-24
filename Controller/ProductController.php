@@ -6,6 +6,7 @@ use ProductBundle\Model\CategoryCollection;
 use ProductBundle\Model\FeatureCollection;
 use ProductBundle\Model\Product;
 use ProductBundle\Model\ProductCollection;
+use Phifty\Web\BootstrapPager;
 
 class ProductController extends Controller
 {
@@ -32,7 +33,7 @@ class ProductController extends Controller
             } else {
                 $products->where(array(
                     'category_id' => $category->id,
-                    'hide' => false ,
+                    'hide' => false,
                     'status' => 'publish',
                 ));
             }
@@ -75,6 +76,7 @@ class ProductController extends Controller
 
     public function byCategoryIdAction($id, $lang = null, $name = null) 
     {
+        $page = $this->request->param('page') ?: 1;
         $lang = $lang ?: kernel()->locale->current();
         $cates = $this->getAllCategories();
         $currentCategory = new Category(intval($id));
@@ -83,6 +85,9 @@ class ProductController extends Controller
 
     public function byCategoryHandleAction($handle, $lang = null, $name = null)
     {
+        $bundle = kernel()->bundle('ProductBundle');
+
+        $page = $this->request->param('page') ?: 1;
         $lang = $lang ?: kernel()->locale->current();
         $cates = $this->getAllCategories();
         $currentCategory = new Category(array( 'handle' => $handle, 'lang' => $lang ));
@@ -91,6 +96,10 @@ class ProductController extends Controller
         } else {
             $products = $this->getAllProducts($lang);
         }
+        $count = $products->queryCount();
+        $pager = new BootstrapPager($page, $count, $bundle->config('Product.page_items') ?: 5 ); // this calculates pages
+        $products->page( $page, $pager->pageSize );
+
         $allProducts = $this->getAllProducts($lang);
         return $this->render( 'product_list.html', array(
             'page_title'               => $currentCategory->name,
@@ -98,11 +107,13 @@ class ProductController extends Controller
             'all_product_categories'   => $cates,
             'products'                 => $products,
             'all_products'             => $allProducts,
+            'pager'                    => $pager,
         ));
     }
 
     public function listAction()
     {
+        $page = $this->request->param('page') ?: 1;
         $cId = $this->request->param('category_id');
         $lang = kernel()->locale->current();
 
@@ -118,13 +129,19 @@ class ProductController extends Controller
         }
 
         $allProducts = $this->getAllProducts($lang);
-        $products->order('created_on','desc');
+
+        $count = $products->queryCount();
+        $pager = new BootstrapPager($page, $count, 5); // this calculates pages
+        $products->page( $page, $pager->pageSize );
+
         return $this->render( 'product_list.html', array(
             'page_title'               => $currentCategory->name,
             'all_product_categories'   => $cates,
             'all_products'             => $allProducts,
-            'product_category' => $currentCategory,
+            'product_category'         => $currentCategory,
             'products'                 => $products,
+            'pager'                    => $pager,
+            'product_count'            => $count,
         ));
     }
 
