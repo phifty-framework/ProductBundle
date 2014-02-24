@@ -38,14 +38,17 @@ class ProductController extends Controller
                 ));
             }
         }
-        $products->order('created_on','desc');
+        $products->order('created_on','DESC')
+            ->order('id','DESC')
+            ;
         return $products;
     }
 
     public function getAllProducts($lang) {
         $allProducts = new ProductCollection;
         $allProducts->where(array( 'lang' => $lang, 'hide' => false, 'status' => 'publish' ));
-        $allProducts->order('created_on', 'desc');
+        $allProducts->order('created_on', 'DESC')
+            ->order('id', 'DESC');
         return $allProducts;
     }
 
@@ -96,6 +99,9 @@ class ProductController extends Controller
         } else {
             $products = $this->getAllProducts($lang);
         }
+        $currentCategoryProducts = clone $products;
+
+        // echo '<pre>' . $products->toSQL() . '</pre>';
         $count = $products->queryCount();
         $pager = new BootstrapPager($page, $count, $bundle->config('Product.page_items') ?: 5 ); // this calculates pages
         $products->page( $page, $pager->pageSize );
@@ -104,6 +110,7 @@ class ProductController extends Controller
         return $this->render( 'product_list.html', array(
             'page_title'               => $currentCategory->name,
             'product_category'         => $currentCategory,
+            'product_category_products'=> $currentCategoryProducts,
             'all_product_categories'   => $cates,
             'products'                 => $products,
             'all_products'             => $allProducts,
