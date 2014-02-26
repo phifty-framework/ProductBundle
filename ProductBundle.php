@@ -65,22 +65,22 @@ class ProductBundle extends Bundle
                 'bulk_convert' => false,
                 'bulk_copy' => false,
 
-                'cover_image' => array(
+                'cover_image' => false && array(
                     'size' => array( 'width' => null, 'height' => null ),
                     'size_limit' => null,
                     'hint' => null,
                 ),
-                'image' => array(
+                'image' => false && array(
                     'size' => array( 'width' => null, 'height' => null ),
                     'size_limit' => null,
                     'hint' => null,
                 ),
-                'thumb' => array(
+                'thumb' => false && array(
                     'size' => array( 'width' => null, 'height' => null ),
                     'size_limit' => null,
                     'hint' => null,
                 ),
-                'zoom_image' => array(
+                'zoom_image' => false && array(
                     'size' => array( 'width' => null, 'height' => null ),
                     'size_limit' => null,
                     'hint' => null,
