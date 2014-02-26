@@ -85,17 +85,17 @@ class ProductBundle extends Bundle
                     'size_limit' => null,
                     'hint' => null,
                 ),
-                'spec_image' => array(
+                'spec_image' => false && array(
                     'size' => array( 'width' => null, 'height' => null ),
                     'size_limit' => null,
                     'hint' => null,
                 ),
-                'spec_thumb' => array(
+                'spec_thumb' => false && array(
                     'size' => array( 'width' => null, 'height' => null ),
                     'size_limit' => null,
                     'hint' => null,
                 ),
-                'spec_content_image' => array(
+                'spec_content_image' => false && array(
                     'size_limit' => null,
                     'size' => array( 'width' => null, 'height' => null ),
                 ),
