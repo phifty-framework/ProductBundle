@@ -120,6 +120,7 @@ class ProductController extends Controller
 
     public function listAction()
     {
+        $bundle = kernel()->bundle('ProductBundle');
         $page = $this->request->param('page') ?: 1;
         $cId = $this->request->param('category_id');
         $lang = kernel()->locale->current();
