@@ -36,7 +36,7 @@ class ProductBundle extends Bundle
         return array(
             // product bundle scope config
             'lang' => true,
-            'default_routes'     => false,
+            'DefaultRoutes'     => false,
             'upload_dir' => 'upload',
             'auto_resize' => false,
 
@@ -175,7 +175,7 @@ class ProductBundle extends Bundle
             'bulk_convert'       => false,
             'external_link'      => false,
             'upload_dir'         => 'upload',
-            'default_routes'     => false,
+            'DefaultRoutes'     => false,
         );
     }
 
@@ -193,7 +193,7 @@ class ProductBundle extends Bundle
 
         $this->route( '/=/product/autocomplete', 'ProductAutoCompleteController');
 
-        if ( $this->config('default_routes') ) {
+        if ( $this->config('DefaultRoutes') ) {
             $this->route( '/product', 'ProductController:list');
             $this->route( '/product/:id(/:lang/:name)', 'ProductController:item');
             $this->route( '/p/:id(/:lang/:name)', 'ProductController:item');
