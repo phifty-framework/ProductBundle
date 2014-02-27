@@ -138,7 +138,7 @@ class ProductController extends Controller
         $allProducts = $this->getAllProducts($lang);
 
         $count = $products->queryCount();
-        $pager = new BootstrapPager($page, $count, 5); // this calculates pages
+        $pager = new BootstrapPager($page, $count, $bundle->config('Product.page_size') ); // this calculates pages
         $products->page( $page, $pager->pageSize );
 
         return $this->render( 'product_list.html', array(
