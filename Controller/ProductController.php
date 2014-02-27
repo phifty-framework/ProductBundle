@@ -148,6 +148,7 @@ class ProductController extends Controller
             'product_category'         => $currentCategory,
             'products'                 => $products,
             'pager'                    => $pager,
+            'product_pager'                    => $pager,
             'product_count'            => $count,
         ));
     }

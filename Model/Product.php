@@ -5,10 +5,12 @@ use ProductBundle\Model\ProductTypeCollection;
 use ProductBundle\Model\ProductImageCollection;
 use ProductBundle\Model\ResourceCollection;
 use ActionKit\ColumnConvert;
+use SEOPlugin\SEOPage;
 
-class Product 
-extends \ProductBundle\Model\ProductBase
+class Product extends \ProductBundle\Model\ProductBase implements SEOPage
 {
+
+
     public function dataLabel()
     {
         /*
@@ -67,6 +69,10 @@ extends \ProductBundle\Model\ProductBase
             return ColumnConvert::convertSchemaToAction(new $mixinClass, $this);
         }
     }
+
+    public function getPageKeywords() {  }
+
+    public function getPageDescription() { }
 
     public function getPageTitle() {
         $title = $this->name;
