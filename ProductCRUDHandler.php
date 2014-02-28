@@ -141,7 +141,7 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
         // with the category id for the list view.
         $categoryId         = $this->getCurrentCategoryId();
         if ( $categoryId ) {
-            if ( $this->bundle->config('multicategory') ) {
+            if ( $this->bundle->config('ProductCategory.multicategory') ) {
                 $collection->join( new \ProductBundle\Model\ProductCategory, "LEFT");
 
                 // currently this works for MySQL
