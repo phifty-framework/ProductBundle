@@ -102,6 +102,21 @@ class ProductBundle extends Bundle
             ),
             'ProductImage' => array(
                 'enable' => false,
+                'thumb' => false && array(
+                    'size' => array( 'width' => null, 'height' => null ),
+                    'size_limit' => null,
+                    'hint' => null,
+                ),
+                'image' => false && array(
+                    'size' => array( 'width' => null, 'height' => null ),
+                    'size_limit' => null,
+                    'hint' => null,
+                ),
+                'large' => false && array(
+                    'size' => array( 'width' => null, 'height' => null ),
+                    'size_limit' => null,
+                    'hint' => null,
+                ),
             ),
             'ProductCategory' => array(
                 'enable'     => true,
