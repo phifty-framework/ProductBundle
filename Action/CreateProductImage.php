@@ -27,7 +27,7 @@ class CreateProductImage extends CreateRecordAction
 
         $uploadDir = $bundle->config('upload_dir') ?: 'upload';
 
-        if( $bundle->config('zoom_image') ) {
+        if( $bundle->config('ProductImage.large') ) {
             $this->param('large','Image')
                 ->size($largeSize)
                 ->label('最大圖')
