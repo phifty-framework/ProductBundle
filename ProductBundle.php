@@ -230,7 +230,6 @@ class ProductBundle extends Bundle
         $this->expandRoute( '/bs/product_resource', 'ProductResourceCRUDHandler');
         $this->expandRoute( '/bs/product_image' ,   'ProductImageCRUDHandler');
 
-        $this->route( '/product_sitemap.xml' ,   'SiteMapController:index');
 
         if ( $this->config('ProductType.enable') ) {
             $this->expandRoute( '/bs/product_file' ,    'ProductFileCRUDHandler');
@@ -292,15 +291,17 @@ class ProductBundle extends Bundle
 
 
         if ( kernel()->bundle('RecipeBundle') ) {
-            $this->addCRUDAction( 'ProductRecipe' , array('Create','Update','Delete') );
+            $this->addCRUDAction('ProductRecipe');
         }
 
         $self = $this;
 
-        kernel()->event->register('sitemap.index', function($sitemapBundle) use ($self) {
-            $sitemapBundle->registerIndexPath('/product_sitemap.xml');
-
-        });
+        if ( $this->config('sitemap') ) {
+            $this->route( '/product_sitemap.xml' ,   'SiteMapController:index');
+            kernel()->event->register('sitemap.index', function($sitemapBundle) use ($self) {
+                $sitemapBundle->registerIndexPath('/product_sitemap.xml');
+            });
+        }
 
         kernel()->event->register( 'adminui.init_menu' , function($menu) use ($self) {
             $bundle = kernel()->bundle('ProductBundle');
