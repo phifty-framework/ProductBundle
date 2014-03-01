@@ -7,7 +7,7 @@ use ProductBundle\Model\ProductCollection;
 class SiteMapController extends Controller
 {
     public function indexAction() {
-        $sitemap = new SiteMap;
+        $sitemap = new SiteMap();
         $sitemap->includeAll();
 
 
@@ -15,7 +15,7 @@ class SiteMapController extends Controller
         $allProducts->where(array( 'hide' => false, 'status' => 'publish' ));
         $allProducts->order('created_on', 'desc');
         foreach( $allProducts as $product ) {
-            $url = $sitemap->addUrl($product->getLink());
+            $url = $sitemap->addUrl(kernel()->getHostBaseUrl() . $product->getLink());
             $url->changefreq('weekly')
                 ->lastmod( $product->updated_on );
                 // ->priority(1.0)
