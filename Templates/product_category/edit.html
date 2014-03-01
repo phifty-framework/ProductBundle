@@ -46,7 +46,9 @@ vim:filetype=htmldjango
             {{ CRUD.Action.renderField('lang')|raw}}
         {% endif %}
 
-        {{ CRUD.Action.renderField('description')|raw}}
+        {% if bundle.config('ProductCategory.desc') %}
+            {{ CRUD.Action.renderField('description')|raw}}
+        {% endif %}
 
         <div class="clear"> </div>
         <div class="divider"> </div>
