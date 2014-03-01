@@ -125,6 +125,7 @@ class ProductBundle extends Bundle
                 'seo'         => false,
                 'handle' => false,
                 'file' => false,
+                'desc' => false,
             ),
             'ProductType' => array(
                 'enable' => false,
