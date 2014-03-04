@@ -209,6 +209,7 @@ class ProductBundle extends Bundle
         $this->route( '/=/product/autocomplete', 'ProductAutoCompleteController');
 
         if ( $this->config('DefaultRoutes') ) {
+            $this->route( '/product/search', 'ProductController:search');
             $this->route( '/product', 'ProductController:list');
             $this->route( '/product/:id(/:lang/:name)', 'ProductController:item');
             $this->route( '/p/:id(/:lang/:name)', 'ProductController:item');
