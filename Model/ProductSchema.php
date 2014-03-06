@@ -134,7 +134,7 @@ class ProductSchema extends SchemaDeclare
              */
         }
 
-        if( $bundle->config('Product.spec_content_image') ) {
+        if( $bundle->config('Product.spec_image') ) {
             $this->column('spec_image')
                 ->varchar(250)
                 ->label('規格主圖')

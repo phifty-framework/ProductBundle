@@ -13,7 +13,7 @@ $(function() {
         records: {{ CRUD.Record.resources.toJson()|raw }},
         {% endif %}
         create: {
-            deleteAction: "ProductBundle::Action::DeleteProductResource",
+            deleteAction: "ProductBundle::Action::DeleteResource",
             relation: "resources"
         }
     });
