@@ -50,7 +50,7 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
         if (  kernel()->bundle('StatusPlugin') ) {
             array_insert( $this->listColumns, 3, 'status' );
         }
-        if ( $this->bundle->config( 'quicksearch' ) ) {
+        if ( $this->bundle->config( 'Product.quicksearch' ) ) {
             $this->quicksearchFields = array( 'name' , 'content' );
             if ( $this->bundle->config('with_subtitle') ) {
                 $this->quicksearchFields[] = 'subtitle';
@@ -60,7 +60,7 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
             }
         }
 
-        if ( $this->bundle->config( 'price' ) ) {
+        if ( $this->bundle->config( 'Product.price' ) ) {
             array_insert( $this->listColumns, -1 , 'price' );
         }
 
