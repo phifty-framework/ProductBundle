@@ -6,7 +6,8 @@
 
   subsectionItemTemplate = CoffeeKup.compile(function() {
     return div({
-      "class": "row clearfix"
+      "class": "row clearfix",
+      style: "margin-bottom: 20px;"
     }, function() {
       input({
         "class": "record-id",
@@ -14,10 +15,10 @@
         type: "hidden",
         value: this.id
       });
-      if (this.cover_image) {
-        div({
-          "class": "col-md-3"
-        }, function() {
+      div({
+        "class": "col-md-3"
+      }, function() {
+        if (this.cover_image) {
           return div({
             "class": "image-cover"
           }, function() {
@@ -25,39 +26,45 @@
               src: "/" + this.cover_image
             });
           });
-        });
-      }
+        }
+      });
       div({
-        "class": "col-md-6"
+        "class": "col-md-5"
       }, function() {
         h3(function() {
           return this.title;
         });
-        return div(function() {
+        return div({
+          style: "height: 100px; overflow: hidden; "
+        }, function() {
           return this.content;
         });
       });
       return div({
-        "class": "controls"
+        "class": "col-md-2"
       }, function() {
-        button({
-          "data-id": this.id,
-          "class": "edit-btn"
-        }, function() {
-          return "編輯";
-        });
-        button({
-          "data-id": this.id,
-          "class": "delete-btn"
-        }, function() {
-          return "刪除";
-        });
         return div({
-          "class": "handle",
-          style: "border: 1px solid #aaa; background: #d5d5d5; display: inline-block; padding: 1px 5px; "
+          "class": "controls"
         }, function() {
-          return span({
-            "class": "icon icon-sort"
+          button({
+            "data-id": this.id,
+            "class": "edit-btn"
+          }, function() {
+            return "編輯";
+          });
+          button({
+            "data-id": this.id,
+            "class": "delete-btn"
+          }, function() {
+            return "刪除";
+          });
+          return div({
+            "class": "handle",
+            style: "border: 1px solid #aaa; background: #d5d5d5; display: inline-block; padding: 1px 5px; "
+          }, function() {
+            return span({
+              "class": "icon icon-sort"
+            });
           });
         });
       });
