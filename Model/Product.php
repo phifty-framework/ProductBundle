@@ -55,7 +55,7 @@ class Product extends \ProductBundle\Model\ProductBase implements SEOPage
     }
 
     public function getUrl() {
-        return kernel()->getHostBaseUrl() . sprintf('/product/%d/%s/%s', $this->id, $this->lang, rawurlencode($this->name ?: 'Untitled') );
+        return kernel()->getBaseUrl() . sprintf('/product/%d/%s/%s', $this->id, $this->lang, rawurlencode($this->name ?: 'Untitled') );
     }
 
     public function getLink() {
