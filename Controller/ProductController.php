@@ -103,7 +103,7 @@ class ProductController extends Controller
 
         // echo '<pre>' . $products->toSQL() . '</pre>';
         $count = $products->queryCount();
-        $pager = new BootstrapPager($page, $count, $bundle->config('Product.page_items') ?: 5 ); // this calculates pages
+        $pager = new BootstrapPager($page, $count, $bundle->config('Product.page_size') ?: 5 ); // this calculates pages
         $products->page( $page, $pager->pageSize );
 
         $allProducts = $this->getAllProducts($lang);
@@ -149,7 +149,7 @@ class ProductController extends Controller
             'product_category'         => $currentCategory,
             'products'                 => $products,
             'pager'                    => $pager,
-            'product_pager'                    => $pager,
+            'product_pager'            => $pager,
             'product_count'            => $count,
         ));
     }
@@ -157,20 +157,22 @@ class ProductController extends Controller
     public function searchAction()
     {
         $lang = kernel()->locale->current();
-        $keyword = $this->request->param('term');
+        $term = $this->request->param('term');
         $products = new ProductCollection;
         $products->where()
                 ->equal('lang',$lang)
                 ->equal('status','publish')
                 ->equal('hide', false)
                 ->group()
-                    ->like('content',"%$keyword%")
-                    ->or()->like('name',"%$keyword%")
-                    ->or()->like('spec',"%$keyword%")
-                    ->or()->like('sn',"%$keyword%")
+                    ->like('content',"%$term%")
+                    ->or()->like('name',"%$term%")
+                    ->or()->like('spec_content',"%$term%")
+                    ->or()->like('description',"%$term%")
+                    ->or()->like('sn',"%$term%")
                 ->ungroup()
                 ;
         return $this->render( 'product_list.html', array(
+            'search_term' => $term,
             'products'    => $products,
         ));
     }
