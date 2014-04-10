@@ -82,4 +82,22 @@ class Product extends \ProductBundle\Model\ProductBase implements SEOPage
         return $title;
     }
 
+
+    /**
+     * @return bool check price and sellable flag.
+     */
+    public function isSellable() {
+        return $this->sellable && $this->price > 0;
+    }
+
+
+    protected $_allSoldOut;
+
+    public function isAllSoldOut() {
+        if ( $this->_allSoldOut !== null ) {
+            return $this->_allSoldOut;
+        }
+        return $this->_allSoldOut = ! $this->types->quantityAvailable();
+    }
+
 }
