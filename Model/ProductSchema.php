@@ -82,10 +82,10 @@ class ProductSchema extends SchemaDeclare
         $this->column('sellable')
             ->boolean()
             ->renderAs('SelectInput')
-            ->default(true)
+            ->default(false)
             ->validValues([
-                _('可販售') => true,
-                _('無法販售') => false,
+                _('可販售') => 1,
+                _('無法販售') => 0,
             ])
             ->label( _('可販售') )
             ->hint( _('選擇可販售之後，請記得新增產品類別，前台才可以加到購物車。') )
