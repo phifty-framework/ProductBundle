@@ -102,10 +102,10 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
             $features = new FeatureCollection;
             $this->assign( 'features' , $features->items() );
         }
-        return $this->renderCrudEdit();
+        return $this->renderEdit();
     }
 
-    public function renderCrudEdit( $args = array() ) {
+    public function renderEdit( $args = array() ) {
         $args['categoriesByLang'] = CollectionUtils::aggregateByLang(
             kernel()->locale->available(),
             'ProductBundle\\Model\\CategoryCollection');
@@ -129,7 +129,7 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
         foreach( $args['categoriesByLang'] as $lang => $collection ) {
             $collection->where()->equal('parent_id', 0);
         }
-        return parent::renderCrudEdit( $args );
+        return parent::renderEdit( $args );
     }
 
     public function getCollection()
