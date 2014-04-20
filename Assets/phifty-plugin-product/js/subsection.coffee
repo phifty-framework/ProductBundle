@@ -17,7 +17,7 @@ subsectionItemTemplate = CoffeeKup.compile ->
       button "data-id": @id, class: "edit-btn", -> "編輯"
       button "data-id": @id, class: "delete-btn", -> "刪除"
       div class:"handle", style: "border: 1px solid #aaa; background: #d5d5d5; display: inline-block; padding: 1px 5px; ", ->
-        span class: "icon icon-sort"
+        span class: "icon fa-sort"
 
 class ProductSubsectionItemView extends CRUDList.BaseItemView
   render: ->

@@ -39,7 +39,7 @@
           style: " border: 1px solid #aaa; background: #d5d5d5; display: block; padding: 1px 5px; "
         }, function() {
           return span({
-            "class": "icon icon-sort"
+            "class": "icon fa-sort"
           });
         });
       });
