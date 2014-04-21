@@ -61,7 +61,7 @@ class ProductBaseMixin extends MixinAction
                 ;
         }
 
-        if( $bundle->config('Product.spec_content_image') ) {
+        if( $bundle->config('Product.spec_image') ) {
 
             $this->param('spec_image','Image')
                 ->size( $specImageSize )

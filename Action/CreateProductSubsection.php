@@ -19,16 +19,17 @@ class CreateProductSubsection extends CreateRecordAction
 
         $uploadDir = $bundle->config('upload_dir') ?: 'upload';
 
-        $this->param('cover_image','Image')
-            ->sizeLimit( $imageSizeLimit )
-            ->size( $imageSize )
-            ->required()
-            ->hint( $bundle->config('ProductSubsection.image.hint') )
-            ->hintFromSizeInfo()
-            ->prefix('/')
-            ->label('主圖')
-            ;
-
+        if ( $bundle->config('ProductSection.cover_image') ) {
+            $this->param('cover_image','Image')
+                ->sizeLimit( $imageSizeLimit )
+                ->size( $imageSize )
+                ->required()
+                ->hint( $bundle->config('ProductSubsection.image.hint') )
+                ->hintFromSizeInfo()
+                ->prefix('/')
+                ->label('主圖')
+                ;
+        }
     }
 
 

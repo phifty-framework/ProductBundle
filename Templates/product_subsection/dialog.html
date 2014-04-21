@@ -14,9 +14,11 @@
         {% endif %}
 
         <div class="row">
+            {% if bundle.config('ProductSubsection.cover_image') %}
             <div class="col-md-5">
             {{ action.renderField('cover_image')|raw }}
             </div>
+            {% endif %}
             <div class="col-md-5">
                 {{ action.renderField('title')|raw }}
                 {{ action.renderField('content')|raw }}
