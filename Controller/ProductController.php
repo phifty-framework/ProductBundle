@@ -58,6 +58,9 @@ class ProductController extends Controller
         if ( ! $product->id ) {
             return $this->redirect('/');
         }
+        if ( $product->lang ) {
+            kernel()->locale->speak( $product->lang );
+        }
 
         $args = array();
         $args['page_title']        = $product->getPageTitle();

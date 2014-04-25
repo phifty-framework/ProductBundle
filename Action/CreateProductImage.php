@@ -13,6 +13,8 @@ class CreateProductImage extends CreateRecordAction
         $this->useRecordSchema();
         $bundle = kernel()->bundle('ProductBundle');
 
+        $autoResize = $bundle->config('auto_resize');
+
         $imageSize = $bundle->config('ProductImage.image.size');
         $thumbSize = $bundle->config('ProductImage.thumb.size');
         $largeSize = $bundle->config('ProductImage.large.size');
@@ -30,6 +32,7 @@ class CreateProductImage extends CreateRecordAction
         if( $bundle->config('ProductImage.large') ) {
             $this->param('large','Image')
                 ->size($largeSize)
+                ->autoResize($autoResize)
                 ->label('最大圖')
                 ->hint( $bundle->config('ProductImage.large.hint') )
                 ->hintFromSizeInfo()
@@ -39,6 +42,7 @@ class CreateProductImage extends CreateRecordAction
         $this->param('image','Image')
             ->sizeLimit( $imageSizeLimit )
             ->size( $imageSize )
+            ->autoResize($autoResize)
             ->sourceField( 'large' )
             ->required()
             ->hint( $bundle->config('ProductImage.image.hint') )
@@ -49,6 +53,7 @@ class CreateProductImage extends CreateRecordAction
         $this->param( 'thumb' , 'Image' )
             ->size( $thumbSize )
             ->sizeLimit( $thumbSizeLimit )
+            ->autoResize($autoResize)
             ->sourceField( 'image' )
             ->label('縮圖')
             ->hint( $bundle->config('ProductImage.thumb.hint') )

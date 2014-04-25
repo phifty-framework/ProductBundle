@@ -59,6 +59,7 @@ class ProductSchema extends SchemaDeclare
                 ->varchar(128)
                 ->label(_('產品放大圖'))
                 ->renderAs('ThumbImageFileInput')
+                ->contentType('ImageFile')
                 ;
         }
 
@@ -125,6 +126,7 @@ class ProductSchema extends SchemaDeclare
             $this->column('cover_image')
                 ->varchar(250)
                 ->label('首頁封面圖')
+                ->contentType('ImageFile')
                 ->renderAs('ThumbImageFileInput');
             /*
             $this->column('cover_image')
@@ -138,11 +140,13 @@ class ProductSchema extends SchemaDeclare
             $this->column('spec_image')
                 ->varchar(250)
                 ->label('規格主圖')
+                ->contentType('ImageFile')
                 ->renderAs('ThumbImageFileInput');
 
             $this->column('spec_thumb')
                 ->varchar(250)
                 ->label('規格縮圖')
+                ->contentType('ImageFile')
                 ->renderAs('ThumbImageFileInput');
         }
 
