@@ -245,15 +245,15 @@ class ProductBundle extends Bundle
             $this->expandRoute( '/bs/product_subsection', 'ProductSubsectionCRUDHandler' );
         }
 
-        $this->addCRUDAction('ProductType');
-        $this->addCRUDAction('Feature');
-        $this->addCRUDAction('ProductFeature');
-        $this->addCRUDAction('Resource');
-        $this->addCRUDAction('ProductProperty');
-        $this->addCRUDAction('ProductProduct');
-        $this->addCRUDAction('ProductUseCase');
-        $this->addCRUDAction('ProductLink');
-        $this->addCRUDAction('ProductSubsection');
+        $this->addRecordAction('ProductType');
+        $this->addRecordAction('Feature');
+        $this->addRecordAction('ProductFeature');
+        $this->addRecordAction('Resource');
+        $this->addRecordAction('ProductProperty');
+        $this->addRecordAction('ProductProduct');
+        $this->addRecordAction('ProductUseCase');
+        $this->addRecordAction('ProductLink');
+        $this->addRecordAction('ProductSubsection');
 
         kernel()->event->register('phifty.before_action', function() {
             kernel()->action->registerAction('ProductBundle\\Action\\SortProductImage', 
@@ -293,7 +293,7 @@ class ProductBundle extends Bundle
 
 
         if ( kernel()->bundle('RecipeBundle') ) {
-            $this->addCRUDAction('ProductRecipe');
+            $this->addRecordAction('ProductRecipe');
         }
 
         $self = $this;
