@@ -256,36 +256,16 @@ class ProductBundle extends Bundle
         $this->addRecordAction('ProductSubsection');
 
         kernel()->event->register('phifty.before_action', function() {
-            kernel()->action->registerAction('ProductBundle\\Action\\SortProductImage', 
-                '@ActionKit/RecordAction.html.twig', array( 
-                    'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
-                    'record_class' => 'ProductBundle\\Model\\ProductImage',
-                ));
-            kernel()->action->registerAction('ProductBundle\\Action\\SortProductProperty',
-                '@ActionKit/RecordAction.html.twig', array( 
-                    'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
-                    'record_class' => 'ProductBundle\\Model\\ProductProperty',
-                ));
-            kernel()->action->registerAction('ProductBundle\\Action\\SortProductLink',
-                '@ActionKit/RecordAction.html.twig', array(
-                    'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
-                    'record_class' => 'ProductBundle\\Model\\ProductLink',
-                ));
-            kernel()->action->registerAction('ProductBundle\\Action\\SortProductProduct',
-                '@ActionKit/RecordAction.html.twig', array(
-                    'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
-                    'record_class' => 'ProductBundle\\Model\\ProductProduct',
-                ));
-            kernel()->action->registerAction('ProductBundle\\Action\\SortProductUseCase',
-                '@ActionKit/RecordAction.html.twig', array(
-                    'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
-                    'record_class' => 'ProductBundle\\Model\\ProductUseCase',
-                ));
-            kernel()->action->registerAction('ProductBundle\\Action\\SortProductSubsection',
-                '@ActionKit/RecordAction.html.twig', array(
-                    'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
-                    'record_class' => 'ProductBundle\\Model\\ProductSubsection',
-                ));
+            foreach( ['ProductSubsection', 'ProductUseCase', 'ProductProduct', 'ProductLink', 'ProductProperty', 'ProductImage'] as $modelName ) {
+                // which can be simplified to:
+                // $this->addCRUDAction($modelName,'Sort');
+                kernel()->action->register("ProductBundle\\Action\\Sort{$modelName}",[ 
+                        'extends' => '\\SortablePlugin\\Action\\SortRecordAction',
+                        'properties' => [ 
+                            'recordClass' => "ProductBundle\\Model\\{$modelName}",
+                        ],
+                ]);
+            }
         });
 
         kernel()->restful->registerResource('product','ProductBundle\\RESTful\\ProductHandler');
