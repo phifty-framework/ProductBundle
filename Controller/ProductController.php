@@ -27,12 +27,14 @@ class ProductController extends Controller
                 $products->join( new \ProductBundle\Model\ProductCategory , "LEFT" );
                 $products->where(array(
                     'product_category_junction.category_id' => intval($category->id),
+                    'lang' => $category->lang,
                     'hide' => false ,
                     'status' => 'publish',
                 ));
             } else {
                 $products->where(array(
                     'category_id' => $category->id,
+                    'lang' => $category->lang,
                     'hide' => false,
                     'status' => 'publish',
                 ));
