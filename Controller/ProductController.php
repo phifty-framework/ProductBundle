@@ -86,14 +86,35 @@ class ProductController extends Controller
         $lang = $lang ?: kernel()->locale->current();
         $cates = $this->getAllCategories();
         $currentCategory = new Category(intval($id));
-    }
+        if ( $currentCategory->id ) {
+            $products = $this->getCategoryProducts($currentCategory);
+        } else {
+            $products = $this->getAllProducts($lang);
+        }
+        $currentCategoryProducts = clone $products;
 
+        // echo '<pre>' . $products->toSQL() . '</pre>';
+        $count = $products->queryCount();
+        $page = $this->request->param('page') ?: 1;
+        $pager = new BootstrapPager($page, $count, $bundle->config('Product.page_size') ?: 5 ); // this calculates pages
+        $products->page( $page, $pager->pageSize );
+
+        $allProducts = $this->getAllProducts($lang);
+        return $this->render( 'product_list.html', array(
+            'page_title'               => $currentCategory->name,
+            'product_category'         => $currentCategory,
+            'product_category_products'=> $currentCategoryProducts,
+            'all_product_categories'   => $cates,
+            'products'                 => $products,
+            'all_products'             => $allProducts,
+            'pager'                    => $pager,
+        ));
+    }
 
     public function byCategoryHandleAction($handle, $lang = null, $name = null)
     {
         $bundle = kernel()->bundle('ProductBundle');
 
-        $page = $this->request->param('page') ?: 1;
         $lang = $lang ?: kernel()->locale->current();
         $cates = $this->getAllCategories();
         $currentCategory = new Category(array( 'handle' => $handle, 'lang' => $lang ));
@@ -106,6 +127,7 @@ class ProductController extends Controller
 
         // echo '<pre>' . $products->toSQL() . '</pre>';
         $count = $products->queryCount();
+        $page = $this->request->param('page') ?: 1;
         $pager = new BootstrapPager($page, $count, $bundle->config('Product.page_size') ?: 5 ); // this calculates pages
         $products->page( $page, $pager->pageSize );
 
@@ -189,7 +211,7 @@ class ProductController extends Controller
             return $this->redirect('/not_found');
         }
         return $this->render( 'product_item.html' , array( 
-            'productCategories' => $cates,
+            'product_categories' => $cates,
             'product' => $product,
         ));
     }

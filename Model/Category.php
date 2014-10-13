@@ -26,4 +26,9 @@ extends \ProductBundle\Model\CategoryBase
         $childs->where(array( 'parent_id' => $this->id ));
         return $childs;
     }
+
+    public function getUrl() {
+        // /pc/id/:id(/:lang/:name)
+        return kernel()->getBaseUrl() . sprintf('/pc/%d/%s/%s', $this->id, $this->lang, rawurlencode($this->name ? str_replace('/','',$this->name) : 'Untitled'));
+    }
 }
