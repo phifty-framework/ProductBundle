@@ -100,7 +100,7 @@ class ProductController extends Controller
         $products->page( $page, $pager->pageSize );
 
         $allProducts = $this->getAllProducts($lang);
-        return $this->render( 'product_list.html', array(
+        return $this->render('product_list.html', array(
             'page_title'               => $currentCategory->name,
             'product_category'         => $currentCategory,
             'product_category_products'=> $currentCategoryProducts,
@@ -132,7 +132,7 @@ class ProductController extends Controller
         $products->page( $page, $pager->pageSize );
 
         $allProducts = $this->getAllProducts($lang);
-        return $this->render( 'product_list.html', array(
+        return $this->render('product_list.html', array(
             'page_title'               => $currentCategory->name,
             'product_category'         => $currentCategory,
             'product_category_products'=> $currentCategoryProducts,

@@ -194,6 +194,13 @@ class ProductSchema extends SchemaDeclare
             $this->manyToMany( 'recipes',   'product_recipes' , 'recipe' );
         }
 
+        if ( $bundle->config('ProductSpecTable.enable') ) {
+            $this->many('tables', 'ProductBundle\\Model\\ProductSpecTableSchema', 'product_id', 'id' )
+                ->order('ordering','ASC')
+                ->renderable(false)
+                ;
+        }
+
         /*
         if ( $mixinClass = $bundle->config('product.mixin') ) {
             $this->mixin($mixinClass);

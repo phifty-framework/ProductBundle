@@ -27,8 +27,18 @@ extends \ProductBundle\Model\CategoryBase
         return $childs;
     }
 
+    public function getLink()
+    {
+        return "/" . join("/", array(
+            "pc",
+            $this->id,
+            $this->lang,
+            rawurlencode($this->name ? str_replace('/','',$this->name) : 'Untitled'))
+        );
+    }
+
     public function getUrl() {
         // /pc/id/:id(/:lang/:name)
-        return kernel()->getBaseUrl() . sprintf('/pc/%d/%s/%s', $this->id, $this->lang, rawurlencode($this->name ? str_replace('/','',$this->name) : 'Untitled'));
+        return kernel()->getBaseUrl() . $this->getLink();
     }
 }
