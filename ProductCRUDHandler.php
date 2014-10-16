@@ -132,8 +132,10 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
                 'UseCaseBundle\\Model\\UseCaseCollection');
         }
 
-        foreach( $args['categoriesByLang'] as $lang => $collection ) {
-            $collection->where()->equal('parent_id', 0);
+        if ($bundle->config('Product.hide_subcategory')) {
+            foreach( $args['categoriesByLang'] as $lang => $collection ) {
+                $collection->where()->equal('parent_id', 0);
+            }
         }
         return parent::renderEdit( $args );
     }

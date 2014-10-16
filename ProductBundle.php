@@ -206,11 +206,12 @@ class ProductBundle extends Bundle
         $this->expandRoute( '/=/product_feature/chooser', 'FeatureChooser');
 
         $this->route( '/=/product/search', 'ProductSearchController');
-
         $this->route( '/=/product/autocomplete', 'ProductAutoCompleteController');
 
         if ( $this->config('DefaultRoutes') ) {
+            // The route for simple search
             $this->route( '/product/search', 'ProductController:search');
+            $this->route( '/product/search/advanced', 'ProductSearchController');
             $this->route( '/product', 'ProductController:list');
             $this->route( '/product/:id(/:lang/:name)', 'ProductController:item');
             $this->route( '/p/:id(/:lang/:name)', 'ProductController:item');
