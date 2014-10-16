@@ -188,13 +188,16 @@ class ProductController extends Controller
         ));
     }
 
+    /**
+     * A simple term search action products
+     */
     public function searchAction()
     {
         $lang = kernel()->locale->current();
         $term = $this->request->param('term');
         $products = new ProductCollection;
         $products->where()
-                ->equal('lang',$lang)
+                ->equal('lang', $lang)
                 ->equal('status','publish')
                 ->equal('hide', false)
                 ->group()

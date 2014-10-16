@@ -3,7 +3,7 @@ namespace ProductBundle\Controller;
 use Phifty\Controller;
 use ProductBundle\Model\ProductCollection;
 use SQLBuilder\QueryBuilder;
-
+use InvalidArgumentException;
 
 /**
  * Testing http://phifty.dev/=/product/search?keyword=Product&page=3&categories[]=1&categories[]=2
@@ -19,26 +19,67 @@ class ProductSearchController extends Controller
 
     public $countQuery;
 
-    public function getPageSize() 
+    public function getPageSize()
     {
         return $this->request->param('pagenum') ?: 10;
+    }
+
+    public function getCurrentSearchQuery()
+    {
+        if (isset($_SESSION['product_search'])) {
+            // Load from session
+            return array_merge(array(
+                'keyword' => '',
+                'lang' => kernel()->locale->current(),
+                'order' => 'created_on',
+                'features' => array(),
+                'categories' => array(),
+            ), $_SESSION['product_search']);
+        }
+        return NULL;
     }
 
     public function applySearchQuery()
     {
         $collection = new ProductCollection;
-        $keyword = $this->request->param('keyword');
-        $lang = $this->request->param('lang') ?: kernel()->locale->current();
-        $page = $this->request->param('page');
-        $pageSize = $this->getPageSize();
-        $orderBy = $this->request->param('order') ?: 'created_on';
 
-        $featureIds = array_map(function($id) { return intval($id); },array_filter($this->request->param('features') ?: array(), function($id) {
-            return is_numeric($id);
-        }));
-        $categoryIds = array_map( function($id) { return intval($id); }, array_filter($this->request->param('categories') ?: array(),function($id) {
-            return is_numeric($id);
-        }));
+        $keyword  = '';
+        $lang     = kernel()->locale->current();
+        $orderBy  = 'created_on';
+
+        $featureIds  = array();
+        $categoryIds = array();
+
+        // Initialize the search parameters from form
+        // And store the search params in SESSION, we should only update them 
+        // when there is a new POST request.
+        if (isset($_POST['keyword'])) {
+
+            $keyword  = $this->request->param('keyword');
+            $lang     = $this->request->param('lang') ?: $lang;
+            $orderBy  = $this->request->param('order') ?: $orderBy;
+            $featureIds = $this->request->param('features') ?: $featureIds;
+            $categoryIds = $this->request->param('categories') ?: $categoryIds;
+
+        } elseif (isset($_SESSION['product_search'])) {
+            $searchParams = $this->getCurrentSearchQuery();
+            $keyword  = $searchParams['keyword'];
+            $lang     = $searchParams['lang'];
+            $orderBy  = $searchParams['order'];
+            $featureIds  = $searchParams['features'];
+            $categoryIds = $searchParams['categories'];
+        } else {
+            throw new InvalidArgumentException('Invalid Search Parameters');
+        }
+
+        // Always get the page number and page size from parameters
+        $page     = $this->request->param('page');
+        $pageSize = $this->getPageSize();
+
+        // Filter the list
+        $featureIds  = array_map('intval', array_filter($featureIds, 'is_numeric'));
+        $categoryIds = array_map('intval', array_filter($categoryIds, 'is_numeric'));
+
 
         $selects = array(
             'p.id',
@@ -75,7 +116,7 @@ class ProductSearchController extends Controller
 
         $whereQuery[] = sprintf("p.status = '%s'",'publish');
 
-        if ( ! empty($featureIds) ) {
+        if (! empty($featureIds)) {
             // use AND
             foreach( $featureIds as $id ) {
                 $selectQuery .= " LEFT JOIN product_feature_junction pf{$id} ON (pf{$id}.product_id = p.id) ";
@@ -95,7 +136,7 @@ class ProductSearchController extends Controller
             // . ' OR p.category_id IN (' . join(',', $categoryIds) . '))';
         }
 
-        if ( $page ) {
+        if ($page) {
             $q->limit($pageSize);
             $q->offset( ($page - 1) * $pageSize);
         }
@@ -128,7 +169,7 @@ class ProductSearchController extends Controller
     }
 
     public function indexAction() {
-        list($collection,$count) = $this->applySearchQuery();
+        list($collection, $count) = $this->applySearchQuery();
         return $this->toJson(array(
             'total' => $count,
             'pageSize' => $this->getPageSize(),

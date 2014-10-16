@@ -195,17 +195,18 @@ class ProductSchema extends SchemaDeclare
         }
 
         if ( $bundle->config('ProductSpecTable.enable') ) {
-            $this->many('tables', 'ProductBundle\\Model\\ProductSpecTableSchema', 'product_id', 'id' )
+            $this->many('spec_tables', 'ProductBundle\\Model\\ProductSpecTableSchema', 'product_id', 'id' )
                 ->order('ordering','ASC')
                 ->renderable(false)
                 ;
         }
 
         /*
-        if ( $mixinClass = $bundle->config('product.mixin') ) {
+        if ($mixinClass = $bundle->config('product.mixin')) {
             $this->mixin($mixinClass);
         }
         */
+
         if ( $bundle->config('ProductSubsection.enable') ) {
             $this->many( 'subsections', 'ProductBundle\\Model\\ProductSubsectionSchema', 'product_id', 'id' )
                 ->order('ordering','ASC')
