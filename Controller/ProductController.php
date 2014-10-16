@@ -11,6 +11,15 @@ use Phifty\Web\BootstrapPager;
 class ProductController extends Controller
 {
 
+    public function getListTemplate() {
+        return "product_list.html";
+    }
+
+    public function getItemTemplate() {
+        return "product_item.html";
+    }
+
+
     public function getAllCategories() {
         $cates = new CategoryCollection;
         $cates->where(array( 'lang' => kernel()->locale->current() ));
@@ -77,7 +86,7 @@ class ProductController extends Controller
         if ( $bundle = kernel()->bundle('CartBundle') ) {
             $args['cart'] = \CartBundle\Cart::getInstance();
         }
-        return $this->render( 'product_item.html' , $args);
+        return $this->render($this->getItemTemplate(), $args);
     }
 
     public function byCategoryIdAction($id, $lang = null, $name = null) 
@@ -100,7 +109,7 @@ class ProductController extends Controller
         $products->page( $page, $pager->pageSize );
 
         $allProducts = $this->getAllProducts($lang);
-        return $this->render('product_list.html', array(
+        return $this->render($this->getListTemplate(), array(
             'page_title'               => $currentCategory->name,
             'product_category'         => $currentCategory,
             'product_category_products'=> $currentCategoryProducts,
@@ -132,7 +141,7 @@ class ProductController extends Controller
         $products->page( $page, $pager->pageSize );
 
         $allProducts = $this->getAllProducts($lang);
-        return $this->render('product_list.html', array(
+        return $this->render($this->getListTemplate(), array(
             'page_title'               => $currentCategory->name,
             'product_category'         => $currentCategory,
             'product_category_products'=> $currentCategoryProducts,
@@ -167,7 +176,7 @@ class ProductController extends Controller
         $pager = new BootstrapPager($page, $count, $bundle->config('Product.page_size') ); // this calculates pages
         $products->page( $page, $pager->pageSize );
 
-        return $this->render( 'product_list.html', array(
+        return $this->render($this->getListTemplate(), array(
             'page_title'               => $currentCategory->name,
             'all_product_categories'   => $cates,
             'all_products'             => $allProducts,
@@ -196,7 +205,7 @@ class ProductController extends Controller
                     ->or()->like('sn',"%$term%")
                 ->ungroup()
                 ;
-        return $this->render( 'product_list.html', array(
+        return $this->render($this->getListTemplate(), array(
             'search_term' => $term,
             'products'    => $products,
         ));
@@ -210,7 +219,7 @@ class ProductController extends Controller
         if ( ! $product->id ) {
             return $this->redirect('/not_found');
         }
-        return $this->render( 'product_item.html' , array( 
+        return $this->render($this->getItemTemplate(), array(
             'product_categories' => $cates,
             'product' => $product,
         ));
