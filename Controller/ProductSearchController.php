@@ -6,9 +6,9 @@ use SQLBuilder\QueryBuilder;
 use InvalidArgumentException;
 
 /**
- * Testing http://phifty.dev/=/product/search?keyword=Product&page=3&categories[]=1&categories[]=2
+ * Testing http://phifty.dev/=/product/search?term=Product&page=3&categories[]=1&categories[]=2
  *
- * keyword: in description, content, subtitle, name
+ * term: in description, content, subtitle, name
  * categories: [ 1, 2, 3 ]
  * features: [ 1, 2, 3 ]
  */
@@ -29,7 +29,7 @@ class ProductSearchController extends Controller
         if (isset($_SESSION['product_search'])) {
             // Load from session
             return array_merge(array(
-                'keyword' => '',
+                'term' => '',
                 'lang' => kernel()->locale->current(),
                 'order' => 'created_on',
                 'features' => array(),
@@ -43,7 +43,7 @@ class ProductSearchController extends Controller
     {
         $collection = new ProductCollection;
 
-        $keyword  = '';
+        $term  = '';
         $lang     = kernel()->locale->current();
         $orderBy  = 'created_on';
 
@@ -53,9 +53,8 @@ class ProductSearchController extends Controller
         // Initialize the search parameters from form
         // And store the search params in SESSION, we should only update them 
         // when there is a new POST request.
-        if (isset($_POST['keyword'])) {
-
-            $keyword  = $this->request->param('keyword');
+        if (isset($_POST['term'])) {
+            $term     = trim($this->request->param('term'));
             $lang     = $this->request->param('lang') ?: $lang;
             $orderBy  = $this->request->param('order') ?: $orderBy;
             $featureIds = $this->request->param('features') ?: $featureIds;
@@ -63,7 +62,7 @@ class ProductSearchController extends Controller
 
         } elseif (isset($_SESSION['product_search'])) {
             $searchParams = $this->getCurrentSearchQuery();
-            $keyword  = $searchParams['keyword'];
+            $term     = $searchParams['term'];
             $lang     = $searchParams['lang'];
             $orderBy  = $searchParams['order'];
             $featureIds  = $searchParams['features'];
@@ -101,12 +100,12 @@ class ProductSearchController extends Controller
         $q = new QueryBuilder;
         $q->driver = $driver;
 
-        if ( trim($keyword) ) {
-            $keyword = '%'. $keyword . '%';
-            $whereQuery[] = '(' . join(' OR ',array( 
-                'p.name LIKE ' . $driver->quote($keyword),
-                'p.subtitle LIKE ' . $driver->quote($keyword),
-                'p.content LIKE ' . $driver->quote($keyword),
+        if ($term) {
+            $termSQL = '%'. $term . '%';
+            $whereQuery[] = '(' . join(' OR ',array(
+                'p.name LIKE ' . $driver->quote($termSQL),
+                'p.subtitle LIKE ' . $driver->quote($termSQL),
+                'p.content LIKE ' . $driver->quote($termSQL),
             )) . ')';
         }
 
