@@ -1,6 +1,7 @@
 <?php
 namespace ProductBundle;
 use AdminUI\CRUDHandler;
+use ProductBundle\ProductBundle;
 
 class ProductTypeCRUDHandler extends CRUDHandler
 {
@@ -11,9 +12,9 @@ class ProductTypeCRUDHandler extends CRUDHandler
     public function getDialogActionView()
     {
         $view = $this->createActionView($this->currentAction,null,array(
-            'close_button' => false, 
+            'close_button' => false,
             'ajax' => true,
-            'skips' => array('product_id')
+            'skips' => array('product_id'),
         ));
         return $view;
     }

@@ -7,6 +7,7 @@ use ProductBundle\Model\FeatureCollection;
 use ProductBundle\Model\Product;
 use ProductBundle\Model\ProductCollection;
 use Phifty\Web\BootstrapPager;
+use ProductBundle\ProductBundle;
 
 class ProductController extends Controller
 {
@@ -31,19 +32,28 @@ class ProductController extends Controller
     {
         $bundle = kernel()->bundle('ProductBundle');
         $products = new ProductCollection;
-        if ( $bundle->config('ProductCategory.enable') ) {
+        if ($bundle->config('ProductCategory.enable')) {
             if ( $bundle->config('ProductCategory.multicategory') ) {
-                $products->join( new \ProductBundle\Model\ProductCategory , "LEFT" );
-                $products->where(array(
-                    'product_category_junction.category_id' => intval($category->id),
-                    'hide' => false ,
-                    'status' => 'publish',
-                ));
+                $products->selectAll();
+                $products->where()
+                    ->equal('hide', false)
+                    ->equal('status', 'publish')
+                    ;
+                $childCategories = $category->getAllChildCategories(true);
+                $cIds = array_map(function($c) { return intval($c->id); }, $childCategories);
+                if (!empty($cIds)) {
+                    $joinTable = new \ProductBundle\Model\ProductCategory;
+                    $joinTable->setAlias("pc");
+                    $products->join($joinTable, "LEFT");
+                    $products->where()
+                        ->in('pc.category_id', $cIds);
+                    $products->groupBy($products->getSelected());
+                }
             } else {
                 $products->where(array(
-                    'category_id' => $category->id,
-                    'hide' => false,
-                    'status' => 'publish',
+                  'category_id' => intval($category->id),
+                  'hide' => false,
+                  'status' => 'publish',
                 ));
             }
         }
@@ -95,13 +105,14 @@ class ProductController extends Controller
         $lang = $lang ?: kernel()->locale->current();
         $cates = $this->getAllCategories();
         $currentCategory = new Category(intval($id));
-        if ( $currentCategory->id ) {
+        if ($currentCategory->id) {
             $products = $this->getCategoryProducts($currentCategory);
         } else {
             $products = $this->getAllProducts($lang);
         }
         $currentCategoryProducts = clone $products;
 
+        $bundle = ProductBundle::getInstance();
         // echo '<pre>' . $products->toSQL() . '</pre>';
         $count = $products->queryCount();
         $page = $this->request->param('page') ?: 1;

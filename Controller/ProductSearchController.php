@@ -48,6 +48,7 @@ class ProductSearchController extends Controller
     public function applySearchQuery()
     {
         $collection = new ProductCollection;
+        $product = new Product;
 
         $term  = '';
         $lang     = kernel()->locale->current();
@@ -93,6 +94,14 @@ class ProductSearchController extends Controller
         $featureIds  = array_map('intval', array_filter($featureIds, 'is_numeric'));
         $categoryIds = array_map('intval', array_filter($categoryIds, 'is_numeric'));
 
+        $schema = $product->getSchema();
+
+        // Fetch all available columns
+        $selects = array_map(function($n) {
+            return "p.$n";
+        }, $schema->getColumnNames());
+
+        /*
         $selects = array(
             'p.id',
             'p.name',
@@ -100,11 +109,14 @@ class ProductSearchController extends Controller
             'p.image',
             'p.subtitle',
             'p.content',
+            'p.brief',
             'p.lang',
             'p.category_id',
             'p.description',
             'p.sn',
         );
+         */
+
         $selectQuery = 'SELECT ' . join(',',$selects) . ' FROM products p';
         $countQuery = 'SELECT count(*) as cnt,p.id FROM products p';
         $whereQuery = array();
@@ -117,9 +129,10 @@ class ProductSearchController extends Controller
             $termSQL = '%'. $term . '%';
             $whereQuery[] = '('
                 . join(' OR ',array(
-                        'p.name LIKE ' . $driver->quote($termSQL),
-                        'p.subtitle LIKE ' . $driver->quote($termSQL),
-                        'p.content LIKE ' . $driver->quote($termSQL),
+                    'p.name LIKE ' . $driver->quote($termSQL),
+                    'p.subtitle LIKE ' . $driver->quote($termSQL),
+                    'p.content LIKE ' . $driver->quote($termSQL),
+                    'p.brief LIKE ' . $driver->quote($termSQL),
                   ))
                 . ')';
         }
@@ -128,6 +141,7 @@ class ProductSearchController extends Controller
             $whereQuery[] = sprintf("p.lang = %s", $driver->quote($lang));
         }
 
+        // Find out all published products
         $whereQuery[] = sprintf("p.status = %s", $driver->quote('publish'));
 
         if (! empty($featureIds)) {

@@ -21,6 +21,15 @@ class Product extends \ProductBundle\Model\ProductBase implements SEOPage
         return $this->name;
     }
 
+    public function getFirstCategory()
+    {
+        if (isset($this->categories) && $this->categories) {
+            return $this->categories->first();
+        } elseif ($this->category) {
+            return $this->category;
+        }
+    }
+
     public function beforeUpdate($args) {
         $args['updated_on'] = date('c');
         return $args;

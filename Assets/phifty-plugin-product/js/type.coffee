@@ -1,8 +1,18 @@
 
 window.ProductType = {}
 ProductType.newItem = (data) ->
-  $el = $("<li/>").addClass("product-type").css(lineHeight: "200%")
+  $el = $("<li/>").addClass("product-type").css(
+    "lineHeight": "200%"
+    "white-space": "nowrap"
+    "text-overflow": "ellipsis"
+    "overflow": "hidden"
+    "vertical-align": "middle"
+  )
   $el.data "typeId", data.id
+
+  if data.icon
+    $el.append $("<img/>").attr({"src": "/" + data.icon, "width": 24, "height": 24 }).css({ "vertical-align": "middle", "margin-right": "3px" })
+
   $el.append $("<span/>").text(data.name).attr("title", data.comment)
   $el.append $("<span/>").text(" (剩餘數量:" + data.quantity + ")")  if data.quantity
   $el.append $("<span/>").text("(" + data.comment + ")")  if data.comment
