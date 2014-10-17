@@ -13,6 +13,10 @@ vim:filetype=htmldjango
     <ul>
         <li><a href="#{{tabfragment}}-1">產品資料</a></li>
 
+        {% if bundle.config('Product.brief') %}
+        <li><a href="#{{tabfragment}}-brief">產品簡述</a></li>
+        {% endif %}
+
         <li><a href="#{{tabfragment}}-content">產品內文</a></li>
 
         {% if bundle.config('ProductFeature.enable') %}
@@ -22,8 +26,13 @@ vim:filetype=htmldjango
         {% if bundle.config('RelatedProduct.enable') %}
             <li><a href="#{{tabfragment}}-related-product">相關產品</a></li>
         {% endif %}
+
         {% if bundle.config('ProductSubsection.enable') %}
             <li><a href="#{{tabfragment}}-subsections">內文子區塊</a></li>
+        {% endif %}
+
+        {% if bundle.config('ProductSpecTable.enable') %}
+            <li><a href="#{{tabfragment}}-spec-table">產品規格表</a></li>
         {% endif %}
 
         {% if bundle.config('ProductLink.enable') %}
@@ -40,13 +49,15 @@ vim:filetype=htmldjango
         {% endfor %}
     </ul>
 
+    {% if bundle.config('Product.brief') %}
+    <div id="{{tabfragment}}-brief">
+        {{CRUD.Action.renderField('brief',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
+    </div>
+    {% endif %}
+
     <div id="{{tabfragment}}-content">
         {% if bundle.config('Product.desc') %}
         {{CRUD.Action.renderField('description',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
-        {% endif %}
-
-        {% if bundle.config('Product.brief') %}
-        {{CRUD.Action.renderField('brief',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
         {% endif %}
 
         {% if bundle.config('Product.content') %}
@@ -86,6 +97,12 @@ vim:filetype=htmldjango
     {% if bundle.config('RelatedProduct.enable') %}
     <div id="{{tabfragment}}-related-product">
         {% include '@ProductBundle/product/related.html' %}
+    </div>
+    {% endif %}
+
+    {% if bundle.config('ProductSpecTable.enable') %}
+    <div id="{{tabfragment}}-spec-table">
+        {% include '@ProductBundle/product/spec_table.html' %}
     </div>
     {% endif %}
 

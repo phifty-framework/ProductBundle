@@ -226,12 +226,13 @@ class ProductBundle extends Bundle
             $this->route( '/pc/id/:id(/:lang/:name)',    'ProductController:byCategoryId'); // categoryAction
         }
 
-        $this->expandRoute( '/bs/product',          'ProductCRUDHandler');
-        $this->expandRoute( '/bs/product_category', 'CategoryCRUDHandler');
-        $this->expandRoute( '/bs/product_category_file', 'CategoryFileCRUDHandler');
-        $this->expandRoute( '/bs/product_feature' , 'FeatureCRUDHandler');
-        $this->expandRoute( '/bs/product_resource', 'ProductResourceCRUDHandler');
-        $this->expandRoute( '/bs/product_image' ,   'ProductImageCRUDHandler');
+        $this->expandRoute('/bs/product',          'ProductCRUDHandler');
+        $this->expandRoute('/bs/product_category', 'CategoryCRUDHandler');
+        $this->expandRoute('/bs/product_category_file', 'CategoryFileCRUDHandler');
+        $this->expandRoute('/bs/product_feature' , 'FeatureCRUDHandler');
+        $this->expandRoute('/bs/product_spec_table' , 'ProductSpecTableCRUDHandler');
+        $this->expandRoute('/bs/product_resource', 'ProductResourceCRUDHandler');
+        $this->expandRoute('/bs/product_image' ,   'ProductImageCRUDHandler');
 
 
         if ( $this->config('ProductType.enable') ) {
@@ -257,7 +258,7 @@ class ProductBundle extends Bundle
         $this->addRecordAction('ProductSubsection');
 
         kernel()->event->register('phifty.before_action', function() {
-            foreach( ['ProductSubsection', 'ProductUseCase', 'ProductProduct', 'ProductLink', 'ProductProperty', 'ProductImage'] as $modelName ) {
+            foreach( ['ProductSubsection', 'ProductUseCase', 'ProductProduct', 'ProductLink', 'ProductProperty', 'ProductImage', 'ProductSpecTable'] as $modelName ) {
                 // which can be simplified to:
                 // $this->addCRUDAction($modelName,'Sort');
                 kernel()->action->register("ProductBundle\\Action\\Sort{$modelName}",[ 

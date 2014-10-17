@@ -6,6 +6,7 @@ collections:
     - js/property.js
     - js/link.js
     - js/subsection.js
+    - js/spec_table.js
   - css:
     - css/product.css
   - files:
