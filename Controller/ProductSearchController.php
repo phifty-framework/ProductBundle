@@ -229,11 +229,23 @@ class ProductSearchController extends Controller
             ));
         }
 
+        // Show current search category (not used in the logic but used for the view)
+        $currentCategory = NULL;
+        if (isset($_SESSION['current_product_category'])) {
+            $currentCategory = new Category(intval($_SESSION['current_product_category']));
+        }
+        if ($currentCategoryId = $this->request->param('current_product_category')) {
+            $currentCategory = new Category(intval($currentCategoryId));
+            $_SESSION['current_product_category'] = $currentCategoryId;
+        }
+
         $params = $this->getCurrentSearchQuery();
         $lang = kernel()->locale->current();
 
         $page = $this->request->param('page') ?: 1;
         $pager = new BootstrapPager($page, $total, $this->getPageSize()); // this calculates pages
+
+        // echo '<pre>' . $this->lastQuery . '</pre>';
 
         // The template arguments should follow what we've used in ProductController:listAction
         return $this->render($this->getListTemplate(), array(
@@ -247,6 +259,8 @@ class ProductSearchController extends Controller
             'product_pager'            => $pager,
             'product_count'            => $total,
             'search_params'            => $params,
+
+            'product_current_search_category' => $currentCategory,
 
             'product_search_query' => $this->lastQuery,
             'product_search_count_query' => $this->countQuery,
