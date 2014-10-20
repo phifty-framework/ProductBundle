@@ -83,6 +83,7 @@ class ProductController extends Controller
 
         $args = array();
         $args['page_title']        = $product->getPageTitle();
+        $args['page_description']  = strip_tags($product->brief);
         $args['product'] = $product;
         $args['all_product_categories'] = $this->getAllCategories();
 
@@ -122,6 +123,7 @@ class ProductController extends Controller
         $allProducts = $this->getAllProducts($lang);
         return $this->render($this->getListTemplate(), array(
             'page_title'               => $currentCategory->name,
+            'page_description'         => $currentCategory->name,
             'product_category'         => $currentCategory,
             'product_category_products'=> $currentCategoryProducts,
             'all_product_categories'   => $cates,
