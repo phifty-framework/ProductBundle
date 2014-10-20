@@ -14,7 +14,17 @@ extends \ProductBundle\Model\CategoryBase
         return $this->name;
     }
 
-    public function getAllParent()
+    public function getRootCategory()
+    {
+        $p = $this;
+        while ($p->parent_id) {
+            $p = $p->parent;
+        }
+        return $p;
+    }
+
+
+    public function getAllParentCategories()
     {
         $parents = array($this);
         $p = $this;
