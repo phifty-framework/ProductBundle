@@ -1,8 +1,6 @@
 ###
 vim:sw=2:ts=2:sts=2:
 ###
-
-
 window.Product = {}
 
 Product.initEdit = ->
@@ -250,7 +248,7 @@ class window.ProductBulkConvertPlugin
             $.jGrowl resp.message, theme: 'error'
       content.append($select).append(runbtn).dialog()
 
-class window.ProductBulkCopyPlugin
+class ProductBulkCopyPlugin
   register: (bulk) ->
     bulk.addMenuItem 'copy', '複製...', (btn) ->
       content = $('<div/>')
@@ -370,4 +368,5 @@ class Product.Chooser
           $cover.appendTo(@itemlist)
 
 Product.init = ->
+window.ProductBulkCopyPlugin = ProductBulkCopyPlugin
 

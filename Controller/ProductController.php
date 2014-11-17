@@ -7,9 +7,19 @@ use ProductBundle\Model\FeatureCollection;
 use ProductBundle\Model\Product;
 use ProductBundle\Model\ProductCollection;
 use Phifty\Web\BootstrapPager;
+use ProductBundle\ProductBundle;
 
 class ProductController extends Controller
 {
+
+    public function getListTemplate() {
+        return "product_list.html";
+    }
+
+    public function getItemTemplate() {
+        return "product_item.html";
+    }
+
 
     public function getAllCategories() {
         $cates = new CategoryCollection;
@@ -22,21 +32,28 @@ class ProductController extends Controller
     {
         $bundle = kernel()->bundle('ProductBundle');
         $products = new ProductCollection;
-        if ( $bundle->config('ProductCategory.enable') ) {
+        if ($bundle->config('ProductCategory.enable')) {
             if ( $bundle->config('ProductCategory.multicategory') ) {
-                $products->join( new \ProductBundle\Model\ProductCategory , "LEFT" );
-                $products->where(array(
-                    'product_category_junction.category_id' => intval($category->id),
-                    'lang' => $category->lang,
-                    'hide' => false ,
-                    'status' => 'publish',
-                ));
+                $products->selectAll();
+                $products->where()
+                    ->equal('hide', false)
+                    ->equal('status', 'publish')
+                    ;
+                $childCategories = $category->getAllChildCategories(true);
+                $cIds = array_map(function($c) { return intval($c->id); }, $childCategories);
+                if (!empty($cIds)) {
+                    $joinTable = new \ProductBundle\Model\ProductCategory;
+                    $joinTable->setAlias("pc");
+                    $products->join($joinTable, "LEFT");
+                    $products->where()
+                        ->in('pc.category_id', $cIds);
+                    $products->groupBy($products->getSelected());
+                }
             } else {
                 $products->where(array(
-                    'category_id' => $category->id,
-                    'lang' => $category->lang,
-                    'hide' => false,
-                    'status' => 'publish',
+                  'category_id' => intval($category->id),
+                  'hide' => false,
+                  'status' => 'publish',
                 ));
             }
         }
@@ -66,6 +83,7 @@ class ProductController extends Controller
 
         $args = array();
         $args['page_title']        = $product->getPageTitle();
+        $args['page_description']  = strip_tags($product->brief);
         $args['product'] = $product;
         $args['all_product_categories'] = $this->getAllCategories();
 
@@ -79,7 +97,7 @@ class ProductController extends Controller
         if ( $bundle = kernel()->bundle('CartBundle') ) {
             $args['cart'] = \CartBundle\Cart::getInstance();
         }
-        return $this->render( 'product_item.html' , $args);
+        return $this->render($this->getItemTemplate(), $args);
     }
 
     public function byCategoryIdAction($id, $lang = null, $name = null) 
@@ -88,14 +106,37 @@ class ProductController extends Controller
         $lang = $lang ?: kernel()->locale->current();
         $cates = $this->getAllCategories();
         $currentCategory = new Category(intval($id));
-    }
+        if ($currentCategory->id) {
+            $products = $this->getCategoryProducts($currentCategory);
+        } else {
+            $products = $this->getAllProducts($lang);
+        }
+        $currentCategoryProducts = clone $products;
 
+        $bundle = ProductBundle::getInstance();
+        // echo '<pre>' . $products->toSQL() . '</pre>';
+        $count = $products->queryCount();
+        $page = $this->request->param('page') ?: 1;
+        $pager = new BootstrapPager($page, $count, $bundle->config('Product.page_size') ?: 5 ); // this calculates pages
+        $products->page( $page, $pager->pageSize );
+
+        $allProducts = $this->getAllProducts($lang);
+        return $this->render($this->getListTemplate(), array(
+            'page_title'               => $currentCategory->name,
+            'page_description'         => $currentCategory->name,
+            'product_category'         => $currentCategory,
+            'product_category_products'=> $currentCategoryProducts,
+            'all_product_categories'   => $cates,
+            'products'                 => $products,
+            'all_products'             => $allProducts,
+            'pager'                    => $pager,
+        ));
+    }
 
     public function byCategoryHandleAction($handle, $lang = null, $name = null)
     {
         $bundle = kernel()->bundle('ProductBundle');
 
-        $page = $this->request->param('page') ?: 1;
         $lang = $lang ?: kernel()->locale->current();
         $cates = $this->getAllCategories();
         $currentCategory = new Category(array( 'handle' => $handle, 'lang' => $lang ));
@@ -108,11 +149,12 @@ class ProductController extends Controller
 
         // echo '<pre>' . $products->toSQL() . '</pre>';
         $count = $products->queryCount();
+        $page = $this->request->param('page') ?: 1;
         $pager = new BootstrapPager($page, $count, $bundle->config('Product.page_size') ?: 5 ); // this calculates pages
         $products->page( $page, $pager->pageSize );
 
         $allProducts = $this->getAllProducts($lang);
-        return $this->render( 'product_list.html', array(
+        return $this->render($this->getListTemplate(), array(
             'page_title'               => $currentCategory->name,
             'product_category'         => $currentCategory,
             'product_category_products'=> $currentCategoryProducts,
@@ -147,7 +189,7 @@ class ProductController extends Controller
         $pager = new BootstrapPager($page, $count, $bundle->config('Product.page_size') ); // this calculates pages
         $products->page( $page, $pager->pageSize );
 
-        return $this->render( 'product_list.html', array(
+        return $this->render($this->getListTemplate(), array(
             'page_title'               => $currentCategory->name,
             'all_product_categories'   => $cates,
             'all_products'             => $allProducts,
@@ -159,13 +201,16 @@ class ProductController extends Controller
         ));
     }
 
+    /**
+     * A simple term search action products
+     */
     public function searchAction()
     {
         $lang = kernel()->locale->current();
         $term = $this->request->param('term');
         $products = new ProductCollection;
         $products->where()
-                ->equal('lang',$lang)
+                ->equal('lang', $lang)
                 ->equal('status','publish')
                 ->equal('hide', false)
                 ->group()
@@ -176,7 +221,7 @@ class ProductController extends Controller
                     ->or()->like('sn',"%$term%")
                 ->ungroup()
                 ;
-        return $this->render( 'product_list.html', array(
+        return $this->render($this->getListTemplate(), array(
             'search_term' => $term,
             'products'    => $products,
         ));
@@ -190,8 +235,8 @@ class ProductController extends Controller
         if ( ! $product->id ) {
             return $this->redirect('/not_found');
         }
-        return $this->render( 'product_item.html' , array( 
-            'productCategories' => $cates,
+        return $this->render($this->getItemTemplate(), array(
+            'product_categories' => $cates,
             'product' => $product,
         ));
     }

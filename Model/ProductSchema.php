@@ -28,9 +28,15 @@ class ProductSchema extends SchemaDeclare
             ->varchar(128)
             ->label('產品序號');
 
+        $this->column('brief')
+            ->text()
+            ->label( $bundle->config('Product.brief.label') ?: '產品簡述')
+            ;
+
         $this->column('description')
             ->text()
-            ->label( $bundle->config('Product.desc.label') ?: '產品敘述');
+            ->label( $bundle->config('Product.desc.label') ?: '產品敘述')
+            ;
 
         $this->column('content')
             ->text()
@@ -194,11 +200,19 @@ class ProductSchema extends SchemaDeclare
             $this->manyToMany( 'recipes',   'product_recipes' , 'recipe' );
         }
 
+        if ( $bundle->config('ProductSpecTable.enable') ) {
+            $this->many('spec_tables', 'ProductBundle\\Model\\ProductSpecTableSchema', 'product_id', 'id' )
+                ->order('ordering','ASC')
+                ->renderable(false)
+                ;
+        }
+
         /*
-        if ( $mixinClass = $bundle->config('product.mixin') ) {
+        if ($mixinClass = $bundle->config('product.mixin')) {
             $this->mixin($mixinClass);
         }
         */
+
         if ( $bundle->config('ProductSubsection.enable') ) {
             $this->many( 'subsections', 'ProductBundle\\Model\\ProductSubsectionSchema', 'product_id', 'id' )
                 ->order('ordering','ASC')

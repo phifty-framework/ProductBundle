@@ -84,9 +84,9 @@ class ProductBaseMixin extends MixinAction
         }
 
         $this->param('image','Image')
-            ->sourceField( 'zoom_image' )
             ->size( $imageSize )
             ->sizeLimit( $imageSizeLimit )
+            ->sourceField( 'zoom_image' )
             ->autoResize($autoResize)
             ->resizeWidth( $imageResizeWidth )
             ->hint( $bundle->config('Product.image.hint') )

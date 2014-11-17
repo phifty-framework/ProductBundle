@@ -1,5 +1,3 @@
-
-
 subsectionItemTemplate = CoffeeKup.compile ->
   div class: "row clearfix", style: "margin-bottom: 20px;" , ->
     input class:"record-id", name: "subsections[#{ @id }][id]", type: "hidden", value: @id

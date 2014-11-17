@@ -47,9 +47,11 @@ $(function() {
 <h3>相關產品</h3>
 <div class="row" style="min-height: 300px;">
     <div class="col-md-6" style="min-height: 300px;">
+        {% if bundle.config('RelatedProduct.search') %}
         <div class="input" style="width: 100%;">
             <input style="width: 100%;" type="text" size="40" id="productSearch{{frag_serial}}" placeholder="搜尋產品..."/>
         </div>
+        {% endif %}
         <ul style="width: 100%; margin: 0; padding: 0;" id="relatedProducts{{frag_serial}}">
         </ul>
     </div>
