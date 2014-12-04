@@ -8,9 +8,15 @@ use ProductBundle\Model\Product;
 use ProductBundle\Model\ProductCollection;
 use Phifty\Web\BootstrapPager;
 use ProductBundle\ProductBundle;
+use Phifty\Web\Bootstrap2Pager;
 
 class ProductController extends Controller
 {
+    public function createPager($page, $count) {
+        $bundle = \ProductBundle\ProductBundle::getInstance();
+        $pagerClass = $bundle->config('PagerClass') ?: 'Phifty\\Web\\BootstrapPager';
+        return new $pagerClass($page, $count, $bundle->config('PagerItems') ?: 5 ); // this calculates pages
+    }
 
     public function getListTemplate() {
         return "product_list.html";
@@ -151,8 +157,7 @@ class ProductController extends Controller
 
         // echo '<pre>' . $products->toSQL() . '</pre>';
         $count = $products->queryCount();
-        $page = $this->request->param('page') ?: 1;
-        $pager = new BootstrapPager($page, $count, $bundle->config('Product.page_size') ?: 5 ); // this calculates pages
+        $pager = $this->createPager($page, $count); // this calculates pages
         $products->page( $page, $pager->pageSize );
 
         $allProducts = $this->getAllProducts($lang);
@@ -189,7 +194,7 @@ class ProductController extends Controller
         $allProducts = $this->getAllProducts($lang);
 
         $count = $products->queryCount();
-        $pager = new BootstrapPager($page, $count, $bundle->config('Product.page_size') ); // this calculates pages
+        $pager = $this->createPager($page, $count); // this calculates pages
         $products->page( $page, $pager->pageSize );
 
         return $this->render($this->getListTemplate(), array(
