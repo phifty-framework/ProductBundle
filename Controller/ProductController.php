@@ -116,9 +116,10 @@ class ProductController extends Controller
         $bundle = ProductBundle::getInstance();
         // echo '<pre>' . $products->toSQL() . '</pre>';
         $count = $products->queryCount();
+
         $page = $this->request->param('page') ?: 1;
-        $pager = new BootstrapPager($page, $count, $bundle->config('Product.page_size') ?: 5 ); // this calculates pages
-        $products->page( $page, $pager->pageSize );
+        $pager = new BootstrapPager($page, $count, $bundle->config('Product.page_size') ?: 5); // this calculates pages
+        $products->page($page, $pager->pageSize);
 
         $allProducts = $this->getAllProducts($lang);
         return $this->render($this->getListTemplate(), array(
@@ -130,6 +131,7 @@ class ProductController extends Controller
             'products'                 => $products,
             'all_products'             => $allProducts,
             'pager'                    => $pager,
+            'product_pager'            => $pager,
         ));
     }
 
@@ -162,6 +164,7 @@ class ProductController extends Controller
             'products'                 => $products,
             'all_products'             => $allProducts,
             'pager'                    => $pager,
+            'product_pager'            => $pager,
         ));
     }
 
