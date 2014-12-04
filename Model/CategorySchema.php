@@ -54,11 +54,15 @@ class CategorySchema extends SchemaDeclare
         $this->mixin('CommonBundle\\Model\\Mixin\\MetaSchema');
         $this->mixin('I18N\\Model\\Mixin\\I18NSchema');
 
-        $this->many('files','ProductBundle\\Model\\CategoryFile','category_id','id');
-        $this->many('subcategories','ProductBundle\\Model\\CategorySchema','parent_id','id');
-        $this->belongsTo('parent','ProductBundle\\Model\\CategorySchema','id','parent_id');
-
         $bundle = \ProductBundle\ProductBundle::getInstance();
+
+        if ($bundle->config('ProductCategory.file')) {
+            $this->many('files','ProductBundle\\Model\\CategoryFile','category_id','id');
+        }
+        if ($bundle->config('ProductCategory.subcategory')) {
+            $this->many('subcategories','ProductBundle\\Model\\CategorySchema','parent_id','id');
+            $this->belongsTo('parent','ProductBundle\\Model\\CategorySchema','id','parent_id');
+        }
 
         if ( $bundle->config('ProductCategory.multicategory') ) {
             $this->many( 'category_products', 'ProductBundle\\Model\\ProductCategorySchema', 'category_id', 'id' );
