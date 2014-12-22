@@ -53,7 +53,7 @@ class ProductController extends Controller
                     $products->join($joinTable, "LEFT");
                     $products->where()
                         ->in('pc.category_id', $cIds);
-                    $products->groupBy($products->getSelected());
+                    $products->groupBy('m.id'); // this is supported only for MySQL
                 }
             } else {
                 $products->where(array(

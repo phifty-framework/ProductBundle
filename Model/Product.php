@@ -6,8 +6,9 @@ use ProductBundle\Model\ProductImageCollection;
 use ProductBundle\Model\ResourceCollection;
 use ActionKit\ColumnConvert;
 use SEOPlugin\SEOPage;
+use CoreBundle\Linkable;
 
-class Product extends \ProductBundle\Model\ProductBase implements SEOPage
+class Product extends \ProductBundle\Model\ProductBase implements SEOPage, Linkable
 {
 
 
@@ -63,8 +64,11 @@ class Product extends \ProductBundle\Model\ProductBase implements SEOPage
         return $html;
     }
 
-    public function getUrl() {
-        return kernel()->getBaseUrl() . sprintf('/product/%d/%s/%s', $this->id, $this->lang, rawurlencode($this->name ? str_replace('/','',$this->name) : 'Untitled') );
+    public function getUrl($absolute = false) {
+        if ($absolute) {
+            return kernel()->getBaseUrl() . sprintf('/product/%d/%s/%s', $this->id, $this->lang, rawurlencode($this->name ? str_replace('/','',$this->name) : 'Untitled') );
+        }
+        return sprintf('/product/%d/%s/%s', $this->id, $this->lang, rawurlencode($this->name ? str_replace('/','',$this->name) : 'Untitled') );
     }
 
     public function getLink() {

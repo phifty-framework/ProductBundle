@@ -1,8 +1,9 @@
 <?php
 namespace ProductBundle\Model;
+use CoreBundle\Linkable;
 
 class Category 
-extends \ProductBundle\Model\CategoryBase
+extends \ProductBundle\Model\CategoryBase implements Linkable
 {
 
     public $dataLabelField = 'name';
@@ -71,8 +72,12 @@ extends \ProductBundle\Model\CategoryBase
         );
     }
 
-    public function getUrl() {
+    public function getUrl($absolute = false)
+    {
         // /pc/id/:id(/:lang/:name)
-        return kernel()->getBaseUrl() . $this->getLink();
+        if ($absolute) {
+            return kernel()->getBaseUrl() . $this->getLink();
+        }
+        return $this->getLink();
     }
 }
