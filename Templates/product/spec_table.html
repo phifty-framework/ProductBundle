@@ -1,0 +1,41 @@
+{% set specTableFragment = 'product-spec-table-' ~ random() %}
+<div class="clear"> </div>
+<div class="divider"> </div>
+<div id="{{specTableFragment}}">
+
+</div>
+<script>
+$(function() {
+    CRUDList.init({
+        title: "產品規格表",
+        hint:  "您可於此處建立多組產品規格表",
+        container: $('#{{specTableFragment}}'),
+        crudId: "product_spec_table",
+        itemView: ProductSpecTable.ItemView,
+        {% if CRUD.Record.id %}
+        records: {{ CRUD.Record.spec_tables.toJson()|raw }},
+        {% endif %}
+        init: function($dialog) {
+            var $tableContainer = $dialog.find('.table-container');
+            var t = new Table($tableContainer);
+            var $form = $dialog.find('form');
+            var a = $form.data('actionObject');
+            $(a).bind('action.before_submit', function(e, data) {
+                var tableData = t.getData();
+                data.rows = tableData.rows;
+                data.columns = tableData.columns;
+            });
+        },
+        create: {
+            deleteAction: "ProductBundle::Action::DeleteProductSpecTable",
+            relation: "spec_tables"
+        }
+    });
+    initSortableAction($('#{{specTableFragment}} .item-container'), {
+        items: '.row',
+        fields: 'input.record-id',
+        action: 'ProductBundle::Action::SortProductSpecTable',
+        handle: '.handle'
+    });
+});
+</script>

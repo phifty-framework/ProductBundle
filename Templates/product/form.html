@@ -34,14 +34,13 @@ vim:filetype=htmldjango:
                 </div>
                 {% endif %}
 
-
                 <div class="clearfix"> </div>
 
                 {% if bundle.config('Product.subtitle') %}
-                <div class="col-field">
                 {{ CRUD.Action.renderField('subtitle') |raw}}
-                </div>
                 {% endif %}
+
+                <div class="clearfix"> </div>
 
                 {% if Kernel.bundle('I18N') and bundle.config('lang') %}
                 <div class="col-field">
@@ -156,7 +155,7 @@ $(function() {
             {% include '@ProductBundle/product/index_image.html' %}
         {% endif %}
 
-        {% if bundle.config('Product.spec_content_image') %}
+        {% if bundle.config('Product.spec_image') %}
             {% include '@ProductBundle/product/spec_image.html' %}
         {% endif %}
 

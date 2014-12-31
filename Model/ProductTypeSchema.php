@@ -20,17 +20,24 @@ class ProductTypeSchema extends SchemaDeclare
             ->renderAs('SelectInput')
             ->refer('ProductBundle\\Model\\ProductSchema');
 
+
         $this->column('name')
             ->varchar(120)
             ->required()
-            ->label(_('類型名稱'))
+            ->label(_('名稱'))
             ->renderAs('TextInput', [
-              'size' => 20,
+              'size' => 60,
               'placeholder' => _('如: 綠色, 黑色, 羊毛, 大、中、小等等。'),
             ])
             ;
 
-        if ( $bundle->config('ProductType.quantity') ) {
+        $this->column('icon')
+            ->varchar(80)
+            ->label( _('圖示') )
+            ->renderAs('ThumbImageFileInput')
+            ;
+
+        if ($bundle->config('ProductType.quantity')) {
             $this->column('quantity')
                 ->integer()
                 ->default(0)
@@ -41,15 +48,6 @@ class ProductTypeSchema extends SchemaDeclare
                 ->validValues(range(-1,100))
                 ;
         }
-
-        /*
-        $this->column('spec')
-            ->text()
-            ->label('規格說明')
-            ->renderAs('TextInput')
-            ->hint(_('在前台顯示的規格說明'))
-            ;
-         */
 
         $this->column('comment')
             ->text()

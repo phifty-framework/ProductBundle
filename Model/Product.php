@@ -6,8 +6,9 @@ use ProductBundle\Model\ProductImageCollection;
 use ProductBundle\Model\ResourceCollection;
 use ActionKit\ColumnConvert;
 use SEOPlugin\SEOPage;
+use CoreBundle\Linkable;
 
-class Product extends \ProductBundle\Model\ProductBase implements SEOPage
+class Product extends \ProductBundle\Model\ProductBase implements SEOPage, Linkable
 {
 
 
@@ -19,6 +20,15 @@ class Product extends \ProductBundle\Model\ProductBase implements SEOPage
         }
         */
         return $this->name;
+    }
+
+    public function getFirstCategory()
+    {
+        if (isset($this->categories) && $this->categories) {
+            return $this->categories->first();
+        } elseif ($this->category) {
+            return $this->category;
+        }
     }
 
     public function beforeUpdate($args) {
@@ -54,12 +64,15 @@ class Product extends \ProductBundle\Model\ProductBase implements SEOPage
         return $html;
     }
 
-    public function getUrl() {
-        return kernel()->getBaseUrl() . sprintf('/product/%d/%s/%s', $this->id, $this->lang, rawurlencode($this->name ?: 'Untitled') );
+    public function getUrl($absolute = false) {
+        if ($absolute) {
+            return kernel()->getBaseUrl() . sprintf('/product/%d/%s/%s', $this->id, $this->lang, rawurlencode($this->name ? str_replace('/','',$this->name) : 'Untitled') );
+        }
+        return sprintf('/product/%d/%s/%s', $this->id, $this->lang, rawurlencode($this->name ? str_replace('/','',$this->name) : 'Untitled') );
     }
 
     public function getLink() {
-        return sprintf('/product/%d/%s/%s', $this->id, $this->lang, rawurlencode($this->name) );
+        return sprintf('/product/%d/%s/%s', $this->id, $this->lang, rawurlencode(str_replace('/','',$this->name)) );
     }
 
     public function getMixinSchemaAction()
@@ -80,6 +93,24 @@ class Product extends \ProductBundle\Model\ProductBase implements SEOPage
             $title .= ' - ' . $this->sn;
         }
         return $title;
+    }
+
+
+    /**
+     * @return bool check price and sellable flag.
+     */
+    public function isSellable() {
+        return $this->sellable && $this->price > 0;
+    }
+
+
+    protected $_allSoldOut;
+
+    public function isAllSoldOut() {
+        if ( $this->_allSoldOut !== null ) {
+            return $this->_allSoldOut;
+        }
+        return $this->_allSoldOut = ! $this->types->quantityAvailable();
     }
 
 }

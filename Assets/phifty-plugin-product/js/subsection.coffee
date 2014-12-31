@@ -1,23 +1,22 @@
-
-
 subsectionItemTemplate = CoffeeKup.compile ->
-  div class: "row clearfix", ->
+  div class: "row clearfix", style: "margin-bottom: 20px;" , ->
     input class:"record-id", name: "subsections[#{ @id }][id]", type: "hidden", value: @id
 
-    if @cover_image
-      div class: "col-md-3", ->
+    div class: "col-md-3", ->
+      if @cover_image
         div class: "image-cover", ->
           img src: "/" + @cover_image
 
-    div class: "col-md-6", ->
+    div class: "col-md-5", ->
       h3 -> @title
-      div -> @content
+      div style:"height: 100px; overflow: hidden; " , -> @content
 
-    div class: "controls", ->
-      button "data-id": @id, class: "edit-btn", -> "編輯"
-      button "data-id": @id, class: "delete-btn", -> "刪除"
-      div class:"handle", style: "border: 1px solid #aaa; background: #d5d5d5; display: inline-block; padding: 1px 5px; ", ->
-        span class: "icon icon-sort"
+    div class: "col-md-2", ->
+      div class: "controls", ->
+        button "data-id": @id, class: "edit-btn", -> "編輯"
+        button "data-id": @id, class: "delete-btn", -> "刪除"
+        div class:"handle", style: "border: 1px solid #aaa; background: #d5d5d5; display: inline-block; padding: 1px 5px; ", ->
+          span class: "icon fa fa-sort"
 
 class ProductSubsectionItemView extends CRUDList.BaseItemView
   render: ->

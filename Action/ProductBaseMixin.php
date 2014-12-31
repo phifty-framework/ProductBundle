@@ -61,7 +61,7 @@ class ProductBaseMixin extends MixinAction
                 ;
         }
 
-        if( $bundle->config('Product.spec_content_image') ) {
+        if( $bundle->config('Product.spec_image') ) {
 
             $this->param('spec_image','Image')
                 ->size( $specImageSize )
@@ -84,9 +84,9 @@ class ProductBaseMixin extends MixinAction
         }
 
         $this->param('image','Image')
-            ->sourceField( 'zoom_image' )
             ->size( $imageSize )
             ->sizeLimit( $imageSizeLimit )
+            ->sourceField( 'zoom_image' )
             ->autoResize($autoResize)
             ->resizeWidth( $imageResizeWidth )
             ->hint( $bundle->config('Product.image.hint') )

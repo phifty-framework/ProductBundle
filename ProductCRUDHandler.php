@@ -52,11 +52,17 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
         }
         if ( $this->bundle->config( 'Product.quicksearch' ) ) {
             $this->quicksearchFields = array( 'name' , 'content' );
-            if ( $this->bundle->config('with_subtitle') ) {
+            if ( $this->bundle->config('Product.subtitle') ) {
                 $this->quicksearchFields[] = 'subtitle';
             }
-            if ( $this->bundle->config('sn') ) {
+            if ( $this->bundle->config('Product.sn') ) {
                 $this->quicksearchFields[] = 'sn';
+            }
+            if ( $this->bundle->config('Product.brief') ) {
+                $this->quicksearchFields[] = 'brief';
+            }
+            if ( $this->bundle->config('Product.content') ) {
+                $this->quicksearchFields[] = 'content';
             }
         }
 
@@ -102,10 +108,10 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
             $features = new FeatureCollection;
             $this->assign( 'features' , $features->items() );
         }
-        return $this->renderCrudEdit();
+        return $this->renderEdit();
     }
 
-    public function renderCrudEdit( $args = array() ) {
+    public function renderEdit( $args = array() ) {
         $args['categoriesByLang'] = CollectionUtils::aggregateByLang(
             kernel()->locale->available(),
             'ProductBundle\\Model\\CategoryCollection');
@@ -126,10 +132,12 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
                 'UseCaseBundle\\Model\\UseCaseCollection');
         }
 
-        foreach( $args['categoriesByLang'] as $lang => $collection ) {
-            $collection->where()->equal('parent_id', 0);
+        if ($bundle->config('Product.hide_subcategory')) {
+            foreach( $args['categoriesByLang'] as $lang => $collection ) {
+                $collection->where()->equal('parent_id', 0);
+            }
         }
-        return parent::renderCrudEdit( $args );
+        return parent::renderEdit( $args );
     }
 
     public function getCollection()

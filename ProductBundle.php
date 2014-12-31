@@ -206,11 +206,12 @@ class ProductBundle extends Bundle
         $this->expandRoute( '/=/product_feature/chooser', 'FeatureChooser');
 
         $this->route( '/=/product/search', 'ProductSearchController');
-
         $this->route( '/=/product/autocomplete', 'ProductAutoCompleteController');
 
         if ( $this->config('DefaultRoutes') ) {
+            // The route for simple search
             $this->route( '/product/search', 'ProductController:search');
+            $this->route( '/product/search/advanced', 'ProductSearchController');
             $this->route( '/product', 'ProductController:list');
             $this->route( '/product/:id(/:lang/:name)', 'ProductController:item');
             $this->route( '/p/:id(/:lang/:name)', 'ProductController:item');
@@ -225,12 +226,13 @@ class ProductBundle extends Bundle
             $this->route( '/pc/id/:id(/:lang/:name)',    'ProductController:byCategoryId'); // categoryAction
         }
 
-        $this->expandRoute( '/bs/product',          'ProductCRUDHandler');
-        $this->expandRoute( '/bs/product_category', 'CategoryCRUDHandler');
-        $this->expandRoute( '/bs/product_category_file', 'CategoryFileCRUDHandler');
-        $this->expandRoute( '/bs/product_feature' , 'FeatureCRUDHandler');
-        $this->expandRoute( '/bs/product_resource', 'ProductResourceCRUDHandler');
-        $this->expandRoute( '/bs/product_image' ,   'ProductImageCRUDHandler');
+        $this->expandRoute('/bs/product',          'ProductCRUDHandler');
+        $this->expandRoute('/bs/product_category', 'CategoryCRUDHandler');
+        $this->expandRoute('/bs/product_category_file', 'CategoryFileCRUDHandler');
+        $this->expandRoute('/bs/product_feature' , 'FeatureCRUDHandler');
+        $this->expandRoute('/bs/product_spec_table' , 'ProductSpecTableCRUDHandler');
+        $this->expandRoute('/bs/product_resource', 'ProductResourceCRUDHandler');
+        $this->expandRoute('/bs/product_image' ,   'ProductImageCRUDHandler');
 
 
         if ( $this->config('ProductType.enable') ) {
@@ -245,47 +247,27 @@ class ProductBundle extends Bundle
             $this->expandRoute( '/bs/product_subsection', 'ProductSubsectionCRUDHandler' );
         }
 
-        $this->addCRUDAction('ProductType');
-        $this->addCRUDAction('Feature');
-        $this->addCRUDAction('ProductFeature');
-        $this->addCRUDAction('Resource');
-        $this->addCRUDAction('ProductProperty');
-        $this->addCRUDAction('ProductProduct');
-        $this->addCRUDAction('ProductUseCase');
-        $this->addCRUDAction('ProductLink');
-        $this->addCRUDAction('ProductSubsection');
+        $this->addRecordAction('ProductType');
+        $this->addRecordAction('Feature');
+        $this->addRecordAction('ProductFeature');
+        $this->addRecordAction('Resource');
+        $this->addRecordAction('ProductProperty');
+        $this->addRecordAction('ProductProduct');
+        $this->addRecordAction('ProductUseCase');
+        $this->addRecordAction('ProductLink');
+        $this->addRecordAction('ProductSubsection');
 
         kernel()->event->register('phifty.before_action', function() {
-            kernel()->action->registerAction('ProductBundle\\Action\\SortProductImage', 
-                '@ActionKit/RecordAction.html.twig', array( 
-                    'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
-                    'record_class' => 'ProductBundle\\Model\\ProductImage',
-                ));
-            kernel()->action->registerAction('ProductBundle\\Action\\SortProductProperty',
-                '@ActionKit/RecordAction.html.twig', array( 
-                    'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
-                    'record_class' => 'ProductBundle\\Model\\ProductProperty',
-                ));
-            kernel()->action->registerAction('ProductBundle\\Action\\SortProductLink',
-                '@ActionKit/RecordAction.html.twig', array(
-                    'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
-                    'record_class' => 'ProductBundle\\Model\\ProductLink',
-                ));
-            kernel()->action->registerAction('ProductBundle\\Action\\SortProductProduct',
-                '@ActionKit/RecordAction.html.twig', array(
-                    'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
-                    'record_class' => 'ProductBundle\\Model\\ProductProduct',
-                ));
-            kernel()->action->registerAction('ProductBundle\\Action\\SortProductUseCase',
-                '@ActionKit/RecordAction.html.twig', array(
-                    'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
-                    'record_class' => 'ProductBundle\\Model\\ProductUseCase',
-                ));
-            kernel()->action->registerAction('ProductBundle\\Action\\SortProductSubsection',
-                '@ActionKit/RecordAction.html.twig', array(
-                    'base_class' => 'SortablePlugin\\Action\\SortRecordAction',
-                    'record_class' => 'ProductBundle\\Model\\ProductSubsection',
-                ));
+            foreach( ['ProductSubsection', 'ProductUseCase', 'ProductProduct', 'ProductLink', 'ProductProperty', 'ProductImage', 'ProductSpecTable'] as $modelName ) {
+                // which can be simplified to:
+                // $this->addCRUDAction($modelName,'Sort');
+                kernel()->action->register("ProductBundle\\Action\\Sort{$modelName}",[ 
+                        'extends' => '\\SortablePlugin\\Action\\SortRecordAction',
+                        'properties' => [ 
+                            'recordClass' => "ProductBundle\\Model\\{$modelName}",
+                        ],
+                ]);
+            }
         });
 
         kernel()->restful->registerResource('product','ProductBundle\\RESTful\\ProductHandler');
@@ -293,7 +275,7 @@ class ProductBundle extends Bundle
 
 
         if ( kernel()->bundle('RecipeBundle') ) {
-            $this->addCRUDAction('ProductRecipe');
+            $this->addRecordAction('ProductRecipe');
         }
 
         $self = $this;

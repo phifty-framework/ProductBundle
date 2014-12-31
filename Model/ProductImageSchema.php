@@ -23,6 +23,7 @@ class ProductImageSchema extends SchemaDeclare
 
         $this->column( 'large' )
             ->varchar(130)
+            ->contentType('ImageFile')
             ->label('最大圖');
 
         $this->mixin('CommonBundle\\Model\\Mixin\\ImageSchema');

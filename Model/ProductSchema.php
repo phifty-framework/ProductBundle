@@ -28,9 +28,15 @@ class ProductSchema extends SchemaDeclare
             ->varchar(128)
             ->label('產品序號');
 
+        $this->column('brief')
+            ->text()
+            ->label( $bundle->config('Product.brief.label') ?: '產品簡述')
+            ;
+
         $this->column('description')
             ->text()
-            ->label( $bundle->config('Product.desc.label') ?: '產品敘述');
+            ->label( $bundle->config('Product.desc.label') ?: '產品敘述')
+            ;
 
         $this->column('content')
             ->text()
@@ -59,6 +65,7 @@ class ProductSchema extends SchemaDeclare
                 ->varchar(128)
                 ->label(_('產品放大圖'))
                 ->renderAs('ThumbImageFileInput')
+                ->contentType('ImageFile')
                 ;
         }
 
@@ -82,10 +89,10 @@ class ProductSchema extends SchemaDeclare
         $this->column('sellable')
             ->boolean()
             ->renderAs('SelectInput')
-            ->default(true)
+            ->default(false)
             ->validValues([
-                _('可販售') => true,
-                _('無法販售') => false,
+                _('可販售') => 1,
+                _('無法販售') => 0,
             ])
             ->label( _('可販售') )
             ->hint( _('選擇可販售之後，請記得新增產品類別，前台才可以加到購物車。') )
@@ -125,6 +132,7 @@ class ProductSchema extends SchemaDeclare
             $this->column('cover_image')
                 ->varchar(250)
                 ->label('首頁封面圖')
+                ->contentType('ImageFile')
                 ->renderAs('ThumbImageFileInput');
             /*
             $this->column('cover_image')
@@ -134,15 +142,17 @@ class ProductSchema extends SchemaDeclare
              */
         }
 
-        if( $bundle->config('Product.spec_content_image') ) {
+        if( $bundle->config('Product.spec_image') ) {
             $this->column('spec_image')
                 ->varchar(250)
                 ->label('規格主圖')
+                ->contentType('ImageFile')
                 ->renderAs('ThumbImageFileInput');
 
             $this->column('spec_thumb')
                 ->varchar(250)
                 ->label('規格縮圖')
+                ->contentType('ImageFile')
                 ->renderAs('ThumbImageFileInput');
         }
 
@@ -190,11 +200,19 @@ class ProductSchema extends SchemaDeclare
             $this->manyToMany( 'recipes',   'product_recipes' , 'recipe' );
         }
 
+        if ( $bundle->config('ProductSpecTable.enable') ) {
+            $this->many('spec_tables', 'ProductBundle\\Model\\ProductSpecTableSchema', 'product_id', 'id' )
+                ->order('ordering','ASC')
+                ->renderable(false)
+                ;
+        }
+
         /*
-        if ( $mixinClass = $bundle->config('product.mixin') ) {
+        if ($mixinClass = $bundle->config('product.mixin')) {
             $this->mixin($mixinClass);
         }
         */
+
         if ( $bundle->config('ProductSubsection.enable') ) {
             $this->many( 'subsections', 'ProductBundle\\Model\\ProductSubsectionSchema', 'product_id', 'id' )
                 ->order('ordering','ASC')

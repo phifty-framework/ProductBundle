@@ -5,7 +5,7 @@ vim:sw=2:ts=2:sts=2:
 
 
 (function() {
-  var Pager, productItemTemplate, productUsecaseItemTemplate, _ref, _ref1,
+  var Pager, ProductBulkCopyPlugin, productItemTemplate, productUsecaseItemTemplate, _ref, _ref1,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -165,7 +165,7 @@ vim:sw=2:ts=2:sts=2:
 
   productUsecaseItemTemplate = CoffeeKup.compile(function() {
     return div({
-      "class": "product-cover col-md-4"
+      "class": "product-cover col-md-3"
     }, function() {
       var index;
       index = this.usecase_id;
@@ -432,7 +432,7 @@ vim:sw=2:ts=2:sts=2:
 
   })();
 
-  window.ProductBulkCopyPlugin = (function() {
+  ProductBulkCopyPlugin = (function() {
     function ProductBulkCopyPlugin() {}
 
     ProductBulkCopyPlugin.prototype.register = function(bulk) {
@@ -628,5 +628,7 @@ vim:sw=2:ts=2:sts=2:
   })();
 
   Product.init = function() {};
+
+  window.ProductBulkCopyPlugin = ProductBulkCopyPlugin;
 
 }).call(this);

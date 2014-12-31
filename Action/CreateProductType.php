@@ -1,9 +1,9 @@
 <?php
 namespace ProductBundle\Action;
-use ActionKit\RecordAction\UpdateRecordAction;
+use ActionKit\RecordAction\CreateRecordAction;
 use ProductBundle\Model\ProductType;
 
-class UpdateProductType extends UpdateRecordAction
+class CreateProductType extends CreateRecordAction
 {
     public $recordClass = 'ProductBundle\\Model\\ProductType';
 
@@ -28,14 +28,14 @@ class UpdateProductType extends UpdateRecordAction
     }
 
     public function run() {
-        kernel()->db->query("LOCK TABLES " . ProductType::table . " AS m WRITE");
+        // kernel()->db->query("LOCK TABLES " . ProductType::table . " AS m WRITE");
         $ret = parent::run();
-        kernel()->db->query("UNLOCK TABLES");
+        // kernel()->db->query("UNLOCK TABLES");
         return $ret;
     }
 
     public function successMessage($ret) {
-        return _('成功更新產品類型');
+        return _('成功建立產品類型');
     }
 
 }
