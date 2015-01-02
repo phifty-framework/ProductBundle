@@ -12,7 +12,7 @@ Product.initEdit = ->
         })
 
 Product.createResourcePreview = (data) ->
-  $tag = Phifty.AdminUI.createResourceCover data,
+  $tag = AdminUI.createResourceCover data,
     onClose: (e) ->
       runAction('ProductBundle::Action::DeleteResource',
           { id: data.id },
@@ -103,7 +103,7 @@ Product.createTypeBox = (data) ->
     return $tag
 
 Product.createFileCover = (data) ->
-  $tag = Phifty.AdminUI.createFileCover(data)
+  $tag = AdminUI.createFileCover(data)
   $close = $('<div/>').addClass('close').click ->
       runAction 'ProductBundle::Action::DeleteProductFile',
           { id: data.id },
@@ -185,7 +185,7 @@ class Product.ProductUseCaseItemView extends CRUDList.BaseItemView
 # Create product image preview thumb element from record data.
 #
 Product.createProductImageThumb = (data) ->
-  $imageCover = Phifty.AdminUI.createImageCover data,
+  $imageCover = AdminUI.createImageCover data,
     onClose: (e) ->
       runAction 'ProductBundle::Action::DeleteProductImage',
         { id: data.id },
@@ -201,7 +201,7 @@ Product.createProductImageThumb = (data) ->
 
 Product.Category = {}
 Product.Category.createFileCover = (data) ->
-  $tag = Phifty.AdminUI.createFileCover(data)
+  $tag = AdminUI.createFileCover(data)
   $close = $('<div/>').addClass('close').click ->
     runAction 'ProductBundle::Action::DeleteCategoryFile',
         { id: data.id },
@@ -342,7 +342,7 @@ class Product.Chooser
       @itemlist.empty()
       for product in resp.products
         do (product) =>
-          $cover = Phifty.AdminUI.createImageCover
+          $cover = AdminUI.createImageCover
             thumb: product.thumb
             image: product.image
             title: product.name

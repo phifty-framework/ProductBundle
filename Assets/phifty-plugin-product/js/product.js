@@ -25,7 +25,7 @@ vim:sw=2:ts=2:sts=2:
 
   Product.createResourcePreview = function(data) {
     var $id, $tag;
-    $tag = Phifty.AdminUI.createResourceCover(data, {
+    $tag = AdminUI.createResourceCover(data, {
       onClose: function(e) {
         return runAction('ProductBundle::Action::DeleteResource', {
           id: data.id
@@ -145,7 +145,7 @@ vim:sw=2:ts=2:sts=2:
 
   Product.createFileCover = function(data) {
     var $close, $id, $tag;
-    $tag = Phifty.AdminUI.createFileCover(data);
+    $tag = AdminUI.createFileCover(data);
     $close = $('<div/>').addClass('close').click(function() {
       return runAction('ProductBundle::Action::DeleteProductFile', {
         id: data.id
@@ -331,7 +331,7 @@ vim:sw=2:ts=2:sts=2:
 
   Product.createProductImageThumb = function(data) {
     var $id, $imageCover;
-    $imageCover = Phifty.AdminUI.createImageCover(data, {
+    $imageCover = AdminUI.createImageCover(data, {
       onClose: function(e) {
         return runAction('ProductBundle::Action::DeleteProductImage', {
           id: data.id
@@ -353,7 +353,7 @@ vim:sw=2:ts=2:sts=2:
 
   Product.Category.createFileCover = function(data) {
     var $close, $id, $tag;
-    $tag = Phifty.AdminUI.createFileCover(data);
+    $tag = AdminUI.createFileCover(data);
     $close = $('<div/>').addClass('close').click(function() {
       return runAction('ProductBundle::Action::DeleteCategoryFile', {
         id: data.id
@@ -587,7 +587,7 @@ vim:sw=2:ts=2:sts=2:
           product = _ref2[_i];
           _results.push((function(product) {
             var $btn, $cover;
-            $cover = Phifty.AdminUI.createImageCover({
+            $cover = AdminUI.createImageCover({
               thumb: product.thumb,
               image: product.image,
               title: product.name
