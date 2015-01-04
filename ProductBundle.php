@@ -207,6 +207,7 @@ class ProductBundle extends Bundle
 
         $this->route( '/=/product/search', 'ProductSearchController');
         $this->route( '/=/product/autocomplete', 'ProductAutoCompleteController');
+        $this->route( '/=/product_tag/autocomplete', 'TagAutoCompleteController');
 
         if ( $this->config('DefaultRoutes') ) {
             // The route for simple search
@@ -256,6 +257,9 @@ class ProductBundle extends Bundle
         $this->addRecordAction('ProductUseCase');
         $this->addRecordAction('ProductLink');
         $this->addRecordAction('ProductSubsection');
+
+        $this->addRecordAction('ProductTag');
+        $this->addRecordAction('Tag');
 
         kernel()->event->register('phifty.before_action', function() {
             foreach( ['ProductSubsection', 'ProductUseCase', 'ProductProduct', 'ProductLink', 'ProductProperty', 'ProductImage', 'ProductSpecTable'] as $modelName ) {

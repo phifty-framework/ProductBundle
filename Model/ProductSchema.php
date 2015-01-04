@@ -248,6 +248,10 @@ class ProductSchema extends SchemaDeclare
                 $this->belongsTo( 'category' , 'ProductBundle\\Model\\CategorySchema','id','category_id');
             }
         }
+
+        $this->many( 'product_tags', 'ProductBundle\\Model\\ProductTagSchema', 'product_id', 'id' )
+            ->renderable(false);
+        $this->manyToMany('tags', 'product_tags', 'tag');
     }
 
     public function bootstrap($product) 

@@ -84,20 +84,50 @@ vim:filetype=htmldjango:
                 {% endif %}
             </div>
 
-            {% if bundle.config('ProductCategory.enable') and bundle.config('ProductCategory.multicategory') %}
             <div class="col-md-3 col-md-offset-2">
-                {% for langcode, categories in categoriesByLang %}
-                <div class="widget lang lang-{{langcode}} {% if langcode != Kernel.locale.current() %}hide{% endif %}">
-                    <div class="widget-hd">{% trans langcode %}{% trans 'Category' %}</div>
-                    <div class="widget-bd" style="max-height: 400px; overflow: auto; ">
-                        {% set subview = CRUD.Action.asView('ActionKit\\View\\StackView',{ "no_form": 1 }) %}
-                        {#
-                        {{ subview.renderManyToManyEditor(CRUD.Record,'categories', categories) |raw}}
-                        #}
-                        {{ subview.buildManyToManyRelationalActionViewForExistingRecords(CRUD.Record, 'categories', null, null, categories)|raw}}
+                {% if bundle.config('ProductCategory.enable') and bundle.config('ProductCategory.multicategory') %}
+                    {% for langcode, categories in categoriesByLang %}
+                    <div class="widget lang lang-{{langcode}} {% if langcode != Kernel.locale.current() %}hide{% endif %}">
+                        <div class="widget-hd">{% trans langcode %}{% trans 'Category' %}</div>
+                        <div class="widget-bd" style="max-height: 400px; overflow: auto; ">
+                            {% set subview = CRUD.Action.asView('ActionKit\\View\\StackView',{ "no_form": 1 }) %}
+                            {#
+                            {{ subview.renderManyToManyEditor(CRUD.Record,'categories', categories) |raw}}
+                            #}
+                            {{ subview.buildManyToManyRelationalActionViewForExistingRecords(CRUD.Record, 'categories', null, null, categories)|raw}}
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% endif %}
+
+                {% if bundle.config('ProductTag.enable') %}
+                <div class="widget">
+                    <div class="widget-hd">{% trans '標籤' %}</div>
+                    <div class="widget-bd">
+
+                        {# This is a one-to-many widget, we will create input fields that maps one-to-many records to connect the many-to-many record. #}
+                        <span class="tag">
+                            <input type="text" placeholder="搜尋標籤..."
+                                class="autocomplete autocomplete-tagging"
+                                data-widget="aut"
+                                data-autocomplete-source="/=/product_tag/autocomplete"
+                                data-autocomplete-min-length="1"
+                                data-autocomplete-delay="100"
+                                data-relation="product_tags"
+                                data-foreign-key="tag_id"
+                                data-foreign-create-action="ProductBundle::Action::CreateTag"
+                                data-foreign-record-primary-field="name"
+                                data-foreign-record-primary-key="id"
+                                data-delete-action="ProductBundle::Action::DeleteProductTag"
+                                data-container="#productTags{{frag_serial}}"
+                                data-records="{{CRUD.Record.product_tags.toLabelValuePairs()|json_encode|e('html_attr')}}"
+                            />
+                            <i class="control control-create fa fa-plus"> </i>
+                        </span>
+                        <div id="productTags{{frag_serial}}"> </div>
                     </div>
                 </div>
-                {% endfor %}
+                {% endif %}
 
                 {% if bundle.config('ProductType.enable') %}
                     <div class="widget">
@@ -144,7 +174,6 @@ $(function() {
 
 
             </div>
-            {% endif %}
         </div>
 
         {% if bundle.config('Product.cover_image') %}
