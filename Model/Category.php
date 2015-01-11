@@ -10,8 +10,9 @@ extends \ProductBundle\Model\CategoryBase implements Linkable
 
     public function dataLabel()
     {
-        if ( $this->parent_id )
-            return $this->parent->dataLabel() . ' &gt; ' . $this->name;
+        if ($this->parent_id) {
+            return $this->parent->dataLabel() . ' > ' . $this->name;
+        }
         return $this->name;
     }
 
