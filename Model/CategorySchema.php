@@ -28,7 +28,7 @@ class CategorySchema extends SchemaDeclare
             ->refer( 'ProductBundle\\Model\\CategorySchema' )
             ->label( _('父類別') )
             ->integer()
-            ->default(0)
+            ->default(NULL)
             ->renderAs('SelectInput',array(
                 'allow_empty' => 0,
             ));
