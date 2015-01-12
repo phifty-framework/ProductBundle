@@ -96,6 +96,35 @@ class Product extends \ProductBundle\Model\ProductBase implements SEOPage, Linka
     }
 
 
+    public function getAllCategories() {
+        $cates = array();
+        foreach ($this->categories as $c) {
+            $parentCategories = $c->getAllParentCategories();
+            $cates = $cates + $parentCategories;
+        }
+        return $cates;
+    }
+
+    /**
+     * Check if this product is in a specific category by the handle string.
+     *
+     * @param string $handle
+     */
+    public function isInCategoryByHandle($handle) {
+        foreach($this->categories as $c) {
+            if ($c->handle && $c->handle === $handle) {
+                return true;
+            }
+            $pcs = $c->getAllParentCategories();
+            foreach($pcs as $pc) {
+                if ($pc->handle && $pc->handle === $handle) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     /**
      * @return bool check price and sellable flag.
      */

@@ -7,10 +7,16 @@ class ResourceSchema extends SchemaDeclare
     public function schema()
     {
         $this->table('product_resources');
+
         $this->column('product_id')
             ->integer()
             ->refer('ProductBundle\\Model\\Product')
             ->label('產品')
+            ;
+
+        $this->column('title')
+            ->varchar(100)
+            ->label('標題')
             ;
 
         $this->column('url')

@@ -26,13 +26,18 @@ extends \ProductBundle\Model\CategoryBase implements Linkable
     }
 
 
+    /**
+     * Return all parent category objects
+     *
+     * @return Category[]
+     */
     public function getAllParentCategories()
     {
         $parents = array($this);
         $p = $this;
         while ($p->parent_id) {
-            $parents[] = $p->parent;
             $p = $p->parent;
+            $parents[] = $p;
         }
         return array_reverse($parents);
     }
