@@ -21,6 +21,12 @@ vim:filetype=htmldjango:
                 </div>
                 {% endif %}
 
+                {% if bundle.config('Product.sn_desc') %}
+                <div class="col-field">
+                {{CRUD.Action.renderField('sn_desc')|raw}}
+                </div>
+                {% endif %}
+
                 {% if bundle.config('Product.show_link') and CRUD.Record.id %}
                 <div class="col-field">
                     <div class="v-field">

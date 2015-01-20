@@ -28,6 +28,10 @@ class ProductSchema extends SchemaDeclare
             ->varchar(128)
             ->label('產品序號');
 
+        $this->column('sn_desc')
+            ->varchar(128)
+            ->label('產品序號標題');
+
         $this->column('brief')
             ->text()
             ->label( $bundle->config('Product.brief.label') ?: '產品簡述')
