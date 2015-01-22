@@ -9,128 +9,132 @@ vim:filetype=htmldjango
 
 {% block section_body %}
 <form class="ajax-action" enctype="multipart/form-data" method="post">
-<div id="{{ tabfragment }}" class="tabs">
-    <ul>
-        <li><a href="#{{tabfragment}}-1">產品資料</a></li>
+
+<div id="{{ tabfragment }}" role="tabpanel">
+    <ul class="nav nav-tabs clearfix">
+        <li role="presentation"><a href="#{{tabfragment}}-1" data-toggle="tab">產品資料</a></li>
 
         {% if bundle.config('Product.brief') %}
-        <li><a href="#{{tabfragment}}-brief">產品簡述</a></li>
+        <li role="presentation"><a href="#{{tabfragment}}-brief" data-toggle="tab">產品簡述</a></li>
         {% endif %}
 
-        <li><a href="#{{tabfragment}}-content">產品內文</a></li>
+        <li role="presentation"><a href="#{{tabfragment}}-content" data-toggle="tab">產品內文</a></li>
 
         {% if bundle.config('ProductFeature.enable') %}
-            <li><a href="#{{tabfragment}}-feature">產品功能</a></li>
+            <li role="presentation"><a href="#{{tabfragment}}-feature" data-toggle="tab">產品功能</a></li>
         {% endif %}
 
         {% if bundle.config('RelatedProduct.enable') %}
-            <li><a href="#{{tabfragment}}-related-product">相關產品</a></li>
+            <li role="presentation"><a href="#{{tabfragment}}-related-product" data-toggle="tab">相關產品</a></li>
         {% endif %}
 
         {% if bundle.config('ProductSubsection.enable') %}
-            <li><a href="#{{tabfragment}}-subsections">內文子區塊</a></li>
+            <li role="presentation"><a href="#{{tabfragment}}-subsections" data-toggle="tab">內文子區塊</a></li>
         {% endif %}
 
         {% if bundle.config('ProductSpecTable.enable') %}
-            <li><a href="#{{tabfragment}}-spec-table">產品規格表</a></li>
+            <li role="presentation"><a href="#{{tabfragment}}-spec-table" data-toggle="tab">產品規格表</a></li>
         {% endif %}
 
         {% if bundle.config('ProductLink.enable') %}
-            <li><a href="#{{tabfragment}}-links">相關連結</a></li>
+            <li role="presentation"><a href="#{{tabfragment}}-links" data-toggle="tab">相關連結</a></li>
         {% endif %}
 
         {% if bundle.config('ProductUsecase.enable') %}
-            <li><a href="#{{tabfragment}}-usecase">相關案例</a></li>
+            <li role="presentation"><a href="#{{tabfragment}}-usecase" data-toggle="tab">相關案例</a></li>
         {% endif %}
 
 
         {% for tab in CRUD.Object.getTabs %}
-            <li><a href="#{{tab.getId()}}">{{tab.title}}</a></li>
+            <li role="presentation"><a href="#{{tab.getId()}}" data-toggle="tab">{{tab.title}}</a></li>
         {% endfor %}
     </ul>
 
-    {% if bundle.config('Product.brief') %}
-    <div id="{{tabfragment}}-brief">
-        {{CRUD.Action.renderField('brief',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
-    </div>
-    {% endif %}
+    <div class="tab-content">
 
-    <div id="{{tabfragment}}-content">
-        {% if bundle.config('Product.desc') %}
-        {{CRUD.Action.renderField('description',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
+        {% if bundle.config('Product.brief') %}
+        <div id="{{tabfragment}}-brief" class="tab-pane">
+            {{CRUD.Action.renderField('brief',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
+        </div>
         {% endif %}
 
-        {% if bundle.config('Product.content') %}
-        {{CRUD.Action.renderField('content',{ class: 'mceEditor', rows: 7, cols: 80 })|raw}}
-        <div class="clear"> </div>
+        <div id="{{tabfragment}}-content" class="tab-pane">
+            {% if bundle.config('Product.desc') %}
+            {{CRUD.Action.renderField('description',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
+            {% endif %}
+
+            {% if bundle.config('Product.content') %}
+            {{CRUD.Action.renderField('content',{ class: 'mceEditor', rows: 7, cols: 80 })|raw}}
+            <div class="clear"> </div>
+            {% endif %}
+
+            {% if bundle.config('Product.options_content') %}
+            {{CRUD.Action.renderField('options_content',{ class: 'mceEditor', rows: 7, cols: 80 })|raw}}
+            <div class="clear"> </div>
+            {% endif %}
+
+            {% if bundle.config('Product.spec_content') %}
+            {{CRUD.Action.renderField('spec_content',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
+            <div class="clear"> </div>
+            {% endif %}
+
+            {% if bundle.config('Product.feature_content') %}
+            {{CRUD.Action.renderField('feature_content',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
+            <div class="clear"> </div>
+            {% endif %}
+
+            <div class="clear"> </div>
+        </div>
+
+        <div id="{{tabfragment}}-1" class="tab-pane">
+            {% include '@ProductBundle/product/form.html' %}
+            <div class="clear"> </div>
+        </div>
+
+        {% if bundle.config('ProductFeature.enable') %}
+        <div id="{{tabfragment}}-feature" class="tab-pane">
+            {% include '@ProductBundle/product/feature.html' %}
+        </div>
         {% endif %}
 
-        {% if bundle.config('Product.options_content') %}
-        {{CRUD.Action.renderField('options_content',{ class: 'mceEditor', rows: 7, cols: 80 })|raw}}
-        <div class="clear"> </div>
+        {% if bundle.config('RelatedProduct.enable') %}
+        <div id="{{tabfragment}}-related-product" class="tab-pane">
+            {% include '@ProductBundle/product/related.html' %}
+        </div>
         {% endif %}
 
-        {% if bundle.config('Product.spec_content') %}
-        {{CRUD.Action.renderField('spec_content',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
-        <div class="clear"> </div>
+        {% if bundle.config('ProductSpecTable.enable') %}
+        <div id="{{tabfragment}}-spec-table" class="tab-pane">
+            {% include '@ProductBundle/product/spec_table.html' %}
+        </div>
         {% endif %}
 
-        {% if bundle.config('Product.feature_content') %}
-        {{CRUD.Action.renderField('feature_content',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
-        <div class="clear"> </div>
+        {% if bundle.config('ProductSubsection.enable') %}
+        <div id="{{tabfragment}}-subsections" class="tab-pane">
+            {% include '@ProductBundle/product/subsection.html' %}
+        </div>
         {% endif %}
 
-        <div class="clear"> </div>
-    </div>
+        {% if bundle.config('ProductLink.enable') %}
+        <div id="{{tabfragment}}-links" class="tab-pane">
+            {% include '@ProductBundle/product/link.html' %}
+        </div>
+        {% endif %}
 
-    <div id="{{tabfragment}}-1">
-        {% include '@ProductBundle/product/form.html' %}
-        <div class="clear"> </div>
-    </div>
+        {% if bundle.config('ProductUsecase.enable') %}
+        <div id="{{tabfragment}}-usecase" class="tab-pane">
+            {% include '@ProductBundle/product/usecase.html' %}
+        </div>
+        {% endif %}
 
-    {% if bundle.config('ProductFeature.enable') %}
-    <div id="{{tabfragment}}-feature">
-        {% include '@ProductBundle/product/feature.html' %}
-    </div>
-    {% endif %}
+        {% for tab in CRUD.Object.getTabs() %}
+        <div id="{{tab.getId()}}" class="tab-pane">
+            {{tab.renderContent|raw}}
+        </div>
+        {% endfor %}
+    </div><!-- /.tab-content -->
 
-    {% if bundle.config('RelatedProduct.enable') %}
-    <div id="{{tabfragment}}-related-product">
-        {% include '@ProductBundle/product/related.html' %}
-    </div>
-    {% endif %}
-
-    {% if bundle.config('ProductSpecTable.enable') %}
-    <div id="{{tabfragment}}-spec-table">
-        {% include '@ProductBundle/product/spec_table.html' %}
-    </div>
-    {% endif %}
-
-    {% if bundle.config('ProductSubsection.enable') %}
-    <div id="{{tabfragment}}-subsections">
-        {% include '@ProductBundle/product/subsection.html' %}
-    </div>
-    {% endif %}
-
-    {% if bundle.config('ProductLink.enable') %}
-    <div id="{{tabfragment}}-links">
-        {% include '@ProductBundle/product/link.html' %}
-    </div>
-    {% endif %}
-
-    {% if bundle.config('ProductUsecase.enable') %}
-    <div id="{{tabfragment}}-usecase">
-        {% include '@ProductBundle/product/usecase.html' %}
-    </div>
-    {% endif %}
-
-
-    {% for tab in CRUD.Object.getTabs() %}
-    <div id="{{tab.getId()}}">
-        {{tab.renderContent|raw}}
-    </div>
-    {% endfor %}
-</div>
+</div><!-- /.tab -->
 {% include '@CRUD/controll.html' %}
 </form>
 {% endblock %}
