@@ -8,7 +8,7 @@ class CategoryFileCRUDHandler extends CRUDHandler
     public $crudId     = 'product_category_file';
     public $listColumns = array('id', 'title','file');
 
-    public function getDialogActionView()
+    public function getModalActionView()
     {
         return $this->createActionView($this->currentAction,null,array(
             'close_button' => false, 

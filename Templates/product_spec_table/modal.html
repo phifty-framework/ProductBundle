@@ -1,0 +1,28 @@
+{% extends '@CRUD/modal.html' %}
+
+{% set edit_frag_serial = random() %}
+{% set action = CRUD.Object.getCurrentAction() %}
+{% set bundle = Kernel.bundle('ProductBundle') %}
+
+{% block modal_body %}
+<form id="tableSpecForm{{edit_frag_serial}}" class="formkit-form ajax-action" enctype="multipart/form-data" method="post">
+    {{ action.renderSignatureWidget|raw }}
+
+    {% if CRUD.Record.id %}
+        <input type="hidden" name="id" value="{{ CRUD.Record.id }}"/>
+    {% endif %}
+
+    {{ action.renderField('title')|raw }}
+
+    <input type="hidden" name="rows" value="{{ CRUD.Record.getValue('rows') }}"/>
+    <input type="hidden" name="columns" value="{{  CRUD.Record.getValue('columns') }}"/>
+
+    {# render rows and columns here #}
+
+    <div class="table-container">
+    {% if CRUD.Record.rows and CRUD.Record.columns %}
+        {% include "@TableBundle/table.html" with { record: CRUD.Record } %}
+    {% endif %}
+    </div>
+</form>
+{% endblock %}

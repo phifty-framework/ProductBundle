@@ -8,10 +8,11 @@ class ProductFileCRUDHandler extends CRUDHandler
     public $crudId     = 'product_file';
     public $listColumns = array('id', 'title','file');
 
-    public function getDialogActionView()
+    public function getModalActionView()
     {
         $view = $this->createActionView($this->currentAction,null,array(
-            'close_button' => false, 
+            'submit_button' => false,
+            'close_button' => false,
             'ajax' => true,
             'skips' => array('product_id','mimetype'),
         ));

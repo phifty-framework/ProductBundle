@@ -8,7 +8,7 @@ class ProductImageCRUDHandler extends CRUDHandler
     public $crudId     = 'product_image';
     public $listColumns = array('id', 'title');
 
-    public function getDialogActionView()
+    public function getModalActionView()
     {
         $bundle = ProductBundle::getInstance();
         $skips = array('product_id');
@@ -17,7 +17,8 @@ class ProductImageCRUDHandler extends CRUDHandler
             $skips[] = 'large';
         }
         $view = $this->createActionView($this->currentAction,null,array(
-            'close_button' => false, 
+            'submit_button' => false,
+            'close_button' => false,
             'ajax' => true,
             'skips' => $skips,
         ));

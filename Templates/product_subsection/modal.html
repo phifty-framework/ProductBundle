@@ -1,0 +1,26 @@
+{% extends '@CRUD/modal.html' %}
+
+{% set edit_frag_serial = random() %}
+{% set action = CRUD.Object.getCurrentAction() %}
+{% set bundle = Kernel.bundle('ProductBundle') %}
+{% block modal_body %}
+<form class="formkit-form ajax-action" enctype="multipart/form-data" method="post">
+    {{ action.renderSignatureWidget|raw }}
+
+    {% if CRUD.Record.id %}
+        <input type="hidden" name="id" value="{{ CRUD.Record.id }}"/>
+    {% endif %}
+
+    <div class="row">
+        {% if bundle.config('ProductSubsection.cover_image') %}
+        <div class="col-md-5">
+        {{ action.renderField('cover_image')|raw }}
+        </div>
+        {% endif %}
+        <div class="col-md-5">
+            {{ action.renderField('title')|raw }}
+            {{ action.renderField('content')|raw }}
+        </div>
+    </div>
+</form>
+{% endblock %}

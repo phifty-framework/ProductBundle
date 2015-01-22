@@ -1,9 +1,9 @@
-{% extends '@CRUD/dialog.html' %}
+{% extends '@CRUD/modal.html' %}
 {% set edit_frag_serial = random() %}
 {% set action = CRUD.Object.getCurrentAction() %}
 {% set bundle = Kernel.bundle('ProductBundle') %}
 
-{% block dialog_body %}
+{% block modal_body %}
     <div class="action-result-container"> </div>
     <form class="formkit-form ajax-action" enctype="multipart/form-data" method="post">
         {{ action.renderSignatureWidget|raw }}
@@ -23,9 +23,5 @@
         {{ action.renderField('name')|raw }}
 
         {{ action.renderField('comment')|raw }}
-
-        <div class="button-group">
-            <input class="formkit-widget formkit-widget-submit create button" type="submit" value="建立">
-        </div>
     </form>
 {% endblock %}

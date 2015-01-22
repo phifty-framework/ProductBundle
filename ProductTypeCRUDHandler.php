@@ -9,10 +9,11 @@ class ProductTypeCRUDHandler extends CRUDHandler
     public $crudId     = 'product_type';
     public $listColumns = array('id', 'title');
 
-    public function getDialogActionView()
+    public function getModalActionView()
     {
         $view = $this->createActionView($this->currentAction,null,array(
             'close_button' => false,
+            'submit_button' => false,
             'ajax' => true,
             'skips' => array('product_id'),
         ));

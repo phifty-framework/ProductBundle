@@ -31,5 +31,19 @@ class ProductSubsectionCRUDHandler extends CRUDHandler
     {
         return parent::getCollection();
     }
+
+
+    public function getModalActionView()
+    {
+        $bundle = ProductBundle::getInstance();
+        $skips = array('product_id');
+        $view = $this->createActionView($this->currentAction,null,array(
+            'submit_button' => false,
+            'close_button' => false,
+            'ajax' => true,
+            'skips' => $skips,
+        ));
+        return $view;
+    }
 }
 

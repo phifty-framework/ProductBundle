@@ -34,7 +34,7 @@ class ProductSpecTableCRUDHandler extends CRUDHandler
 
     public $listColumns = array('id', 'title');
 
-    public function getDialogActionView()
+    public function getModalActionView()
     {
         $view = $this->createActionView($this->currentAction, null, array(
             'close_button' => false,
