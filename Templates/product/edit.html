@@ -18,6 +18,10 @@ vim:filetype=htmldjango
         <li role="presentation"><a href="#{{tabfragment}}-brief" data-toggle="tab">產品簡述</a></li>
         {% endif %}
 
+        {% if bundle.config('Product.cover_image') or bundle.config('Product.image') or bundle.config('Product.spec_image') %}
+        <li role="presentation"><a href="#{{tabfragment}}-images" data-toggle="tab">產品圖片</a></li>
+        {% endif %}
+
         <li role="presentation"><a href="#{{tabfragment}}-content" data-toggle="tab">產品內文</a></li>
 
         {% if bundle.config('ProductFeature.enable') %}
@@ -90,6 +94,29 @@ vim:filetype=htmldjango
             {% include '@ProductBundle/product/form.html' %}
             <div class="clear"> </div>
         </div>
+
+        {% if bundle.config('ProductImage.enable') or bundle.config('Product.cover_image') or bundle.config('Product.image') or bundle.config('Product.spec_image') %}
+        <div id="{{tabfragment}}-images" class="tab-pane">
+
+            {% if bundle.config('ProductImage.enable') %}
+                {% include '@ProductBundle/product/image.html' %}
+            {% endif %}
+
+            {% if bundle.config('Product.cover_image') %}
+                {% include '@ProductBundle/product/cover_image.html' %}
+            {% endif %}
+
+            {% if bundle.config('Product.image') %}
+                {% include '@ProductBundle/product/index_image.html' %}
+            {% endif %}
+
+            {% if bundle.config('Product.spec_image') %}
+                {% include '@ProductBundle/product/spec_image.html' %}
+            {% endif %}
+        </div>
+        {% endif %}
+
+
 
         {% if bundle.config('ProductFeature.enable') %}
         <div id="{{tabfragment}}-feature" class="tab-pane">

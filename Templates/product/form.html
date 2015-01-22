@@ -182,21 +182,7 @@ $(function() {
             </div>
         </div>
 
-        {% if bundle.config('Product.cover_image') %}
-            {% include '@ProductBundle/product/cover_image.html' %}
-        {% endif %}
 
-        {% if bundle.config('Product.image') %}
-            {% include '@ProductBundle/product/index_image.html' %}
-        {% endif %}
-
-        {% if bundle.config('Product.spec_image') %}
-            {% include '@ProductBundle/product/spec_image.html' %}
-        {% endif %}
-
-        {% if bundle.config('ProductImage.enable') %}
-            {% include '@ProductBundle/product/image.html' %}
-        {% endif %}
 
         {% if bundle.config('ProductResource.enable') %}
             {% include '@ProductBundle/product/resource.html' %}
