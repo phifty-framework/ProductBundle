@@ -18,6 +18,8 @@ vim:filetype=htmldjango
         <li role="presentation"><a href="#{{tabfragment}}-brief" data-toggle="tab">產品簡述</a></li>
         {% endif %}
 
+        <li role="presentation"><a href="#{{tabfragment}}-content" data-toggle="tab">產品內文</a></li>
+
         {% if bundle.config('Product.cover_image') or bundle.config('Product.image') or bundle.config('Product.spec_image') %}
         <li role="presentation"><a href="#{{tabfragment}}-images" data-toggle="tab">產品圖片</a></li>
         {% endif %}
@@ -25,8 +27,6 @@ vim:filetype=htmldjango
         {% if bundle.config('ProductResource.enable') %}
         <li role="presentation"><a href="#{{tabfragment}}-resources" data-toggle="tab">外連媒體</a></li>
         {% endif %}
-
-        <li role="presentation"><a href="#{{tabfragment}}-content" data-toggle="tab">產品內文</a></li>
 
         {% if bundle.config('ProductFeature.enable') %}
             <li role="presentation"><a href="#{{tabfragment}}-feature" data-toggle="tab">產品功能</a></li>

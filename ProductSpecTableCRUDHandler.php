@@ -37,7 +37,7 @@ class ProductSpecTableCRUDHandler extends CRUDHandler
     public function getModalActionView()
     {
         $view = $this->createActionView($this->currentAction, null, array(
-            'close_button' => false,
+            'close_btn' => false,
             'ajax' => true,
             'skips' => array('product_id'),
         ));

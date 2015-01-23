@@ -11,7 +11,7 @@ class CategoryFileCRUDHandler extends CRUDHandler
     public function getModalActionView()
     {
         return $this->createActionView($this->currentAction,null,array(
-            'close_button' => false, 
+            'close_btn' => false, 
             'ajax' => true,
             'skips' => array('category_id','mimetype'),
         ));

@@ -83,6 +83,10 @@ vim:filetype=htmldjango:
 
                 <div class="clearfix"> </div>
 
+                {% if bundle.config('Product.cover_option') %}
+                {{CRUD.Action.renderField('is_cover')|raw}}
+                {% endif %}
+
                 <div class="clearfix"> </div>
 
                 {% if bundle.config('ProductCategory.enable') and not bundle.config('ProductCategory.multicategory') %}
@@ -227,17 +231,13 @@ $(function() {
                 </div>
             {% endif %}
 
-            {% if bundle.config('Product.cover_option') %}
             <h3>其他選項</h3>
             <div>
-                {{CRUD.Action.renderField('is_cover')|raw}}
-
                 {# private products are accessed by token #}
                 {% if bundle.config('Product.private') %}
                     {% include '@ProductBundle/product/private_token.html' %}
                 {% endif %}
             </div>
-            {% endif %}
 
             <h3>詳細資料</h3>
             <div>

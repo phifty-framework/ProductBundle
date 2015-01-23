@@ -11,8 +11,8 @@ class ProductFileCRUDHandler extends CRUDHandler
     public function getModalActionView()
     {
         $view = $this->createActionView($this->currentAction,null,array(
-            'submit_button' => false,
-            'close_button' => false,
+            'submit_btn' => false,
+            'close_btn' => false,
             'ajax' => true,
             'skips' => array('product_id','mimetype'),
         ));
