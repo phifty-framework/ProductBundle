@@ -6,7 +6,6 @@ vim:filetype=htmldjango
 
 {% set bundle      = Kernel.bundle('ProductBundle') %}
 {% set tabfragment = 'tabs-' ~ (CRUD.Record.id ? CRUD.Record.id : random()) %}
-
 {% block section_body %}
 <form class="ajax-action" enctype="multipart/form-data" method="post">
 
@@ -172,6 +171,5 @@ vim:filetype=htmldjango
     </div><!-- /.tab-content -->
 
 </div><!-- /.tab -->
-{% include '@CRUD/controll.html' %}
 </form>
 {% endblock %}
