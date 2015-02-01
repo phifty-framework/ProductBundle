@@ -9,5 +9,5 @@ collections:
     - js/spec_table.js
   - css:
     - css/product.css
-  - files:
+  - file:
     - css/images
