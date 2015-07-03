@@ -4,6 +4,8 @@
 {% set bundle = Kernel.bundle('ProductBundle') %}
 <form class="formkit-form ajax-action" enctype="multipart/form-data" method="post">
     {{ action.renderSignatureWidget|raw }}
+    {{ action.renderCSRFTokenWidget|raw }}
+
     <div class="clearfix">
         <div class="column product-image-column">
             {{ action.renderField('image')|raw }}

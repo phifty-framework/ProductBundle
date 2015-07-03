@@ -263,14 +263,7 @@ class ProductBundle extends Bundle
 
         kernel()->event->register('phifty.before_action', function() {
             foreach( ['ProductSubsection', 'ProductUseCase', 'ProductProduct', 'ProductLink', 'ProductProperty', 'ProductImage', 'ProductSpecTable'] as $modelName ) {
-                // which can be simplified to:
-                // $this->addCRUDAction($modelName,'Sort');
-                kernel()->action->register("ProductBundle\\Action\\Sort{$modelName}",[ 
-                        'extends' => '\\SortablePlugin\\Action\\SortRecordAction',
-                        'properties' => [ 
-                            'recordClass' => "ProductBundle\\Model\\{$modelName}",
-                        ],
-                ]);
+                $this->addUpdateOrderingAction($modelName);
             }
         });
 

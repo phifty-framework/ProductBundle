@@ -18,7 +18,7 @@ $(function() {
     initSortableAction($('#relatedProducts{{frag_serial}}'), {
         items: '.product-cover',
         fields: '.record-id',
-        action: 'ProductBundle::Action::SortProductProduct',
+        action: 'ProductBundle::Action::UpdateProductProductOrdering',
         handle: '.image-cover'
     });
 

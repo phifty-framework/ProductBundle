@@ -7,6 +7,7 @@
     <div class="action-result-container"> </div>
     <form class="formkit-form ajax-action" enctype="multipart/form-data" method="post">
         {{ action.renderSignatureWidget|raw }}
+        {{ action.renderCSRFTokenWidget|raw }}
 
         {% if CRUD.Record.id %}
             <input type="hidden" name="id" value="{{ CRUD.Record.id }}"/>

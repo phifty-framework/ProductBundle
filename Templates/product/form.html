@@ -4,6 +4,7 @@ vim:filetype=htmldjango:
 {% set bundle = Kernel.bundle('ProductBundle') %}
 <div class="product-editor">
         {{ CRUD.Action.renderSignatureWidget|raw}}
+        {{ CRUD.Action.renderCSRFTokenWidget|raw}}
         {% if CRUD.Record.id %}
             {{ forms.hidden('id', CRUD.Record.id) }}
         {% endif %}

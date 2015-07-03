@@ -7,6 +7,7 @@
 {% block modal_body %}
 <form id="tableSpecForm{{edit_frag_serial}}" class="formkit-form ajax-action" enctype="multipart/form-data" method="post">
     {{ action.renderSignatureWidget|raw }}
+    {{ action.renderCSRFTokenWidget|raw }}
 
     {% if CRUD.Record.id %}
         <input type="hidden" name="id" value="{{ CRUD.Record.id }}"/>
