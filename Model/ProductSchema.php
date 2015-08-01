@@ -182,16 +182,16 @@ class ProductSchema extends SchemaDeclare
 
 
         $this->many( 'product_products', 'ProductBundle\\Model\\ProductProductSchema', 'product_id', 'id' )
-                ->order('ordering','ASC');
+                ->orderBy('ordering','ASC');
 
         $this->manyToMany( 'related_products',   'product_products' , 'related_product' );
 
 
         $this->many('images',     'ProductBundle\\Model\\ProductImageSchema' , 'product_id' , 'id' )
-            ->order('ordering','ASC');
+            ->orderBy('ordering','ASC');
 
         $this->many('properties',     'ProductBundle\\Model\\ProductPropertySchema' , 'product_id' , 'id' )
-            ->order('ordering','ASC');
+            ->orderBy('ordering','ASC');
 
             ;  # to product id => image product_id
         $this->many('types',      'ProductBundle\\Model\\ProductTypeSchema' , 'product_id' , 'id' );
@@ -206,7 +206,7 @@ class ProductSchema extends SchemaDeclare
 
         if ( $bundle->config('ProductSpecTable.enable') ) {
             $this->many('spec_tables', 'ProductBundle\\Model\\ProductSpecTableSchema', 'product_id', 'id' )
-                ->order('ordering','ASC')
+                ->orderBy('ordering','ASC')
                 ->renderable(false)
                 ;
         }
@@ -219,22 +219,22 @@ class ProductSchema extends SchemaDeclare
 
         if ( $bundle->config('ProductSubsection.enable') ) {
             $this->many( 'subsections', 'ProductBundle\\Model\\ProductSubsectionSchema', 'product_id', 'id' )
-                ->order('ordering','ASC')
+                ->orderBy('ordering','ASC')
                 ->renderable(false);
         }
         if ( $bundle->config('ProductLink.enable') ) {
             $this->many( 'links', 'ProductBundle\\Model\\ProductLinkSchema', 'product_id', 'id' )
-                ->order('ordering','ASC')
+                ->orderBy('ordering','ASC')
                 ->renderable(false);
         }
         if ( $bundle->config('ProductUsecase.enable') ) {
             $this->many( 'product_usecases', 'ProductBundle\\Model\\ProductUseCaseSchema', 'product_id', 'id' )
-                ->order('ordering','ASC')
+                ->orderBy('ordering','ASC')
                 ->renderable(false);
 
             $this->manyToMany( 'usecases',   'product_usecases' , 'usecase' )
                 ->filter(function($collection) {
-                    $collection->order('lang','desc');
+                    $collection->orderBy('lang','desc');
                     return $collection;
                 });
         }
@@ -245,7 +245,7 @@ class ProductSchema extends SchemaDeclare
                     ->renderable(false);
                 $this->manyToMany( 'categories',   'product_categories' , 'category' )
                     ->filter(function($collection) {
-                        $collection->order('lang','desc');
+                        $collection->orderBy('lang','desc');
                         return $collection;
                     });
             } else {

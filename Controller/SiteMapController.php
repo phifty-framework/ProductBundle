@@ -13,7 +13,7 @@ class SiteMapController extends Controller
 
         $allProducts = new ProductCollection;
         $allProducts->where(array( 'hide' => false, 'status' => 'publish' ));
-        $allProducts->order('created_on', 'desc');
+        $allProducts->orderBy('created_on', 'desc');
         foreach( $allProducts as $product ) {
             $url = $sitemap->addUrl(kernel()->getHostBaseUrl() . $product->getLink());
             $url->changefreq('weekly')

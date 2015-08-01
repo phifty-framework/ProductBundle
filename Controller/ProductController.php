@@ -30,7 +30,7 @@ class ProductController extends Controller
     public function getAllCategories() {
         $cates = new CategoryCollection;
         $cates->where(array( 'lang' => kernel()->locale->current() ));
-        $cates->order('created_on', 'desc');
+        $cates->orderBy('created_on', 'desc');
         return $cates;
     }
 
@@ -63,8 +63,8 @@ class ProductController extends Controller
                 ));
             }
         }
-        $products->order('created_on','DESC')
-            ->order('id','DESC')
+        $products->orderBy('created_on','DESC')
+            ->orderBy('id','DESC')
             ;
         return $products;
     }
@@ -72,8 +72,8 @@ class ProductController extends Controller
     public function getAllProducts($lang) {
         $allProducts = new ProductCollection;
         $allProducts->where(array( 'lang' => $lang, 'hide' => false, 'status' => 'publish' ));
-        $allProducts->order('created_on', 'DESC')
-            ->order('id', 'DESC');
+        $allProducts->orderBy('created_on', 'DESC')
+            ->orderBy('id', 'DESC');
         return $allProducts;
     }
 

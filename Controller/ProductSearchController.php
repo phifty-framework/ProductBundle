@@ -197,15 +197,15 @@ class ProductSearchController extends Controller
     public function getAllProducts($lang) {
         $allProducts = new ProductCollection;
         $allProducts->where(array( 'lang' => $lang, 'hide' => false, 'status' => 'publish' ));
-        $allProducts->order('created_on', 'DESC')
-            ->order('id', 'DESC');
+        $allProducts->orderBy('created_on', 'DESC')
+            ->orderBy('id', 'DESC');
         return $allProducts;
     }
 
     public function getAllCategories($lang) {
         $cates = new CategoryCollection;
         $cates->where(array( 'lang' => $lang ));
-        $cates->order('created_on', 'desc');
+        $cates->orderBy('created_on', 'desc');
         return $cates;
     }
 

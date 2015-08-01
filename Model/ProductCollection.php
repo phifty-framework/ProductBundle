@@ -12,7 +12,7 @@ extends \ProductBundle\Model\ProductCollectionBase
         $items = new self;
         $items->where()
             ->equal('status','publish');
-        $items->order('created_on','desc');
+        $items->orderBy('created_on','desc');
         return $items;
     }
 
@@ -22,7 +22,7 @@ extends \ProductBundle\Model\ProductCollectionBase
             'is_cover' => true,
             'status' => 'publish'
         ));
-        $coverProducts->order('created_on','desc');
+        $coverProducts->orderBy('created_on','desc');
         return $coverProducts;
     }
 }
