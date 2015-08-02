@@ -1,0 +1,11 @@
+{
+    "name": "corneltek/productbundle",
+    "authors": [
+        {
+            "name": "c9s",
+            "email": "yoanlin93@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": { "psr-4":  { "ProductBundle\\": "" } }
+}
