@@ -11,8 +11,9 @@
     ],
     "require": {
         "composer/installers": "^1",
-
-        "phifty/phifty": "4.0.x-dev",
+        "phifty/phifty": "4.0.x-dev"
+    },
+    "require-dev": {
         "corneltek/cliframework": "@dev",
         "corneltek/actionkit": "@dev",
         "corneltek/assetkit": "@dev",
@@ -22,7 +23,8 @@
         "phpsgi/phpsgi": "@dev",
         "phpsgi/funk": "@dev",
         "maghead/maghead": "@dev",
-        "maghead/magsql": "@dev"
+        "maghead/magsql": "@dev",
+        "phifty/userbundle": "4.0.x-dev"
     },
     "autoload": { "psr-4":  { "ProductBundle\\": "" } },
     "extra": { "branch-alias": { "dev-master": "4.0.x-dev" } }
