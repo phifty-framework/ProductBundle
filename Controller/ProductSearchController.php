@@ -1,7 +1,9 @@
 <?php
 namespace ProductBundle\Controller;
+
+use Magsql\Universal\SelectQuery;
+
 use Phifty\Controller;
-use SQLBuilder\QueryBuilder;
 use ProductBundle\Model\Category;
 use ProductBundle\Model\CategoryCollection;
 use ProductBundle\Model\FeatureCollection;
@@ -122,34 +124,32 @@ class ProductSearchController extends Controller
         $whereQuery = array();
 
         $driver = $collection->getReadQueryDriver();
-        $q = new QueryBuilder;
-        $q->driver = $driver;
+
+        $q = new SelectQuery;
 
         if ($term) {
             $termSQL = '%'. $term . '%';
-            $whereQuery[] = '('
-                . join(' OR ',array(
-                    'p.name LIKE ' . $driver->quote($termSQL),
-                    'p.subtitle LIKE ' . $driver->quote($termSQL),
-                    'p.content LIKE ' . $driver->quote($termSQL),
-                    'p.brief LIKE ' . $driver->quote($termSQL),
-                  ))
-                . ')';
+            $q->where()->group()
+                ->like('p.name', $driver->quote($termSQL))
+                ->or()->like('p.subtitle', $driver->quote($termSQL))
+                ->or()->like('p.content', $driver->quote($termSQL))
+                ->or()->like('p.brief', $driver->quote($termSQL))
+                ;
         }
 
         if ($lang) {
-            $whereQuery[] = sprintf("p.lang = %s", $driver->quote($lang));
+            $q->where()->equal("p.lang", $driver->quote($lang));
         }
 
         // Find out all published products
-        $whereQuery[] = sprintf("p.status = %s", $driver->quote('publish'));
+        $q->where()->equal("p.status", 'publish');
 
         if (! empty($featureIds)) {
             // Features should be intersection
             foreach( $featureIds as $id ) {
                 $selectQuery .= " LEFT JOIN product_feature_junction pf{$id} ON (pf{$id}.product_id = p.id) ";
                 $countQuery .= " LEFT JOIN product_feature_junction pf{$id} ON (pf{$id}.product_id = p.id) ";
-                $whereQuery[] = sprintf("pf{$id}.feature_id = %d", $id);
+                $q->where()->equal("pf{$id}.feature_id = %d", $id);
             }
         }
 
