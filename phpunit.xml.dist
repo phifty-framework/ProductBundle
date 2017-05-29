@@ -22,6 +22,7 @@
     <whitelist>
       <directory suffix=".php">.</directory>
       <exclude>
+        <directory>bundles</directory>
         <directory>vendor</directory>
         <directory>frameworks</directory>
       </exclude>
