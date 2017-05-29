@@ -36,6 +36,7 @@ ServiceProviders:
       - bundles
 Bundles:
   CommonBundle:
+  AdminUI:
   UserBundle:
     UseAccount: true
     MultiRole: true
