@@ -24,7 +24,8 @@
         "phpsgi/funk": "@dev",
         "maghead/maghead": "@dev",
         "maghead/magsql": "@dev",
-        "phifty/userbundle": "4.0.x-dev"
+        "phifty/userbundle": "4.0.x-dev",
+        "phifty/crud": "4.0.x-dev"
     },
     "autoload": { "psr-4":  { "ProductBundle\\": "" } },
     "extra": { "branch-alias": { "dev-master": "4.0.x-dev" } }
