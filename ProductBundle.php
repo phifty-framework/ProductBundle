@@ -202,8 +202,8 @@ class ProductBundle extends Bundle
 
     public function init()
     {
-        $this->expandRoute( '/=/product/chooser', 'ProductChooser');
-        $this->expandRoute( '/=/product_feature/chooser', 'FeatureChooser');
+        // $this->mount( '/=/product/chooser', 'ProductChooser');
+        // $this->mount( '/=/product_feature/chooser', 'FeatureChooser');
 
         $this->route( '/=/product/search', 'ProductSearchController');
         $this->route( '/=/product/autocomplete', 'ProductAutoCompleteController');
@@ -227,25 +227,24 @@ class ProductBundle extends Bundle
             $this->route( '/pc/id/:id(/:lang/:name)',    'ProductController:byCategoryId'); // categoryAction
         }
 
-        $this->expandRoute('/bs/product',          'ProductCRUDHandler');
-        $this->expandRoute('/bs/product_category', 'CategoryCRUDHandler');
-        $this->expandRoute('/bs/product_category_file', 'CategoryFileCRUDHandler');
-        $this->expandRoute('/bs/product_feature' , 'FeatureCRUDHandler');
-        $this->expandRoute('/bs/product_spec_table' , 'ProductSpecTableCRUDHandler');
-        $this->expandRoute('/bs/product_resource', 'ProductResourceCRUDHandler');
-        $this->expandRoute('/bs/product_image' ,   'ProductImageCRUDHandler');
+        $this->mount('/bs/product',          'ProductCRUDHandler');
+        $this->mount('/bs/product_category', 'CategoryCRUDHandler');
+        $this->mount('/bs/product_category_file', 'CategoryFileCRUDHandler');
+        $this->mount('/bs/product_feature' , 'FeatureCRUDHandler');
+        $this->mount('/bs/product_spec_table' , 'ProductSpecTableCRUDHandler');
+        $this->mount('/bs/product_resource', 'ProductResourceCRUDHandler');
+        $this->mount('/bs/product_image' ,   'ProductImageCRUDHandler');
 
-
-        if ( $this->config('ProductType.enable') ) {
-            $this->expandRoute( '/bs/product_file' ,    'ProductFileCRUDHandler');
+        if ($this->config('ProductType.enable')) {
+            $this->mount( '/bs/product_file' ,    'ProductFileCRUDHandler');
         }
 
-        if ( $this->config('ProductType.enable') ) {
-            $this->expandRoute( '/bs/product_type', 'ProductTypeCRUDHandler' );
+        if ($this->config('ProductType.enable')) {
+            $this->mount('/bs/product_type', 'ProductTypeCRUDHandler');
         }
 
-        if ( $this->config('ProductSubsection.enable') ) {
-            $this->expandRoute( '/bs/product_subsection', 'ProductSubsectionCRUDHandler' );
+        if ($this->config('ProductSubsection.enable')) {
+            $this->mount('/bs/product_subsection', 'ProductSubsectionCRUDHandler');
         }
 
         $this->addRecordAction('ProductType');
@@ -267,8 +266,8 @@ class ProductBundle extends Bundle
             }
         });
 
-        kernel()->restful->registerResource('product','ProductBundle\\RESTful\\ProductHandler');
-        kernel()->restful->registerResource('product_type','ProductBundle\\RESTful\\ProductTypeHandler');
+        kernel()->restful->addResource('product', new \ProductBundle\RESTful\ProductHandler);
+        kernel()->restful->addResource('product_type', new \ProductBundle\RESTful\ProductTypeHandler);
 
 
         if ( kernel()->bundle('RecipeBundle') ) {
