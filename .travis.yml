@@ -1,41 +1,33 @@
 language: php
-
 php:
-- "7.0"
-- "7.1"
-- "hhvm"
-
+- '7.0'
+- '7.1'
+- hhvm
 matrix:
   fast_finish: true
   allow_failures:
-  - php: "hhvm"
-
+  - php: hhvm
 install:
 - composer install
 - composer require "satooshi/php-coveralls" "^1" --dev --no-update
-- ./frameworks/phifty/travis/install
-
+- "./frameworks/phifty/travis/install"
 before_script:
-- ./frameworks/phifty/travis/before_script
+- "./frameworks/phifty/travis/before_script"
 - phpenv rehash
-- ./travis/before_script
-
+- "./travis/before_script"
 script:
 - time php bootstrap.php
 - phpunit -c phpunit.xml.dist
-
 after_success:
 - php vendor/bin/coveralls -v
-
 cache:
   apt: true
   directories:
   - vendor
   - exts
-
 notifications:
   email:
-    on_success: change # default: always
-    on_failure: change # default: always
+    on_success: change
+    on_failure: change
   slack:
-    secure: G/7MNT2ZQirPcxX4ui1qn7mfDi29FPIY1ThN4c+KMp5IMLoFtHmrs+3hdCXLQC4mYkWrqLQVQpqRZb92qemZAbRpyaV+1g6IDFzunia95aF2eDRD73TQCNDrKkxhBi69FGo3ToOiB1wTtX/WYLFfkfOmFI43Wu+5fTmvH2mOtIk=
+    secure: uB7cJ/UNGHZ9dqRksgqp7Pv820Gp08+SEgqbv/5CO+gCys5gIIq0JNUnCmFVRuu5eI0GRtmzoYOscINjCjemrEi3RZYpYDqwghPUrMp3jYRtJOgnSxl+VtuhnrrL58DqmK554+evHrG31+hrW3z1AdyzwGau+Q+QhbYptLB7ixJAyifvXxOan9z3XN4MqHrgng2QJpx62x+AqAPE4jbWAiUeinXlFWBRTirxubPlNsx2RyiaRP2Lz2EhR4PlI4p2P2gwMi3IYXvGNVsKT7vrM7r/ACHjKzRZJgdinY3oWLmMZ5X93TtnQgFg357fgMu1/Rr9ZdlQoSlguJnhXuG9SfU9B3RFQ9FwcIZTthq0jD3OxddUnvY2+OEVWB4xnZWYWzAHE3xAkvKhvyE5d0klzJcN0yuSUnVVEXIW0IJZpeISMSpOc3/AgczP9g2jxxZ5D2jeTsw1fJCzw8P43iASNALfODTpqs/5SnUZi8EoSsDiCn5+noukpcsrLi7RqRWYsDQyaounEIbXKHtmDf4urjUsulCWEUgDvi1tk/N1A7ScHc8Nrry0EGn4l5F3hKB4hkISjfwtlQATwYlyqmPZ/rspE01iPtxulzSYmwNplV2qJLKWhFml6IdHC1QAITBhQnpMQ2zFNIBtEKoB93kkCY35wTT8KYKlFjJv58GwuBQ=
