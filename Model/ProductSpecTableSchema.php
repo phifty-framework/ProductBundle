@@ -1,5 +1,7 @@
 <?php
+
 namespace ProductBundle\Model;
+
 use Maghead\Schema\DeclareSchema;
 
 class ProductSpecTableSchema extends DeclareSchema
