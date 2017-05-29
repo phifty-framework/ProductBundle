@@ -1,11 +1,13 @@
 <?php
+
 namespace ProductBundle\Model;
+
 use ProductBundle\Model\ProductBundle;
 use ProductBundle\Model\ProductCollection;
 use ProductBundle\Model\CategoryCollection;
-use LazyRecord\Schema\SchemaDeclare;
+use Maghead\Schema\DeclareSchema;
 
-class CategorySchema extends SchemaDeclare
+class CategorySchema extends DeclareSchema
 {
     public function schema()
     {
@@ -72,18 +74,4 @@ class CategorySchema extends SchemaDeclare
                 ->orderBy('created_on','ASC');
         }
     }
-
-    public function bootstrap($record)
-    {
-        $record->create(array('identity' => 'c1', 'name' => 'Category 1','lang' => 'en'));
-        $record->create(array('identity' => 'c2', 'name' => 'Category 2','lang' => 'en'));
-        $record->create(array('identity' => 'c3', 'name' => 'Category 3','lang' => 'en'));
-
-        $record->create(array('name' => '類別 1', 'lang'     => 'zh_TW'));
-        $record->create(array('name' => '類別 2', 'lang'     => 'zh_TW'));
-        $record->create(array('name' => '類別 3', 'lang'     => 'zh_TW'));
-    }
 }
-
-
-

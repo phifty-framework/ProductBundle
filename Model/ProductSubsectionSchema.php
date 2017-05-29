@@ -1,8 +1,8 @@
 <?php
 namespace ProductBundle\Model;
-use LazyRecord\Schema\SchemaDeclare;
+use Maghead\Schema\DeclareSchema;
 
-class ProductSubsectionSchema extends SchemaDeclare
+class ProductSubsectionSchema extends DeclareSchema
 {
     public function schema() 
     {

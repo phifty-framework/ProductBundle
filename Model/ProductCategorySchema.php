@@ -1,12 +1,14 @@
 <?php
+
 namespace ProductBundle\Model;
+
 use ProductBundle\Model\ProductCollection;
 use ProductBundle\Model\ProductTypeCollection;
 use ProductBundle\Model\ProductImageCollection;
 use ProductBundle\Model\ResourceCollection;
-use LazyRecord\Schema\SchemaDeclare;
+use Maghead\Schema\DeclareSchema;
 
-class ProductCategorySchema extends SchemaDeclare
+class ProductCategorySchema extends DeclareSchema
 {
     public function schema()
     {

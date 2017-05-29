@@ -1,10 +1,10 @@
 <?php
 namespace ProductBundle\Model;
-use LazyRecord\Schema\SchemaDeclare;
+use Maghead\Schema\DeclareSchema;
 
 if( kernel()->bundle('RecipeBundle') ) {
 
-class ProductRecipeSchema extends SchemaDeclare
+class ProductRecipeSchema extends DeclareSchema
 {
     public function schema()
     {

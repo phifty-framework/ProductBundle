@@ -1,8 +1,10 @@
 <?php
-namespace ProductBundle\Model;
-use LazyRecord\Schema\SchemaDeclare;
 
-class FeatureSchema extends SchemaDeclare
+namespace ProductBundle\Model;
+
+use Maghead\Schema\DeclareSchema;
+
+class FeatureSchema extends DeclareSchema
 {
     public $table = 'product_features';
 

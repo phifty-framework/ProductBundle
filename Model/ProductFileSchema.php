@@ -1,8 +1,8 @@
 <?php
 namespace ProductBundle\Model;
-use LazyRecord\Schema\SchemaDeclare;
+use Maghead\Schema\DeclareSchema;
 
-class ProductFileSchema extends SchemaDeclare
+class ProductFileSchema extends DeclareSchema
 {
 
     public function getLabel()
