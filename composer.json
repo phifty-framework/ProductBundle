@@ -2,6 +2,7 @@
     "name": "phifty/productbundle",
     "type": "phifty-bundle",
     "description": "The powerful product management bundle",
+    "license": "proprietary",
     "authors": [
         {
             "name": "c9s",
@@ -9,7 +10,19 @@
         }
     ],
     "require": {
-        "composer/installers": "^1"
+        "composer/installers": "^1",
+
+        "phifty/phifty": "4.0.x-dev",
+        "corneltek/cliframework": "@dev",
+        "corneltek/actionkit": "@dev",
+        "corneltek/assetkit": "@dev",
+        "corneltek/codegen": "@dev",
+        "corneltek/kendo": "@dev",
+        "corneltek/pux": "@dev",
+        "phpsgi/phpsgi": "@dev",
+        "phpsgi/funk": "@dev",
+        "maghead/maghead": "@dev",
+        "maghead/magsql": "@dev"
     },
     "autoload": { "psr-4":  { "ProductBundle\\": "" } },
     "extra": { "branch-alias": { "dev-master": "4.0.x-dev" } }
