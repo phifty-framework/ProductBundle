@@ -8,8 +8,9 @@
   stopOnError="true"
   stopOnFailure="true"
   verbose="true">
+
   <testsuites>
-    <testsuite name="UserBundle">
+    <testsuite name="ProductBundle">
       <directory suffix="Test.php">.</directory>
       <exclude>vendor/</exclude>
       <exclude>frameworks/</exclude>
