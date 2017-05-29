@@ -1,11 +1,16 @@
 {
     "name": "corneltek/productbundle",
+    "type": "phifty-bundle",
+    "description": "The product management bundle",
     "authors": [
         {
             "name": "c9s",
             "email": "yoanlin93@gmail.com"
         }
     ],
-    "require": {},
-    "autoload": { "psr-4":  { "ProductBundle\\": "" } }
+    "require": {
+        "composer/installers": "^1"
+    },
+    "autoload": { "psr-4":  { "ProductBundle\\": "" } },
+    "extra": { "branch-alias": { "dev-master": "4.0.x-dev" } }
 }
