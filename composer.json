@@ -27,6 +27,7 @@
         "phifty/adminui": "4.0.x-dev",
         "phifty/commonbundle": "4.0.x-dev",
         "phifty/userbundle": "4.0.x-dev",
+        "phifty/i18n": "4.0.x-dev",
         "phifty/crud": "4.0.x-dev"
     },
     "autoload": { "psr-4":  { "ProductBundle\\": "" } },
