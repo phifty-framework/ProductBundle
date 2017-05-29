@@ -1,5 +1,6 @@
 <?php
 namespace ProductBundle\Action;
+
 use ActionKit\MixinAction;
 
 class ProductBaseMixin extends MixinAction
@@ -38,73 +39,68 @@ class ProductBaseMixin extends MixinAction
         $uploadDir            = $bundle->config('upload_dir') ?: 'upload';
         $autoResize           = $bundle->config('auto_resize') ?: false;
 
-        if( $bundle->config('Product.zoom_image') ) {
-            $this->param('zoom_image','Image')
-                ->size( $zoomImageSize )
-                ->sizeLimit( $zoomImageSizeLimit )
-                ->resizeWidth( $zoomImageResizeWidth )
+        if ($bundle->config('Product.zoom_image')) {
+            $this->param('zoom_image', 'Image')
+                ->size($zoomImageSize)
+                ->sizeLimit($zoomImageSizeLimit)
+                ->resizeWidth($zoomImageResizeWidth)
                 ->label('產品放大圖')
                 ->autoResize($autoResize)
-                ->hint( $bundle->config('Product.zoom_image.hint') )
+                ->hint($bundle->config('Product.zoom_image.hint'))
                 ->hintFromSizeInfo()
                 ;
         }
 
-        if( $bundle->config('Product.cover_image') ) {
-            $this->param('cover_image','Image')
+        if ($bundle->config('Product.cover_image')) {
+            $this->param('cover_image', 'Image')
                 ->size($coverImageSize)
-                ->resizeWidth( $coverImageResizeWidth )
+                ->resizeWidth($coverImageResizeWidth)
                 ->label('首頁圖')
                 ->autoResize($autoResize)
-                ->hint( $bundle->config('Product.cover_image.hint') )
+                ->hint($bundle->config('Product.cover_image.hint'))
                 ->hintFromSizeInfo()
                 ;
         }
 
-        if( $bundle->config('Product.spec_image') ) {
-
-            $this->param('spec_image','Image')
-                ->size( $specImageSize )
-                ->sizeLimit( $imageSizeLimit )
+        if ($bundle->config('Product.spec_image')) {
+            $this->param('spec_image', 'Image')
+                ->size($specImageSize)
+                ->sizeLimit($imageSizeLimit)
                 ->autoResize($autoResize)
-                ->label( '規格圖' )
-                ->hint( $bundle->config('Product.spec_image.hint') )
+                ->label('規格圖')
+                ->hint($bundle->config('Product.spec_image.hint'))
                 ->hintFromSizeInfo()
                 ;
 
-            $this->param( 'spec_thumb' , 'Image' )
-                ->sourceField( 'spec_image' )
-                ->size( $specThumbSize )
+            $this->param('spec_thumb', 'Image')
+                ->sourceField('spec_image')
+                ->size($specThumbSize)
                 ->sizeLimit($thumbSizeLimit)
                 ->autoResize($autoResize)
-                ->label( '規格縮圖' )
-                ->hint( $bundle->config('Product.spec_thumb.hint') )
+                ->label('規格縮圖')
+                ->hint($bundle->config('Product.spec_thumb.hint'))
                 ->hintFromSizeInfo()
                 ;
         }
 
-        $this->param('image','Image')
-            ->size( $imageSize )
-            ->sizeLimit( $imageSizeLimit )
-            ->sourceField( 'zoom_image' )
+        $this->param('image', 'Image')
+            ->size($imageSize)
+            ->sizeLimit($imageSizeLimit)
+            ->sourceField('zoom_image')
             ->autoResize($autoResize)
-            ->resizeWidth( $imageResizeWidth )
-            ->hint( $bundle->config('Product.image.hint') )
+            ->resizeWidth($imageResizeWidth)
+            ->hint($bundle->config('Product.image.hint'))
             ->hintFromSizeInfo()
             ;
 
-        $this->param( 'thumb' , 'Image' )
-            ->sourceField( 'image' )
-            ->size( $thumbSize )
-            ->sizeLimit( $thumbSizeLimit )
+        $this->param('thumb', 'Image')
+            ->sourceField('image')
+            ->size($thumbSize)
+            ->sizeLimit($thumbSizeLimit)
             ->autoResize($autoResize)
-            ->resizeWidth( $thumbResizeWidth )
-            ->hint( $bundle->config('Product.thumb.hint') )
+            ->resizeWidth($thumbResizeWidth)
+            ->hint($bundle->config('Product.thumb.hint'))
             ->hintFromSizeInfo()
             ;
-
     }
 }
-
-
-

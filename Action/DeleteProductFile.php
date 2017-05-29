@@ -1,5 +1,6 @@
 <?php
 namespace ProductBundle\Action;
+
 use ActionKit\RecordAction\DeleteRecordAction;
 
 class DeleteProductFile extends DeleteRecordAction
@@ -8,9 +9,9 @@ class DeleteProductFile extends DeleteRecordAction
 
     public function run()
     {
-        if( file_exists($this->record->file) )
+        if (file_exists($this->record->file)) {
             unlink($this->record->file);
+        }
         return parent::run();
     }
 }
-

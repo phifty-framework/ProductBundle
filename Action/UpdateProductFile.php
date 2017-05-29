@@ -1,5 +1,6 @@
 <?php
 namespace ProductBundle\Action;
+
 use ActionKit\RecordAction\UpdateRecordAction;
 
 class UpdateProductFile extends UpdateRecordAction
@@ -10,10 +11,9 @@ class UpdateProductFile extends UpdateRecordAction
     {
         $bundle = \ProductBundle\ProductBundle::getInstance();
         $this->useRecordSchema();
-        $this->param('file','File')
-            ->sizeLimit( $bundle->config('file.size_limit') ?: 1024 * 10 )  // Default to 10 MB limit
+        $this->param('file', 'File')
+            ->sizeLimit($bundle->config('file.size_limit') ?: 1024 * 10)  // Default to 10 MB limit
             ->label('檔案')
-            ->putIn( 'upload' );
+            ->putIn('upload');
     }
 }
-

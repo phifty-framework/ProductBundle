@@ -1,5 +1,6 @@
 <?php
 namespace ProductBundle\Action;
+
 use ActionKit\RecordAction\UpdateRecordAction;
 use ProductBundle\Model\ProductType;
 
@@ -16,7 +17,7 @@ class UpdateProductType extends UpdateRecordAction
         $iconSizeLimit = $bundle->config('ProductType.icon.size_limit');
         $iconResizeWidth = $bundle->config('ProductType.icon.resize_width') ?: 0;
         if ($bundle->config('ProductType.icon')) {
-            $this->param('icon','Image')
+            $this->param('icon', 'Image')
                 ->size($iconSize)
                 ->autoResize($autoResize)
                 ->resizeWidth($iconResizeWidth)
@@ -27,17 +28,16 @@ class UpdateProductType extends UpdateRecordAction
         }
     }
 
-    public function run() {
+    public function run()
+    {
         kernel()->db->query("LOCK TABLES " . ProductType::table . " AS m WRITE");
         $ret = parent::run();
         kernel()->db->query("UNLOCK TABLES");
         return $ret;
     }
 
-    public function successMessage($ret) {
+    public function successMessage($ret)
+    {
         return _('成功更新產品類型');
     }
-
 }
-
-

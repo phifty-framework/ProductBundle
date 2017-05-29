@@ -1,5 +1,6 @@
 <?php
 namespace ProductBundle\Action;
+
 use ActionKit;
 use Phifty\FileUtils;
 use ActionKit\RecordAction\CreateRecordAction;
@@ -17,32 +18,32 @@ class CreateCategory extends CreateRecordAction
         ),
     );
 
-    public function schema() 
-    { 
+    public function schema()
+    {
         $this->useRecordSchema();
         $bundle = \ProductBundle\ProductBundle::getInstance();
         $uploadDir = ($c=$bundle->config('upload_dir')) ? $c : 'upload';
 
-        $this->param('image','Image')
-            ->sizeLimit( ($c=$bundle->config('ProductCategory.image.size_limit')) ? $c : 600 )
-            ->resizeWidth( ($c = $bundle->config('ProductCategory.image.resize_width') ) ?  $c : 800 )
-            ->renameFile( function( $name ) {
-                return FileUtils::filename_append_md5( $name );
+        $this->param('image', 'Image')
+            ->sizeLimit(($c=$bundle->config('ProductCategory.image.size_limit')) ? $c : 600)
+            ->resizeWidth(($c = $bundle->config('ProductCategory.image.resize_width')) ?  $c : 800)
+            ->renameFile(function ($name) {
+                return FileUtils::filename_append_md5($name);
             })
-            ->putIn( $uploadDir );
+            ->putIn($uploadDir);
 
-        $this->param( 'thumb' , 'Image' )
-            ->sizeLimit( ($c=$bundle->config('ProductCategory.thumb.size_limit')) ? $c : 500 )
-            ->resizeWidth( ($c = $bundle->config('ProductCategory.thumb.resize_width') ) ? $c : 300 )
-            ->sourceField( 'image' )
-            ->renameFile( function( $name ) { 
-                return FileUtils::filename_append_md5( $name );
+        $this->param('thumb', 'Image')
+            ->sizeLimit(($c=$bundle->config('ProductCategory.thumb.size_limit')) ? $c : 500)
+            ->resizeWidth(($c = $bundle->config('ProductCategory.thumb.resize_width')) ? $c : 300)
+            ->sourceField('image')
+            ->renameFile(function ($name) {
+                return FileUtils::filename_append_md5($name);
             })
-            ->putIn( 'upload' );
+            ->putIn('upload');
     }
 
-    public function successMessage($ret) {
+    public function successMessage($ret)
+    {
         return _('新增成功');
     }
 }
-

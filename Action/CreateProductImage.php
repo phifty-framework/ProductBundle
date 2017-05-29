@@ -1,5 +1,6 @@
 <?php
 namespace ProductBundle\Action;
+
 use ActionKit;
 use Phifty\FileUtils;
 use ActionKit\RecordAction\CreateRecordAction;
@@ -29,45 +30,41 @@ class CreateProductImage extends CreateRecordAction
 
         $uploadDir = $bundle->config('upload_dir') ?: 'upload';
 
-        if( $bundle->config('ProductImage.large') ) {
-            $this->param('large','Image')
+        if ($bundle->config('ProductImage.large')) {
+            $this->param('large', 'Image')
                 ->size($largeSize)
                 ->autoResize($autoResize)
                 ->label('最大圖')
-                ->hint( $bundle->config('ProductImage.large.hint') )
+                ->hint($bundle->config('ProductImage.large.hint'))
                 ->hintFromSizeInfo()
                 ;
         }
 
-        $this->param('image','Image')
-            ->sizeLimit( $imageSizeLimit )
-            ->size( $imageSize )
+        $this->param('image', 'Image')
+            ->sizeLimit($imageSizeLimit)
+            ->size($imageSize)
             ->autoResize($autoResize)
-            ->sourceField( 'large' )
+            ->sourceField('large')
             ->required()
-            ->hint( $bundle->config('ProductImage.image.hint') )
+            ->hint($bundle->config('ProductImage.image.hint'))
             ->hintFromSizeInfo()
             ->label('主圖')
             ;
 
-        $this->param( 'thumb' , 'Image' )
-            ->size( $thumbSize )
-            ->sizeLimit( $thumbSizeLimit )
+        $this->param('thumb', 'Image')
+            ->size($thumbSize)
+            ->sizeLimit($thumbSizeLimit)
             ->autoResize($autoResize)
-            ->sourceField( 'image' )
+            ->sourceField('image')
             ->label('縮圖')
-            ->hint( $bundle->config('ProductImage.thumb.hint') )
+            ->hint($bundle->config('ProductImage.thumb.hint'))
             ->hintFromSizeInfo()
             ;
-
     }
 
 
-    public function successMessage($ret) 
+    public function successMessage($ret)
     {
         return '產品圖新增成功';
     }
 }
-
-
-

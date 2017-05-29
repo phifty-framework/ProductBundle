@@ -1,5 +1,6 @@
 <?php
 namespace ProductBundle\Action;
+
 use ActionKit;
 use Phifty\FileUtils;
 use ProductBundle\Model\ProductImage;
@@ -12,13 +13,13 @@ class CreateProduct extends CreateRecordAction
 {
     public $recordClass = 'ProductBundle\\Model\\Product';
 
-    public function mixins() {
+    public function mixins()
+    {
         return array(new ProductBaseMixin($this));
     }
 
     public function successMessage($ret)
     {
-        return __('產品 %1 建立成功', $this->record->dataLabel() );
+        return __('產品 %1 建立成功', $this->record->dataLabel());
     }
 }
-

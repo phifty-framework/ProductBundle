@@ -1,5 +1,6 @@
 <?php
 namespace ProductBundle\Action;
+
 use ActionKit\RecordAction\CreateRecordAction;
 
 class CreateCategoryFile extends CreateRecordAction
@@ -12,12 +13,12 @@ class CreateCategoryFile extends CreateRecordAction
         $sizeLimit = $bundle->config('ProductCategoryFile.size_limit') ?: 1024 * 10;
         $fileHint =  $bundle->config('ProductCategoryFile.hint');
         $this->useRecordSchema();
-        $this->param('file','File')
-            ->sizeLimit( $sizeLimit )  // Default to 10 MB limit
+        $this->param('file', 'File')
+            ->sizeLimit($sizeLimit)  // Default to 10 MB limit
             ->label('檔案')
-            ->hint( $fileHint )
+            ->hint($fileHint)
             ->hintFromSizeLimit()
-            ->putIn( 'upload' );
+            ->putIn('upload');
     }
 
     public function successMessage($ret)
@@ -25,4 +26,3 @@ class CreateCategoryFile extends CreateRecordAction
         return '檔案上傳成功。';
     }
 }
-

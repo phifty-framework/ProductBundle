@@ -13,6 +13,11 @@ use ProductBundle\Model\Feature;
 use ProductBundle\Model\FeatureCollection;
 use CRUD\CollectionChooser;
 
+
+use ProductBundle\RESTful\ProductHandler;
+use ProductBundle\RESTful\ProductTypeHandler;
+
+
 function array_insert( & $array , $pos = 0 , $elements )
 {
     array_splice( $array, $pos , 0 , (array) $elements );
@@ -266,17 +271,16 @@ class ProductBundle extends Bundle
             }
         });
 
-        kernel()->restful->addResource('product', new \ProductBundle\RESTful\ProductHandler);
-        kernel()->restful->addResource('product_type', new \ProductBundle\RESTful\ProductTypeHandler);
+        kernel()->restful->addResource('product', new ProductHandler);
+        kernel()->restful->addResource('product_type', new ProductTypeHandler);
 
-
-        if ( kernel()->bundle('RecipeBundle') ) {
+        if (kernel()->bundle('RecipeBundle')) {
             $this->addRecordAction('ProductRecipe');
         }
 
         $self = $this;
 
-        if ( $this->config('sitemap') ) {
+        if ($this->config('sitemap')) {
             $this->route( '/product_sitemap.xml' ,   'SiteMapController:index');
             kernel()->event->register('sitemap.index', function($sitemapBundle) use ($self) {
                 $sitemapBundle->registerIndexPath('/product_sitemap.xml');

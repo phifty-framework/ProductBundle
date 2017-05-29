@@ -1,5 +1,6 @@
 <?php
 namespace ProductBundle\Action;
+
 use ActionKit\RecordAction\UpdateRecordAction;
 
 class UpdateProductSpecTable extends UpdateRecordAction
@@ -8,8 +9,8 @@ class UpdateProductSpecTable extends UpdateRecordAction
 
     public function run()
     {
-        if ( $ret = parent::run() ) {
-            return $this->success( $this->successMessage($ret), $this->getRecord()->getData());
+        if ($ret = parent::run()) {
+            return $this->success($this->successMessage($ret), $this->getRecord()->getData());
         }
         return $this->error('系統錯誤');
     }

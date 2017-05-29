@@ -1,5 +1,6 @@
 <?php
 namespace ProductBundle\Action;
+
 use ActionKit;
 use Phifty\FileUtils;
 use ActionKit\RecordAction\UpdateRecordAction;
@@ -19,33 +20,29 @@ class UpdateProductSubsection extends UpdateRecordAction
 
         $uploadDir = $bundle->config('upload_dir') ?: 'upload';
 
-        if ( $bundle->config('ProductSection.cover_image') ) {
-            $this->param('cover_image','Image')
-                ->sizeLimit( $imageSizeLimit )
-                ->size( $imageSize )
+        if ($bundle->config('ProductSection.cover_image')) {
+            $this->param('cover_image', 'Image')
+                ->sizeLimit($imageSizeLimit)
+                ->size($imageSize)
                 ->required()
-                ->hint( $bundle->config('ProductSubsection.image.hint') )
+                ->hint($bundle->config('ProductSubsection.image.hint'))
                 ->hintFromSizeInfo()
                 ->prefix('/')
                 ->label('主圖')
                 ;
         }
-
     }
 
     public function run()
     {
-        if ( $ret = parent::run() ) {
-            return $this->success( $this->successMessage($ret), $this->getRecord()->getData());
+        if ($ret = parent::run()) {
+            return $this->success($this->successMessage($ret), $this->getRecord()->getData());
         }
         return $this->error('系統錯誤');
     }
 
-    public function successMessage($ret) 
+    public function successMessage($ret)
     {
         return '產品子區塊更新成功';
     }
 }
-
-
-

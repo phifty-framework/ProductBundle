@@ -1,5 +1,6 @@
 <?php
 namespace ProductBundle\Action;
+
 use ActionKit;
 use Phifty\FileUtils;
 use ActionKit\RecordAction\CreateRecordAction;
@@ -19,12 +20,12 @@ class CreateProductSubsection extends CreateRecordAction
 
         $uploadDir = $bundle->config('upload_dir') ?: 'upload';
 
-        if ( $bundle->config('ProductSection.cover_image') ) {
-            $this->param('cover_image','Image')
-                ->sizeLimit( $imageSizeLimit )
-                ->size( $imageSize )
+        if ($bundle->config('ProductSection.cover_image')) {
+            $this->param('cover_image', 'Image')
+                ->sizeLimit($imageSizeLimit)
+                ->size($imageSize)
                 ->required()
-                ->hint( $bundle->config('ProductSubsection.image.hint') )
+                ->hint($bundle->config('ProductSubsection.image.hint'))
                 ->hintFromSizeInfo()
                 ->prefix('/')
                 ->label('主圖')
@@ -33,11 +34,8 @@ class CreateProductSubsection extends CreateRecordAction
     }
 
 
-    public function successMessage($ret) 
+    public function successMessage($ret)
     {
         return '產品子區塊新增成功';
     }
 }
-
-
-
