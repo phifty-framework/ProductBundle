@@ -12,8 +12,9 @@
   <testsuites>
     <testsuite name="ProductBundle">
       <directory suffix="Test.php">.</directory>
-      <exclude>vendor/</exclude>
-      <exclude>frameworks/</exclude>
+      <exclude>bundles</exclude>
+      <exclude>frameworks</exclude>
+      <exclude>vendor</exclude>
     </testsuite>
   </testsuites>
 
