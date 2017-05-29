@@ -1,5 +1,7 @@
 <?php
+
 namespace ProductBundle\Model;
+
 use ProductBundle\Model\ProductCollection;
 use ProductBundle\Model\ProductTypeCollection;
 use ProductBundle\Model\ProductImageCollection;

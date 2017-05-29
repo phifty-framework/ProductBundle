@@ -14,7 +14,7 @@ class ProductSpecTableSchema extends DeclareSchema
             ->renderAs('SelectInput')
             ->label('產品');
 
-        $this->mixin('SortablePlugin\\Model\\Mixin\\OrderingSchema');
+        $this->mixin('CommonBundle\\Model\\Mixin\\OrderingSchema');
         $this->mixin('TableBundle\\Model\\Mixin\\TableMixinSchema');
     }
 }

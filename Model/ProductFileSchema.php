@@ -1,10 +1,13 @@
 <?php
+
 namespace ProductBundle\Model;
+
 use Maghead\Schema\DeclareSchema;
+
+use CommonBundle\Model\Mixin\OrderingSchema;
 
 class ProductFileSchema extends DeclareSchema
 {
-
     public function getLabel()
     {
         return '產品檔案';
@@ -42,7 +45,7 @@ class ProductFileSchema extends DeclareSchema
             ->required()
             ->label('檔案');
 
-        $this->mixin('SortablePlugin\\Model\\Mixin\\OrderingSchema');
+        $this->mixin(OrderingSchema::class);
     }
 
 }

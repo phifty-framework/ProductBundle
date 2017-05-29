@@ -27,7 +27,7 @@ class ProductImageSchema extends DeclareSchema
             ->label('最大圖');
 
         $this->mixin('CommonBundle\\Model\\Mixin\\ImageSchema');
-        $this->mixin('SortablePlugin\\Model\\Mixin\\OrderingSchema');
+        $this->mixin('CommonBundle\\Model\\Mixin\\OrderingSchema');
     }
 }
 

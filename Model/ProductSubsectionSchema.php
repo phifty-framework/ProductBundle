@@ -33,7 +33,7 @@ class ProductSubsectionSchema extends DeclareSchema
             ->refer( 'ProductBundle\\Model\\Product')
             ;
 
-        $this->mixin('SortablePlugin\\Model\\Mixin\\OrderingSchema');
+        $this->mixin('CommonBundle\\Model\\Mixin\\OrderingSchema');
         $this->belongsTo('product','ProductBundle\\Model\\ProductSchema','id','product_id');
     }
 }

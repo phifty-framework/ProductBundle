@@ -1,6 +1,8 @@
 <?php
 namespace ProductBundle\Model;
+
 use Maghead\Schema\DeclareSchema;
+use CommonBundle\Model\Mixin\OrderingSchema;
 
 class ProductPropertySchema extends DeclareSchema
 {
@@ -12,7 +14,7 @@ class ProductPropertySchema extends DeclareSchema
             ->integer()
             ->refer( 'ProductBundle\\Model\\ProductSchema')
             ;
-        $this->mixin('SortablePlugin\\Model\\Mixin\\OrderingSchema');
+        $this->mixin(OrderingSchema::class);
         $this->belongsTo('product','ProductBundle\\Model\\ProductSchema','id','product_id');
     }
 }

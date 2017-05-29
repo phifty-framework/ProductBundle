@@ -2,6 +2,7 @@
 namespace ProductBundle\Model;
 
 use Maghead\Schema\DeclareSchema;
+use CommonBundle\Model\Mixin\OrderingSchema;
 
 class ProductProductSchema extends DeclareSchema
 {
@@ -19,7 +20,7 @@ class ProductProductSchema extends DeclareSchema
             ->label('關連產品')
             ;
 
-        $this->mixin('SortablePlugin\\Model\\Mixin\\OrderingSchema');
+        $this->mixin(OrderingSchema::class);
 
         $this->belongsTo('product','ProductBundle\\Model\\ProductSchema','id','product_id');
         $this->belongsTo('related_product','ProductBundle\\Model\\ProductSchema','id','related_product_id');
