@@ -1,7 +1,8 @@
 <?php
 namespace ProductBundle\Model;
 
-class ProductLinkCollection  extends \ProductBundle\Model\ProductLinkCollectionBase {
+class ProductLinkCollection extends \ProductBundle\Model\ProductLinkCollectionBase
+{
 
 
 
@@ -9,6 +10,7 @@ class ProductLinkCollection  extends \ProductBundle\Model\ProductLinkCollectionB
     /**
      * Code block for message id parser.
      */
-    private function __() {
-            }
+    private function __()
+    {
+    }
 }

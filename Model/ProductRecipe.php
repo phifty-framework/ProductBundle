@@ -1,6 +1,6 @@
 <?php
 namespace ProductBundle\Model;
 
-class ProductRecipe  extends \ProductBundle\Model\ProductRecipeBase {
-
+class ProductRecipe extends \ProductBundle\Model\ProductRecipeBase
+{
 }

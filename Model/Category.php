@@ -1,11 +1,10 @@
 <?php
 namespace ProductBundle\Model;
+
 use CoreBundle\Linkable;
 
-class Category 
-extends \ProductBundle\Model\CategoryBase implements Linkable
+class Category extends \ProductBundle\Model\CategoryBase implements Linkable
 {
-
     public $dataLabelField = 'name';
 
     public function dataLabel()
@@ -59,7 +58,7 @@ extends \ProductBundle\Model\CategoryBase implements Linkable
             $subcategories = $this->subcategories;
             foreach ($subcategories as $subc) {
                 $categories[] = $subc;
-                foreach($subc->getAllChildCategories() as $subc2) {
+                foreach ($subc->getAllChildCategories() as $subc2) {
                     $categories[] = $subc2;
                 }
             }
@@ -74,7 +73,7 @@ extends \ProductBundle\Model\CategoryBase implements Linkable
             "id",
             $this->id,
             $this->lang,
-            rawurlencode($this->name ? str_replace('/','',$this->name) : 'Untitled'))
+            rawurlencode($this->name ? str_replace('/', '', $this->name) : 'Untitled'))
         );
     }
 

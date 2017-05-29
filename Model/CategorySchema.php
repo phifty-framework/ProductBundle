@@ -13,25 +13,25 @@ class CategorySchema extends DeclareSchema
     {
         $this->table('product_categories');
 
-        $this->column( 'name' )
+        $this->column('name')
             ->varchar(130)
             ->label('產品類別名稱')
             ->required(1);
 
-        $this->column( 'description' )
+        $this->column('description')
             ->text()
             ->label('產品類別敘述')
-            ->renderAs('TextareaInput',array(
+            ->renderAs('TextareaInput', array(
                 'class' => '+=mceEditor',
             ));
 
-        $this->column( 'parent_id' )
+        $this->column('parent_id')
             ->integer()
-            ->refer( 'ProductBundle\\Model\\CategorySchema' )
-            ->label( _('父類別') )
+            ->refer('ProductBundle\\Model\\CategorySchema')
+            ->label(_('父類別'))
             ->integer()
-            ->default(NULL)
-            ->renderAs('SelectInput',array(
+            ->default(null)
+            ->renderAs('SelectInput', array(
                 'allow_empty' => 0,
             ));
 
@@ -59,19 +59,19 @@ class CategorySchema extends DeclareSchema
         $bundle = \ProductBundle\ProductBundle::getInstance();
 
         if ($bundle->config('ProductCategory.file')) {
-            $this->many('files','ProductBundle\\Model\\CategoryFile','category_id','id');
+            $this->many('files', 'ProductBundle\\Model\\CategoryFile', 'category_id', 'id');
         }
         if ($bundle->config('ProductCategory.subcategory')) {
-            $this->many('subcategories','ProductBundle\\Model\\CategorySchema','parent_id','id');
-            $this->belongsTo('parent','ProductBundle\\Model\\CategorySchema','id','parent_id');
+            $this->many('subcategories', 'ProductBundle\\Model\\CategorySchema', 'parent_id', 'id');
+            $this->belongsTo('parent', 'ProductBundle\\Model\\CategorySchema', 'id', 'parent_id');
         }
 
-        if ( $bundle->config('ProductCategory.multicategory') ) {
-            $this->many( 'category_products', 'ProductBundle\\Model\\ProductCategorySchema', 'category_id', 'id' );
-            $this->manyToMany( 'products',   'category_products' , 'product');
+        if ($bundle->config('ProductCategory.multicategory')) {
+            $this->many('category_products', 'ProductBundle\\Model\\ProductCategorySchema', 'category_id', 'id');
+            $this->manyToMany('products', 'category_products', 'product');
         } else {
-            $this->many('products','ProductBundle\\Model\\ProductSchema','category_id','id')
-                ->orderBy('created_on','ASC');
+            $this->many('products', 'ProductBundle\\Model\\ProductSchema', 'category_id', 'id')
+                ->orderBy('created_on', 'ASC');
         }
     }
 }

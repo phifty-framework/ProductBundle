@@ -11,7 +11,7 @@ class ProductSpecTableSchema extends DeclareSchema
         $this->label('Specification Table');
         $this->table('product_spec_tables');
 
-        $this->column( 'product_id' )
+        $this->column('product_id')
             ->integer()
             ->refer('ProductBundle\\Model\\Product')
             ->renderAs('SelectInput')

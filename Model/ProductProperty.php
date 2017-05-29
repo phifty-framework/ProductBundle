@@ -1,7 +1,6 @@
 <?php
 namespace ProductBundle\Model;
 
-class ProductProperty  extends \ProductBundle\Model\ProductPropertyBase {
-
-
+class ProductProperty extends \ProductBundle\Model\ProductPropertyBase
+{
 }

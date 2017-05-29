@@ -1,11 +1,6 @@
 <?php
 namespace ProductBundle\Model;
 
-
-
-class Resource 
-extends \ProductBundle\Model\ResourceBase
+class Resource extends \ProductBundle\Model\ResourceBase
 {
-
-    
 }

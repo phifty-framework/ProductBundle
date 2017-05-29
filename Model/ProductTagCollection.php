@@ -7,10 +7,6 @@ namespace ProductBundle\Model;
 
 use ProductBundle\Model\ProductTagCollectionBase;
 
-class ProductTagCollection  extends ProductTagCollectionBase {
-
-
-
-
+class ProductTagCollection extends ProductTagCollectionBase
+{
 }
-

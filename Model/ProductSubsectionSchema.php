@@ -1,10 +1,11 @@
 <?php
 namespace ProductBundle\Model;
+
 use Maghead\Schema\DeclareSchema;
 
 class ProductSubsectionSchema extends DeclareSchema
 {
-    public function schema() 
+    public function schema()
     {
         $this->column('title')
             ->varchar(64)
@@ -30,10 +31,10 @@ class ProductSubsectionSchema extends DeclareSchema
 
         $this->column('product_id')
             ->integer()
-            ->refer( 'ProductBundle\\Model\\Product')
+            ->refer('ProductBundle\\Model\\Product')
             ;
 
         $this->mixin('CommonBundle\\Model\\Mixin\\OrderingSchema');
-        $this->belongsTo('product','ProductBundle\\Model\\ProductSchema','id','product_id');
+        $this->belongsTo('product', 'ProductBundle\\Model\\ProductSchema', 'id', 'product_id');
     }
 }

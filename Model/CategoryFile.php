@@ -1,5 +1,6 @@
 <?php
 namespace ProductBundle\Model;
+
 use Phifty\Model;
 use Phifty\FileUtils;
 
@@ -32,23 +33,25 @@ class CategoryFile extends Model
 
     public function beforeUpdate($args)
     {
-        if( isset($args['file']) )
+        if (isset($args['file'])) {
             $args['mimetype'] = FileUtils::mimetype($args['file']);
+        }
         return $args;
     }
 
     public function beforeCreate($args)
     {
-        if( isset($args['file']) )
+        if (isset($args['file'])) {
             $args['mimetype'] = FileUtils::mimetype($args['file']);
+        }
         return $args;
     }
 
     public function updateMimetype()
     {
-        if( file_exists($this->file) ) {
+        if (file_exists($this->file)) {
             $mimetype = FileUtils::mimetype($this->file);
-            if($mimetype) {
+            if ($mimetype) {
                 $this->update(array('mimetype' => $mimetype));
             }
         }
@@ -56,10 +59,9 @@ class CategoryFile extends Model
 
 
 #boundary start 8ed945e5afdf5aa65571ce21ab189942
-	const schema_proxy_class = 'ProductBundle\\Model\\CategoryFileSchemaProxy';
-	const collection_class = 'ProductBundle\\Model\\CategoryFileCollection';
-	const model_class = 'ProductBundle\\Model\\CategoryFile';
-	const table = 'category_files';
+    const schema_proxy_class = 'ProductBundle\\Model\\CategoryFileSchemaProxy';
+    const collection_class = 'ProductBundle\\Model\\CategoryFileCollection';
+    const model_class = 'ProductBundle\\Model\\CategoryFile';
+    const table = 'category_files';
 #boundary end 8ed945e5afdf5aa65571ce21ab189942
 }
-

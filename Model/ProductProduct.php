@@ -1,7 +1,6 @@
 <?php
 namespace ProductBundle\Model;
 
-class ProductProduct  extends \ProductBundle\Model\ProductProductBase {
-
-
+class ProductProduct extends \ProductBundle\Model\ProductProductBase
+{
 }

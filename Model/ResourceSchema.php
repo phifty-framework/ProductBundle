@@ -1,5 +1,6 @@
 <?php
 namespace ProductBundle\Model;
+
 use Maghead\Schema\DeclareSchema;
 
 class ResourceSchema extends DeclareSchema
@@ -21,7 +22,7 @@ class ResourceSchema extends DeclareSchema
 
         $this->column('url')
             ->varchar(256)
-            ->label( '網址' )
+            ->label('網址')
             ;
 
         $this->column('html')
@@ -30,8 +31,6 @@ class ResourceSchema extends DeclareSchema
             ->renderAs('TextareaInput')
             ;
 
-        $this->belongsTo('product','ProductBundle\\Model\\ProductSchema','id','product_id');
+        $this->belongsTo('product', 'ProductBundle\\Model\\ProductSchema', 'id', 'product_id');
     }
 }
-
-

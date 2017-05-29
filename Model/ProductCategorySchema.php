@@ -19,9 +19,7 @@ class ProductCategorySchema extends DeclareSchema
         $this->column('category_id')
             ->integer();
 
-        $this->belongsTo( 'category' , 'ProductBundle\\Model\\CategorySchema','id','category_id');
-        $this->belongsTo( 'product' , 'ProductBundle\\Model\\ProductSchema','id','product_id');
+        $this->belongsTo('category', 'ProductBundle\\Model\\CategorySchema', 'id', 'category_id');
+        $this->belongsTo('product', 'ProductBundle\\Model\\ProductSchema', 'id', 'product_id');
     }
 }
-
-

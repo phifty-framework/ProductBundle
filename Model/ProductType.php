@@ -1,14 +1,10 @@
 <?php
 namespace ProductBundle\Model;
 
-
-
-class ProductType 
-extends \ProductBundle\Model\ProductTypeBase
+class ProductType extends \ProductBundle\Model\ProductTypeBase
 {
-
-    public function dataLabel() {
+    public function dataLabel()
+    {
         return $this->name;
     }
-
 }

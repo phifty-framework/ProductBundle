@@ -1,7 +1,8 @@
 <?php
 namespace ProductBundle\Model;
 
-class ProductUseCaseCollection  extends \ProductBundle\Model\ProductUseCaseCollectionBase {
+class ProductUseCaseCollection extends \ProductBundle\Model\ProductUseCaseCollectionBase
+{
 
 
 
@@ -9,6 +10,7 @@ class ProductUseCaseCollection  extends \ProductBundle\Model\ProductUseCaseColle
     /**
      * Code block for message id parser.
      */
-    private function __() {
-            }
+    private function __()
+    {
+    }
 }

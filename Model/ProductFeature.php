@@ -1,6 +1,6 @@
 <?php
 namespace ProductBundle\Model;
 
-class ProductFeature extends ProductFeatureBase {
-
+class ProductFeature extends ProductFeatureBase
+{
 }

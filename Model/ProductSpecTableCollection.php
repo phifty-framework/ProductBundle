@@ -7,10 +7,6 @@ namespace ProductBundle\Model;
 
 use ProductBundle\Model\ProductSpecTableCollectionBase;
 
-class ProductSpecTableCollection  extends ProductSpecTableCollectionBase {
-
-
-
-
+class ProductSpecTableCollection extends ProductSpecTableCollectionBase
+{
 }
-
