@@ -1,7 +1,7 @@
 {
-    "name": "corneltek/productbundle",
+    "name": "phifty/productbundle",
     "type": "phifty-bundle",
-    "description": "The product management bundle",
+    "description": "The powerful product management bundle",
     "authors": [
         {
             "name": "c9s",
