@@ -111,7 +111,8 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
         return $this->renderEdit();
     }
 
-    public function renderEdit( $args = array() ) {
+    public function renderEdit($args = array())
+    {
         $args['categoriesByLang'] = CollectionUtils::aggregateByLang(
             kernel()->locale->available(),
             'ProductBundle\\Model\\CategoryCollection');
@@ -137,7 +138,8 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
                 $collection->where()->equal('parent_id', 0);
             }
         }
-        return parent::renderEdit( $args );
+
+        return $this->render($this->mustFindTemplate('edit.html.twig') , $args);
     }
 
     public function getCollection()

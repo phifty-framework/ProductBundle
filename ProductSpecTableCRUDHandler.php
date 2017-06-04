@@ -22,7 +22,7 @@ class ProductSpecTableCRUDHandler extends CRUDHandler
     public $canBulkCopy = false;
     public $canEditInNewWindow = false;
 
-    // public $templatePage = '@CRUD/page.html';
+    // public $templatePage = '@CRUD/page.html.twig';
     // public $actionViewClass = 'AdminUI\\Action\\View\\StackView';
     // public $pageLimit = 15;
     // public $defaultOrder = array('id', 'DESC');
