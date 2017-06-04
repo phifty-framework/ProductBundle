@@ -5,9 +5,11 @@ vim:filetype=htmldjango:
 <div class="product-editor">
         {{ CRUD.Action.renderSignatureWidget|raw}}
         {{ CRUD.Action.renderCSRFTokenWidget|raw}}
-        {% if CRUD.Record.id %}
-            {{ forms.hidden('id', CRUD.Record.id) }}
+
+        {% if CRUD.Record.hasKey %}
+          {{CRUD.Action.renderKeyWidget|raw}}
         {% endif %}
+
 
         <div class="row">
 
