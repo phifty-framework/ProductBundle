@@ -189,7 +189,7 @@ $(function() {
 
 
         {% if bundle.config('ProductFile.enable') %}
-            {% include '@ProductBundle/product/file.html' %}
+            {% include '@ProductBundle/product/file.html.twig' %}
         {% endif %}
 
 
@@ -212,7 +212,7 @@ $(function() {
             {% if bundle.config('ProductProperty.enable') %}
             <h3>規格表</h3>
             <div>
-                {% include '@ProductBundle/product/property.html' %}
+                {% include '@ProductBundle/product/property.html.twig' %}
             </div>
             {% endif %}
 
@@ -220,7 +220,7 @@ $(function() {
                 and bundle.config('Product.seo') 
                 and CRUD.Object.getModel().hasColumn('seo_keywords') 
             %}
-                {% include '@SEOPlugin/fields_collapsible.html' %}
+                {% include '@SEOPlugin/fields_collapsible.html.twig' %}
             {% endif %}
 
 
@@ -236,13 +236,13 @@ $(function() {
             <div>
                 {# private products are accessed by token #}
                 {% if bundle.config('Product.private') %}
-                    {% include '@ProductBundle/product/private_token.html' %}
+                    {% include '@ProductBundle/product/private_token.html.twig' %}
                 {% endif %}
             </div>
 
             <h3>詳細資料</h3>
             <div>
-                {% include '@CRUD/metadata.html' %}
+                {% include '@CRUD/metadata.html.twig' %}
                 <div class="clear"> </div>
             </div>
         </div>

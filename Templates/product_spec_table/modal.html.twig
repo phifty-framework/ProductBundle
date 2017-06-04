@@ -1,4 +1,4 @@
-{% extends '@CRUD/modal.html' %}
+{% extends '@CRUD/modal.html.twig' %}
 
 {% set edit_frag_serial = random() %}
 {% set action = CRUD.Object.getCurrentAction() %}
@@ -22,7 +22,7 @@
 
     <div class="table-container">
     {% if CRUD.Record.rows and CRUD.Record.columns %}
-        {% include "@TableBundle/table.html" with { record: CRUD.Record } %}
+        {% include "@TableBundle/table.html.twig" with { record: CRUD.Record } %}
     {% endif %}
     </div>
 </form>

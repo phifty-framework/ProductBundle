@@ -1,7 +1,7 @@
 {# 
 vim:filetype=htmldjango
 #}
-{% extends '@CRUD/edit.html' %}
+{% extends '@CRUD/edit.html.twig' %}
 
 {% macro options(padding,item,selected) %}
 <option value="{{ item.id }}"  {% if item.id == selected %} selected {% endif %}>{%- for i in 0 .. padding -%}&nbsp;&nbsp;{%- endfor -%}- {{ item.name }}</option>
@@ -55,11 +55,11 @@ vim:filetype=htmldjango
         <div class="divider"> </div>
         <div class="collapsible collapse-section">
             {% if bundle.config('ProductCategory.file') %}
-            {% include 'ProductBundle/Templates/product_category/file.html' %}
+            {% include 'ProductBundle/Templates/product_category/file.html.twig' %}
             {% endif %}
             <h3>詳細資料</h3>
             <div>
-                {% include '@CRUD/metadata.html' %}
+                {% include '@CRUD/metadata.html.twig' %}
             </div>
         </div>
 
