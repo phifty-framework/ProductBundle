@@ -40,7 +40,7 @@ class ProductBaseMixin extends MixinAction
         $autoResize           = $bundle->config('auto_resize') ?: false;
 
         if ($bundle->config('Product.zoom_image')) {
-            $this->param('zoom_image', 'Image')
+            $this->replaceParam('zoom_image', 'Image')
                 ->size($zoomImageSize)
                 ->sizeLimit($zoomImageSizeLimit)
                 ->resizeWidth($zoomImageResizeWidth)
@@ -52,7 +52,7 @@ class ProductBaseMixin extends MixinAction
         }
 
         if ($bundle->config('Product.cover_image')) {
-            $this->param('cover_image', 'Image')
+            $this->replaceParam('cover_image', 'Image')
                 ->size($coverImageSize)
                 ->resizeWidth($coverImageResizeWidth)
                 ->label('首頁圖')
@@ -63,7 +63,7 @@ class ProductBaseMixin extends MixinAction
         }
 
         if ($bundle->config('Product.spec_image')) {
-            $this->param('spec_image', 'Image')
+            $this->replaceParam('spec_image', 'Image')
                 ->size($specImageSize)
                 ->sizeLimit($imageSizeLimit)
                 ->autoResize($autoResize)
@@ -72,7 +72,7 @@ class ProductBaseMixin extends MixinAction
                 ->hintFromSizeInfo()
                 ;
 
-            $this->param('spec_thumb', 'Image')
+            $this->replaceParam('spec_thumb', 'Image')
                 ->sourceField('spec_image')
                 ->size($specThumbSize)
                 ->sizeLimit($thumbSizeLimit)
@@ -83,7 +83,7 @@ class ProductBaseMixin extends MixinAction
                 ;
         }
 
-        $this->param('image', 'Image')
+        $this->replaceParam('image', 'Image')
             ->size($imageSize)
             ->sizeLimit($imageSizeLimit)
             ->sourceField('zoom_image')
@@ -93,7 +93,7 @@ class ProductBaseMixin extends MixinAction
             ->hintFromSizeInfo()
             ;
 
-        $this->param('thumb', 'Image')
+        $this->replaceParam('thumb', 'Image')
             ->sourceField('image')
             ->size($thumbSize)
             ->sizeLimit($thumbSizeLimit)
