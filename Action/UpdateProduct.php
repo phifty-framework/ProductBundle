@@ -7,10 +7,11 @@ use ProductBundle\Model\ProductImage;
 use ProductBundle\Model\Feature;
 use ProductBundle\Model\Resource;
 use ProductBundle\Model\FeatureRel;
+use ProductBundle\Model\Product;
 
 class UpdateProduct extends \ActionKit\RecordAction\UpdateRecordAction
 {
-    public $recordClass = 'ProductBundle\\Model\\Product';
+    public $recordClass = Product::class;
 
     public function mixins()
     {
