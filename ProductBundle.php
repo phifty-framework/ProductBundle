@@ -26,17 +26,16 @@ function array_insert( & $array , $pos = 0 , $elements )
 
 class ProductChooser extends CollectionChooser 
 {
-    public $collectionClass = 'ProductBundle\\Model\\ProductCollection';
+    public $collectionClass = ProductCollection::class;
 }
 
 class FeatureChooser extends CollectionChooser
 {
-    public $collectionClass = 'ProductBundle\\Model\\FeatureCollection';
+    public $collectionClass = FeatureCollection::class;
 }
 
-class ProductBundle extends Bundle 
+class ProductBundle extends Bundle
 {
-
     public function defaultConfig() {
         return array(
             // product bundle scope config
@@ -210,17 +209,16 @@ class ProductBundle extends Bundle
         // $this->mount( '/=/product/chooser', 'ProductChooser');
         // $this->mount( '/=/product_feature/chooser', 'FeatureChooser');
 
-        $this->route( '/=/product/search', 'ProductSearchController');
-        $this->route( '/=/product/autocomplete', 'ProductAutoCompleteController');
-        $this->route( '/=/product_tag/autocomplete', 'TagAutoCompleteController');
+        $this->route('/=/product/search', 'ProductSearchController');
+        $this->route('/=/product/autocomplete', 'ProductAutoCompleteController');
+        $this->route('/=/product_tag/autocomplete', 'TagAutoCompleteController');
 
-        if ( $this->config('DefaultRoutes') ) {
-            // The route for simple search
-            $this->route( '/product/search', 'ProductController:search');
-            $this->route( '/product/search/advanced', 'ProductSearchController');
-            $this->route( '/product', 'ProductController:list');
-            $this->route( '/product/:id(/:lang/:name)', 'ProductController:item');
-            $this->route( '/p/:id(/:lang/:name)', 'ProductController:item');
+        if ($this->config('DefaultRoutes')) {
+            $this->route('/product/search', 'ProductController:search');
+            $this->route('/product/search/advanced', 'ProductSearchController');
+            $this->route('/product', 'ProductController:list');
+            $this->route('/product/:id(/:lang/:name)', 'ProductController:item');
+            $this->route('/p/:id(/:lang/:name)', 'ProductController:item');
 
             /**
              * product category
@@ -265,16 +263,16 @@ class ProductBundle extends Bundle
         $this->addRecordAction('ProductTag');
         $this->addRecordAction('Tag');
 
-        kernel()->event->register('phifty.before_action', function() {
+        $this->kernel->event->register('phifty.before_action', function() {
             foreach( ['ProductSubsection', 'ProductUseCase', 'ProductProduct', 'ProductLink', 'ProductProperty', 'ProductImage', 'ProductSpecTable'] as $modelName ) {
                 $this->addUpdateOrderingAction($modelName);
             }
         });
 
-        kernel()->restful->addResource('product', new ProductHandler);
-        kernel()->restful->addResource('product_type', new ProductTypeHandler);
+        $this->kernel->restful->addResource('product', new ProductHandler);
+        $this->kernel->restful->addResource('product_type', new ProductTypeHandler);
 
-        if (kernel()->bundle('RecipeBundle')) {
+        if ($this->kernel->bundle('RecipeBundle')) {
             $this->addRecordAction('ProductRecipe');
         }
 
@@ -287,7 +285,7 @@ class ProductBundle extends Bundle
             });
         }
 
-        kernel()->event->register( 'adminui.init_menu' , function($menu) use ($self) {
+        $this->kernel->event->register( 'adminui.init_menu' , function($menu) use ($self) {
             $bundle = kernel()->bundle('ProductBundle');
             $folder = $menu->createMenuFolder( _('產品') );
             $folder->createCrudMenuItem( 'product', _('產品管理') );
