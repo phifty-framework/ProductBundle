@@ -3,7 +3,7 @@ namespace ProductBundle\Controller;
 
 use Magsql\Universal\SelectQuery;
 
-use Phifty\Controller;
+use Phifty\Routing\Controller;
 use ProductBundle\Model\Category;
 use ProductBundle\Model\CategoryCollection;
 use ProductBundle\Model\FeatureCollection;

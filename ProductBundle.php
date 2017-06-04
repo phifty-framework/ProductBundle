@@ -202,10 +202,10 @@ class ProductBundle extends Bundle
 
     public function assets()
     {
-        return array('phifty-plugin-product', 'product-api');
+        return ['phifty-plugin-product', 'product-api'];
     }
 
-    public function init()
+    public function boot()
     {
         // $this->mount( '/=/product/chooser', 'ProductChooser');
         // $this->mount( '/=/product_feature/chooser', 'FeatureChooser');

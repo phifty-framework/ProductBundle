@@ -1,6 +1,6 @@
 <?php
 namespace ProductBundle\Controller;
-use Phifty\Controller;
+use Phifty\Routing\Controller;
 use CommonBundle\Controller\AutoCompleteController;
 
 class TagAutoCompleteController extends AutoCompleteController
