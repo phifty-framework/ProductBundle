@@ -13,3 +13,4 @@ config/*.php
 config/database.yml
 config/framework.yml
 /app
+manifest.php
