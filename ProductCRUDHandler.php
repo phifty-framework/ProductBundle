@@ -18,15 +18,18 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
 
     /* CRUD Attributes */
     public $modelClass = 'ProductBundle\\Model\\Product';
+
     public $crudId     = 'product';
+
     public $templateId = 'product';
-    public $listColumns = array(
+
+    public $listColumns = [
         'id',
         'thumb',
         'name',
         'subtitle',
         'sn',
-    );
+    ];
 
     // The right columns should be register from MetaData plugin
     // Please see I18N/I18N.php for example.
@@ -41,15 +44,14 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
     public $canBulkEdit = true;
 
 
-    // XXX: Might move into Plugin CRUDHandler
-    public function init()
+    public function boot()
     {
+        parent::boot();
 
-        parent::init();
-
-        if (  kernel()->bundle('StatusPlugin') ) {
+        if ($this->kernel->bundle('StatusPlugin') ) {
             array_insert( $this->listColumns, 3, 'status' );
         }
+
         if ( $this->bundle->config( 'Product.quicksearch' ) ) {
             $this->quicksearchFields = array( 'name' , 'content' );
             if ( $this->bundle->config('Product.subtitle') ) {
@@ -66,8 +68,8 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
             }
         }
 
-        if ( $this->bundle->config( 'Product.price' ) ) {
-            array_insert( $this->listColumns, -1 , 'price' );
+        if ($this->bundle->config( 'Product.price' )) {
+            array_insert( $this->listColumns, -1 , 'price');
         }
 
         // set thumb column formatter to display product image
@@ -114,23 +116,23 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
     public function renderEdit($args = array())
     {
         $args['categoriesByLang'] = CollectionUtils::aggregateByLang(
-            kernel()->locale->available(),
+            $this->kernel->locale->available(),
             'ProductBundle\\Model\\CategoryCollection');
 
         $args['featuresByLang'] = CollectionUtils::aggregateByLang(
-            kernel()->locale->available(),
+            $this->kernel->locale->available(),
             'ProductBundle\\Model\\FeatureCollection');
 
         $args['productsByLang'] = CollectionUtils::aggregateByLang(
-            kernel()->locale->available(),
+            $this->kernel->locale->available(),
             'ProductBundle\\Model\\ProductCollection');
 
-        $bundle = kernel()->bundle('ProductBundle');
+        $bundle = $this->kernel->bundle('ProductBundle');
 
         if ( $bundle->config('usecases') ) {
             $args['usecasesByLang'] = CollectionUtils::aggregateByLang(
-                kernel()->locale->available(),
-                'UseCaseBundle\\Model\\UseCaseCollection');
+                $this->kernel->locale->available(),
+                \UseCaseBundle\Model\UseCaseCollection::class);
         }
 
         if ($bundle->config('Product.hide_subcategory')) {
@@ -208,9 +210,6 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
         }
         return $categoryCollection;
     }
-
-
-
 
 
     public function listRegionAction()
