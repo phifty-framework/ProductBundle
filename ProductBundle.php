@@ -153,6 +153,9 @@ class ProductBundle extends Bundle
                     'size' => array( 'width' => null, 'height' => null ),
                 ),
             ),
+            'ProductTag' => [
+                'enable' => false,
+            ],
             'ProductLink' => array(
                 'enable' => false,
             ),
@@ -211,7 +214,6 @@ class ProductBundle extends Bundle
 
         $this->route('/=/product/search', 'ProductSearchController');
         $this->route('/=/product/autocomplete', 'ProductAutoCompleteController');
-        $this->route('/=/product_tag/autocomplete', 'TagAutoCompleteController');
 
         if ($this->config('DefaultRoutes')) {
             $this->route('/product/search', 'ProductController:search');
@@ -230,27 +232,28 @@ class ProductBundle extends Bundle
             $this->route( '/pc/id/:id(/:lang/:name)',    'ProductController:byCategoryId'); // categoryAction
         }
 
-        $this->mount('/bs/product',          'ProductCRUDHandler');
-        $this->mount('/bs/product_category', 'CategoryCRUDHandler');
-        $this->mount('/bs/product_category_file', 'CategoryFileCRUDHandler');
-        $this->mount('/bs/product_feature' , 'FeatureCRUDHandler');
-        $this->mount('/bs/product_spec_table' , 'ProductSpecTableCRUDHandler');
-        $this->mount('/bs/product_resource', 'ProductResourceCRUDHandler');
-        $this->mount('/bs/product_image' ,   'ProductImageCRUDHandler');
+        $this->mount('/bs/product',          ProductCRUDHandler::class);
+        $this->mount('/bs/product-category', CategoryCRUDHandler::class);
+        $this->mount('/bs/product-category-file', CategoryFileCRUDHandler::class);
+        $this->mount('/bs/product-feature' , FeatureCRUDHandler::class);
+        $this->mount('/bs/product-spec-table' , ProductSpecTableCRUDHandler::class);
+        $this->mount('/bs/product-resource', ProductResourceCRUDHandler::class);
+        $this->mount('/bs/product-image' ,   ProductImageCRUDHandler::class);
 
-        if ($this->config('ProductType.enable')) {
-            $this->mount( '/bs/product_file' ,    'ProductFileCRUDHandler');
+        if ($this->config('ProductFile.enable')) {
+            $this->mount('/bs/product-file',  ProductFileCRUDHandler::class);
         }
 
         if ($this->config('ProductType.enable')) {
-            $this->mount('/bs/product_type', 'ProductTypeCRUDHandler');
+            $this->addRecordAction('ProductType');
+            $this->mount('/bs/product-type', ProductTypeCRUDHandler::class);
         }
 
         if ($this->config('ProductSubsection.enable')) {
-            $this->mount('/bs/product_subsection', 'ProductSubsectionCRUDHandler');
+            $this->addRecordAction('ProductSubsection');
+            $this->mount('/bs/product-subsection', ProductSubsectionCRUDHandler::class);
         }
 
-        $this->addRecordAction('ProductType');
         $this->addRecordAction('Feature');
         $this->addRecordAction('ProductFeature');
         $this->addRecordAction('Resource');
@@ -258,9 +261,12 @@ class ProductBundle extends Bundle
         $this->addRecordAction('ProductProduct');
         $this->addRecordAction('ProductUseCase');
         $this->addRecordAction('ProductLink');
-        $this->addRecordAction('ProductSubsection');
 
-        $this->addRecordAction('ProductTag');
+        if ($this->config('ProductTag.enable')) {
+            $this->addRecordAction('ProductTag');
+            $this->route('/=/product-tag/autocomplete', 'TagAutoCompleteController');
+        }
+
         $this->addRecordAction('Tag');
 
         $this->kernel->event->register('phifty.before_action', function() {
