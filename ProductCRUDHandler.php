@@ -44,9 +44,9 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
     public $canBulkEdit = true;
 
 
-    public function boot()
+    public function context(array & $environment, array $response)
     {
-        parent::boot();
+        parent::context($environment, $response);
 
         if ($this->kernel->bundle('StatusPlugin') ) {
             array_insert( $this->listColumns, 3, 'status' );
@@ -80,7 +80,7 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
         });
     }
 
-    public function editRegionAction() 
+    public function editRegionAction()
     {
         $this->editRegionActionPrepare();
         $bundle = $this->bundle;
