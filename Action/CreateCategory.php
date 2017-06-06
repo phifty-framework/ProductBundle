@@ -4,15 +4,19 @@ namespace ProductBundle\Action;
 use ActionKit;
 use Phifty\FileUtils;
 use ActionKit\RecordAction\CreateRecordAction;
+use ProductBundle\Model\Category;
+use ProductBundle\Model\CategoryFile;
 
 class CreateCategory extends CreateRecordAction
 {
-    public $recordClass = 'ProductBundle\\Model\\Category';
+    public $recordClass = Category::class;
+
     public $nested = true;
+
     public $relationships = array(
         'files' => array(
             'has_many' => true,
-            'record' => 'ProductBundle\\Model\\CategoryFile',
+            'record' => CategoryFile::class,
             'self_key' => 'category_id',
             'foreign_key' => 'id',
         ),
@@ -24,7 +28,7 @@ class CreateCategory extends CreateRecordAction
         $bundle = \ProductBundle\ProductBundle::getInstance();
         $uploadDir = ($c=$bundle->config('upload_dir')) ? $c : 'upload';
 
-        $this->param('image', 'Image')
+        $this->replaceParam('image', 'Image')
             ->sizeLimit(($c=$bundle->config('ProductCategory.image.size_limit')) ? $c : 600)
             ->resizeWidth(($c = $bundle->config('ProductCategory.image.resize_width')) ?  $c : 800)
             ->renameFile(function ($name) {
@@ -32,7 +36,7 @@ class CreateCategory extends CreateRecordAction
             })
             ->putIn($uploadDir);
 
-        $this->param('thumb', 'Image')
+        $this->replaceParam('thumb', 'Image')
             ->sizeLimit(($c=$bundle->config('ProductCategory.thumb.size_limit')) ? $c : 500)
             ->resizeWidth(($c = $bundle->config('ProductCategory.thumb.resize_width')) ? $c : 300)
             ->sourceField('image')

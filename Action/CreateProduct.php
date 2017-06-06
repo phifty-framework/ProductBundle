@@ -8,10 +8,11 @@ use ProductBundle\Model\Feature;
 use ProductBundle\Model\Resource;
 use ProductBundle\Model\FeatureRel;
 use ActionKit\RecordAction\CreateRecordAction;
+use ProductBundle\Model\Product;
 
 class CreateProduct extends CreateRecordAction
 {
-    public $recordClass = 'ProductBundle\\Model\\Product';
+    public $recordClass = Product::class;
 
     public function mixins()
     {
