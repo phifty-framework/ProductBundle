@@ -7,6 +7,9 @@ use ProductBundle\Model\ProductCollection;
 use ProductBundle\Model\CategoryCollection;
 use Maghead\Schema\DeclareSchema;
 
+use CommonBundle\Model\Mixin\MetaSchema;
+use I18N\Model\Mixin\I18NSchema;
+
 class CategorySchema extends DeclareSchema
 {
     public function schema()
@@ -27,7 +30,7 @@ class CategorySchema extends DeclareSchema
 
         $this->column('parent_id')
             ->integer()
-            ->refer('ProductBundle\\Model\\CategorySchema')
+            ->refer(CategorySchema::class)
             ->label(_('父類別'))
             ->integer()
             ->default(null)
@@ -53,8 +56,8 @@ class CategorySchema extends DeclareSchema
             ->varchar(32)
             ->label(_('程式用操作碼'));
 
-        $this->mixin('CommonBundle\\Model\\Mixin\\MetaSchema');
-        $this->mixin('I18N\\Model\\Mixin\\I18NSchema');
+        $this->mixin(MetaSchema::class);
+        $this->mixin(I18NSchema::class);
 
         $bundle = \ProductBundle\ProductBundle::getInstance();
 
@@ -62,16 +65,15 @@ class CategorySchema extends DeclareSchema
             $this->many('files', 'ProductBundle\\Model\\CategoryFile', 'category_id', 'id');
         }
         if ($bundle->config('ProductCategory.subcategory')) {
-            $this->many('subcategories', 'ProductBundle\\Model\\CategorySchema', 'parent_id', 'id');
-            $this->belongsTo('parent', 'ProductBundle\\Model\\CategorySchema', 'id', 'parent_id');
+            $this->many('subcategories', CategorySchema::class, 'parent_id', 'id');
+            $this->belongsTo('parent', CategorySchema::class, 'id', 'parent_id');
         }
 
         if ($bundle->config('ProductCategory.multicategory')) {
-            $this->many('category_products', 'ProductBundle\\Model\\ProductCategorySchema', 'category_id', 'id');
+            $this->many('category_products', ProductCategorySchema::class, 'category_id', 'id');
             $this->manyToMany('products', 'category_products', 'product');
         } else {
-            $this->many('products', 'ProductBundle\\Model\\ProductSchema', 'category_id', 'id')
-                ->orderBy('created_on', 'ASC');
+            $this->many('products', ProductSchema::class, 'category_id', 'id')->orderBy('created_on', 'ASC');
         }
     }
 }

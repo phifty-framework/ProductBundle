@@ -11,59 +11,57 @@ vim:filetype=htmldjango
 {% endmacro %}
 
 {% set bundle = Kernel.bundle('ProductBundle') %}
-{% set record = CRUD.Record %}
+{% set record = Record %}
 {% block section_body %}
-    <form class="ajax-action" method="post">
+<form class="form-horizontal ajax-action" method="post">
 
-        {% if bundle.config('ProductCategory.image') %}
-            <div class="column span-8">
-                {{ CRUD.Action.renderField('image')|raw}}
-                <div class="clear"> </div>
-                {{ CRUD.Action.renderField('thumb')|raw}}
-                <div class="clear"> </div>
-            </div>
-        {% endif %}
+    {% if bundle.config('ProductCategory.image') %}
 
-
-        <div class="column span-16">
-        {{CRUD.Action.renderSignatureWidget|raw}}
-        {{CRUD.Action.renderCSRFTokenWidget|raw}}
-        
-        {% if CRUD.Record.id %}
-            {{ forms.hidden('id', CRUD.Record.id) }}
-        {% endif %}
-
-        {{ CRUD.Action.renderField('name')|raw }}
-
-        {% if bundle.config('ProductCategory.subcategory') %}
-            {{CRUD.Action.renderField('parent_id')|raw}}
-        {% endif %}
-
-        {% if bundle.config('ProductCategory.handle') %}
-            {{ CRUD.Action.renderField('handle')|raw}}
-        {% endif %}
-
-        {% if Kernel.bundle('I18N') and bundle.config('lang') %}
-            {{ CRUD.Action.renderField('lang')|raw}}
-        {% endif %}
-
-        {% if bundle.config('ProductCategory.desc') %}
-            {{ CRUD.Action.renderField('description')|raw}}
-        {% endif %}
-
-        <div class="clear"> </div>
-        <div class="divider"> </div>
-        <div class="collapsible collapse-section">
-            {% if bundle.config('ProductCategory.file') %}
-            {% include 'ProductBundle/Templates/product_category/file.html.twig' %}
-            {% endif %}
-            <h3>詳細資料</h3>
-            <div>
-                {% include '@CRUD/metadata.html.twig' %}
-            </div>
+    <div class="row">
+        <div class="col-md-3">
+          {{RecordAction.renderField('image')|raw}}
         </div>
-
+        <div class="col-md-9">
+          {{RecordAction.renderField('thumb')|raw}}
         </div>
-        <div class="clear"> </div>
-    </form>
+    </div>
+    {% endif %}
+
+
+    {{RecordAction.renderSignatureWidget|raw}}
+    {{RecordAction.renderCSRFTokenWidget|raw}}
+
+    {% if Record.hasKey %}
+      {{RecordAction.renderKeyWidget|raw}}
+    {% endif %}
+
+    {{ RecordAction.renderField('name')|raw }}
+
+    {% if bundle.config('ProductCategory.subcategory') %}
+        {{RecordAction.renderField('parent_id')|raw}}
+    {% endif %}
+
+    {% if bundle.config('ProductCategory.handle') %}
+        {{ RecordAction.renderField('handle')|raw}}
+    {% endif %}
+
+    {% if Kernel.bundle('I18N') and bundle.config('lang') %}
+        {{ RecordAction.renderField('lang')|raw}}
+    {% endif %}
+
+    {% if bundle.config('ProductCategory.desc') %}
+        {{ RecordAction.renderField('description')|raw}}
+    {% endif %}
+
+    <div class="divider"> </div>
+    <div class="collapsible collapse-section">
+        {% if bundle.config('ProductCategory.file') %}
+        {% include 'ProductBundle/Templates/product_category/file.html.twig' %}
+        {% endif %}
+        <h3>詳細資料</h3>
+        <div>
+            {% include '@CRUD/metadata.html.twig' %}
+        </div>
+    </div>
+</form>
 {% endblock %}
