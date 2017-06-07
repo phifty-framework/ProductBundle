@@ -9,42 +9,32 @@ class CategoryCRUDHandler extends CRUDHandler
 {
 
     /* CRUD Attributes */
-    public $modelClass = 'ProductBundle\\Model\\Category';
+    public $modelClass = Category::class;
+
+    public $parentKeyRecordClass = Category::class;
+
+    public $parentKeyField = 'parent_id';
+
     public $crudId     = 'product_category';
-    public $listColumns = array( 'id', 'name');
+
+    public $listColumns = ['id', 'name'];
+
     public $canBulkEdit = true;
+
     public $canBulkCopy = true;
 
-    public $listRightColumns = array(
+    public $listRightColumns = [
         'updated_on',
         'created_on',
-    );
+    ];
 
-    public $primaryFields = array('name');
-
-    public $bundle;
-
-    public function init()
-    {
-        parent::init();
-        if ( $this->bundle->config('ProductCategory.subcategory') ) {
-            $this->setFormatter('name',function($record) {
-                if ( $record->subcategories ) {
-                    return "<a onclick=\" 
-                        Region.of(this).refreshWith({ parent_id: {$record->id} });\"
-                        href=\"#{$record->id}\">" . $record->name . '</a>';
-                }
-                return $record->name;
-            });
-        }
-    }
+    public $primaryFields = ['name'];
 
     public function getCollection()
     {
         $collection = parent::getCollection();
-        if ( $this->bundle->config('ProductCategory.subcategory') ) {
-            $p = $this->request->param('parent_id') ?: 0;
-            /* query top category */
+        if ($this->bundle->config('ProductCategory.subcategory') ) {
+            $p = $this->request->param($this->parentKeyField) ?: 0;
             $collection->where(array('parent_id' => $p ));
         }
         return $collection;
