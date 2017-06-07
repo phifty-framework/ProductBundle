@@ -1,5 +1,7 @@
 <?php
+
 namespace ProductBundle;
+
 use Phifty\Bundle;
 use Phifty\Region;
 use Phifty\Web\RegionPager;
@@ -11,17 +13,24 @@ use ProductBundle\Model\Feature;
 use ProductBundle\Model\FeatureCollection;
 use UseCaseBundle\Model\UseCaseCollection;
 use Phifty\CollectionUtils;
-
+use ProductBundle\Model\Product;
 
 class ProductCRUDHandler extends \AdminUI\CRUDHandler
 {
 
     /* CRUD Attributes */
-    public $modelClass = 'ProductBundle\\Model\\Product';
+    public $modelClass = Product::class;
+
+    public $parentKeyRecordClass = Category::class;
+
+    public $parentKeyField = 'category_id';
+
+
 
     public $crudId     = 'product';
 
     public $templateId = 'product';
+
 
     public $listColumns = [
         'id',

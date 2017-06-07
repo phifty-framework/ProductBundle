@@ -204,7 +204,7 @@ class ProductBundle extends Bundle
 
     public function assets()
     {
-        return ['phifty-plugin-product', 'product-api'];
+        return ['product-crud', 'product-api'];
     }
 
     public function boot()

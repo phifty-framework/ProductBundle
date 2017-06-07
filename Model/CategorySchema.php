@@ -62,7 +62,7 @@ class CategorySchema extends DeclareSchema
         $bundle = \ProductBundle\ProductBundle::getInstance();
 
         if ($bundle->config('ProductCategory.file')) {
-            $this->many('files', 'ProductBundle\\Model\\CategoryFile', 'category_id', 'id');
+            $this->many('files', CategoryFile::class, 'category_id', 'id');
         }
         if ($bundle->config('ProductCategory.subcategory')) {
             $this->many('subcategories', CategorySchema::class, 'parent_id', 'id');

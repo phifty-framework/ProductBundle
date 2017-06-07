@@ -3,6 +3,8 @@ vim:filetype=htmldjango
 #}
 {% extends '@CRUD/edit.html.twig' %}
 
+{% set currentFormId = uniqid('editForm') %}
+
 {% macro options(padding,item,selected) %}
 <option value="{{ item.id }}"  {% if item.id == selected %} selected {% endif %}>{%- for i in 0 .. padding -%}&nbsp;&nbsp;{%- endfor -%}- {{ item.name }}</option>
     {% for child in item.childs.items %}
@@ -13,10 +15,9 @@ vim:filetype=htmldjango
 {% set bundle = Kernel.bundle('ProductBundle') %}
 {% set record = Record %}
 {% block section_body %}
-<form class="form-horizontal ajax-action" method="post">
+<form id="{{currentFormId}}" class="form-horizontal ajax-action" method="post">
 
     {% if bundle.config('ProductCategory.image') %}
-
     <div class="row">
         <div class="col-md-3">
           {{RecordAction.renderField('image')|raw}}

@@ -76,15 +76,29 @@ class ProductSchema extends DeclareSchema
         }
 
         // always enable this
-        $this->column('category_id')
-            ->refer('ProductBundle\\Model\\CategorySchema')
-            ->integer()
-            ->renderAs('+CRUD\\Widget\\QuickCRUDSelectInput', array(
-                'record_class' => 'ProductBundle\\Model\\Category',
-                'dialog_path' => '/bs/product_category/crud/quick_create',
-                'allow_empty' => true,
-            ))
-            ->label(_('產品類別'));
+        // quick create should be an option, because it's not working right now.
+
+        if ($bundle->config('Product.quick_create')) {
+            $this->column('category_id')
+                ->refer(CategorySchema::class)
+                ->unsigned()
+                ->integer()
+                ->renderAs(\CRUD\Widget\QuickCRUDSelectInput::class, [
+                    'record_class' => Category::class,
+                    'dialog_path' => '/bs/product_category/crud/quick_create',
+                    'allow_empty' => true,
+                ])
+                ->label(_('產品類別'));
+        } else {
+            $this->column('category_id')
+                ->refer(CategorySchema::class)
+                ->unsigned()
+                ->integer()
+                ->renderAs('SelectInput', [
+                    'allow_empty' => false,
+                ])
+                ->label(_('產品類別'));
+        }
 
         /* is a cover product ? show this product in some specific pages? */
         $this->column('is_cover')
@@ -134,6 +148,12 @@ class ProductSchema extends DeclareSchema
             ->label(_('隱藏這個產品'))
             ->desc(_('目錄頁不要顯示這個產品，但是可以從網址列看到這個產品頁'));
 
+        if ($customFields = $bundle->config('Product.custom_fields')) {
+            foreach ($customFields as $customField) {
+                $column = $this->addColumnFromArray($customField);
+            }
+        }
+
         if ($bundle->config('Product.cover_image')) {
             $this->column('cover_image')
                 ->varchar(250)
@@ -171,7 +191,7 @@ class ProductSchema extends DeclareSchema
         }
 
         if (kernel()->bundle('StatusPlugin')) {
-            $this->mixin('StatusPlugin\\Model\\Mixin\\StatusSchema');
+            $this->mixin(\StatusPlugin\Model\Mixin\StatusSchema::class);
         }
 
         $this->mixin('I18N\\Model\\Mixin\\I18NSchema');
@@ -179,35 +199,33 @@ class ProductSchema extends DeclareSchema
         $this->mixin('CommonBundle\\Model\\Mixin\\ImageSchema');
         $this->mixin('CommonBundle\\Model\\Mixin\\MetaSchema');
 
-        $this->many('product_features', 'ProductBundle\\Model\\ProductFeatureSchema', 'product_id', 'id');
+        $this->many('product_features', ProductFeatureSchema::class, 'product_id', 'id');
         $this->manyToMany('features', 'product_features', 'feature');
 
-
-        $this->many('product_products', 'ProductBundle\\Model\\ProductProductSchema', 'product_id', 'id')
-                ->orderBy('ordering', 'ASC');
+        $this->many('product_products', ProductProductSchema::class, 'product_id', 'id')->orderBy('ordering', 'ASC');
 
         $this->manyToMany('related_products', 'product_products', 'related_product');
 
 
-        $this->many('images', 'ProductBundle\\Model\\ProductImageSchema', 'product_id', 'id')
+        $this->many('images', ProductImageSchema::class, 'product_id', 'id')
             ->orderBy('ordering', 'ASC');
 
-        $this->many('properties', 'ProductBundle\\Model\\ProductPropertySchema', 'product_id', 'id')
+        $this->many('properties', ProductPropertySchema::class, 'product_id', 'id')
             ->orderBy('ordering', 'ASC');
 
         ;  # to product id => image product_id
-        $this->many('types', 'ProductBundle\\Model\\ProductTypeSchema', 'product_id', 'id');
+        $this->many('types', ProductTypeSchema::class, 'product_id', 'id');
 
-        $this->many('resources', 'ProductBundle\\Model\\ResourceSchema', 'product_id', 'id');  # to product id => image product_id
-        $this->many('files', 'ProductBundle\\Model\\ProductFileSchema', 'product_id', 'id');
+        $this->many('resources', ResourceSchema::class, 'product_id', 'id');  # to product id => image product_id
+        $this->many('files', ProductFileSchema::class, 'product_id', 'id');
 
         if (kernel()->bundle('RecipeBundle')) {
-            $this->many('product_recipes', 'ProductBundle\\Model\\ProductRecipeSchema', 'product_id', 'id');
+            $this->many('product_recipes', ProductRecipeSchema::class, 'product_id', 'id');
             $this->manyToMany('recipes', 'product_recipes', 'recipe');
         }
 
         if ($bundle->config('ProductSpecTable.enable')) {
-            $this->many('spec_tables', 'ProductBundle\\Model\\ProductSpecTableSchema', 'product_id', 'id')
+            $this->many('spec_tables', ProductSpecTableSchema::class, 'product_id', 'id')
                 ->orderBy('ordering', 'ASC')
                 ->renderable(false)
                 ;
@@ -220,17 +238,17 @@ class ProductSchema extends DeclareSchema
         */
 
         if ($bundle->config('ProductSubsection.enable')) {
-            $this->many('subsections', 'ProductBundle\\Model\\ProductSubsectionSchema', 'product_id', 'id')
+            $this->many('subsections', ProductSubsectionSchema::class, 'product_id', 'id')
                 ->orderBy('ordering', 'ASC')
                 ->renderable(false);
         }
         if ($bundle->config('ProductLink.enable')) {
-            $this->many('links', 'ProductBundle\\Model\\ProductLinkSchema', 'product_id', 'id')
+            $this->many('links', ProductLinkSchema::class, 'product_id', 'id')
                 ->orderBy('ordering', 'ASC')
                 ->renderable(false);
         }
         if ($bundle->config('ProductUsecase.enable')) {
-            $this->many('product_usecases', 'ProductBundle\\Model\\ProductUseCaseSchema', 'product_id', 'id')
+            $this->many('product_usecases', ProductUseCaseSchema::class, 'product_id', 'id')
                 ->orderBy('ordering', 'ASC')
                 ->renderable(false);
 
@@ -243,7 +261,7 @@ class ProductSchema extends DeclareSchema
 
         if ($bundle->config('ProductCategory.enable')) {
             if ($bundle->config('ProductCategory.multicategory')) {
-                $this->many('product_categories', 'ProductBundle\\Model\\ProductCategorySchema', 'product_id', 'id')
+                $this->many('product_categories', ProductCategorySchema::class, 'product_id', 'id')
                     ->renderable(false);
                 $this->manyToMany('categories', 'product_categories', 'category')
                     ->filter(function ($collection) {
@@ -251,23 +269,13 @@ class ProductSchema extends DeclareSchema
                         return $collection;
                     });
             } else {
-                $this->belongsTo('category', 'ProductBundle\\Model\\CategorySchema', 'id', 'category_id');
+                $this->belongsTo('category', CategorySchema::class, 'id', 'category_id');
             }
         }
 
-        $this->many('product_tags', 'ProductBundle\\Model\\ProductTagSchema', 'product_id', 'id')
+        $this->many('product_tags', ProductTagSchema::class, 'product_id', 'id')
             ->renderable(false);
-        $this->manyToMany('tags', 'product_tags', 'tag');
-    }
 
-    public function bootstrap($product)
-    {
-        foreach (range(1, 30) as $i) {
-            $ret = $product->create(array("name" => "Product $i" ));
-            if (!$ret->success) {
-                echo $ret;
-                die();
-            }
-        }
+        $this->manyToMany('tags', 'product_tags', 'tag');
     }
 }

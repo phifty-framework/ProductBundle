@@ -1,5 +1,7 @@
 <?php
+
 namespace ProductBundle;
+
 use Phifty\Web\RegionPager;
 use ProductBundle\Model\CategoryCollection;
 use ProductBundle\Model\Category;
@@ -15,7 +17,7 @@ class CategoryCRUDHandler extends CRUDHandler
 
     public $parentKeyField = 'parent_id';
 
-    public $crudId     = 'product_category';
+    public $crudId      = 'product_category';
 
     public $listColumns = ['id', 'name'];
 
@@ -45,4 +47,3 @@ class CategoryCRUDHandler extends CRUDHandler
         return parent::listRegionAction();
     }
 }
-
