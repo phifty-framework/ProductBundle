@@ -29,6 +29,7 @@ class UpdateCategory extends UpdateRecordAction
         $uploadDir = ($c=$bundle->config('upload_dir')) ? $c : 'upload';
 
         $this->replaceParam('image', 'Image')
+            ->size($bundle->config('ProductCategory.image.size'))
             ->sizeLimit(($c=$bundle->config('ProductCategory.image.size_limit')) ? $c : 600)
             ->resizeWidth(($c = $bundle->config('ProductCategory.image.resize_width')) ?  $c : 800)
             ->renameFile(function ($name) {
@@ -37,6 +38,7 @@ class UpdateCategory extends UpdateRecordAction
             ->putIn($uploadDir);
 
         $this->replaceParam('thumb', 'Image')
+            ->size($bundle->config('ProductCategory.thumb.size'))
             ->sizeLimit(($c=$bundle->config('ProductCategory.thumb.size_limit')) ? $c : 500)
             ->resizeWidth(($c = $bundle->config('ProductCategory.thumb.resize_width')) ? $c : 300)
             ->sourceField('image')

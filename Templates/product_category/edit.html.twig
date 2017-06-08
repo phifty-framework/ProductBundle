@@ -24,17 +24,9 @@ vim:filetype=htmldjango
     {% endif %}
 
     {% if bundle.config('ProductCategory.image') %}
-    <div class="row">
-        <div class="col-md-3">
           {{RecordAction.renderField('image')|raw}}
-        </div>
-        <div class="col-md-9">
           {{RecordAction.renderField('thumb')|raw}}
-        </div>
-    </div>
     {% endif %}
-
-
 
     {{ RecordAction.renderField('name')|raw }}
 
