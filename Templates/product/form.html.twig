@@ -3,41 +3,41 @@ vim:filetype=htmldjango:
 #}
 {% set bundle = Kernel.bundle('ProductBundle') %}
 <div class="product-editor">
-        {{ CRUD.Action.renderSignatureWidget|raw}}
-        {{ CRUD.Action.renderCSRFTokenWidget|raw}}
+        {{ RecordAction.renderSignatureWidget|raw}}
+        {{ RecordAction.renderCSRFTokenWidget|raw}}
 
-        {% if CRUD.Record.hasKey %}
-          {{CRUD.Action.renderKeyWidget|raw}}
+        {% if Record.hasKey %}
+          {{RecordAction.renderKeyWidget|raw}}
         {% endif %}
 
 
         <div class="row">
-
             <div class="col-md-6">
                 <div class="col-field">
-                {{ CRUD.Action.renderField('name')|raw }}
+
+                {{ RecordAction.renderField('name')|raw }}
                 </div>
 
                 {% if bundle.config('Product.sn') %}
                 <div class="col-field">
-                {{CRUD.Action.renderField('sn')|raw}}
+                {{RecordAction.renderField('sn')|raw}}
                 </div>
                 {% endif %}
 
                 {% if bundle.config('Product.sn_desc') %}
                 <div class="col-field">
-                {{CRUD.Action.renderField('sn_desc')|raw}}
+                {{RecordAction.renderField('sn_desc')|raw}}
                 </div>
                 {% endif %}
 
-                {% if bundle.config('Product.show_link') and CRUD.Record.id %}
+                {% if bundle.config('Product.show_link') and Record.id %}
                 <div class="col-field">
                     <div class="v-field">
                         <div class="label">
                             產品頁面連結
                         </div>
                         <div class="input">
-                            <a class="link-holder" target="_blank" href="{{CRUD.Record.getUrl()|raw}}">/product/{{ CRUD.Record.id }}/{{ CRUD.Record.lang }}/{{ CRUD.Record.name|default('Untitled') }}</a>
+                            <a class="link-holder" target="_blank" href="{{Record.getUrl()|raw}}">/product/{{ Record.id }}/{{ Record.lang }}/{{ Record.name|default('Untitled') }}</a>
                         </div>
                     </div>
                 </div>
@@ -46,20 +46,29 @@ vim:filetype=htmldjango:
                 <div class="clearfix"> </div>
 
                 {% if bundle.config('Product.subtitle') %}
-                {{ CRUD.Action.renderField('subtitle') |raw}}
+                {{ RecordAction.renderField('subtitle') |raw}}
                 {% endif %}
 
                 <div class="clearfix"> </div>
 
                 {% if Kernel.bundle('I18N') and bundle.config('lang') %}
                 <div class="col-field">
-                    {{CRUD.Action.renderField('lang')|raw}}
+                    {{RecordAction.renderField('lang')|raw}}
                 </div>
                 {% endif %}
 
+
+                {% if bundle.config('Product.custom_fields') %}
+                  {% for field in bundle.config('Product.custom_fields') %}
+                    {{RecordAction.renderField(field.name)|raw}}
+                  {% endfor %}
+                {% endif %}
+
+
+
                 {% if Kernel.bundle('StatusPlugin') and bundle.config('Product.status') %}
                 <div class="col-field">
-                {{CRUD.Action.renderField('status')|raw}}
+                {{RecordAction.renderField('status')|raw}}
                 </div>
                 {% endif %}
 
@@ -68,32 +77,32 @@ vim:filetype=htmldjango:
 
                 {% if bundle.config('Product.sellable') %}
                 <div class="col-field">
-                    {{CRUD.Action.renderField('sellable')|raw}}
+                    {{RecordAction.renderField('sellable')|raw}}
                 </div>
                 {% endif %}
 
                 {% if bundle.config('Product.orig_price') %}
                 <div class="col-field">
-                    {{CRUD.Action.renderField('orig_price')|raw}}
+                    {{RecordAction.renderField('orig_price')|raw}}
                 </div>
                 {% endif %}
 
                 {% if bundle.config('Product.price') %}
                 <div class="col-field">
-                    {{CRUD.Action.renderField('price')|raw}}
+                    {{RecordAction.renderField('price')|raw}}
                 </div>
                 {% endif %}
 
                 <div class="clearfix"> </div>
 
                 {% if bundle.config('Product.cover_option') %}
-                {{CRUD.Action.renderField('is_cover')|raw}}
+                {{RecordAction.renderField('is_cover')|raw}}
                 {% endif %}
 
                 <div class="clearfix"> </div>
 
                 {% if bundle.config('ProductCategory.enable') and not bundle.config('ProductCategory.multicategory') %}
-                    {{CRUD.Action.renderField('category_id')|raw}}
+                    {{RecordAction.renderField('category_id')|raw}}
                 {% endif %}
             </div>
 
@@ -103,11 +112,11 @@ vim:filetype=htmldjango:
                     <div class="widget lang lang-{{langcode}} {% if langcode != Kernel.locale.current() %}hide{% endif %}">
                         <div class="widget-hd">{% trans langcode %}{% trans 'Category' %}</div>
                         <div class="widget-bd" style="max-height: 400px; overflow: auto; ">
-                            {% set subview = CRUD.Action.asView('ActionKit\\View\\StackView',{ "no_form": 1 }) %}
+                            {% set subview = RecordAction.asView('ActionKit\\View\\StackView',{ "no_form": 1 }) %}
                             {#
-                            {{ subview.renderManyToManyEditor(CRUD.Record,'categories', categories) |raw}}
+                            {{ subview.renderManyToManyEditor(Record,'categories', categories) |raw}}
                             #}
-                            {{ subview.buildManyToManyRelationalActionViewForExistingRecords(CRUD.Record, 'categories', null, null, categories)|raw}}
+                            {{ subview.buildManyToManyRelationalActionViewForExistingRecords(Record, 'categories', null, null, categories)|raw}}
                         </div>
                     </div>
                     {% endfor %}
@@ -133,7 +142,7 @@ vim:filetype=htmldjango:
                                 data-foreign-record-primary-key="id"
                                 data-delete-action="ProductBundle::Action::DeleteProductTag"
                                 data-container="#productTags{{frag_serial}}"
-                                data-records="{{CRUD.Record.product_tags.toLabelValuePairs()|json_encode|e('html_attr')}}"
+                                data-records="{{Record.product_tags.toLabelValuePairs()|json_encode|e('html_attr')}}"
                             />
                             <i class="control control-create fa fa-plus"> </i>
                         </span>
@@ -153,7 +162,7 @@ vim:filetype=htmldjango:
                         </div>
                     </div>
 <script>
-{% for type in CRUD.Record.types %}
+{% for type in Record.types %}
     ProductType.newItem({{type.toJson()|raw}}).appendTo('#productTypeList{{frag_serial}}');
 {% endfor %}
 
@@ -198,7 +207,7 @@ $(function() {
         {#
         {% set mixinClass = bundle.config('Product.mixin') %}
         {% if mixinClass %}
-            {% set mixinAction = CRUD.Record.getMixinSchemaAction() %}
+            {% set mixinAction = Record.getMixinSchemaAction() %}
             {{ mixinAction.asView('ActionKit\\View\\StackView', {
                 "no_form": true,
                 "no_signature": true,
@@ -230,7 +239,7 @@ $(function() {
             {% if bundle.config('Product.external_link') %}
                 <h3>外部連結</h3>
                 <div>
-                    {{CRUD.Action.renderField('Product.external_link')|raw}}
+                    {{RecordAction.renderField('Product.external_link')|raw}}
                 </div>
             {% endif %}
 

@@ -7,18 +7,29 @@ vim:filetype=htmldjango
 
 {% set bundle      = Kernel.bundle('ProductBundle') %}
 {% set tabfragment = 'product-' ~ random() ~ '-tabs-' ~ (CRUD.Record.id ? CRUD.Record.id : random()) %}
+
+{% set currentFormId = uniqid('editForm') %}
+
+{% set showProductContentTab = bundle.config('Product.desc')
+          or bundle.config('Product.content') 
+          or bundle.config('Product.options_content') 
+          or bundle.config('Product.spec_content') 
+          or bundle.config('Product.feature_content') %}
+
 {% block section_body %}
-<form class="ajax-action" enctype="multipart/form-data" method="post">
+<form class="ajax-action form-horizontal" enctype="multipart/form-data" method="post">
 
 <div id="{{ tabfragment }}" role="tabpanel">
     <ul class="nav nav-tabs clearfix">
-        <li role="presentation"><a href="#{{tabfragment}}-1" data-toggle="tab">產品資料</a></li>
+        <li class="active" role="presentation"><a href="#{{tabfragment}}-1" data-toggle="tab">產品資料</a></li>
 
         {% if bundle.config('Product.brief') %}
         <li role="presentation"><a href="#{{tabfragment}}-brief" data-toggle="tab">產品簡述</a></li>
         {% endif %}
 
+        {% if showProductContentTab %}
         <li role="presentation"><a href="#{{tabfragment}}-content" data-toggle="tab">產品內文</a></li>
+        {% endif %}
 
         {% if bundle.config('Product.cover_image') or bundle.config('Product.image') or bundle.config('Product.spec_image') %}
         <li role="presentation"><a href="#{{tabfragment}}-images" data-toggle="tab">產品圖片</a></li>
@@ -60,12 +71,18 @@ vim:filetype=htmldjango
 
     <div class="tab-content">
 
+        <div id="{{tabfragment}}-1" class="tab-pane active">
+            {% include '@ProductBundle/product/form.html.twig' %}
+            <div class="clear"> </div>
+        </div>
+
         {% if bundle.config('Product.brief') %}
         <div id="{{tabfragment}}-brief" class="tab-pane">
             {{CRUD.Action.renderField('brief',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
         </div>
         {% endif %}
 
+        {% if showProductContentTab %}
         <div id="{{tabfragment}}-content" class="tab-pane">
             {% if bundle.config('Product.desc') %}
             {{CRUD.Action.renderField('description',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
@@ -93,12 +110,9 @@ vim:filetype=htmldjango
 
             <div class="clear"> </div>
         </div>
+        {% endif %}
 
 
-        <div id="{{tabfragment}}-1" class="tab-pane">
-            {% include '@ProductBundle/product/form.html.twig' %}
-            <div class="clear"> </div>
-        </div>
 
 
         {% if bundle.config('ProductImage.enable') or bundle.config('Product.cover_image') or bundle.config('Product.image') or bundle.config('Product.spec_image') %}

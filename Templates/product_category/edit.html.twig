@@ -16,6 +16,12 @@ vim:filetype=htmldjango
 {% set record = Record %}
 {% block section_body %}
 <form id="{{currentFormId}}" class="form-horizontal ajax-action" method="post">
+    {{RecordAction.renderSignatureWidget|raw}}
+    {{RecordAction.renderCSRFTokenWidget|raw}}
+
+    {% if Record.hasKey %}
+      {{RecordAction.renderKeyWidget|raw}}
+    {% endif %}
 
     {% if bundle.config('ProductCategory.image') %}
     <div class="row">
@@ -29,12 +35,6 @@ vim:filetype=htmldjango
     {% endif %}
 
 
-    {{RecordAction.renderSignatureWidget|raw}}
-    {{RecordAction.renderCSRFTokenWidget|raw}}
-
-    {% if Record.hasKey %}
-      {{RecordAction.renderKeyWidget|raw}}
-    {% endif %}
 
     {{ RecordAction.renderField('name')|raw }}
 
