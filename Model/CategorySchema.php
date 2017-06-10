@@ -28,15 +28,18 @@ class CategorySchema extends DeclareSchema
                 'class' => '+=mceEditor',
             ));
 
+
+        // FIXME: when using foreign key, 0 is invalid because there is no such
+        // record has the primary key 0
         $this->column('parent_id')
             ->integer()
+            ->unsigned()
             ->refer(CategorySchema::class)
             ->label(_('父類別'))
-            ->integer()
             ->default(null)
-            ->renderAs('SelectInput', array(
+            ->renderAs('SelectInput', [
                 'allow_empty' => 0,
-            ));
+            ]);
 
         // hide this category in front-end
         $this->column('hide')

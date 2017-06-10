@@ -15,11 +15,18 @@ class ProductCategorySchema extends DeclareSchema
         $this->table('product_category_junction');
 
         $this->column('product_id')
-            ->integer();
-        $this->column('category_id')
-            ->integer();
+            ->unsigned()
+            ->integer()
+            ->required()
+            ;
 
-        $this->belongsTo('category', 'ProductBundle\\Model\\CategorySchema', 'id', 'category_id');
-        $this->belongsTo('product', 'ProductBundle\\Model\\ProductSchema', 'id', 'product_id');
+        $this->column('category_id')
+            ->unsigned()
+            ->integer()
+            ->required()
+            ;
+
+        $this->belongsTo('category', CategorySchema::class, 'id', 'category_id');
+        $this->belongsTo('product', ProductSchema::class, 'id', 'product_id');
     }
 }
