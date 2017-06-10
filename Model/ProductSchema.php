@@ -191,7 +191,7 @@ class ProductSchema extends DeclareSchema
         }
 
         if (kernel()->bundle('SEOPlugin') && $bundle->config('Product.seo')) {
-            $this->mixin('SEOPlugin\\Model\\Mixin\\SEOSchema');
+            $this->mixin(\SEOPlugin\Model\Mixin\SEOSchema::class);
         }
 
         if (kernel()->bundle('StatusPlugin')) {
