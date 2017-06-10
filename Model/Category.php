@@ -9,7 +9,7 @@ class Category extends \ProductBundle\Model\CategoryBase implements Linkable
 
     public function dataLabel()
     {
-        if ($this->parent_id) {
+        if ($this->parent_id && $this->parent) {
             return $this->parent->dataLabel() . ' > ' . $this->name;
         }
         return $this->name;
