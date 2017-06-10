@@ -15,13 +15,13 @@ class ProductFeatureSchema extends DeclareSchema
             ->integer()
             ->required()
             ->label(_('Product Id'))
-            ->refer(Product::class)
+            ->refer(ProductSchema::class)
             ;
         $this->column('feature_id')
             ->integer()
             ->required()
             ->label(_('Feature Id'))
-            ->refer(Feature::class);
+            ->refer(FeatureSchema::class);
 
         $this->belongsTo('product', ProductSchema::class, 'id', 'product_id');
         $this->belongsTo('feature', FeatureSchema::class, 'id', 'feature_id');
