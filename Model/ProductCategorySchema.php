@@ -15,14 +15,14 @@ class ProductCategorySchema extends DeclareSchema
         $this->table('product_category_junction');
 
         $this->column('product_id')
-            ->unsigned()
             ->integer()
+            ->unsigned()
             ->required()
             ;
 
         $this->column('category_id')
-            ->unsigned()
             ->integer()
+            ->unsigned()
             ->required()
             ;
 
