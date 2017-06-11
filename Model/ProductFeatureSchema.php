@@ -11,6 +11,7 @@ class ProductFeatureSchema extends DeclareSchema
     public function schema()
     {
         $bundle = \ProductBundle\ProductBundle::getInstance();
+
         $this->column('product_id')
             ->integer()
             ->required()

@@ -8,6 +8,10 @@ use ProductBundle\Model\ProductImageCollection;
 use ProductBundle\Model\ResourceCollection;
 use Maghead\Schema\DeclareSchema;
 
+use CommonBundle\Model\Mixin\MetaSchema;
+use CommonBundle\Model\Mixin\ImageSchema;
+use I18N\Model\Mixin\I18NSchema;
+
 class ProductSchema extends DeclareSchema
 {
     public function schema()
@@ -194,10 +198,9 @@ class ProductSchema extends DeclareSchema
             $this->mixin(\StatusPlugin\Model\Mixin\StatusSchema::class);
         }
 
-        $this->mixin('I18N\\Model\\Mixin\\I18NSchema');
-
-        $this->mixin('CommonBundle\\Model\\Mixin\\ImageSchema');
-        $this->mixin('CommonBundle\\Model\\Mixin\\MetaSchema');
+        $this->mixin(ImageSchema::class);
+        $this->mixin(MetaSchema::class);
+        $this->mixin(I18NSchema::class);
 
         $this->many('product_features', ProductFeatureSchema::class, 'product_id', 'id');
         $this->manyToMany('features', 'product_features', 'feature');
