@@ -17,9 +17,8 @@ class Tag extends TagBase
     public function beforeCreate($args)
     {
         if (isset($args['name'])) {
-            $tag = new self;
-            $tag->load(array('name' => $args['name']));
-            if ($tag->id) {
+            $tag = self::load(['name' => $args['name']]);
+            if ($tag) {
                 return false;
             }
         }
