@@ -30,12 +30,6 @@ class Product extends \ProductBundle\Model\ProductBase implements SEOPage, Linka
         }
     }
 
-    public function beforeUpdate($args)
-    {
-        $args['updated_on'] = date('c');
-        return $args;
-    }
-
     public function availableTypes()
     {
         return $this->types->filter(function ($type) {
