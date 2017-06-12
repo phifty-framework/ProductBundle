@@ -195,11 +195,15 @@ class ProductSchema extends DeclareSchema
 
         if (kernel()->bundle('SEOPlugin') && $bundle->config('Product.seo')) {
             $this->mixin(SEOSchema::class);
-            $this->classes->baseModel->implementInterface(\SEOPlugin\SEOPage::class);
+            // FIXME: When defining interfaces, baseModel needs to implement the corresponding methods.
+            // This could be resolved by using trait.
+            // $this->classes->baseModel->implementInterface(\SEOPlugin\SEOPage::class);
         }
 
         if (kernel()->bundle('CoreBundle')) {
-            $this->classes->baseModel->implementInterface(\CoreBundle\Linkable::class);
+            // FIXME: When defining interfaces, baseModel needs to implement the corresponding methods.
+            // This could be resolved by using trait.
+            // $this->classes->baseModel->implementInterface(\CoreBundle\Linkable::class);
         }
 
         if (kernel()->bundle('StatusPlugin')) {
