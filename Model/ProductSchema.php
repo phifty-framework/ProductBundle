@@ -12,6 +12,9 @@ use CommonBundle\Model\Mixin\MetaSchema;
 use CommonBundle\Model\Mixin\ImageSchema;
 use I18N\Model\Mixin\I18NSchema;
 
+use SEOPlugin\Model\Mixin\SEOSchema;
+use StatusPlugin\Model\Mixin\StatusSchema;
+
 class ProductSchema extends DeclareSchema
 {
     public function schema()
@@ -191,11 +194,11 @@ class ProductSchema extends DeclareSchema
         }
 
         if (kernel()->bundle('SEOPlugin') && $bundle->config('Product.seo')) {
-            $this->mixin(\SEOPlugin\Model\Mixin\SEOSchema::class);
+            $this->mixin(SEOSchema::class);
         }
 
         if (kernel()->bundle('StatusPlugin')) {
-            $this->mixin(\StatusPlugin\Model\Mixin\StatusSchema::class);
+            $this->mixin(StatusSchema::class);
         }
 
         $this->mixin(ImageSchema::class);
