@@ -33,7 +33,7 @@ class UpdateCategory extends UpdateRecordAction
             ->sizeLimit(($c=$bundle->config('ProductCategory.image.size_limit')) ? $c : 600)
             ->resizeWidth(($c = $bundle->config('ProductCategory.image.resize_width')) ?  $c : 800)
             ->renameFile(function ($name) {
-                return FileUtils::filename_append_md5($name);
+                return FileUtils::filename_md5($name);
             })
             ->putIn($uploadDir);
 
@@ -43,7 +43,7 @@ class UpdateCategory extends UpdateRecordAction
             ->resizeWidth(($c = $bundle->config('ProductCategory.thumb.resize_width')) ? $c : 300)
             ->sourceField('image')
             ->renameFile(function ($name) {
-                return FileUtils::filename_append_md5($name);
+                return FileUtils::filename_md5($name);
             })
             ->putIn('upload');
     }
