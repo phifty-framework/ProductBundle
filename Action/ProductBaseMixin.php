@@ -2,6 +2,7 @@
 namespace ProductBundle\Action;
 
 use ActionKit\MixinAction;
+use Phifty\FileUtils;
 
 class ProductBaseMixin extends MixinAction
 {
@@ -46,6 +47,9 @@ class ProductBaseMixin extends MixinAction
                 ->resizeWidth($zoomImageResizeWidth)
                 ->label('產品放大圖')
                 ->autoResize($autoResize)
+                ->renameFile(function ($name) {
+                    return FileUtils::filename_md5($name);
+                })
                 ->hint($bundle->config('Product.zoom_image.hint'))
                 ->hintFromSizeInfo()
                 ;
@@ -58,6 +62,9 @@ class ProductBaseMixin extends MixinAction
                 ->label('首頁圖')
                 ->autoResize($autoResize)
                 ->hint($bundle->config('Product.cover_image.hint'))
+                ->renameFile(function ($name) {
+                    return FileUtils::filename_md5($name);
+                })
                 ->hintFromSizeInfo()
                 ;
         }
@@ -68,6 +75,9 @@ class ProductBaseMixin extends MixinAction
                 ->sizeLimit($imageSizeLimit)
                 ->autoResize($autoResize)
                 ->label('規格圖')
+                ->renameFile(function ($name) {
+                    return FileUtils::filename_md5($name);
+                })
                 ->hint($bundle->config('Product.spec_image.hint'))
                 ->hintFromSizeInfo()
                 ;
@@ -78,6 +88,9 @@ class ProductBaseMixin extends MixinAction
                 ->sizeLimit($thumbSizeLimit)
                 ->autoResize($autoResize)
                 ->label('規格縮圖')
+                ->renameFile(function ($name) {
+                    return FileUtils::filename_md5($name);
+                })
                 ->hint($bundle->config('Product.spec_thumb.hint'))
                 ->hintFromSizeInfo()
                 ;
@@ -89,6 +102,9 @@ class ProductBaseMixin extends MixinAction
             ->sourceField('zoom_image')
             ->autoResize($autoResize)
             ->resizeWidth($imageResizeWidth)
+            ->renameFile(function ($name) {
+                return FileUtils::filename_md5($name);
+            })
             ->hint($bundle->config('Product.image.hint'))
             ->hintFromSizeInfo()
             ;
@@ -99,6 +115,9 @@ class ProductBaseMixin extends MixinAction
             ->sizeLimit($thumbSizeLimit)
             ->autoResize($autoResize)
             ->resizeWidth($thumbResizeWidth)
+            ->renameFile(function ($name) {
+                return FileUtils::filename_md5($name);
+            })
             ->hint($bundle->config('Product.thumb.hint'))
             ->hintFromSizeInfo()
             ;
