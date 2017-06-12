@@ -6,10 +6,8 @@ use ProductBundle\Model\ProductTypeCollection;
 use ProductBundle\Model\ProductImageCollection;
 use ProductBundle\Model\ResourceCollection;
 use ActionKit\ColumnConvert;
-use SEOPlugin\SEOPage;
-use CoreBundle\Linkable;
 
-class Product extends \ProductBundle\Model\ProductBase implements SEOPage, Linkable
+class Product extends \ProductBundle\Model\ProductBase
 {
     public function dataLabel()
     {
