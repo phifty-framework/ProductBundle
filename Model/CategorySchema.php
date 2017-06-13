@@ -73,7 +73,7 @@ class CategorySchema extends DeclareSchema
         }
 
         if ($bundle->config('ProductCategory.multicategory')) {
-            $this->many('category_products', ProductCategorySchema::class, 'category_id', 'id');
+            $this->many('category_products', ProductToCategorySchema::class, 'category_id', 'id');
             $this->manyToMany('products', 'category_products', 'product');
         } else {
             $this->many('products', ProductSchema::class, 'category_id', 'id')->orderBy('created_on', 'ASC');

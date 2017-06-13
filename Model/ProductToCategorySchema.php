@@ -8,11 +8,11 @@ use ProductBundle\Model\ProductImageCollection;
 use ProductBundle\Model\ResourceCollection;
 use Maghead\Schema\DeclareSchema;
 
-class ProductCategorySchema extends DeclareSchema
+class ProductToCategorySchema extends DeclareSchema
 {
     public function schema()
     {
-        $this->table('product_category_junction');
+        $this->table('product_to_categories');
 
         $this->column('product_id')
             ->integer()
