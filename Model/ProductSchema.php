@@ -15,6 +15,8 @@ use I18N\Model\Mixin\I18NSchema;
 use SEOPlugin\Model\Mixin\SEOSchema;
 use StatusPlugin\Model\Mixin\StatusSchema;
 
+use RecipeBundle\Model\RecipeToProductSchema;
+
 class ProductSchema extends DeclareSchema
 {
     public function schema()
@@ -235,7 +237,7 @@ class ProductSchema extends DeclareSchema
         $this->many('files', ProductFileSchema::class, 'product_id', 'id');
 
         if (kernel()->bundle('RecipeBundle')) {
-            $this->many('product_recipes', ProductRecipeSchema::class, 'product_id', 'id');
+            $this->many('product_recipes', RecipeToProductSchema::class, 'product_id', 'id');
             $this->manyToMany('recipes', 'product_recipes', 'recipe');
         }
 
