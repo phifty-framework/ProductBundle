@@ -2,9 +2,9 @@
 
 namespace ProductBundle\Model;
 
-use ProductBundle\Model\ProductBundle;
 use ProductBundle\Model\ProductCollection;
 use ProductBundle\Model\CategoryCollection;
+use ProductBundle\ProductBundle;
 use Maghead\Schema\DeclareSchema;
 
 use CommonBundle\Model\Mixin\MetaSchema;
@@ -14,6 +14,8 @@ class CategorySchema extends DeclareSchema
 {
     public function schema()
     {
+        $bundle = ProductBundle::getInstance();
+
         $this->table('product_categories');
 
         $this->column('name')
@@ -62,11 +64,11 @@ class CategorySchema extends DeclareSchema
         $this->mixin(MetaSchema::class);
         $this->mixin(I18NSchema::class);
 
-        $bundle = \ProductBundle\ProductBundle::getInstance();
 
         if ($bundle->config('ProductCategory.file')) {
             $this->many('files', CategoryFile::class, 'category_id', 'id');
         }
+
         if ($bundle->config('ProductCategory.subcategory')) {
             $this->many('subcategories', CategorySchema::class, 'parent_id', 'id');
             $this->belongsTo('parent', CategorySchema::class, 'id', 'parent_id');
