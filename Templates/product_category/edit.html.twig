@@ -12,6 +12,9 @@
 {% set bundle = Kernel.bundle('ProductBundle') %}
 {% set record = Record %}
 {% block section_body %}
+
+<div class="action-result-container"> </div>
+
 <form id="{{currentFormId}}" class="form-horizontal ajax-action" method="post">
     {{RecordAction.renderSignatureWidget|raw}}
     {{RecordAction.renderCSRFTokenWidget|raw}}
