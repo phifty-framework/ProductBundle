@@ -1,9 +1,9 @@
 <?php
 namespace ProductBundle\Action;
 
-use ActionKit;
+use WebAction;
 use Phifty\FileUtils;
-use ActionKit\RecordAction\CreateRecordAction;
+use WebAction\RecordAction\CreateRecordAction;
 use ProductBundle\Model\Category;
 use ProductBundle\Model\CategoryFile;
 

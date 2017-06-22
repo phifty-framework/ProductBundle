@@ -112,7 +112,7 @@ vim:filetype=htmldjango:
                     <div class="widget lang lang-{{langcode}} {% if langcode != Kernel.locale.current() %}hide{% endif %}">
                         <div class="widget-hd">{% trans langcode %}{% trans 'Category' %}</div>
                         <div class="widget-bd" style="max-height: 400px; overflow: auto; ">
-                            {% set subview = RecordAction.asView('ActionKit\\View\\StackView',{ "no_form": 1 }) %}
+                            {% set subview = RecordAction.asView('WebAction\\View\\StackView',{ "no_form": 1 }) %}
                             {#
                             {{ subview.renderManyToManyEditor(Record,'categories', categories) |raw}}
                             #}
@@ -208,7 +208,7 @@ $(function() {
         {% set mixinClass = bundle.config('Product.mixin') %}
         {% if mixinClass %}
             {% set mixinAction = Record.getMixinSchemaAction() %}
-            {{ mixinAction.asView('ActionKit\\View\\StackView', {
+            {{ mixinAction.asView('WebAction\\View\\StackView', {
                 "no_form": true,
                 "no_signature": true,
                 "nested": false

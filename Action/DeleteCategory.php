@@ -2,7 +2,7 @@
 namespace ProductBundle\Action;
 
 use Phifty\FileUtils;
-use ActionKit\RecordAction\DeleteRecordAction;
+use WebAction\RecordAction\DeleteRecordAction;
 
 class DeleteCategory extends DeleteRecordAction
 {

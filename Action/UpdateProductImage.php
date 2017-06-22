@@ -1,10 +1,10 @@
 <?php
 namespace ProductBundle\Action;
 
-use ActionKit;
+use WebAction;
 use Phifty\FileUtils;
 
-class UpdateProductImage extends \ActionKit\RecordAction\UpdateRecordAction
+class UpdateProductImage extends \WebAction\RecordAction\UpdateRecordAction
 {
     public $recordClass = 'ProductBundle\\Model\\ProductImage';
 

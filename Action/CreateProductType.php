@@ -1,7 +1,7 @@
 <?php
 namespace ProductBundle\Action;
 
-use ActionKit\RecordAction\CreateRecordAction;
+use WebAction\RecordAction\CreateRecordAction;
 use ProductBundle\Model\ProductType;
 
 class CreateProductType extends CreateRecordAction

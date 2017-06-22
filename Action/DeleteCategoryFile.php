@@ -1,7 +1,7 @@
 <?php
 namespace ProductBundle\Action;
 
-use ActionKit\RecordAction\DeleteRecordAction;
+use WebAction\RecordAction\DeleteRecordAction;
 
 class DeleteCategoryFile extends DeleteRecordAction
 {

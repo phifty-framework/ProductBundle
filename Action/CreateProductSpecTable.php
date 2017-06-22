@@ -1,8 +1,8 @@
 <?php
 namespace ProductBundle\Action;
 
-use ActionKit\Action;
-use ActionKit\RecordAction\CreateRecordAction;
+use WebAction\Action;
+use WebAction\RecordAction\CreateRecordAction;
 
 class CreateProductSpecTable extends CreateRecordAction
 {

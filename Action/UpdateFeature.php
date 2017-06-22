@@ -3,9 +3,9 @@
 namespace ProductBundle\Action;
 
 use Phifty\FileUtils;
-use ActionKit;
+use WebAction;
 
-class UpdateFeature extends \ActionKit\RecordAction\UpdateRecordAction
+class UpdateFeature extends \WebAction\RecordAction\UpdateRecordAction
 {
     public $recordClass = 'ProductBundle\Model\Feature';
 

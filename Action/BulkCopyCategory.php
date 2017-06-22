@@ -1,7 +1,7 @@
 <?php
 namespace ProductBundle\Action;
 
-use ActionKit\RecordAction\BulkCopyRecordAction;
+use WebAction\RecordAction\BulkCopyRecordAction;
 
 class BulkCopyCategory extends BulkCopyRecordAction
 {

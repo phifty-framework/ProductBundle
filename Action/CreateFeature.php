@@ -1,8 +1,8 @@
 <?php
 namespace ProductBundle\Action;
 
-use ActionKit;
-use ActionKit\RecordAction\CreateRecordAction;
+use WebAction;
+use WebAction\RecordAction\CreateRecordAction;
 use Phifty\FileUtils;
 
 class CreateFeature extends CreateRecordAction

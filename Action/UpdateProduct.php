@@ -2,14 +2,14 @@
 namespace ProductBundle\Action;
 
 use Phifty\FileUtils;
-use ActionKit;
+use WebAction;
 use ProductBundle\Model\ProductImage;
 use ProductBundle\Model\Feature;
 use ProductBundle\Model\Resource;
 use ProductBundle\Model\FeatureRel;
 use ProductBundle\Model\Product;
 
-class UpdateProduct extends \ActionKit\RecordAction\UpdateRecordAction
+class UpdateProduct extends \WebAction\RecordAction\UpdateRecordAction
 {
     public $recordClass = Product::class;
 

@@ -2,7 +2,7 @@
 namespace ProductBundle\Action;
 
 use Phifty\FileUtils;
-use ActionKit\RecordAction\UpdateRecordAction;
+use WebAction\RecordAction\UpdateRecordAction;
 use ProductBundle\Model\Category;
 
 class UpdateCategory extends UpdateRecordAction

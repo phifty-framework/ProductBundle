@@ -1,7 +1,7 @@
 <?php
 namespace ProductBundle\Action;
 
-use ActionKit\RecordAction\UpdateRecordAction;
+use WebAction\RecordAction\UpdateRecordAction;
 use ProductBundle\Model\ProductType;
 
 class UpdateProductType extends UpdateRecordAction

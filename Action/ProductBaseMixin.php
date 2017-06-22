@@ -1,7 +1,7 @@
 <?php
 namespace ProductBundle\Action;
 
-use ActionKit\MixinAction;
+use WebAction\MixinAction;
 use Phifty\FileUtils;
 
 class ProductBaseMixin extends MixinAction

@@ -1,8 +1,8 @@
 <?php
 namespace ProductBundle\Action;
 
-use ActionKit;
-use ActionKit\RecordAction\DeleteRecordAction;
+use WebAction;
+use WebAction\RecordAction\DeleteRecordAction;
 
 class DeleteProduct extends DeleteRecordAction
 {

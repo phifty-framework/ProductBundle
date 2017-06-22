@@ -4,14 +4,14 @@ vim:filetype=htmldjango:
 <h3>產品功能</h3>
 <div>
     {#
-    {% set subview = CRUD.Action.asView('ActionKit\\View\\StackView',{ "no_form": 1 }) %}
+    {% set subview = CRUD.Action.asView('WebAction\\View\\StackView',{ "no_form": 1 }) %}
     {{ subview.buildRelationalActionViewForExistingRecords('features').render() |raw }}
     #}
     {% for langcode, features in featuresByLang %}
     <div class="widget lang lang-{{langcode}} hide">
         <div class="widget-hd">{% trans '產品功能' %} {% trans langcode %}</div>
         <div class="widget-bd" style="max-height: 400px; overflow: auto; ">
-            {% set subview = CRUD.Action.asView('ActionKit\\View\\StackView',{ "no_form": 1 }) %}
+            {% set subview = CRUD.Action.asView('WebAction\\View\\StackView',{ "no_form": 1 }) %}
             {{ subview.buildManyToManyRelationalActionViewForExistingRecords(CRUD.Record, 'features', null, null, features)|raw}}
         </div>
     </div>

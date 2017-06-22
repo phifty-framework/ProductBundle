@@ -1,7 +1,7 @@
 <?php
 namespace ProductBundle\Action;
 
-use ActionKit\RecordAction\BulkZhConvertRecordAction;
+use WebAction\RecordAction\BulkZhConvertRecordAction;
 
 class BulkZhConvertProduct extends BulkZhConvertRecordAction
 {

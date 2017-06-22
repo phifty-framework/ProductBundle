@@ -1,13 +1,13 @@
 <?php
 namespace ProductBundle\Action;
 
-use ActionKit;
+use WebAction;
 use Phifty\FileUtils;
 use ProductBundle\Model\ProductImage;
 use ProductBundle\Model\Feature;
 use ProductBundle\Model\Resource;
 use ProductBundle\Model\FeatureRel;
-use ActionKit\RecordAction\CreateRecordAction;
+use WebAction\RecordAction\CreateRecordAction;
 use ProductBundle\Model\Product;
 
 class CreateProduct extends CreateRecordAction
