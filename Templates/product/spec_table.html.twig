@@ -34,7 +34,7 @@ $(function() {
     initSortableAction($('#{{specTableFragment}} .item-container'), {
         items: '.row',
         fields: 'input.record-id',
-        action: 'ProductBundle::Action::UpdateProductSpecTableOrdering',
+        action: 'ProductBundle::Action::SortProductSpecTable',
         handle: '.handle'
     });
 });

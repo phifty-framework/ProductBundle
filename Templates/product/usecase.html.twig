@@ -17,7 +17,7 @@ $(function() {
     initSortableAction($('#usecases{{frag_serial}}'), {
         items: '.usecase-cover',
         fields: '.record-id',
-        action: 'ProductBundle::Action::UpdateProductUseCaseOrdering',
+        action: 'ProductBundle::Action::SortProductUseCase',
         handle: '.image-cover'
     });
 

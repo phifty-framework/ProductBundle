@@ -22,7 +22,7 @@ $(function() {
     initSortableAction($('#productImages .item-container'), {
         items: '.image-cover',
         fields: '.image-cover input[name^="images"]',
-        action: 'ProductBundle::Action::UpdateProductImageOrdering'
+        action: 'ProductBundle::Action::SortProductImage'
     });
 
 });

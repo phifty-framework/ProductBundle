@@ -23,7 +23,7 @@ $(function() {
     initSortableAction($('#{{subsectionFragment}} .item-container'), {
         items: '.row',
         fields: 'input.record-id',
-        action: 'ProductBundle::Action::UpdateProductSubsectionOrdering',
+        action: 'ProductBundle::Action::SortProductSubsection',
         handle: '.handle'
     });
 });
