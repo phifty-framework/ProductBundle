@@ -258,6 +258,8 @@ class ProductBundle extends Bundle
 
         $this->addRecordAction('Feature');
         $this->addRecordAction('ProductFeature');
+
+        $this->addRecordAction('FeaturedProduct');
         $this->addRecordAction('Resource');
         $this->addRecordAction('ProductProperty');
         $this->addRecordAction('ProductProduct');
