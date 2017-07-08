@@ -1,0 +1,26 @@
+{% extends '@CRUD/edit.html.twig' %}
+
+{% set currentFormId = uniqid('editForm') %}
+{% set bundle = Kernel.bundle('ProductBundle') %}
+{% set record = Record %}
+{% block section_body %}
+
+<div class="action-result-container"> </div>
+
+<form id="{{currentFormId}}" class="form-horizontal ajax-action" method="post">
+    {{RecordAction.renderSignatureWidget|raw}}
+    {{RecordAction.renderCSRFTokenWidget|raw}}
+
+    {% if Record.hasKey %}
+      {{RecordAction.renderKeyWidget|raw}}
+    {% endif %}
+
+    {{ RecordAction.renderField('cover_image')|raw }}
+
+    {{ RecordAction.renderField('title')|raw }}
+
+    {{ RecordAction.renderField('subtitle')|raw }}
+
+    {{ RecordAction.renderField('description')|raw }}
+</form>
+{% endblock %}
