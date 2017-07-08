@@ -25,8 +25,6 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
 
     public $parentKeyField = 'category_id';
 
-
-
     public $crudId     = 'product';
 
     public $templateId = 'product';

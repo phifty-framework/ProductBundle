@@ -233,6 +233,8 @@ class ProductBundle extends Bundle
         }
 
         $this->mount('/bs/product',          ProductCRUDHandler::class);
+        $this->mount('/bs/featured-product', FeaturedProductCRUDHandler::class);
+
         $this->mount('/bs/product-category', CategoryCRUDHandler::class);
         $this->mount('/bs/product-category-file', CategoryFileCRUDHandler::class);
         $this->mount('/bs/product-feature' , FeatureCRUDHandler::class);
