@@ -233,8 +233,6 @@ class ProductBundle extends Bundle
         }
 
         $this->mount('/bs/product',          ProductCRUDHandler::class);
-        $this->mount('/bs/featured-product', FeaturedProductCRUDHandler::class);
-
         $this->mount('/bs/product-category', CategoryCRUDHandler::class);
         $this->mount('/bs/product-category-file', CategoryFileCRUDHandler::class);
         $this->mount('/bs/product-feature' , FeatureCRUDHandler::class);
@@ -259,7 +257,6 @@ class ProductBundle extends Bundle
         $this->addRecordAction('Feature');
         $this->addRecordAction('ProductFeature');
 
-        $this->addRecordAction('FeaturedProduct');
         $this->addRecordAction('Resource');
         $this->addRecordAction('ProductProperty');
         $this->addRecordAction('ProductProduct');
