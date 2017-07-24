@@ -53,10 +53,9 @@ class CategorySchema extends DeclareSchema
             ->label('圖示 Icon')
             ->contentType('ImageFile')
             ->buildParam(function($param) {
-                $prefix = 'ProductBundle';
                 $bundle = \ProductBundle\ProductBundle::getInstance();
                 $uploadDir = ($c = $bundle->config("upload_dir")) ? $c : "upload";
-                $param->loadConfig($bundle->config("{$prefix}.{$param->name}"))
+                $param->loadConfig($bundle->config("Category.{$param->name}"))
                     ->putIn($uploadDir)
                     ->renderAs("ThumbImageFileInput")
                     ;
@@ -68,10 +67,9 @@ class CategorySchema extends DeclareSchema
             ->label('縮圖')
             ->contentType('ImageFile')
             ->buildParam(function($param) {
-                $prefix = 'ProductBundle';
                 $bundle = \ProductBundle\ProductBundle::getInstance();
                 $uploadDir = ($c = $bundle->config("upload_dir")) ? $c : "upload";
-                $param->loadConfig($bundle->config("{$prefix}.{$param->name}"))
+                $param->loadConfig($bundle->config("Category.{$param->name}"))
                     ->putIn($uploadDir)
                     ->renderAs("ThumbImageFileInput")
                     ;
@@ -83,10 +81,9 @@ class CategorySchema extends DeclareSchema
             ->label('圖片')
             ->contentType('ImageFile')
             ->buildParam(function($param) {
-                $prefix = 'ProductBundle';
                 $bundle = \ProductBundle\ProductBundle::getInstance();
                 $uploadDir = ($c = $bundle->config("upload_dir")) ? $c : "upload";
-                $param->loadConfig($bundle->config("{$prefix}.{$param->name}"))
+                $param->loadConfig($bundle->config("Category.{$param->name}"))
                     ->putIn($uploadDir)
                     ->renderAs("ThumbImageFileInput")
                     ;
