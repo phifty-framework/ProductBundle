@@ -23,9 +23,16 @@
       {{RecordAction.renderKeyWidget|raw}}
     {% endif %}
 
+    {% if bundle.config('Category.icon_image') %}
+        {{RecordAction.renderField('icon_image')|raw}}
+    {% endif %}
+
     {% if bundle.config('Category.image') %}
-          {{RecordAction.renderField('image')|raw}}
-          {{RecordAction.renderField('thumb')|raw}}
+        {{RecordAction.renderField('image')|raw}}
+    {% endif %}
+
+    {% if bundle.config('Category.thumb') %}
+        {{RecordAction.renderField('thumb')|raw}}
     {% endif %}
 
     {{ RecordAction.renderField('name')|raw }}
