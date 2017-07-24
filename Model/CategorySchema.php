@@ -48,14 +48,56 @@ class CategorySchema extends DeclareSchema
             ->boolean()
             ->label(_('隱藏這個類別'));
 
+        $this->column('icon_image')
+            ->varchar(128)
+            ->label('圖示 Icon')
+            ->buildParam(function($param) {
+                $prefix = 'ProductBundle';
+                $bundle = \ProductBundle\ProductBundle::getInstance();
+                $uploadDir = ($c = $bundle->config("upload_dir")) ? $c : "upload";
+                $param->size($bundle->config("{$prefix}.{$param->name}.size"))
+                    ->sizeLimit($bundle->config("{$prefix}.{$param->name}.size"))
+                    ->resizeWidth($bundle->config("{$prefix}.{$param->name}.resize_width") ?: 0)
+                    ->putIn($uploadDir)
+                    ->hint($bundle->config("{$prefix}.{$param->name}.hint"))
+                    ->renderAs("ThumbImageFileInput")
+                    ;
+            })
+            ;
+
         $this->column('thumb')
             ->varchar(128)
             ->label('縮圖')
+            ->buildParam(function($param) {
+                $prefix = 'ProductBundle';
+                $bundle = \ProductBundle\ProductBundle::getInstance();
+                $uploadDir = ($c = $bundle->config("upload_dir")) ? $c : "upload";
+                $param->size($bundle->config("{$prefix}.{$param->name}.size"))
+                    ->sizeLimit($bundle->config("{$prefix}.{$param->name}.size"))
+                    ->resizeWidth($bundle->config("{$prefix}.{$param->name}.resize_width") ?: 0)
+                    ->putIn($uploadDir)
+                    ->hint($bundle->config("{$prefix}.{$param->name}.hint"))
+                    ->renderAs("ThumbImageFileInput")
+                    ;
+            })
             ;
 
         $this->column('image')
             ->varchar(128)
-            ->label('圖片');
+            ->label('圖片')
+            ->buildParam(function($param) {
+                $prefix = 'ProductBundle';
+                $bundle = \ProductBundle\ProductBundle::getInstance();
+                $uploadDir = ($c = $bundle->config("upload_dir")) ? $c : "upload";
+                $param->size($bundle->config("{$prefix}.{$param->name}.size"))
+                    ->sizeLimit($bundle->config("{$prefix}.{$param->name}.size"))
+                    ->resizeWidth($bundle->config("{$prefix}.{$param->name}.resize_width") ?: 0)
+                    ->putIn($uploadDir)
+                    ->hint($bundle->config("{$prefix}.{$param->name}.hint"))
+                    ->renderAs("ThumbImageFileInput")
+                    ;
+            })
+            ;
 
         $this->column('handle')
             ->varchar(32)
