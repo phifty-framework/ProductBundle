@@ -1,6 +1,6 @@
 <?php
 namespace ProductBundle\Model;
 
-class ProductCategoryCollection extends \ProductBundle\Model\ProductCategoryCollectionBase
+class ProductToCategoryCollection extends \ProductBundle\Model\ProductToCategoryCollectionBase
 {
 }

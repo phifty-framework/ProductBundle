@@ -38,8 +38,8 @@ class ProductController extends Controller
     {
         $bundle = kernel()->bundle('ProductBundle');
         $products = new ProductCollection;
-        if ($bundle->config('ProductCategory.enable')) {
-            if ( $bundle->config('ProductCategory.multicategory') ) {
+        if ($bundle->config('Category.enable')) {
+            if ( $bundle->config('Category.multicategory') ) {
                 $products->selectAll();
                 $products->where()
                     ->equal('hide', false)
@@ -48,7 +48,7 @@ class ProductController extends Controller
                 $childCategories = $category->getAllChildCategories(true);
                 $cIds = array_map(function($c) { return intval($c->id); }, $childCategories);
                 if (!empty($cIds)) {
-                    $joinTable = new \ProductBundle\Model\ProductCategory;
+                    $joinTable = new \ProductBundle\Model\Category;
                     $joinTable->setAlias("pc");
                     $products->join($joinTable, "LEFT");
                     $products->where()

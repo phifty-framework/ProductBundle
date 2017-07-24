@@ -101,13 +101,13 @@ vim:filetype=htmldjango:
 
                 <div class="clearfix"> </div>
 
-                {% if bundle.config('ProductCategory.enable') and not bundle.config('ProductCategory.multicategory') %}
+                {% if bundle.config('Category.enable') and not bundle.config('Category.multicategory') %}
                     {{RecordAction.renderField('category_id')|raw}}
                 {% endif %}
             </div>
 
             <div class="col-md-3 col-md-offset-2">
-                {% if bundle.config('ProductCategory.enable') and bundle.config('ProductCategory.multicategory') %}
+                {% if bundle.config('Category.enable') and bundle.config('Category.multicategory') %}
                     {% for langcode, categories in categoriesByLang %}
                     <div class="widget lang lang-{{langcode}} {% if langcode != Kernel.locale.current() %}hide{% endif %}">
                         <div class="widget-hd">{% trans langcode %}{% trans 'Category' %}</div>

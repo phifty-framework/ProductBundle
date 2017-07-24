@@ -31,7 +31,7 @@ class ProductHandler extends RESTfulResourceController
         if ( $bundle->config('ProductType.enable') ) {
             $data['types'] = $record->types->toArray();
         }
-        if ( $bundle->config('ProductCategory.multicategory') ) {
+        if ( $bundle->config('Category.multicategory') ) {
             $data['categories'] = $record->categories->toArray();
         } else {
             $data['category'] = $record->category ? $record->category->toArray() : array();

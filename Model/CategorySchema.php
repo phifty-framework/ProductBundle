@@ -51,15 +51,13 @@ class CategorySchema extends DeclareSchema
         $this->column('icon_image')
             ->varchar(128)
             ->label('圖示 Icon')
+            ->contentType('ImageFile')
             ->buildParam(function($param) {
                 $prefix = 'ProductBundle';
                 $bundle = \ProductBundle\ProductBundle::getInstance();
                 $uploadDir = ($c = $bundle->config("upload_dir")) ? $c : "upload";
-                $param->size($bundle->config("{$prefix}.{$param->name}.size"))
-                    ->sizeLimit($bundle->config("{$prefix}.{$param->name}.size"))
-                    ->resizeWidth($bundle->config("{$prefix}.{$param->name}.resize_width") ?: 0)
+                $param->loadConfig($bundle->config("{$prefix}.{$param->name}"))
                     ->putIn($uploadDir)
-                    ->hint($bundle->config("{$prefix}.{$param->name}.hint"))
                     ->renderAs("ThumbImageFileInput")
                     ;
             })
@@ -68,15 +66,13 @@ class CategorySchema extends DeclareSchema
         $this->column('thumb')
             ->varchar(128)
             ->label('縮圖')
+            ->contentType('ImageFile')
             ->buildParam(function($param) {
                 $prefix = 'ProductBundle';
                 $bundle = \ProductBundle\ProductBundle::getInstance();
                 $uploadDir = ($c = $bundle->config("upload_dir")) ? $c : "upload";
-                $param->size($bundle->config("{$prefix}.{$param->name}.size"))
-                    ->sizeLimit($bundle->config("{$prefix}.{$param->name}.size"))
-                    ->resizeWidth($bundle->config("{$prefix}.{$param->name}.resize_width") ?: 0)
+                $param->loadConfig($bundle->config("{$prefix}.{$param->name}"))
                     ->putIn($uploadDir)
-                    ->hint($bundle->config("{$prefix}.{$param->name}.hint"))
                     ->renderAs("ThumbImageFileInput")
                     ;
             })
@@ -85,15 +81,13 @@ class CategorySchema extends DeclareSchema
         $this->column('image')
             ->varchar(128)
             ->label('圖片')
+            ->contentType('ImageFile')
             ->buildParam(function($param) {
                 $prefix = 'ProductBundle';
                 $bundle = \ProductBundle\ProductBundle::getInstance();
                 $uploadDir = ($c = $bundle->config("upload_dir")) ? $c : "upload";
-                $param->size($bundle->config("{$prefix}.{$param->name}.size"))
-                    ->sizeLimit($bundle->config("{$prefix}.{$param->name}.size"))
-                    ->resizeWidth($bundle->config("{$prefix}.{$param->name}.resize_width") ?: 0)
+                $param->loadConfig($bundle->config("{$prefix}.{$param->name}"))
                     ->putIn($uploadDir)
-                    ->hint($bundle->config("{$prefix}.{$param->name}.hint"))
                     ->renderAs("ThumbImageFileInput")
                     ;
             })
@@ -107,16 +101,16 @@ class CategorySchema extends DeclareSchema
         $this->mixin(I18NSchema::class);
 
 
-        if ($bundle->config('ProductCategory.file')) {
+        if ($bundle->config('Category.file')) {
             $this->many('files', CategoryFile::class, 'category_id', 'id');
         }
 
-        if ($bundle->config('ProductCategory.subcategory')) {
+        if ($bundle->config('Category.subcategory')) {
             $this->many('subcategories', CategorySchema::class, 'parent_id', 'id');
             $this->belongsTo('parent', CategorySchema::class, 'id', 'parent_id');
         }
 
-        if ($bundle->config('ProductCategory.multicategory')) {
+        if ($bundle->config('Category.multicategory')) {
             $this->many('category_products', ProductToCategorySchema::class, 'category_id', 'id');
             $this->manyToMany('products', 'category_products', 'product');
         } else {

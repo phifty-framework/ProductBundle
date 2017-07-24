@@ -122,7 +122,7 @@ class ProductBundle extends Bundle
                     'hint' => null,
                 ),
             ),
-            'ProductCategory' => array(
+            'Category' => array(
                 'enable'     => true,
                 'multicategory' => true,
                 'subcategory' => false,
@@ -297,7 +297,7 @@ class ProductBundle extends Bundle
             $folder = $menu->createMenuFolder( _('產品') );
             $folder->createCrudMenuItem( 'product', _('產品管理') );
 
-            if ( $bundle->config('ProductCategory.enable') ) {
+            if ( $bundle->config('Category.enable') ) {
                 $folder->createCrudMenuItem('product_category', _('產品類別管理') );
             }
             if ( $bundle->config('ProductFeature.enable') ) {

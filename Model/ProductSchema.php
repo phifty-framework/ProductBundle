@@ -276,8 +276,8 @@ class ProductSchema extends DeclareSchema
                 });
         }
 
-        if ($bundle->config('ProductCategory.enable')) {
-            if ($bundle->config('ProductCategory.multicategory')) {
+        if ($bundle->config('Category.enable')) {
+            if ($bundle->config('Category.multicategory')) {
                 $this->many('product_categories', ProductToCategorySchema::class, 'product_id', 'id')
                     ->renderable(false);
                 $this->manyToMany('categories', 'product_categories', 'category')

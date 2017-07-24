@@ -23,18 +23,18 @@
       {{RecordAction.renderKeyWidget|raw}}
     {% endif %}
 
-    {% if bundle.config('ProductCategory.image') %}
+    {% if bundle.config('Category.image') %}
           {{RecordAction.renderField('image')|raw}}
           {{RecordAction.renderField('thumb')|raw}}
     {% endif %}
 
     {{ RecordAction.renderField('name')|raw }}
 
-    {% if bundle.config('ProductCategory.subcategory') %}
+    {% if bundle.config('Category.subcategory') %}
         {{RecordAction.renderField('parent_id')|raw}}
     {% endif %}
 
-    {% if bundle.config('ProductCategory.handle') %}
+    {% if bundle.config('Category.handle') %}
         {{ RecordAction.renderField('handle')|raw}}
     {% endif %}
 
@@ -42,14 +42,14 @@
         {{ RecordAction.renderField('lang')|raw}}
     {% endif %}
 
-    {% if bundle.config('ProductCategory.desc') %}
+    {% if bundle.config('Category.desc') %}
         {{ RecordAction.renderField('description')|raw}}
     {% endif %}
 
     <div class="divider"> </div>
     <div class="collapsible collapse-section">
-        {% if bundle.config('ProductCategory.file') %}
-        {% include 'ProductBundle/Templates/product_category/file.html.twig' %}
+        {% if bundle.config('Category.file') %}
+        {% include '@ProductBundle/product_category/file.html.twig' %}
         {% endif %}
         <h3>詳細資料</h3>
         <div>

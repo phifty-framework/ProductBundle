@@ -35,7 +35,7 @@ class CategoryCRUDHandler extends CRUDHandler
     public function getCollection()
     {
         $collection = parent::getCollection();
-        if ($this->bundle->config('ProductCategory.subcategory') ) {
+        if ($this->bundle->config('Category.subcategory') ) {
             $p = $this->request->param($this->parentKeyField) ?: 0;
             $collection->where(array('parent_id' => $p ));
         }
