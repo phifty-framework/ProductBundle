@@ -19,6 +19,17 @@ class Product extends \ProductBundle\Model\ProductBase
         return $this->name;
     }
 
+    public function getAncesterCategory()
+    {
+        if (isset($this->category)) {
+            $c = $this->category;
+            while ($c->parent_id) {
+                $c = $c->parent;
+            }
+            return $c;
+        }
+    }
+
     public function getFirstCategory()
     {
         if (isset($this->categories) && $this->categories) {
