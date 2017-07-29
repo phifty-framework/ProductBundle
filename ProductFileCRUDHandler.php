@@ -48,10 +48,9 @@ class ProductFileCRUDHandler extends CRUDHandler
             "view" => "TextCoverView",
             "display" => "block",
             "title" => [ "field" => "title" ],
-            "subtitle" => ["format" => "備註: {mimetype}"],
+            "subtitle" => ["format" => "備註: {remark}"],
 
             // "desc" => [ "field" => "description" ],
-
             /*
             "footer" => [
                 "columns" => [
@@ -59,8 +58,7 @@ class ProductFileCRUDHandler extends CRUDHandler
                     [ "text" => [ 'format' => '價格 $ {price}' ] ]
                 ]
             ],
-             */
-
+            */
             "controls" => $controls,
         ];
     }

@@ -1,7 +1,14 @@
 {% extends '@CRUD/edit.html.twig' %}
 
 {% block section_body %}
-<form class="ajax-action form-horizontal"
+
+{% set currentFormId = uniqid('editForm') %}
+{% set bundle = Kernel.bundle('UserBundle') %}
+
+<div class="action-result-container"> </div>
+
+<form id="{{currentFormId}}"
+    class="ajax-action form-horizontal"
     enctype="multipart/form-data"
     method="post">
     {{ RecordAction.renderSignatureWidget|raw }}
@@ -10,9 +17,9 @@
         {{RecordAction.renderKeyWidget|raw}}
     {% endif %}
 
-
     {{RecordAction.renderField('product_id')|raw}}
     {{RecordAction.renderField('title')|raw}}
     {{RecordAction.renderField('file')|raw}}
+    {{RecordAction.renderField('remark')|raw}}
 </form>
 {% endblock %}
