@@ -16,7 +16,11 @@ class ProductFileCRUDHandler extends CRUDHandler
 
     public $templateId     = 'product_file';
 
-    public $listColumns = array('id', 'title','file');
+    public $listColumns = ['id', 'title','file'];
+
+    protected $searchQueryFields = ['product_id'];
+
+    protected $applyRequestFields = ['product_id'];
 
     public function getModalActionView()
     {

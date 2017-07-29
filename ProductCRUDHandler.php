@@ -126,6 +126,7 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
         $record = $this->getCurrentRecord();
 
         $controller = new ProductFileCRUDHandler($this->environment);
+        $controller->context($this->environment, []);
         $this->assign('productFileAppConfig', $controller->buildReactHasManyEditorConfig($record, 'files')); // it belongs to groups
     }
 
@@ -135,6 +136,7 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
         $record = $this->getCurrentRecord();
 
         $controller = new ProductFileCRUDHandler($this->environment);
+        $controller->context($this->environment, []);
         $this->assign('productFileAppConfig', $controller->buildReactHasManyEditorConfig($record, 'files')); // it belongs to groups
     }
 
