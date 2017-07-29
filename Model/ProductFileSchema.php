@@ -27,14 +27,6 @@ class ProductFileSchema extends DeclareSchema
             ->varchar(130)
             ->label('檔案標題');
 
-        if ($bundle->config('ProductFile.vip')) {
-            $this->column('vip')
-                ->boolean()
-                ->renderAs('CheckboxInput')
-                ->label('會員專用')
-                ;
-        }
-
         $this->column('mimetype')
             ->varchar(16)
             ->label('檔案格式')

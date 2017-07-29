@@ -13,7 +13,7 @@ class CreateProductFile extends CreateRecordAction
         $sizeLimit = $bundle->config('ProductFile.size_limit') ?: 1024 * 10;
         $fileHint =  $bundle->config('ProductFile.hint');
         $this->useRecordSchema();
-        $this->param('file', 'File')
+        $this->replaceParam('file', 'File')
             ->sizeLimit($sizeLimit)  // Default to 10 MB limit
             ->label('檔案')
             ->hint($fileHint)

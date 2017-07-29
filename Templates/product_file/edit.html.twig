@@ -1,0 +1,18 @@
+{% extends '@CRUD/edit.html.twig' %}
+
+{% block section_body %}
+<form class="ajax-action form-horizontal"
+    enctype="multipart/form-data"
+    method="post">
+    {{ RecordAction.renderSignatureWidget|raw }}
+    {{ RecordAction.renderCSRFTokenWidget|raw }}
+    {% if Record.hasKey %}
+        {{RecordAction.renderKeyWidget|raw}}
+    {% endif %}
+
+
+    {{RecordAction.renderField('product_id')|raw}}
+    {{RecordAction.renderField('title')|raw}}
+    {{RecordAction.renderField('file')|raw}}
+</form>
+{% endblock %}
