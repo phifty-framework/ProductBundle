@@ -123,7 +123,7 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
     public function createRegionActionPrepare()
     {
         parent::createRegionActionPrepare();
-        $record = $this->getCurrentRecord();
+        $record = $this->getCurrentRecord() ?: $this->newRecord();
 
         $controller = new ProductFileCRUDHandler($this->environment);
         $controller->context($this->environment, []);
@@ -133,7 +133,7 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
     public function editRegionActionPrepare()
     {
         parent::editRegionActionPrepare();
-        $record = $this->getCurrentRecord();
+        $record = $this->getCurrentRecord() ?: $this->newRecord();
 
         $controller = new ProductFileCRUDHandler($this->environment);
         $controller->context($this->environment, []);
