@@ -39,6 +39,10 @@ vim:filetype=htmldjango
         <li role="presentation"><a href="#{{tabfragment}}-resources" data-toggle="tab">外連媒體</a></li>
         {% endif %}
 
+        {% if bundle.config('ProductFile.enable') %}
+            <li role="presentation"><a href="#{{tabfragment}}-files" data-toggle="tab">產品檔案</a></li>
+        {% endif %}
+
         {% if bundle.config('ProductFeature.enable') %}
             <li role="presentation"><a href="#{{tabfragment}}-feature" data-toggle="tab">產品功能</a></li>
         {% endif %}
@@ -76,11 +80,13 @@ vim:filetype=htmldjango
             <div class="clear"> </div>
         </div>
 
+
         {% if bundle.config('Product.brief') %}
         <div id="{{tabfragment}}-brief" class="tab-pane">
             {{CRUD.Action.renderField('brief',{ class: 'mceEditor', rows: 4, cols: 80 })|raw}}
         </div>
         {% endif %}
+
 
         {% if showProductContentTab %}
         <div id="{{tabfragment}}-content" class="tab-pane">
@@ -113,6 +119,11 @@ vim:filetype=htmldjango
         {% endif %}
 
 
+        {% if bundle.config('ProductFile.enable') %}
+        <div id="{{tabfragment}}-files" class="tab-pane">
+            {% reactapp "CRUDHasManyEditor" with productFileAppConfig %}
+        </div>
+        {% endif %}
 
 
         {% if bundle.config('ProductImage.enable') or bundle.config('Product.cover_image') or bundle.config('Product.image') or bundle.config('Product.spec_image') %}

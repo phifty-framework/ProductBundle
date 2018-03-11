@@ -24,6 +24,21 @@ class Category extends \ProductBundle\Model\CategoryBase implements Linkable
         return $p;
     }
 
+    /**
+     * Could be extract to Maghead extension
+     */
+    public function getHierarchy()
+    {
+        $ps = [];
+
+        $p = $this;
+        do {
+            $ps[] = $p;
+            $p = $p->fetchParent();
+        } while ($p);
+
+        return array_reverse($ps);
+    }
 
     /**
      * Return all parent category objects

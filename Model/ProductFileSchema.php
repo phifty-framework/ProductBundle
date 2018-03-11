@@ -26,6 +26,7 @@ class ProductFileSchema extends DeclareSchema
 
         $this->column('title')
             ->varchar(130)
+            ->required(true)
             ->label('檔案標題');
 
         $this->column('mimetype')
@@ -42,8 +43,17 @@ class ProductFileSchema extends DeclareSchema
             ->buildParam(function($param) {
                 $bundle = \ProductBundle\ProductBundle::getInstance();
                 $uploadDir = ($c = $bundle->config("upload_dir")) ? $c : "upload";
-                $param->putIn($uploadDir)->renderAs('FileInput');
+                $param->loadConfig($bundle->config("ProductFile.{$param->name}"))
+                    ->putIn($uploadDir)
+                    ->renderAs("FileInput")
+                    ;
             })
+            ;
+
+        $this->column('remark')
+            ->text()
+            ->label('備註')
+            ->renderAs('TextareaInput')
             ;
 
         $this->mixin(MetaSchema::class);

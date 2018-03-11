@@ -14,3 +14,7 @@ config/database.yml
 config/framework.yml
 /app
 manifest.php
+/Assets/product-api/.asset-entries.json
+/Assets/product-api/node_modules
+/Assets/product-crud/.asset-entries.json
+/Assets/product-crud/node_modules
