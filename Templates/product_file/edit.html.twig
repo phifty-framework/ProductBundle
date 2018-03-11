@@ -1,0 +1,21 @@
+{% extends '@AppCRUD/edit.html' %}
+{% block section_body %}
+<form class="ajax-action form-horizontal"
+    enctype="multipart/form-data"
+    method="post">
+
+    {{ CRUD.Action.renderSignatureWidget|raw }}
+    {{ CRUD.Action.renderCSRFTokenWidget|raw }}
+
+    {% if CRUD.Record.id %}
+      {{CRUD.Action.renderField('id')|raw}}
+    {% endif %}
+
+    {{CRUD.Action.renderField('product_id')|raw}}
+    {{CRUD.Action.renderField('title')|raw}}
+    {{CRUD.Action.renderField('file')|raw}}
+
+    {% include "@AppCRUD/controll.html" %}
+</form>
+{% endblock %}
+
