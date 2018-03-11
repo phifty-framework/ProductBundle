@@ -87,6 +87,24 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
         });
     }
 
+
+    public function createRegionActionPrepare()
+    {
+        parent::createRegionActionPrepare();
+        $record = $this->getCurrentRecord();
+        $controller = new ProductFileCRUDHandler($this->environment);
+        $this->assign('fileEditAppConfig', $controller->buildReactHasManyEditorConfig($record, 'files')); // it belongs to files
+    }
+
+
+    public function editRegionActionPrepare()
+    {
+        parent::editRegionActionPrepare();
+        $record = $this->getCurrentRecord();
+        $controller = new ProductFileCRUDHandler($this->environment);
+        $this->assign('fileEditAppConfig', $controller->buildReactHasManyEditorConfig($record, 'files')); // it belongs to files
+    }
+
     public function editRegionAction()
     {
         $this->editRegionActionPrepare();
