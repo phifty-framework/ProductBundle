@@ -87,7 +87,6 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
         });
     }
 
-
     public function createRegionActionPrepare()
     {
         parent::createRegionActionPrepare();
@@ -138,25 +137,6 @@ class ProductCRUDHandler extends \AdminUI\CRUDHandler
         return $this->renderEdit();
     }
 
-    public function createRegionActionPrepare()
-    {
-        parent::createRegionActionPrepare();
-        $record = $this->getCurrentRecord() ?: $this->newRecord();
-
-        $controller = new ProductFileCRUDHandler($this->environment);
-        $controller->context($this->environment, []);
-        $this->assign('productFileAppConfig', $controller->buildReactHasManyEditorConfig($record, 'files')); // it belongs to groups
-    }
-
-    public function editRegionActionPrepare()
-    {
-        parent::editRegionActionPrepare();
-        $record = $this->getCurrentRecord() ?: $this->newRecord();
-
-        $controller = new ProductFileCRUDHandler($this->environment);
-        $controller->context($this->environment, []);
-        $this->assign('productFileAppConfig', $controller->buildReactHasManyEditorConfig($record, 'files')); // it belongs to groups
-    }
 
     public function renderEdit($args = array())
     {
