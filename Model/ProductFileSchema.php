@@ -37,6 +37,7 @@ class ProductFileSchema extends DeclareSchema
             ->varchar(130)
             ->required()
             ->label('檔案')
+            ->contentType('File')
             ->buildParam(function($param) {
                 $bundle = \ProductBundle\ProductBundle::getInstance();
                 $uploadDir = ($c = $bundle->config("upload_dir")) ? $c : "upload";
