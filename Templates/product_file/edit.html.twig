@@ -1,5 +1,9 @@
-{% extends '@AppCRUD/edit.html' %}
+{#
+vim:filetype=htmldjango:
+#}
+{% extends '@CRUD/edit.html.twig' %}
 {% block section_body %}
+<div class="action-result-container"> </div>
 <form class="ajax-action form-horizontal"
     enctype="multipart/form-data"
     method="post">
@@ -14,8 +18,6 @@
     {{CRUD.Action.renderField('product_id')|raw}}
     {{CRUD.Action.renderField('title')|raw}}
     {{CRUD.Action.renderField('file')|raw}}
-
-    {% include "@AppCRUD/controll.html" %}
 </form>
 {% endblock %}
 
