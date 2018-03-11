@@ -261,6 +261,7 @@ class ProductBundle extends Bundle
         $this->addRecordAction('ProductProperty');
         $this->addRecordAction('ProductProduct');
         $this->addRecordAction('ProductUseCase');
+        $this->addRecordAction('ProductFile');
         $this->addRecordAction('ProductLink');
 
         if ($this->config('ProductTag.enable')) {
