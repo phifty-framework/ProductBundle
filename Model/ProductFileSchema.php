@@ -5,6 +5,7 @@ namespace ProductBundle\Model;
 use Maghead\Schema\DeclareSchema;
 use ProductBundle\Model\Product;
 use CommonBundle\Model\Mixin\OrderingSchema;
+use CommonBundle\Model\Mixin\MetaSchema;
 
 class ProductFileSchema extends DeclareSchema
 {
@@ -33,9 +34,9 @@ class ProductFileSchema extends DeclareSchema
             ->renderable(false)
             ;
 
+        // FIXME: required is not working for file: ->required()
         $this->column('file')
             ->varchar(130)
-            ->required()
             ->label('檔案')
             ->contentType('File')
             ->buildParam(function($param) {
@@ -45,6 +46,7 @@ class ProductFileSchema extends DeclareSchema
             })
             ;
 
+        $this->mixin(MetaSchema::class);
         $this->mixin(OrderingSchema::class);
     }
 }
